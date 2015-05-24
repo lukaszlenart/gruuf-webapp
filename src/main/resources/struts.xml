@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+  <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+  <constant name="struts.devMode" value="false"/>
+
+  <constant name="struts.ui.theme" value="simple"/>
+
+  <constant name="struts.convention.action.packages" value="me.rbw.web.actions"/>
+  <constant name="struts.convention.default.parent.package" value="rbwDefault"/>
+
+  <package name="rbwDefault" extends="struts-default">
+
+    <interceptors>
+
+      <interceptor name="login" class="me.rbw.web.interceptors.LoginInterceptor"/>
+
+      <interceptor-stack name="rbwDefaultDev">
+        <interceptor-ref name="exception"/>
+        <interceptor-ref name="login"/>
+        <interceptor-ref name="alias"/>
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="i18n"/>
+        <interceptor-ref name="prepare"/>
+        <interceptor-ref name="params"/>
+        <interceptor-ref name="conversionError"/>
+        <interceptor-ref name="validation">
+          <param name="excludeMethods">input,back,cancel,browse</param>
+        </interceptor-ref>
+        <interceptor-ref name="workflow">
+          <param name="excludeMethods">input,back,cancel,browse</param>
+        </interceptor-ref>
+        <interceptor-ref name="debugging"/>
+      </interceptor-stack>
+    </interceptors>
+
+    <default-interceptor-ref name="rbwDefaultDev"/>
+
+    <global-results>
+      <result name="login" type="redirectAction">login</result>
+      <result name="home" type="redirectAction">home</result>
+    </global-results>
+
+  </package>
+
+</struts>
