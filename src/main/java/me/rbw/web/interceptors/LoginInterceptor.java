@@ -30,7 +30,8 @@ public class LoginInterceptor extends AbstractInterceptor {
     }
 
     private boolean isLoginAction(ActionProxy actionProxy) {
-        return actionProxy.getActionName().equals(RbwActions.LOGIN) || actionProxy.getActionName().equals(RbwActions.LOGIN_SUBMIT);
+        String actionName = actionProxy.getActionName();
+        return actionName.equals(RbwActions.LOGIN) || actionName.equals(RbwActions.LOGIN_SUBMIT);
     }
 
     private boolean isUserLoggedIn(ActionContext context) {
