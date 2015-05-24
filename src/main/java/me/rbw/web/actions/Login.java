@@ -2,7 +2,7 @@ package me.rbw.web.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import me.rbw.web.RbwAuth;
-import me.rbw.web.RbwResults;
+import me.rbw.web.RbwActions;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -19,7 +19,7 @@ public class Login extends ActionSupport implements SessionAware {
     @Action(value = "login-submit")
     public String submit() {
         session.put(RbwAuth.AUTH_TOKEN, "logged");
-        return RbwResults.HOME;
+        return RbwActions.HOME;
     }
 
     public void setSession(Map<String, Object> session) {

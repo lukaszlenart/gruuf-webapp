@@ -6,7 +6,7 @@ import com.opensymphony.xwork2.ActionProxy;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import me.rbw.web.RbwAuth;
-import me.rbw.web.RbwResults;
+import me.rbw.web.RbwActions;
 import org.apache.struts2.StrutsConstants;
 
 public class LoginInterceptor extends AbstractInterceptor {
@@ -26,11 +26,11 @@ public class LoginInterceptor extends AbstractInterceptor {
         if (isUserLoggedIn(invocation.getInvocationContext())) {
             return invocation.invoke();
         }
-        return RbwResults.LOGIN;
+        return RbwActions.LOGIN;
     }
 
     private boolean isLoginAction(ActionProxy actionProxy) {
-        return actionProxy.getActionName().equals(RbwResults.LOGIN) || actionProxy.getActionName().equals(RbwResults.LOGIN_SUBMIT);
+        return actionProxy.getActionName().equals(RbwActions.LOGIN) || actionProxy.getActionName().equals(RbwActions.LOGIN_SUBMIT);
     }
 
     private boolean isUserLoggedIn(ActionContext context) {
