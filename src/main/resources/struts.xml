@@ -17,6 +17,8 @@
     <interceptors>
 
       <interceptor name="login" class="me.rbw.web.interceptors.LoginInterceptor"/>
+      <interceptor name="user" class="me.rbw.web.interceptors.UserInterceptor"/>
+      <interceptor name="garage" class="me.rbw.web.interceptors.GarageInterceptor"/>
 
       <interceptor-stack name="rbwDefaultDev">
         <interceptor-ref name="exception"/>
@@ -33,6 +35,8 @@
         <interceptor-ref name="workflow">
           <param name="excludeMethods">input,back,cancel,browse</param>
         </interceptor-ref>
+        <interceptor-ref name="user"/>
+        <interceptor-ref name="garage"/>
         <interceptor-ref name="debugging"/>
       </interceptor-stack>
     </interceptors>

@@ -2,27 +2,19 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-    <title><s:text name="hello.message"/></title>
+  <title><s:text name="home.title"/></title>
 </head>
 
 <body>
-<h2><s:property value="message"/></h2>
 
-<h3>Languages</h3>
-<ul>
-    <li>
-        <s:url id="url" action="hello">
-            <s:param name="request_locale">en</s:param>
-        </s:url>
-        <s:a href="%{url}">English</s:a>
-    </li>
-    <li>
-        <s:url id="url" action="hello">
-            <s:param name="request_locale">es</s:param>
-        </s:url>
-        <s:a href="%{url}">Espanol</s:a>
-    </li>
-</ul>
+<s:text name="home.yourBike"/>
+<s:iterator value="motorbikes" var="motorbike" >
+  <s:url var="url" action="motorbike">
+    <s:param name="motorbike">${motorbike.id}</s:param>
+  </s:url>
+  <s:a href="%{url}">${motorbike.name}</s:a>
+</s:iterator>
+
 
 </body>
 </html>

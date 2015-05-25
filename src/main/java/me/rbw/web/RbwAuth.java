@@ -7,6 +7,10 @@ public class RbwAuth {
 
     public static final SecureRandom RANDOM = new SecureRandom();
 
-    public static final String AUTH_TOKEN = new BigInteger(165, RANDOM).toString(36).toUpperCase();
+    public static final String AUTH_TOKEN = generateUUID();
+
+    public static String generateUUID() {
+        return new BigInteger(165, RANDOM).toString(36).toUpperCase();
+    }
 
 }
