@@ -4,11 +4,26 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 
+  <constant name="struts.excludedClasses"
+            value="
+                java.lang.Object,
+                java.lang.Runtime,
+                java.lang.System,
+                java.lang.Class,
+                java.lang.ClassLoader,
+                ognl.OgnlContext,
+                ognl.MemberAccess,
+                ognl.ClassResolver,
+                ognl.TypeConverter,
+                com.opensymphony.xwork2.ActionContext" />
+
   <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
   <constant name="struts.devMode" value="false"/>
-
+  
   <constant name="struts.ui.theme" value="simple"/>
+  <constant name="struts.action.extension" value=""/>
 
+  <constant name="struts.action.excludePattern" value="/_ah/*"/>
   <constant name="struts.convention.action.packages" value="me.rbw.web.actions"/>
   <constant name="struts.convention.default.parent.package" value="rbwDefault"/>
 

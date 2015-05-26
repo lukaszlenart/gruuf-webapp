@@ -3,6 +3,7 @@ package me.rbw.web;
 import me.rbw.RbwServices;
 import me.rbw.services.Garage;
 import me.rbw.services.UserRegister;
+import ognl.OgnlRuntime;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,6 +11,8 @@ import javax.servlet.ServletContextListener;
 public class InitListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce) {
+        OgnlRuntime.setSecurityManager(null);
+
         final Garage garage = new Garage();
         final UserRegister userRegister = new UserRegister();
 
