@@ -18,7 +18,7 @@
                 com.opensymphony.xwork2.ActionContext" />
 
   <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
-  <constant name="struts.devMode" value="false"/>
+  <constant name="struts.devMode" value="true"/>
   
   <constant name="struts.ui.theme" value="simple"/>
   <constant name="struts.action.extension" value=""/>
@@ -27,7 +27,16 @@
   <constant name="struts.convention.action.packages" value="me.rbw.web.actions"/>
   <constant name="struts.convention.default.parent.package" value="rbwDefault"/>
 
+  <bean type="org.apache.struts2.convention.ResultMapBuilder" name="tiles-convention" class="me.rbw.web.TilesResultMapBuilder"/>
+  <constant name="struts.convention.resultMapBuilder" value="tiles-convention"/>
+
+  <bean type="com.opensymphony.xwork2.UnknownHandler" name="tiles-convention" class="me.rbw.web.TilesUnknownHandler"/>
+
   <package name="rbwDefault" extends="struts-default">
+
+    <result-types>
+      <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" default="true" />
+    </result-types>
 
     <interceptors>
 
@@ -64,5 +73,9 @@
     </global-results>
 
   </package>
+
+  <unknown-handler-stack>
+    <unknown-handler-ref name="tiles-convention"/>
+  </unknown-handler-stack>
 
 </struts>

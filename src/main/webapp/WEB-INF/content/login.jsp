@@ -1,11 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<html>
-<head>
-  <title><s:text name="login.title"/></title>
-</head>
-
-<body>
 
 <s:form action="login-submit" method="POST">
   <ul>
@@ -22,6 +16,3 @@
     </li>
   </ul>
 </s:form>
-
-</body>
-</html>
