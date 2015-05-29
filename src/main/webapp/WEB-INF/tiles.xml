@@ -12,14 +12,17 @@
   </definition>
 
   <definition name="home" extends="baseLayout">
+    <put-attribute name="title" value="Home" />
     <put-attribute name="body" value="/WEB-INF/content/home.jsp"/>
   </definition>
 
   <definition name="login" extends="baseLayout">
+    <put-attribute name="title" value="Login" />
     <put-attribute name="body" value="/WEB-INF/content/login.jsp"/>
   </definition>
 
   <definition name="add" extends="baseLayout">
+    <put-attribute name="title" value="Add new bike"/>
     <put-attribute name="body" value="/WEB-INF/content/bike/add.jsp"/>
   </definition>
 
