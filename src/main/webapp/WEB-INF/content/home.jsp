@@ -1,10 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<s:text name="home.yourBike"/>
+<div class="row">
+  <s:text name="home.yourBike"/>
+</div>
+
 <s:iterator value="motorbikes" var="motorbike" >
+  <div class="row">
   <s:url var="url" action="motorbike">
     <s:param name="motorbike">${motorbike.id}</s:param>
   </s:url>
   <s:a href="%{url}">${motorbike.name}</s:a>
+  </div>
 </s:iterator>

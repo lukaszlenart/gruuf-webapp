@@ -4,31 +4,23 @@
 
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>
     <tiles:insertAttribute name="title" ignore="true"/>
   </title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 </head>
 <body>
-<table border="1" cellpadding="2" cellspacing="2" align="center">
-  <tr>
-    <td height="30" colspan="2">
-      <tiles:insertAttribute name="header"/>
-    </td>
-  </tr>
-  <tr>
-    <td height="250">
-      <tiles:insertAttribute name="menu"/>
-    </td>
-    <td width="350">
-      <tiles:insertAttribute name="body"/>
-    </td>
-  </tr>
-  <tr>
-    <td height="30" colspan="2">
-      <tiles:insertAttribute name="footer"/>
-    </td>
-  </tr>
-</table>
+  <tiles:insertAttribute name="header"/>
+
+  <div class="container">
+    <h1><tiles:insertAttribute name="title"/></h1>
+    <tiles:insertAttribute name="body"/>
+  </div>
+
+  <tiles:insertAttribute name="footer"/>
 </body>
 </html>

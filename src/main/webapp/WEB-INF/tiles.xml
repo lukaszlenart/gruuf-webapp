@@ -7,7 +7,6 @@
   <definition name="baseLayout" template="/WEB-INF/tiles/layout.jsp">
     <put-attribute name="title" value="Template"/>
     <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
-    <put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp"/>
     <put-attribute name="body" value="/WEB-INF/tiles/body.jsp"/>
     <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
   </definition>
@@ -18,6 +17,10 @@
 
   <definition name="login" extends="baseLayout">
     <put-attribute name="body" value="/WEB-INF/content/login.jsp"/>
+  </definition>
+
+  <definition name="add" extends="baseLayout">
+    <put-attribute name="body" value="/WEB-INF/content/bike/add.jsp"/>
   </definition>
 
 </tiles-definitions>

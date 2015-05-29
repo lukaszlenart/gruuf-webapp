@@ -68,8 +68,14 @@
     <default-interceptor-ref name="rbwDefaultDev"/>
 
     <global-results>
-      <result name="login" type="redirectAction">login</result>
-      <result name="home" type="redirectAction">home</result>
+      <result name="login" type="redirectAction">
+        <param name="actionName">login</param>
+        <param name="namespace">/</param>
+      </result>
+      <result name="home" type="redirectAction">
+        <param name="actionName">home</param>
+        <param name="namespace">/</param>
+      </result>
     </global-results>
 
   </package>
