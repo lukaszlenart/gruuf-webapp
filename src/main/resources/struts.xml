@@ -67,6 +67,8 @@
 
     <default-interceptor-ref name="rbwDefaultDev"/>
 
+    <default-action-ref name="index"/>
+
     <global-results>
       <result name="login" type="redirectAction">
         <param name="actionName">login</param>
