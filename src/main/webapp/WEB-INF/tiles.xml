@@ -21,9 +21,14 @@
     <put-attribute name="body" value="/WEB-INF/content/login.jsp"/>
   </definition>
 
-  <definition name="add" extends="baseLayout">
+  <definition name="add-input" extends="baseLayout">
     <put-attribute name="title" value="Add new bike"/>
-    <put-attribute name="body" value="/WEB-INF/content/bike/add.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/content/bike/add-input.jsp"/>
+  </definition>
+
+  <definition name="add-submit-input" extends="baseLayout">
+    <put-attribute name="title" value="Add new bike"/>
+    <put-attribute name="body" value="/WEB-INF/content/bike/add-input.jsp"/>
   </definition>
 
 </tiles-definitions>

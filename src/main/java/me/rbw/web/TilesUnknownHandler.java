@@ -33,11 +33,16 @@ public class TilesUnknownHandler implements UnknownHandler {
             return new TilesResult(actionName);
         }
 
+        String definition = actionName + "-" + resultCode;
+        if (container.isValidDefinition(definition, request, response)) {
+            return new TilesResult(definition);
+        }
+
         return null;
     }
 
     @Override
-    public Object handleUnknownActionMethod(Object action, String methodName) throws NoSuchMethodException {
+    public Object handleUnknownActionMethod(Object action, String methodName) {
         return null;
     }
 }
