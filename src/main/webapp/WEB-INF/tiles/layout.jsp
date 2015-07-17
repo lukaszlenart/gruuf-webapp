@@ -17,7 +17,9 @@
   <tiles:insertAttribute name="header"/>
 
   <div class="container">
-    <h1><tiles:insertAttribute name="title"/></h1>
+    <div class="row">
+      <h2><tiles:insertAttribute name="title"/></h2>
+    </div>
     <tiles:insertAttribute name="body"/>
   </div>
 
