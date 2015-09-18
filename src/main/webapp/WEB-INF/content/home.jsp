@@ -3,7 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <div class="row">
-  <s:text name="home.yourBike"/>
+  home
 </div>
 
 <s:iterator value="motorbikes" var="motorbike" >
