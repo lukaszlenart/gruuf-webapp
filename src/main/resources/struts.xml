@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 
   <constant name="struts.excludedClasses"
@@ -18,11 +18,9 @@
                 com.opensymphony.xwork2.ActionContext" />
 
   <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
-  <constant name="struts.devMode" value="false"/>
-  
+  <constant name="struts.devMode" value="true"/>
   <constant name="struts.ui.theme" value="bootstrap"/>
   <constant name="struts.action.extension" value=""/>
-
   <constant name="struts.action.excludePattern" value="/_ah/*,/favicon\.ico"/>
   <constant name="struts.convention.action.packages" value="me.rbw.web.actions"/>
   <constant name="struts.convention.default.parent.package" value="rbwDefault"/>
