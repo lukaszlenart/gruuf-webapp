@@ -19,7 +19,11 @@
           <s:a href="%{home}">Home</s:a>
         </li>
         <li>
-          <s:url var="addbike" action="add" namespace="bike"/>
+          <s:url var="registerBiker" action="register" namespace="/biker" />
+          <s:a href="%{registerBiker}">Register</s:a>
+        </li>
+        <li>
+          <s:url var="addbike" action="add" namespace="/bike"/>
           <s:a href="%{addbike}">Add bike</s:a>
         </li>
         <li><a href="#contact">Contact</a></li>

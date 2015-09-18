@@ -31,4 +31,14 @@
     <put-attribute name="body" value="/WEB-INF/content/bike/add-input.jsp"/>
   </definition>
 
+  <definition name="register-input" extends="baseLayout">
+    <put-attribute name="title" value="Register a new biker"/>
+    <put-attribute name="body" value="/WEB-INF/content/biker/register-input.jsp"/>
+  </definition>
+
+  <definition name="register-submit-input" extends="baseLayout">
+    <put-attribute name="title" value="Register a new biker"/>
+    <put-attribute name="body" value="/WEB-INF/content/biker/register-input.jsp"/>
+  </definition>
+
 </tiles-definitions>

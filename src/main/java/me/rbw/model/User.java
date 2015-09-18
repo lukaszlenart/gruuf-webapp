@@ -1,48 +1,53 @@
 package me.rbw.model;
 
+import me.rbw.web.RbwAuth;
+
 public class User {
 
     private String id;
     private String email;
-    private String firstName;
-    private String lastName;
+    private String password;
 
-    public User(String id, String email, String firstName, String lastName) {
-        this.id = id;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    private User() {
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getPassword() {
+        return password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public static UserCreator create() {
+        return new UserCreator(RbwAuth.generateUUID());
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public static class UserCreator {
 
-    public String getLastName() {
-        return lastName;
-    }
+        private User target;
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+        public UserCreator(String id) {
+            target = new User();
+            target.id = id;
+        }
+
+        public UserCreator withEmail(String email) {
+            target.email = email;
+            return this;
+        }
+
+        public UserCreator withPassword(String password) {
+            target.password = password;
+            return this;
+        }
+
+        public User build() {
+            return target;
+        }
     }
 }
