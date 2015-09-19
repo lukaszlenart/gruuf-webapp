@@ -2,10 +2,9 @@ package me.rbw.web.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import me.rbw.model.User;
-import me.rbw.services.UserRegister;
+import me.rbw.services.UserStore;
 import me.rbw.web.RbwAuth;
 import me.rbw.web.RbwActions;
-import me.rbw.web.interceptors.UserAware;
 import me.rbw.web.interceptors.UserStoreAware;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.SessionAware;
@@ -15,7 +14,7 @@ import java.util.Map;
 public class Login extends ActionSupport implements SessionAware, UserStoreAware {
 
     private Map<String, Object> session;
-    private UserRegister userRegister;
+    private UserStore userStore;
 
     private String email;
     private String password;
@@ -26,7 +25,7 @@ public class Login extends ActionSupport implements SessionAware, UserStoreAware
 
     @Action(value = "login-submit")
     public String submit() {
-        User user = userRegister.getByEmail(email);
+        User user = userStore.getByEmail(email);
         if (user != null && RbwAuth.isPasswordValid(password, user.getPassword())) {
             session.put(RbwAuth.AUTH_TOKEN, user.getId());
             return RbwActions.HOME;
@@ -41,8 +40,8 @@ public class Login extends ActionSupport implements SessionAware, UserStoreAware
     }
 
     @Override
-    public void setUserService(UserRegister userRegister) {
-        this.userRegister = userRegister;
+    public void setUserStore(UserStore userStore) {
+        this.userStore = userStore;
     }
 
     public String getEmail() {

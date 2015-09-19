@@ -5,7 +5,7 @@ import me.rbw.RbwServices;
 import me.rbw.model.Motorbike;
 import me.rbw.model.User;
 import me.rbw.services.Garage;
-import me.rbw.services.UserRegister;
+import me.rbw.services.UserStore;
 import ognl.OgnlRuntime;
 
 import javax.servlet.ServletContextEvent;
@@ -20,10 +20,10 @@ public class InitListener implements ServletContextListener {
         ObjectifyService.register(Motorbike.class);
 
         final Garage garage = new Garage();
-        final UserRegister userRegister = new UserRegister();
+        final UserStore userStore = new UserStore();
 
         sce.getServletContext().setAttribute(RbwServices.GARAGE, garage);
-        sce.getServletContext().setAttribute(RbwServices.USER_REGISTER, userRegister);
+        sce.getServletContext().setAttribute(RbwServices.USER_REGISTER, userStore);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

@@ -5,11 +5,11 @@ import me.rbw.services.Garage;
 import me.rbw.model.Motorbike;
 import me.rbw.model.User;
 import me.rbw.web.interceptors.GarageAware;
-import me.rbw.web.interceptors.UserAware;
+import me.rbw.web.interceptors.CurrentUserAware;
 
 import java.util.List;
 
-public class Home extends ActionSupport implements UserAware, GarageAware {
+public class Home extends ActionSupport implements CurrentUserAware, GarageAware {
 
     private User currentUser;
     private Garage garage;

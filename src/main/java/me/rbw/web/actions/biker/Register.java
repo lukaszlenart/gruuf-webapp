@@ -5,12 +5,15 @@ import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import me.rbw.model.User;
+import me.rbw.services.UserStore;
 import me.rbw.web.RbwActions;
-import me.rbw.web.interceptors.RegisterUserAware;
+import me.rbw.web.interceptors.UserStoreAware;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-public class Register extends ActionSupport implements RegisterUserAware {
+public class Register extends ActionSupport implements UserStoreAware {
+
+    private UserStore userStore;
 
     @SkipValidation
     public String execute() {
@@ -19,6 +22,8 @@ public class Register extends ActionSupport implements RegisterUserAware {
 
     @Action("register-submit")
     public String registerSubmit() {
+        User newUser = User.create().withEmail(email).withPassword(password1).build();
+        userStore.put(newUser);
         return RbwActions.LOGIN;
     }
 
@@ -63,8 +68,7 @@ public class Register extends ActionSupport implements RegisterUserAware {
     }
 
     @Override
-    public User registerUser() {
-        return User.create().withEmail(email).withPassword(password1).build();
+    public void setUserStore(UserStore userStore) {
+        this.userStore = userStore;
     }
-
 }

@@ -3,7 +3,7 @@ package me.rbw.services;
 import com.googlecode.objectify.ObjectifyService;
 import me.rbw.model.User;
 
-public class UserRegister {
+public class UserStore {
 
     public User get(String userId) {
         return ObjectifyService

@@ -1,9 +1,9 @@
 package me.rbw.web.interceptors;
 
-import me.rbw.services.UserRegister;
+import me.rbw.services.UserStore;
 
 public interface UserStoreAware {
 
-    void setUserService(UserRegister userRegister);
+    void setUserStore(UserStore userStore);
 
 }
