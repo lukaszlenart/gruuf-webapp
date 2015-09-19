@@ -50,7 +50,7 @@ public class TilesUnknownHandler implements UnknownHandler {
             }
         }
 
-        LOG.debug("Couldn't find tiles definition for namespace {}, action name {} and result code {}", namespace, actionName, resultCode);
+        LOG.warn("Couldn't find tiles definition for namespace {}, action name {} and result code {}", namespace, actionName, resultCode);
         return null;
     }
 
