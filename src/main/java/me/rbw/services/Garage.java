@@ -20,4 +20,11 @@ public class Garage {
                 .list();
     }
 
+    public void put(Motorbike motorbike) {
+        ObjectifyService
+                .ofy()
+                .save()
+                .entity(motorbike)
+                .now();
+    }
 }

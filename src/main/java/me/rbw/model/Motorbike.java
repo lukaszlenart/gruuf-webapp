@@ -4,6 +4,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Parent;
+import me.rbw.web.RbwAuth;
 
 @Entity
 public class Motorbike {
@@ -13,6 +14,7 @@ public class Motorbike {
     private String name;
     @Parent()
     private Key<User> owner;
+    private String vin;
 
     private Motorbike() {
     }
@@ -25,16 +27,38 @@ public class Motorbike {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getVin() {
+        return vin;
     }
 
+    public static MotorbikeBuilder create(String ownerId) {
+        return new MotorbikeBuilder(ownerId);
+    }
+
+    public static class MotorbikeBuilder {
+        private final Motorbike target;
+
+        public MotorbikeBuilder(String ownerId) {
+            target = new Motorbike(ownerId);
+            target.id = RbwAuth.generateUUID();
+        }
+
+        public MotorbikeBuilder withFriendlyName(String friendlyName) {
+            target.name = friendlyName;
+            return this;
+        }
+
+        public MotorbikeBuilder withVIN(String vin) {
+            target.vin = vin;
+            return this;
+        }
+
+        public Motorbike build() {
+            return target;
+        }
+    }
 }
