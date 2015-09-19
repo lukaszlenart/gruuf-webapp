@@ -26,6 +26,12 @@ public class UserInterceptor extends AbstractInterceptor {
             userRegister.put(newUser);
         }
 
+        if (invocation.getAction() instanceof UserStoreAware) {
+            UserStoreAware userStoreAware = (UserStoreAware) invocation.getAction();
+            UserRegister userRegister = (UserRegister) invocation.getInvocationContext().getApplication().get(RbwServices.USER_REGISTER);
+            userStoreAware.setUserService(userRegister);
+        }
+
         return invocation.invoke();
     }
 

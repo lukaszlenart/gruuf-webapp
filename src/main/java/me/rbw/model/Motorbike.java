@@ -1,15 +1,24 @@
 package me.rbw.model;
 
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Parent;
+
+@Entity
 public class Motorbike {
 
+    @Id
     private String id;
     private String name;
-    private User owner;
+    @Parent()
+    private Key<User> owner;
 
-    public Motorbike(String id, String name, User owner) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
+    private Motorbike() {
+    }
+
+    public Motorbike(String ownerId) {
+        owner = Key.create(User.class, ownerId);
     }
 
     public String getId() {
@@ -28,11 +37,4 @@ public class Motorbike {
         this.name = name;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
 }

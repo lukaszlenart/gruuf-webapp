@@ -82,6 +82,17 @@
       <version>2.4-SNAPSHOT</version>
     </dependency>
 
+    <!-- AppEngine store -->
+    <dependency>
+      <groupId>com.google.appengine</groupId>
+      <artifactId>appengine-api-1.0-sdk</artifactId>
+      <version>1.9.21</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.objectify</groupId>
+      <artifactId>objectify</artifactId>
+      <version>4.0.1</version>
+    </dependency>
 <!--
     <dependency>
       <groupId>log4j</groupId>

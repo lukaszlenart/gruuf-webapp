@@ -1,6 +1,9 @@
 package me.rbw.web;
 
+import com.googlecode.objectify.ObjectifyService;
 import me.rbw.RbwServices;
+import me.rbw.model.Motorbike;
+import me.rbw.model.User;
 import me.rbw.services.Garage;
 import me.rbw.services.UserRegister;
 import ognl.OgnlRuntime;
@@ -12,6 +15,9 @@ public class InitListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce) {
         OgnlRuntime.setSecurityManager(null);
+
+        ObjectifyService.register(User.class);
+        ObjectifyService.register(Motorbike.class);
 
         final Garage garage = new Garage();
         final UserRegister userRegister = new UserRegister();

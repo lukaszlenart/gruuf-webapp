@@ -9,14 +9,19 @@ import me.rbw.web.RbwAuth;
 import me.rbw.web.RbwActions;
 import org.apache.struts2.StrutsConstants;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LoginInterceptor extends AbstractInterceptor {
 
-    private boolean devMode = false;
-
-    @Inject(StrutsConstants.STRUTS_DEVMODE)
-    public void setDevMode(String devMode) {
-        this.devMode = Boolean.parseBoolean(devMode);
-    }
+    private Set<String> unsecureActions = new HashSet<String>() {
+        {
+            add(RbwActions.LOGIN);
+            add(RbwActions.LOGIN_SUBMIT);
+            add(RbwActions.USER_REGISTER);
+            add(RbwActions.USER_REGISTER_SUBMIT);
+        }
+    };
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
@@ -31,11 +36,11 @@ public class LoginInterceptor extends AbstractInterceptor {
 
     private boolean isLoginAction(ActionProxy actionProxy) {
         String actionName = actionProxy.getActionName();
-        return actionName.equals(RbwActions.LOGIN) || actionName.equals(RbwActions.LOGIN_SUBMIT);
+        return unsecureActions.contains(actionName);
     }
 
     private boolean isUserLoggedIn(ActionContext context) {
-        return devMode || context.getSession().get(RbwAuth.AUTH_TOKEN) != null;
+        return context.getSession().get(RbwAuth.AUTH_TOKEN) != null;
     }
 
 }

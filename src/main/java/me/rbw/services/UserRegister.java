@@ -1,20 +1,35 @@
 package me.rbw.services;
 
+import com.googlecode.objectify.ObjectifyService;
 import me.rbw.model.User;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class UserRegister {
 
-    private Map<String, User> userCache = new HashMap<>();
-
     public User get(String userId) {
-        return userCache.get(userId);
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(User.class)
+                .id(userId)
+                .now();
     }
 
     public void put(User newUser) {
-        userCache.put(newUser.getId(), newUser);
+        ObjectifyService
+                .ofy()
+                .save()
+                .entity(newUser)
+                .now();
     }
 
+    public User getByEmail(String email) {
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(User.class)
+                .filter("email", email)
+                .limit(1)
+                .first()
+                .now();
+    }
 }

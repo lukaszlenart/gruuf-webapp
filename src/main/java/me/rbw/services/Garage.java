@@ -1,20 +1,23 @@
 package me.rbw.services;
 
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.ObjectifyService;
 import me.rbw.model.Motorbike;
 import me.rbw.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Garage {
 
-    public List<Motorbike> getMotorbikes(final User owner) {
-        return new ArrayList<Motorbike>() {
-            {
-                add(new Motorbike("1234", "M1", owner));
-                add(new Motorbike("12345", "M2", owner));
-            }
-        };
+    public List<Motorbike> get(String userId) {
+        Key<User> user = Key.create(User.class, userId);
+
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(Motorbike.class)
+                .ancestor(user)
+                .list();
     }
 
 }

@@ -1,10 +1,16 @@
 package me.rbw.model;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import me.rbw.web.RbwAuth;
 
+@Entity
 public class User {
 
+    @Id
     private String id;
+    @Index
     private String email;
     private String password;
 
@@ -21,6 +27,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 
     public static UserCreator create() {

@@ -19,7 +19,7 @@ public class Home extends ActionSupport implements UserAware, GarageAware {
     }
 
     public List<Motorbike> getMotorbikes() {
-        return garage.getMotorbikes(currentUser);
+        return garage.get(currentUser.getId());
     }
 
     public void setUser(User currentUser) {
