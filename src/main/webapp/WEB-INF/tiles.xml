@@ -26,22 +26,22 @@
     <put-attribute name="body" value="/WEB-INF/content/login.jsp"/>
   </definition>
 
-  <definition name="add-input" extends="baseLayout">
+  <definition name="bike/add-input" extends="baseLayout">
     <put-attribute name="title" value="Add new bike"/>
     <put-attribute name="body" value="/WEB-INF/content/bike/add-input.jsp"/>
   </definition>
 
-  <definition name="add-submit-input" extends="baseLayout">
+  <definition name="bike/add-submit-input" extends="baseLayout">
     <put-attribute name="title" value="Add new bike"/>
     <put-attribute name="body" value="/WEB-INF/content/bike/add-input.jsp"/>
   </definition>
 
-  <definition name="register-input" extends="baseLayout">
+  <definition name="biker/register-input" extends="baseLayout">
     <put-attribute name="title" value="Register a new biker"/>
     <put-attribute name="body" value="/WEB-INF/content/biker/register-input.jsp"/>
   </definition>
 
-  <definition name="register-submit-input" extends="baseLayout">
+  <definition name="biker/register-submit-input" extends="baseLayout">
     <put-attribute name="title" value="Register a new biker"/>
     <put-attribute name="body" value="/WEB-INF/content/biker/register-input.jsp"/>
   </definition>
