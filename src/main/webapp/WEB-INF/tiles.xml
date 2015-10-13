@@ -26,7 +26,7 @@
     <put-attribute name="body" value="/WEB-INF/content/bike/add-input.jsp"/>
   </definition>
 
-  <definition name="biker/register-input" extends="baseLayout">
+  <definition name="biker/input" extends="baseLayout">
     <put-attribute name="title" value="Register a new biker"/>
     <put-attribute name="body" value="/WEB-INF/content/biker/register-input.jsp"/>
   </definition>

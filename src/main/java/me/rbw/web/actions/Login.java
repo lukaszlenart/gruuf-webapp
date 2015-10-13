@@ -31,7 +31,7 @@ public class Login extends ActionSupport implements SessionAware, UserStoreAware
             return RbwActions.HOME;
         } else {
             addActionError("Cannot login!");
-            return INPUT;
+            return RbwActions.LOGIN;
         }
     }
 
