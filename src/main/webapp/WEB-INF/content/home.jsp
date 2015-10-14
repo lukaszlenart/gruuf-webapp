@@ -6,11 +6,11 @@
   home
 </div>
 
-<s:iterator value="motorbikes" var="motorbike" >
+<s:iterator value="bikes" var="bike" >
   <div class="row">
   <s:url var="url" action="show" namespace="/bike">
-    <s:param name="motorbike">${motorbike.id}</s:param>
+    <s:param name="bike">${bike.id}</s:param>
   </s:url>
-  <s:a href="%{url}">${motorbike.name}</s:a>
+  <s:a href="%{url}">${bike.name}</s:a>
   </div>
 </s:iterator>

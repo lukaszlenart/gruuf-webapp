@@ -10,8 +10,8 @@ public class BikeHistoryInterceptor extends AbstractInterceptor {
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
         if (invocation.getAction() instanceof BikeHistoryAware) {
-            BikeHistory eventSource = (BikeHistory) invocation.getInvocationContext().getApplication().get(RbwServices.MOTORBIKE_EVENT_SOURCE);
-            ((BikeHistoryAware) invocation.getAction()).setMotorbikeEventSource(eventSource);
+            BikeHistory eventSource = (BikeHistory) invocation.getInvocationContext().getApplication().get(RbwServices.BIKE_HISTORY);
+            ((BikeHistoryAware) invocation.getAction()).setBikeHistory(eventSource);
         }
         return invocation.invoke();
     }

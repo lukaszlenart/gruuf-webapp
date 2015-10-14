@@ -35,24 +35,24 @@ public class Bike {
         return vin;
     }
 
-    public static MotorbikeBuilder create(String ownerId) {
-        return new MotorbikeBuilder(ownerId);
+    public static BikeBuilder create(String ownerId) {
+        return new BikeBuilder(ownerId);
     }
 
-    public static class MotorbikeBuilder {
+    public static class BikeBuilder {
         private final Bike target;
 
-        public MotorbikeBuilder(String ownerId) {
+        public BikeBuilder(String ownerId) {
             target = new Bike(ownerId);
             target.id = RbwAuth.generateUUID();
         }
 
-        public MotorbikeBuilder withFriendlyName(String friendlyName) {
+        public BikeBuilder withFriendlyName(String friendlyName) {
             target.name = friendlyName;
             return this;
         }
 
-        public MotorbikeBuilder withVIN(String vin) {
+        public BikeBuilder withVIN(String vin) {
             target.vin = vin;
             return this;
         }

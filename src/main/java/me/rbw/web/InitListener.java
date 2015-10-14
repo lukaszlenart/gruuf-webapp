@@ -26,17 +26,17 @@ public class InitListener implements ServletContextListener {
 
         final Garage garage = new Garage();
         final UserStore userStore = new UserStore();
-        final BikeHistory eventSource = new BikeHistory();
+        final BikeHistory bikeHistory = new BikeHistory();
 
         sce.getServletContext().setAttribute(RbwServices.GARAGE, garage);
         sce.getServletContext().setAttribute(RbwServices.USER_REGISTER, userStore);
-        sce.getServletContext().setAttribute(RbwServices.MOTORBIKE_EVENT_SOURCE, eventSource);
+        sce.getServletContext().setAttribute(RbwServices.BIKE_HISTORY, bikeHistory);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
         sce.getServletContext().removeAttribute(RbwServices.GARAGE);
         sce.getServletContext().removeAttribute(RbwServices.USER_REGISTER);
-        sce.getServletContext().removeAttribute(RbwServices.MOTORBIKE_EVENT_SOURCE);
+        sce.getServletContext().removeAttribute(RbwServices.BIKE_HISTORY);
     }
 
 }
