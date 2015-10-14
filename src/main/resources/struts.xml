@@ -41,7 +41,7 @@
       <interceptor name="login" class="me.rbw.web.interceptors.LoginInterceptor"/>
       <interceptor name="user" class="me.rbw.web.interceptors.UserInterceptor"/>
       <interceptor name="garage" class="me.rbw.web.interceptors.GarageInterceptor"/>
-      <interceptor name="eventSource" class="me.rbw.web.interceptors.MotorbikeEventSourceInterceptor"/>
+      <interceptor name="eventSource" class="me.rbw.web.interceptors.BikeHistoryInterceptor"/>
 
       <interceptor-stack name="rbwDefaultDev">
         <interceptor-ref name="exception"/>

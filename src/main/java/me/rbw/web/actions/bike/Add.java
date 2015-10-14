@@ -2,7 +2,7 @@ package me.rbw.web.actions.bike;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import me.rbw.model.Motorbike;
+import me.rbw.model.Bike;
 import me.rbw.model.User;
 import me.rbw.services.Garage;
 import me.rbw.web.RbwActions;
@@ -23,13 +23,13 @@ public class Add extends ActionSupport implements GarageAware, CurrentUserAware 
 
     @Action("add-submit")
     public String addSubmit() {
-        Motorbike motorbike = Motorbike
+        Bike bike = Bike
                 .create(currentUser.getId())
                 .withFriendlyName(friendlyName)
                 .withVIN(vin)
                 .build();
 
-        garage.put(motorbike);
+        garage.put(bike);
         return RbwActions.HOME;
     }
 

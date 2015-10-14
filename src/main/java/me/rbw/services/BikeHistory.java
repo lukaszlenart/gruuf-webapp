@@ -2,25 +2,25 @@ package me.rbw.services;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
-import me.rbw.model.Motorbike;
-import me.rbw.model.MotorbikeEvent;
+import me.rbw.model.Bike;
+import me.rbw.model.BikeEvent;
 
 import java.util.List;
 
-public class MotorbikeEventSource {
+public class BikeHistory {
 
-    public List<MotorbikeEvent> get(String motobikeId) {
-        Key<Motorbike> motorbike = Key.create(Motorbike.class, motobikeId);
+    public List<BikeEvent> get(String bikeId) {
+        Key<Bike> bike = Key.create(Bike.class, bikeId);
 
         return ObjectifyService
                 .ofy()
                 .load()
-                .type(MotorbikeEvent.class)
-                .ancestor(motorbike)
+                .type(BikeEvent.class)
+                .ancestor(bike)
                 .list();
     }
 
-    public void register(MotorbikeEvent event) {
+    public void register(BikeEvent event) {
         ObjectifyService
                 .ofy()
                 .save()

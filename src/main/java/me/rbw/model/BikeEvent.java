@@ -10,12 +10,12 @@ import com.googlecode.objectify.annotation.Parent;
 import java.util.Date;
 
 @Entity
-public class MotorbikeEvent {
+public class BikeEvent {
 
     @Id
     private String id;
     @Parent()
-    private Key<Motorbike> motorbike;
+    private Key<Bike> bike;
     @Load
     private Ref<EventType> eventTypeId;
     private Date timestamp;
@@ -24,8 +24,8 @@ public class MotorbikeEvent {
         return id;
     }
 
-    public Key<Motorbike> getMotorbike() {
-        return motorbike;
+    public Key<Bike> getBike() {
+        return bike;
     }
 
     public EventType getEventType() {

@@ -2,7 +2,7 @@ package me.rbw.web.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import me.rbw.services.Garage;
-import me.rbw.model.Motorbike;
+import me.rbw.model.Bike;
 import me.rbw.model.User;
 import me.rbw.web.interceptors.GarageAware;
 import me.rbw.web.interceptors.CurrentUserAware;
@@ -18,7 +18,7 @@ public class Home extends ActionSupport implements CurrentUserAware, GarageAware
         return SUCCESS;
     }
 
-    public List<Motorbike> getMotorbikes() {
+    public List<Bike> getMotorbikes() {
         return garage.get(currentUser.getId());
     }
 

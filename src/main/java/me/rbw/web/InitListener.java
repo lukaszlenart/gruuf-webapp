@@ -3,11 +3,11 @@ package me.rbw.web;
 import com.googlecode.objectify.ObjectifyService;
 import me.rbw.RbwServices;
 import me.rbw.model.EventType;
-import me.rbw.model.Motorbike;
-import me.rbw.model.MotorbikeEvent;
+import me.rbw.model.Bike;
+import me.rbw.model.BikeEvent;
 import me.rbw.model.User;
 import me.rbw.services.Garage;
-import me.rbw.services.MotorbikeEventSource;
+import me.rbw.services.BikeHistory;
 import me.rbw.services.UserStore;
 import ognl.OgnlRuntime;
 
@@ -21,12 +21,12 @@ public class InitListener implements ServletContextListener {
 
         ObjectifyService.register(User.class);
         ObjectifyService.register(EventType.class);
-        ObjectifyService.register(MotorbikeEvent.class);
-        ObjectifyService.register(Motorbike.class);
+        ObjectifyService.register(BikeEvent.class);
+        ObjectifyService.register(Bike.class);
 
         final Garage garage = new Garage();
         final UserStore userStore = new UserStore();
-        final MotorbikeEventSource eventSource = new MotorbikeEventSource();
+        final BikeHistory eventSource = new BikeHistory();
 
         sce.getServletContext().setAttribute(RbwServices.GARAGE, garage);
         sce.getServletContext().setAttribute(RbwServices.USER_REGISTER, userStore);
