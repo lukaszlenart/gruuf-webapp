@@ -9,4 +9,6 @@ public class RbwActions {
 
     public static final String USER_REGISTER = "register";
     public static final String USER_REGISTER_SUBMIT = "register-submit";
+
+    public static final String BIKE_SHOW = "show";
 }
