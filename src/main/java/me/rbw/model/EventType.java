@@ -12,7 +12,6 @@ public class EventType {
     private String name;
     private Date created;
 
-
     public String getId() {
         return id;
     }
