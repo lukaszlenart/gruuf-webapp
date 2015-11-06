@@ -21,7 +21,7 @@
   <constant name="struts.devMode" value="true"/>
   <constant name="struts.ui.theme" value="bootstrap"/>
   <constant name="struts.action.extension" value=""/>
-  <constant name="struts.action.excludePattern" value="/_ah/*,/favicon\.ico"/>
+  <constant name="struts.action.excludePattern" value="/_ah/.*,/favicon\.ico"/>
   <constant name="struts.convention.action.packages" value="me.rbw.web.actions"/>
   <constant name="struts.convention.default.parent.package" value="rbwDefault"/>
 
@@ -41,7 +41,7 @@
       <interceptor name="login" class="me.rbw.web.interceptors.LoginInterceptor"/>
       <interceptor name="user" class="me.rbw.web.interceptors.UserInterceptor"/>
       <interceptor name="garage" class="me.rbw.web.interceptors.GarageInterceptor"/>
-      <interceptor name="eventSource" class="me.rbw.web.interceptors.BikeHistoryInterceptor"/>
+      <interceptor name="bikeHistory" class="me.rbw.web.interceptors.BikeHistoryInterceptor"/>
 
       <interceptor-stack name="rbwDefaultDev">
         <interceptor-ref name="exception"/>
@@ -60,6 +60,7 @@
         </interceptor-ref>
         <interceptor-ref name="user"/>
         <interceptor-ref name="garage"/>
+        <interceptor-ref name="bikeHistory"/>
         <interceptor-ref name="debugging"/>
       </interceptor-stack>
     </interceptors>
