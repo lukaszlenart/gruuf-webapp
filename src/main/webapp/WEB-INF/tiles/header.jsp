@@ -26,6 +26,10 @@
           <s:url var="addbike" action="add" namespace="/bike"/>
           <s:a href="%{addbike}">Add bike</s:a>
         </li>
+        <li>
+          <s:url var="users" action="users" namespace="/admin"/>
+          <s:a href="%{users}">Users</s:a>
+        </li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div><!--/.nav-collapse -->
