@@ -24,7 +24,7 @@ public class Add extends ActionSupport implements GarageAware, CurrentUserAware 
     @Action("add-submit")
     public String addSubmit() {
         Bike bike = Bike
-                .create(currentUser.getId())
+                .create(currentUser)
                 .withFriendlyName(friendlyName)
                 .withVIN(vin)
                 .build();

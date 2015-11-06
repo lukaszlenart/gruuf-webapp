@@ -1,9 +1,9 @@
 package me.rbw.model;
 
-import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Parent;
+import com.googlecode.objectify.annotation.Index;
 import me.rbw.web.RbwAuth;
 
 @Entity
@@ -12,15 +12,15 @@ public class Bike {
     @Id
     private String id;
     private String name;
-    @Parent()
-    private Key<User> owner;
+    @Index
+    private Ref<User> owner;
     private String vin;
 
     private Bike() {
     }
 
-    public Bike(String ownerId) {
-        owner = Key.create(User.class, ownerId);
+    public Bike(User owner) {
+        this.owner = Ref.create(owner);
     }
 
     public String getId() {
@@ -35,15 +35,27 @@ public class Bike {
         return vin;
     }
 
-    public static BikeBuilder create(String ownerId) {
-        return new BikeBuilder(ownerId);
+    public User getOwner() {
+        return owner.get();
+    }
+
+    @Override
+    public String toString() {
+        return "Bike{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public static BikeBuilder create(User owner) {
+        return new BikeBuilder(owner);
     }
 
     public static class BikeBuilder {
         private final Bike target;
 
-        public BikeBuilder(String ownerId) {
-            target = new Bike(ownerId);
+        public BikeBuilder(User owner) {
+            target = new Bike(owner);
             target.id = RbwAuth.generateUUID();
         }
 
