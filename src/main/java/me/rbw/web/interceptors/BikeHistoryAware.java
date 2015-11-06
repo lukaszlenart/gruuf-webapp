@@ -4,6 +4,6 @@ import me.rbw.services.BikeHistory;
 
 public interface BikeHistoryAware {
 
-    void setBikeHistory(BikeHistory eventSource);
+    void setBikeHistory(BikeHistory bikeHistory);
 
 }
