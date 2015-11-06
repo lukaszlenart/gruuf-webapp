@@ -23,7 +23,7 @@ public class Home extends ActionSupport implements CurrentUserAware, GarageAware
     }
 
     public List<Bike> getBikes() {
-        List<Bike> bikes = garage.get(currentUser.getId());
+        List<Bike> bikes = garage.get(currentUser);
 
         LOG.debug("Found following bikes {} for user {}", bikes, currentUser);
 
