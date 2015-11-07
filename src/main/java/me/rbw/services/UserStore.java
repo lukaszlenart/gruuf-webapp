@@ -1,7 +1,11 @@
 package me.rbw.services;
 
 import com.googlecode.objectify.ObjectifyService;
+import me.rbw.auth.Tokens;
 import me.rbw.model.User;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 public class UserStore {
 
@@ -31,5 +35,14 @@ public class UserStore {
                 .limit(1)
                 .first()
                 .now();
+    }
+
+    public int countAdmins() {
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(User.class)
+                .filter("tokens in", Collections.singletonList(Tokens.ADMIN))
+                .count();
     }
 }

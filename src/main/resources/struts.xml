@@ -42,10 +42,12 @@
       <interceptor name="user" class="me.rbw.web.interceptors.UserInterceptor"/>
       <interceptor name="garage" class="me.rbw.web.interceptors.GarageInterceptor"/>
       <interceptor name="bikeHistory" class="me.rbw.web.interceptors.BikeHistoryInterceptor"/>
+      <interceptor name="auth" class="me.rbw.web.interceptors.AuthInterceptor"/>
 
       <interceptor-stack name="rbwDefaultDev">
         <interceptor-ref name="exception"/>
         <interceptor-ref name="login"/>
+        <interceptor-ref name="auth"/>
         <interceptor-ref name="alias"/>
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>
