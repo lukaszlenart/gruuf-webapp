@@ -1,10 +1,9 @@
 package me.rbw.services;
 
 import com.googlecode.objectify.ObjectifyService;
-import me.rbw.auth.Tokens;
+import me.rbw.auth.Token;
 import me.rbw.model.User;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 public class UserStore {
@@ -42,7 +41,7 @@ public class UserStore {
                 .ofy()
                 .load()
                 .type(User.class)
-                .filter("tokens in", Collections.singletonList(Tokens.ADMIN))
+                .filter("tokens in", Collections.singletonList(Token.ADMIN))
                 .count();
     }
 }

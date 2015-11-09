@@ -4,7 +4,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.util.AnnotationUtils;
 import me.rbw.RbwServices;
-import me.rbw.auth.Token;
+import me.rbw.auth.Tokens;
 import me.rbw.model.User;
 import me.rbw.services.UserStore;
 import me.rbw.web.RbwActions;
@@ -24,8 +24,10 @@ public class AuthInterceptor extends AbstractInterceptor {
             return invocation.invoke();
         } else {
             if (isAllowedUser(currentUser, invocation.getAction())) {
+                LOG.debug("User {} is allowed to see {}", currentUser, invocation.getAction());
                 return invocation.invoke();
             } else {
+                LOG.debug("User {} is not allowed to see {}", currentUser, invocation.getAction());
                 return RbwActions.HOME;
             }
         }
@@ -42,9 +44,9 @@ public class AuthInterceptor extends AbstractInterceptor {
     }
 
     private boolean isAllowedUser(User user, Object secured) {
-        Token token = AnnotationUtils.findAnnotation(secured.getClass(), Token.class);
-        LOG.debug("Checking if user {} has required token [{}]", user, token);
-        return token == null || user.getTokens().contains(token.value());
+        Tokens tokens = AnnotationUtils.findAnnotation(secured.getClass(), Tokens.class);
+        LOG.debug("Checking if user {} has required token [{}]", user, tokens);
+        return tokens == null || user.hasAnyToken(tokens.value());
     }
 
 }

@@ -3,7 +3,7 @@ package me.rbw.model;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import me.rbw.auth.Tokens;
+import me.rbw.auth.Token;
 import me.rbw.web.RbwAuth;
 
 import java.util.HashSet;
@@ -18,7 +18,7 @@ public class User {
     private String email;
     private String password;
     @Index
-    private Set<Tokens> tokens;
+    private Set<Token> tokens;
 
     private User() {
     }
@@ -35,8 +35,17 @@ public class User {
         return password;
     }
 
-    public Set<Tokens> getTokens() {
+    public Set<Token> getTokens() {
         return tokens;
+    }
+
+    public boolean hasAnyToken(Token[] tokens) {
+        for (Token token : tokens) {
+            if (this.tokens.contains(token)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -71,7 +80,7 @@ public class User {
             return this;
         }
 
-        public UserCreator withToken(Tokens token) {
+        public UserCreator withToken(Token token) {
             if (target.tokens == null) {
                 target.tokens = new HashSet<>();
             }

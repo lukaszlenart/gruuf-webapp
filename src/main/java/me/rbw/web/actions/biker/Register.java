@@ -4,7 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
-import me.rbw.auth.Tokens;
+import me.rbw.auth.Token;
 import me.rbw.model.User;
 import me.rbw.services.UserStore;
 import me.rbw.web.RbwActions;
@@ -23,9 +23,9 @@ public class Register extends ActionSupport implements UserStoreAware {
 
     @Action("register-submit")
     public String registerSubmit() {
-        User.UserCreator newUser = User.create().withEmail(email).withPassword(password1).withToken(Tokens.USER);
+        User.UserCreator newUser = User.create().withEmail(email).withPassword(password1).withToken(Token.USER);
         if (userStore.countAdmins() == 0) {
-            newUser = newUser.withToken(Tokens.ADMIN);
+            newUser = newUser.withToken(Token.ADMIN);
         }
         userStore.put(newUser.build());
         return RbwActions.LOGIN;
