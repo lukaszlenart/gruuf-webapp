@@ -1,0 +1,6 @@
+- [X] tokeny i dostep do stron
+- [ ] dodwanie EventType
+- [ ] dodawanie BikeEvent
+- [ ] export danych celem backupowania
+- [ ] I18N (polski)
+- [ ] walidacja po VIN celem unikniecia duplikatow
