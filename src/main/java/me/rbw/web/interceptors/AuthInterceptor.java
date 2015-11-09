@@ -43,6 +43,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 
     private boolean isAllowedUser(User user, Object secured) {
         Token token = AnnotationUtils.findAnnotation(secured.getClass(), Token.class);
+        LOG.debug("Checking if user {} has required token [{}]", user, token);
         return token == null || user.getTokens().contains(token.value());
     }
 
