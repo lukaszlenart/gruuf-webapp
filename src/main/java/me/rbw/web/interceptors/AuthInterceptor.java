@@ -1,11 +1,10 @@
 package me.rbw.web.interceptors;
 
-import com.google.apphosting.client.serviceapp.AuthService;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.util.AnnotationUtils;
 import me.rbw.RbwServices;
-import me.rbw.auth.AuthChecker;
+import me.rbw.auth.Token;
 import me.rbw.model.User;
 import me.rbw.services.UserStore;
 import me.rbw.web.RbwActions;
@@ -24,7 +23,7 @@ public class AuthInterceptor extends AbstractInterceptor {
             LOG.info("Current User is null, assuming not-logged-in");
             return invocation.invoke();
         } else {
-            if (AuthChecker.isAllowedUser(currentUser, invocation.getAction())) {
+            if (isAllowedUser(currentUser, invocation.getAction())) {
                 return invocation.invoke();
             } else {
                 return RbwActions.HOME;
@@ -32,7 +31,7 @@ public class AuthInterceptor extends AbstractInterceptor {
         }
     }
 
-    protected User readCurrentUser(ActionInvocation invocation) {
+    private User readCurrentUser(ActionInvocation invocation) {
         String authToken = (String) invocation.getInvocationContext().getSession().get(RbwAuth.AUTH_TOKEN);
         UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(RbwServices.USER_REGISTER);
         if (authToken == null) {
@@ -41,4 +40,10 @@ public class AuthInterceptor extends AbstractInterceptor {
         }
         return userStore.get(authToken);
     }
+
+    private boolean isAllowedUser(User user, Object secured) {
+        Token token = AnnotationUtils.findAnnotation(secured.getClass(), Token.class);
+        return token == null || user.getTokens().contains(token.value());
+    }
+
 }
