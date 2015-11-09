@@ -1,4 +1,5 @@
 - [X] tokeny i dostep do stron
+- [ ] zarządzanie użytkownikami
 - [ ] dodwanie EventType
 - [ ] dodawanie BikeEvent
 - [ ] export danych celem backupowania
