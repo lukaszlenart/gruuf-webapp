@@ -25,9 +25,6 @@
   <constant name="struts.convention.action.packages" value="me.rbw.web.actions"/>
   <constant name="struts.convention.default.parent.package" value="rbwDefault"/>
 
-  <bean type="org.apache.struts2.convention.ResultMapBuilder" name="tiles-convention" class="me.rbw.web.TilesResultMapBuilder"/>
-  <constant name="struts.convention.resultMapBuilder" value="tiles-convention"/>
-
   <bean type="com.opensymphony.xwork2.UnknownHandler" name="tiles-convention" class="me.rbw.web.TilesUnknownHandler"/>
 
   <package name="rbwDefault" extends="struts-default">

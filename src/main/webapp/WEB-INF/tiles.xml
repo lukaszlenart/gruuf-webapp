@@ -13,32 +13,32 @@
 
   <definition name="home" extends="baseLayout">
     <put-attribute name="title" value="Home" />
-    <put-attribute name="body" value="/WEB-INF/content/home.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/home.jsp"/>
   </definition>
 
   <definition name="login" extends="baseLayout">
     <put-attribute name="title" value="Login" />
-    <put-attribute name="body" value="/WEB-INF/content/login.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/login.jsp"/>
   </definition>
 
   <definition name="bike/add-input" extends="baseLayout">
     <put-attribute name="title" value="Add new bike"/>
-    <put-attribute name="body" value="/WEB-INF/content/bike/add-input.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/add-input.jsp"/>
   </definition>
 
   <definition name="bike/show" extends="baseLayout">
     <put-attribute name="title" value="Bike details"/>
-    <put-attribute name="body" value="/WEB-INF/content/bike/show.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/show.jsp"/>
   </definition>
 
   <definition name="biker/input" extends="baseLayout">
     <put-attribute name="title" value="Register a new biker"/>
-    <put-attribute name="body" value="/WEB-INF/content/biker/register-input.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/biker/register-input.jsp"/>
   </definition>
 
   <definition name="admin/users" extends="baseLayout">
     <put-attribute name="title" value="Users"/>
-    <put-attribute name="body" value="/WEB-INF/content/admin/users.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/users.jsp"/>
   </definition>
 
 </tiles-definitions>
