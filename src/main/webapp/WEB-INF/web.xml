@@ -6,6 +6,11 @@
 
   <display-name>Ride-by-Wire WebApp</display-name>
 
+  <context-param>
+    <param-name>org.apache.tiles.definition.DefinitionsFactory.DEFINITIONS_CONFIG</param-name>
+    <param-value>/WEB-INF/tiles.xml</param-value>
+  </context-param>
+
   <listener>
     <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
   </listener>
