@@ -7,10 +7,12 @@ import me.rbw.web.RbwAuth;
 import me.rbw.web.RbwActions;
 import me.rbw.web.interceptors.UserStoreAware;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.Map;
 
+@InterceptorRef("defaultWithMessages")
 public class Login extends ActionSupport implements SessionAware, UserStoreAware {
 
     private Map<String, Object> session;

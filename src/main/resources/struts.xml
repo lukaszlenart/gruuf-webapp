@@ -62,6 +62,13 @@
         <interceptor-ref name="bikeHistory"/>
         <interceptor-ref name="debugging"/>
       </interceptor-stack>
+
+      <interceptor-stack name="defaultWithMessages">
+        <interceptor-ref name="rbwDefaultDev"/>
+        <interceptor-ref name="store">
+          <param name="operationMode">AUTOMATIC</param>
+        </interceptor-ref>
+      </interceptor-stack>
     </interceptors>
 
     <default-interceptor-ref name="rbwDefaultDev"/>
