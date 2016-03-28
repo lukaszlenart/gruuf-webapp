@@ -2,44 +2,38 @@ package me.rbw.web.interceptors;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.ActionProxy;
-import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import me.rbw.web.RbwAuth;
+import com.opensymphony.xwork2.util.AnnotationUtils;
+import me.rbw.auth.Anonymous;
 import me.rbw.web.RbwActions;
-import org.apache.struts2.StrutsConstants;
-
-import java.util.HashSet;
-import java.util.Set;
+import me.rbw.web.RbwAuth;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class LoginInterceptor extends AbstractInterceptor {
 
-    private Set<String> unsecureActions = new HashSet<String>() {
-        {
-            add(RbwActions.LOGIN);
-            add(RbwActions.LOGIN_SUBMIT);
-            add(RbwActions.USER_REGISTER);
-            add(RbwActions.USER_REGISTER_SUBMIT);
-        }
-    };
+    private static Logger LOG = LogManager.getLogger(LoginInterceptor.class);
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
-        if (isLoginAction(invocation.getProxy())) {
+        if (isAllowedAction(invocation.getAction())) {
+            LOG.debug("Action {} is allowed to access without logging in", invocation.getProxy().getActionName());
             return invocation.invoke();
         }
         if (isUserLoggedIn(invocation.getInvocationContext())) {
+            LOG.debug("User is logged in, allowing to access action {}", invocation.getProxy().getActionName());
             return invocation.invoke();
         }
         return RbwActions.LOGIN;
     }
 
-    private boolean isLoginAction(ActionProxy actionProxy) {
-        String actionName = actionProxy.getActionName();
-        return unsecureActions.contains(actionName);
+    private boolean isAllowedAction(Object action) {
+        LOG.debug("Checking if action is marked with {} to get access", Anonymous.class.getName());
+        return AnnotationUtils.findAnnotation(action.getClass(), Anonymous.class) != null;
     }
 
     private boolean isUserLoggedIn(ActionContext context) {
+        LOG.debug("Checking if token {} exists", RbwAuth.AUTH_TOKEN);
         return context.getSession().get(RbwAuth.AUTH_TOKEN) != null;
     }
 

@@ -1,6 +1,7 @@
 package me.rbw.web.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
+import me.rbw.auth.Anonymous;
 import me.rbw.model.User;
 import me.rbw.services.UserStore;
 import me.rbw.web.RbwAuth;
@@ -13,6 +14,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import java.util.Map;
 
 @InterceptorRef("defaultWithMessages")
+@Anonymous
 public class Login extends ActionSupport implements SessionAware, UserStoreAware {
 
     private Map<String, Object> session;

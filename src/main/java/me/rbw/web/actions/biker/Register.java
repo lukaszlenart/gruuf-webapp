@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
+import me.rbw.auth.Anonymous;
 import me.rbw.auth.Token;
 import me.rbw.model.User;
 import me.rbw.services.UserStore;
@@ -12,6 +13,7 @@ import me.rbw.web.interceptors.UserStoreAware;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
+@Anonymous
 public class Register extends ActionSupport implements UserStoreAware {
 
     private UserStore userStore;
