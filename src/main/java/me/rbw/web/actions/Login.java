@@ -39,6 +39,12 @@ public class Login extends ActionSupport implements SessionAware, UserStoreAware
         }
     }
 
+    @Action(value = "logout")
+    public String logout() {
+        session.put(RbwAuth.AUTH_TOKEN, null);
+        return RbwActions.LOGIN;
+    }
+
     public void setSession(Map<String, Object> session) {
         this.session = session;
     }

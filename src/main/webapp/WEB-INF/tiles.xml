@@ -4,39 +4,46 @@
     "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-  <definition name="baseLayout" template="/WEB-INF/tiles/layout.jsp">
+  <definition name="logged-in" template="/WEB-INF/tiles/layout.jsp">
     <put-attribute name="title" value="Template"/>
     <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
     <put-attribute name="body" value="/WEB-INF/tiles/body.jsp"/>
     <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
   </definition>
 
-  <definition name="home" extends="baseLayout">
+  <definition name="not-logged-in" template="/WEB-INF/tiles/layout.jsp">
+    <put-attribute name="title" value="Template"/>
+    <put-attribute name="header" value="/WEB-INF/tiles/simple-header.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/body.jsp"/>
+    <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
+  </definition>
+
+  <definition name="home" extends="logged-in">
     <put-attribute name="title" value="Home"/>
     <put-attribute name="body" value="/WEB-INF/tiles/home.jsp"/>
   </definition>
 
-  <definition name="login" extends="baseLayout">
+  <definition name="login" extends="not-logged-in">
     <put-attribute name="title" value="Login"/>
     <put-attribute name="body" value="/WEB-INF/tiles/login.jsp"/>
   </definition>
 
-  <definition name="bike/add-input" extends="baseLayout">
+  <definition name="bike/add-input" extends="logged-in">
     <put-attribute name="title" value="Add new bike"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/add-input.jsp"/>
   </definition>
 
-  <definition name="bike/show" extends="baseLayout">
+  <definition name="bike/show" extends="logged-in">
     <put-attribute name="title" value="Bike details"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/show.jsp"/>
   </definition>
 
-  <definition name="biker/input" extends="baseLayout">
+  <definition name="biker/input" extends="not-logged-in">
     <put-attribute name="title" value="Register a new biker"/>
     <put-attribute name="body" value="/WEB-INF/tiles/biker/register-input.jsp"/>
   </definition>
 
-  <definition name="admin/users" extends="baseLayout">
+  <definition name="admin/users" extends="logged-in">
     <put-attribute name="title" value="Users"/>
     <put-attribute name="body" value="/WEB-INF/tiles/admin/users.jsp"/>
   </definition>

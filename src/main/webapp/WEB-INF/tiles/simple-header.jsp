@@ -15,20 +15,8 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li>
-          <s:url var="home" action="home" namespace="/" />
-          <s:a href="%{home}">Home</s:a>
-        </li>
-        <li>
-          <s:url var="addbike" action="add" namespace="/bike"/>
-          <s:a href="%{addbike}">Add bike</s:a>
-        </li>
-        <li>
-          <s:url var="users" action="users" namespace="/admin"/>
-          <s:a href="%{users}">Users</s:a>
-        </li>
-        <li>
-          <s:url var="logout" action="logout"/>
-          <s:a href="%{logout}">Logout</s:a>
+          <s:url var="registerBiker" action="register" namespace="/biker" />
+          <s:a href="%{registerBiker}">Register</s:a>
         </li>
         <li><a href="#contact">Contact</a></li>
       </ul>
