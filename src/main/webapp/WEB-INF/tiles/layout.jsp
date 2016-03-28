@@ -1,7 +1,9 @@
+<!DOCTYPE html>
+
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="sb" uri="/struts-bootstrap-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE html>
 
 <html>
 <head>
@@ -28,6 +30,11 @@
     <div class="row">
       <h2><tiles:insertAttribute name="title"/></h2>
     </div>
+    <div class="row">
+      <s:actionerror cssClass="col-md-12"/>
+      <s:actionmessage cssClass="col-md-12"/>
+    </div>
+
     <tiles:insertAttribute name="body"/>
   </div>
 
