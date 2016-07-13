@@ -8,7 +8,7 @@
 
   <context-param>
     <param-name>org.apache.tiles.definition.DefinitionsFactory.DEFINITIONS_CONFIG</param-name>
-    <param-value>/WEB-INF/tiles.xml</param-value>
+    <param-value>/WEB-INF/tiles.xml,/WEB-INF/tiles-bike.xml</param-value>
   </context-param>
 
   <listener>
