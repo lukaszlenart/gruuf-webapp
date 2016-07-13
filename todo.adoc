@@ -6,3 +6,4 @@
 - [ ] I18N (polski)
 - [ ] walidacja po VIN celem unikniecia duplikatow
 - [ ] logowanie Facebook / Google
+- [ ] aktulizacja przebiegu
