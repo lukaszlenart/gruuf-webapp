@@ -12,10 +12,10 @@
   </context-param>
 
   <listener>
-    <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
+    <listener-class>com.gruuf.web.InitListener</listener-class>
   </listener>
   <listener>
-    <listener-class>com.gruuf.web.InitListener</listener-class>
+    <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
   </listener>
 
   <filter>
