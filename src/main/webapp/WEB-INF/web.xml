@@ -15,7 +15,7 @@
     <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
   </listener>
   <listener>
-    <listener-class>me.rbw.web.InitListener</listener-class>
+    <listener-class>com.gruuf.web.InitListener</listener-class>
   </listener>
 
   <filter>

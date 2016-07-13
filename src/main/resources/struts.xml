@@ -25,7 +25,7 @@
   <constant name="struts.convention.action.packages" value="me.rbw.web.actions"/>
   <constant name="struts.convention.default.parent.package" value="rbwDefault"/>
 
-  <bean type="com.opensymphony.xwork2.UnknownHandler" name="tiles-convention" class="me.rbw.web.TilesUnknownHandler"/>
+  <bean type="com.opensymphony.xwork2.UnknownHandler" name="tiles-convention" class="com.gruuf.web.TilesUnknownHandler"/>
 
   <package name="rbwDefault" extends="struts-default">
 
@@ -35,11 +35,11 @@
 
     <interceptors>
 
-      <interceptor name="login" class="me.rbw.web.interceptors.LoginInterceptor"/>
-      <interceptor name="user" class="me.rbw.web.interceptors.UserInterceptor"/>
-      <interceptor name="garage" class="me.rbw.web.interceptors.GarageInterceptor"/>
-      <interceptor name="bikeHistory" class="me.rbw.web.interceptors.BikeHistoryInterceptor"/>
-      <interceptor name="auth" class="me.rbw.web.interceptors.AuthInterceptor"/>
+      <interceptor name="login" class="com.gruuf.web.interceptors.LoginInterceptor"/>
+      <interceptor name="user" class="com.gruuf.web.interceptors.UserInterceptor"/>
+      <interceptor name="garage" class="com.gruuf.web.interceptors.GarageInterceptor"/>
+      <interceptor name="bikeHistory" class="com.gruuf.web.interceptors.BikeHistoryInterceptor"/>
+      <interceptor name="auth" class="com.gruuf.web.interceptors.AuthInterceptor"/>
 
       <interceptor-stack name="rbwDefaultDev">
         <interceptor-ref name="exception"/>
