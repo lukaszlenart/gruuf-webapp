@@ -12,7 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <struts2.version>2.5.2</struts2.version>
     <log4j2.version>2.6.2</log4j2.version>
-    <appengine.version>1.9.38</appengine.version>
+    <google.appengine.version>1.9.38</google.appengine.version>
   </properties>
 
   <dependencies>
@@ -106,7 +106,7 @@
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>${appengine.version}</version>
+      <version>${google.appengine.version}</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.objectify</groupId>
@@ -165,7 +165,7 @@
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>${appengine.version}</version>
+        <version>${google.appengine.version}</version>
         <configuration>
           <enableJarClasses>false</enableJarClasses>
           <port>8080</port>
