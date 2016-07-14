@@ -10,7 +10,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <struts2.version>2.5.2</struts2.version>
+    <struts2.version>2.5.3-SNAPSHOT</struts2.version>
     <log4j2.version>2.6.2</log4j2.version>
     <google.appengine.version>1.9.38</google.appengine.version>
   </properties>
@@ -26,9 +26,19 @@
           <groupId>org.freemarker</groupId>
           <artifactId>freemarker</artifactId>
         </exclusion>
+        <exclusion>
+          <artifactId>javassist</artifactId>
+          <groupId>org.javassist</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
 
+    <!-- the latest version that works on GAE -->
+    <dependency>
+      <artifactId>javassist</artifactId>
+      <groupId>org.javassist</groupId>
+      <version>3.18.2-GA</version>
+    </dependency>
     <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker-gae</artifactId>

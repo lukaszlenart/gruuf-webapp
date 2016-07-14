@@ -4,6 +4,22 @@
 	"http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 
+  <constant name="struts.excludedClasses"
+            value="
+                java.lang.Object,
+                java.lang.Runtime,
+                java.lang.System,
+                java.lang.Class,
+                java.lang.ClassLoader,
+                java.lang.ProcessBuilder,
+                ognl.OgnlContext,
+                ognl.ClassResolver,
+                ognl.TypeConverter,
+                ognl.MemberAccess,
+                ognl.DefaultMemberAccess,
+                com.opensymphony.xwork2.ognl.SecurityMemberAccess,
+                com.opensymphony.xwork2.ActionContext" />
+
   <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
   <constant name="struts.devMode" value="true"/>
   <constant name="struts.ui.theme" value="bootstrap"/>
