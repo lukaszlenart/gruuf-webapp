@@ -5,14 +5,14 @@
   <div class="col-md-12">
     <s:form action="login-submit" method="POST" cssClass="form-horizontal">
       <s:textfield name="email"
-                   placeholder="ie. lukasz@rbw.me"
+                   placeholder="e.g. lukasz@gruuf.com"
                    label="E-mail"
                    labelCssClass="col-md-4"
                    elementCssClass="col-md-4"
                    cssClass="input-md"/>
 
       <s:password name="password"
-                  placeholder="ie. mysecret"
+                  placeholder="e.g. mysecret"
                   label="Password"
                   labelCssClass="col-md-4"
                   elementCssClass="col-md-4"

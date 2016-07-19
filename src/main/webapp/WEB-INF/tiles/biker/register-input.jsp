@@ -6,20 +6,20 @@
     <s:form action="register-submit" method="POST" theme="bootstrap" cssClass="form-horizontal">
       <s:textfield name="email"
                    label="E-mail address"
-                   placeholder="ie. lukasz@rbw.me"
+                   placeholder="e.g. lukasz@gruuf.com"
                    labelCssClass="col-md-4"
                    elementCssClass="col-md-4"
                    cssClass="input-md"/>
 
       <s:password name="password1"
                   label="Password"
-                  placeholder="ie. your seecret"
+                  placeholder="e.g. your seecret"
                   labelCssClass="col-md-4"
                   elementCssClass="col-md-4"/>
 
       <s:password name="password2"
                   label="Repeat"
-                  placeholder="ie. your seecret"
+                  placeholder="e.g. your seecret"
                   labelCssClass="col-md-4"
                   elementCssClass="col-md-4"/>
 
