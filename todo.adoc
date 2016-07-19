@@ -1,5 +1,6 @@
 - [X] tokeny i dostep do stron
 - [ ] zarządzanie użytkownikami
+- [ ] kontrola czy dany user ma dostęp do danego motocykla
 - [ ] dodwanie EventType
 - [ ] dodawanie BikeEvent
 - [ ] export danych celem backupowania
