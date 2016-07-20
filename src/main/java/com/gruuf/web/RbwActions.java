@@ -13,4 +13,5 @@ public class RbwActions {
     public static final String BIKE_SHOW = "show";
 
     public static final String ADMIN_USERS = "users";
+    public static final String ADMIN_PASSWORD_RESET = "password-reset";
 }

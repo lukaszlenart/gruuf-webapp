@@ -61,6 +61,13 @@ public class User {
         return new UserCreator(RbwAuth.generateUUID());
     }
 
+    public static UserCreator clone(User user) {
+        return new UserCreator(user.getId())
+                .withEmail(user.getEmail())
+                .withPassword(user.getPassword())
+                .withTokens(user.getTokens());
+    }
+
     public static class UserCreator {
 
         private User target;
@@ -85,6 +92,14 @@ public class User {
                 target.tokens = new HashSet<>();
             }
             target.tokens.add(token);
+            return this;
+        }
+
+        public UserCreator withTokens(Set<Token> tokens) {
+            if (target.tokens == null) {
+                target.tokens = new HashSet<>();
+            }
+            target.tokens.addAll(tokens);
             return this;
         }
 

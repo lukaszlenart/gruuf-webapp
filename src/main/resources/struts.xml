@@ -48,6 +48,9 @@
         <interceptor-ref name="exception"/>
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
+        <interceptor-ref name="user"/>
+        <interceptor-ref name="garage"/>
+        <interceptor-ref name="bikeHistory"/>
         <interceptor-ref name="alias"/>
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>
@@ -60,9 +63,6 @@
         <interceptor-ref name="workflow">
           <param name="excludeMethods">input,back,cancel,browse</param>
         </interceptor-ref>
-        <interceptor-ref name="user"/>
-        <interceptor-ref name="garage"/>
-        <interceptor-ref name="bikeHistory"/>
         <interceptor-ref name="debugging"/>
       </interceptor-stack>
 

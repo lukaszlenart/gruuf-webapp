@@ -9,4 +9,14 @@
     <put-attribute name="body" value="/WEB-INF/tiles/admin/users.jsp"/>
   </definition>
 
+  <definition name="admin/password-reset" extends="logged-in">
+    <put-attribute name="title" value="Users"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/password-reset.jsp"/>
+  </definition>
+
+  <definition name="admin/update-password-input" extends="logged-in">
+    <put-attribute name="title" value="Users"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/password-reset.jsp"/>
+  </definition>
+
 </tiles-definitions>

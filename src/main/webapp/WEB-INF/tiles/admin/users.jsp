@@ -6,5 +6,9 @@
   <div class="row">
     <s:property value="email"/>
     <s:property value="tokens"/>
+    <s:url var="passwordResetUrl" action="password-reset">
+      <s:param name="userId" value="id"/>
+    </s:url>
+    <s:a value="%{passwordResetUrl}">Reset password</s:a>
   </div>
 </s:iterator>

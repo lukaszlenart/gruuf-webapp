@@ -1,5 +1,7 @@
 - [X] tokeny i dostep do stron
 - [ ] zarządzanie użytkownikami
+  - [ ] resetowanie hasła
+  - [ ] przypisywanie tokenów
 - [ ] kontrola czy dany user ma dostęp do danego motocykla
 - [ ] dodwanie EventType
 - [ ] dodawanie BikeEvent
