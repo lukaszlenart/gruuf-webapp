@@ -2,3 +2,4 @@
 *.iml
 target
 .java-version
+local_db.bin
