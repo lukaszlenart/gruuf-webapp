@@ -20,6 +20,9 @@ public class User {
     @Index
     private Set<Token> tokens;
 
+    private String firstName;
+    private String lastName;
+
     private User() {
     }
 
@@ -48,12 +51,22 @@ public class User {
         return false;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", tokens=" + tokens +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 
@@ -65,6 +78,8 @@ public class User {
         return new UserCreator(user.getId())
                 .withEmail(user.getEmail())
                 .withPassword(user.getPassword())
+                .withFirstName(user.getFirstName())
+                .withLastName(user.getLastName())
                 .withTokens(user.getTokens());
     }
 
@@ -72,7 +87,7 @@ public class User {
 
         private User target;
 
-        public UserCreator(String id) {
+        private UserCreator(String id) {
             target = new User();
             target.id = id;
         }
@@ -100,6 +115,21 @@ public class User {
                 target.tokens = new HashSet<>();
             }
             target.tokens.addAll(tokens);
+            return this;
+        }
+
+        public UserCreator withFirstName(String firstName) {
+            target.firstName = firstName;
+            return this;
+        }
+
+        public UserCreator withLastName(String lastName) {
+            target.lastName = lastName;
+            return this;
+        }
+
+        public UserCreator replaceTokens(Set<Token> tokens) {
+            target.tokens = tokens;
             return this;
         }
 

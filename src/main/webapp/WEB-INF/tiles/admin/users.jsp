@@ -6,6 +6,10 @@
   <div class="row">
     <s:property value="email"/>
     <s:property value="tokens"/>
+    <s:url var="editUserUrl" action="edit-user">
+      <s:param name="userId" value="id"/>
+    </s:url>
+    <s:a value="%{editUserUrl}">Edit</s:a>
     <s:url var="passwordResetUrl" action="password-reset">
       <s:param name="userId" value="id"/>
     </s:url>
