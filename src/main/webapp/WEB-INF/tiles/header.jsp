@@ -27,6 +27,10 @@
           <s:a href="%{users}">Users</s:a>
         </li>
         <li>
+          <s:url var="eventTypes" action="event-types" namespace="/admin"/>
+          <s:a href="%{eventTypes}">Event Types</s:a>
+        </li>
+        <li>
           <s:url var="logout" action="logout"/>
           <s:a href="%{logout}">Logout</s:a>
         </li>

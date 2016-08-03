@@ -1,9 +1,11 @@
 package com.gruuf.services;
 
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.EventType;
 
 import java.util.List;
 
@@ -26,6 +28,15 @@ public class BikeHistory {
                 .save()
                 .entity(event)
                 .now();
+    }
+
+    public List<EventType> listEventTypes() {
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(EventType.class)
+                .order("name")
+                .list();
     }
 
 }

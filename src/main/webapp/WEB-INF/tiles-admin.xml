@@ -24,4 +24,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/admin/edit-user.jsp"/>
   </definition>
 
+  <definition name="admin/event-types" extends="logged-in">
+    <put-attribute name="title" value="Event Types"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/event-types.jsp"/>
+  </definition>
+
 </tiles-definitions>
