@@ -2,8 +2,8 @@
 - [ ] zarządzanie użytkownikami
   - [X] resetowanie hasła
   - [X] przypisywanie tokenów
-- [ ] kontrola czy dany user ma dostęp do danego motocykla
-- [ ] kontrola czy dany user może edytować danego usera, czy @Token wystarcza
+- [X] kontrola czy dany user ma dostęp do danego motocykla
+- [X] kontrola czy dany user może edytować danego usera, czy @Token wystarcza
 - [ ] dodwanie EventType
 - [ ] dodawanie BikeEvent
 - [ ] export danych celem backupowania
