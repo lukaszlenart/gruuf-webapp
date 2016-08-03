@@ -29,4 +29,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/admin/event-types.jsp"/>
   </definition>
 
+  <definition name="admin/add-event-type-input" extends="logged-in">
+    <put-attribute name="title" value="New event type"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/new-event-type.jsp"/>
+  </definition>
+
 </tiles-definitions>

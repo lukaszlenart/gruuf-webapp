@@ -2,6 +2,8 @@ package com.gruuf.model;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
+import com.gruuf.web.RbwAuth;
 
 import java.util.Date;
 
@@ -9,8 +11,12 @@ import java.util.Date;
 public class EventType {
     @Id
     private String id;
+    @Index
     private String name;
     private Date created;
+
+    private EventType() {
+    }
 
     public String getId() {
         return id;
@@ -22,5 +28,38 @@ public class EventType {
 
     public Date getCreated() {
         return created;
+    }
+
+    @Override
+    public String toString() {
+        return "EventType{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", created=" + created +
+                '}';
+    }
+
+    public static EventTypeCreator create() {
+        return new EventTypeCreator(RbwAuth.generateUUID());
+    }
+
+    public static class EventTypeCreator {
+
+        private final EventType target;
+
+        private EventTypeCreator(String id) {
+            target = new EventType();
+            target.id = id;
+            target.created = new Date();
+        }
+
+        public EventTypeCreator withName(String name) {
+            target.name = name;
+            return this;
+        }
+
+        public EventType build() {
+            return target;
+        }
     }
 }
