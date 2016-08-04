@@ -2,10 +2,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<div class="row">
-  home
-</div>
-
 <s:iterator value="bikes" var="bike" >
   <div class="row">
   <s:url var="url" action="show" namespace="/bike">
