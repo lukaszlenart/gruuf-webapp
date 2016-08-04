@@ -2,6 +2,7 @@ package com.gruuf.services;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Ref;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
@@ -10,14 +11,12 @@ import java.util.List;
 
 public class BikeHistory {
 
-    public List<BikeEvent> get(String bikeId) {
-        Key<Bike> bike = Key.create(Bike.class, bikeId);
-
+    public List<BikeEvent> get(Bike bike) {
         return ObjectifyService
                 .ofy()
                 .load()
                 .type(BikeEvent.class)
-                .ancestor(bike)
+                .filter("bike =", bike)
                 .list();
     }
 

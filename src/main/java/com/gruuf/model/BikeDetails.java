@@ -34,7 +34,16 @@ public class BikeDetails {
         return currentUser;
     }
 
-    public List<BikeEvent> getHistory() {
+    public List<BikeEvent> getEvents() {
         return events;
+    }
+
+    @Override
+    public String toString() {
+        return "BikeDetails{" +
+                "bike=" + bike +
+                ", currentUser=" + currentUser +
+                ", events=" + events +
+                '}';
     }
 }

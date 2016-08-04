@@ -4,7 +4,7 @@
   - [X] przypisywanie tokenów
 - [X] kontrola czy dany user ma dostęp do danego motocykla
 - [X] kontrola czy dany user może edytować danego usera, czy @Token wystarcza
-- [ ] dodwanie EventType
+- [X] dodwanie EventType
 - [ ] dodawanie BikeEvent
 - [ ] export danych celem backupowania
 - [ ] I18N (polski)

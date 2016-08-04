@@ -1,0 +1,3 @@
+.btn.btn-link.collapsed:before {
+  content: "\e080";
+}

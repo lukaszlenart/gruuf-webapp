@@ -5,7 +5,7 @@
 <s:iterator value="bikes" var="bike" >
   <div class="row">
   <s:url var="url" action="show" namespace="/bike">
-    <s:param name="bike">${bike.id}</s:param>
+    <s:param name="bikeId">${bike.id}</s:param>
   </s:url>
   <s:a href="%{url}">${bike.name}</s:a>
   </div>

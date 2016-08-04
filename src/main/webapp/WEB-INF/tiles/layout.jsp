@@ -16,6 +16,8 @@
   </title>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
+  <link rel="stylesheet" href="/main.css">
+
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -28,7 +30,9 @@
 
   <div class="container">
     <div class="row">
-      <h2><tiles:insertAttribute name="title"/></h2>
+      <div class="page-header">
+        <h1><tiles:insertAttribute name="title"/></h1>
+      </div>
     </div>
     <div class="row">
       <s:actionerror cssClass="col-md-12"/>
