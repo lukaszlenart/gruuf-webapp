@@ -5,7 +5,7 @@
 - [X] kontrola czy dany user ma dostęp do danego motocykla
 - [X] kontrola czy dany user może edytować danego usera, czy @Token wystarcza
 - [X] dodwanie EventType
-- [ ] dodawanie BikeEvent
+- [X] dodawanie BikeEvent
 - [ ] export danych celem backupowania
 - [ ] I18N (polski)
 - [ ] walidacja po VIN celem unikniecia duplikatow
