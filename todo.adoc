@@ -1,5 +1,5 @@
 - [X] tokeny i dostep do stron
-- [ ] zarządzanie użytkownikami
+- [X] zarządzanie użytkownikami
   - [X] resetowanie hasła
   - [X] przypisywanie tokenów
 - [X] kontrola czy dany user ma dostęp do danego motocykla
