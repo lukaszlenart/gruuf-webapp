@@ -49,4 +49,11 @@ public class Garage {
         return bike.getOwner().getId().equals(byUser.getId());
     }
 
+    public List<Bike> list() {
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(Bike.class)
+                .list();
+    }
 }

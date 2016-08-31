@@ -31,6 +31,10 @@
           <s:a href="%{eventTypes}">Event Types</s:a>
         </li>
         <li>
+          <s:url var="backup" action="backup" namespace="/admin"/>
+          <s:a href="%{backup}">Backup</s:a>
+        </li>
+        <li>
           <s:url var="logout" action="logout"/>
           <s:a href="%{logout}">Logout</s:a>
         </li>
