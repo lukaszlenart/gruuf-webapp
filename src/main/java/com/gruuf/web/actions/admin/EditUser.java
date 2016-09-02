@@ -3,8 +3,8 @@ package com.gruuf.web.actions.admin;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.User;
+import com.gruuf.model.UserLocale;
 import com.gruuf.services.UserStore;
-import com.gruuf.web.RbwActions;
 import com.gruuf.web.interceptors.UserStoreAware;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
@@ -28,6 +28,7 @@ public class EditUser extends ActionSupport implements UserStoreAware {
     private String email;
     private String firstName;
     private String lastName;
+    private UserLocale userLocale;
     private Set<Token> tokens;
 
     @SkipValidation
@@ -39,6 +40,7 @@ public class EditUser extends ActionSupport implements UserStoreAware {
         email = user.getEmail();
         firstName = user.getFirstName();
         lastName = user.getLastName();
+        userLocale = user.getUserLocale();
         tokens = user.getTokens();
 
         return INPUT;
@@ -59,6 +61,7 @@ public class EditUser extends ActionSupport implements UserStoreAware {
                 .replaceTokens(tokens)
                 .withFirstName(firstName)
                 .withLastName(lastName)
+                .withUserLocale(userLocale)
                 .build();
 
         LOG.debug("Storing updated user {}", updatedUser);
@@ -119,7 +122,19 @@ public class EditUser extends ActionSupport implements UserStoreAware {
         this.tokens = tokens;
     }
 
+    public UserLocale getUserLocale() {
+        return userLocale;
+    }
+
+    public void setUserLocale(UserLocale userLocale) {
+        this.userLocale = userLocale;
+    }
+
     public Set<Token> getAvailableTokens() {
         return Token.all();
+    }
+
+    public Set<UserLocale> getAvailableUserLocales() {
+        return UserLocale.all();
     }
 }

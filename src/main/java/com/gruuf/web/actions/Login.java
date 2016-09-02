@@ -9,6 +9,7 @@ import com.gruuf.services.UserStore;
 import com.gruuf.web.interceptors.UserStoreAware;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.interceptor.I18nInterceptor;
 import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.Map;
@@ -32,6 +33,9 @@ public class Login extends ActionSupport implements SessionAware, UserStoreAware
         User user = userStore.getByEmail(email);
         if (user != null && RbwAuth.isPasswordValid(password, user.getPassword())) {
             session.put(RbwAuth.AUTH_TOKEN, user.getId());
+            LOG.debug("Sets user's Locale to {}", user.getUserLocale());
+            session.put(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, user.getUserLocale().toLocale());
+
             return RbwActions.HOME;
         } else {
             addActionError("Cannot login!");

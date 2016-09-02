@@ -22,6 +22,7 @@ public class User {
 
     private String firstName;
     private String lastName;
+    private UserLocale userLocale;
 
     private User() {
     }
@@ -59,6 +60,10 @@ public class User {
         return lastName;
     }
 
+    public UserLocale getUserLocale() {
+        return userLocale != null ? userLocale : UserLocale.EN;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -67,6 +72,7 @@ public class User {
                 ", tokens=" + tokens +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", userLocale='" + userLocale + '\'' +
                 '}';
     }
 
@@ -80,6 +86,7 @@ public class User {
                 .withPassword(user.getPassword())
                 .withFirstName(user.getFirstName())
                 .withLastName(user.getLastName())
+                .withUserLocale(user.getUserLocale())
                 .withTokens(user.getTokens());
     }
 
@@ -90,6 +97,7 @@ public class User {
         private UserCreator(String id) {
             target = new User();
             target.id = id;
+            target.userLocale = UserLocale.EN;
         }
 
         public UserCreator withEmail(String email) {
@@ -130,6 +138,11 @@ public class User {
 
         public UserCreator replaceTokens(Set<Token> tokens) {
             target.tokens = tokens;
+            return this;
+        }
+
+        public UserCreator withUserLocale(UserLocale locale) {
+            target.userLocale = locale;
             return this;
         }
 

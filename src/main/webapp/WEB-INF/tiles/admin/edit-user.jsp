@@ -29,6 +29,11 @@
                       labelCssClass="col-md-4"
                       elementCssClass="col-md-4"/>
 
+      <s:select list="availableUserLocales"
+                name="userLocale"
+                labelCssClass="col-md-4"
+                elementCssClass="col-md-4"/>
+
       <div class="form-group">
         <div class="col-sm-offset-7">
           <s:submit cssClass="btn btn-primary" key="Change" />
