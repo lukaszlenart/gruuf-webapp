@@ -2,7 +2,6 @@ package com.gruuf.web.actions;
 
 import com.gruuf.web.RbwActions;
 import com.gruuf.web.RbwAuth;
-import com.opensymphony.xwork2.ActionSupport;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
@@ -16,7 +15,7 @@ import java.util.Map;
 
 @InterceptorRef("defaultWithMessages")
 @Anonymous
-public class Login extends ActionSupport implements SessionAware, UserStoreAware {
+public class Login extends BaseAction implements SessionAware, UserStoreAware {
 
     private Map<String, Object> session;
     private UserStore userStore;

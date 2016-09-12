@@ -4,7 +4,7 @@ import com.gruuf.auth.Anonymous;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.web.RbwActions;
-import com.opensymphony.xwork2.ActionSupport;
+import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
@@ -14,7 +14,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 @Anonymous
-public class Register extends ActionSupport implements UserStoreAware {
+public class Register extends BaseAction implements UserStoreAware {
 
     private UserStore userStore;
 

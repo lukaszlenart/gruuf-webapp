@@ -1,20 +1,17 @@
 package com.gruuf.web.actions.bike;
 
+import com.gruuf.model.Bike;
 import com.gruuf.services.Garage;
 import com.gruuf.web.RbwActions;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.gruuf.model.Bike;
-import com.gruuf.model.User;
-import com.gruuf.web.interceptors.CurrentUserAware;
+import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.GarageAware;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-public class Add extends ActionSupport implements GarageAware, CurrentUserAware {
+public class Add extends BaseAction implements GarageAware {
 
     private Garage garage;
-    private User currentUser;
 
     @SkipValidation
     public String execute() {
@@ -59,8 +56,4 @@ public class Add extends ActionSupport implements GarageAware, CurrentUserAware 
         this.garage = garage;
     }
 
-    @Override
-    public void setUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
 }

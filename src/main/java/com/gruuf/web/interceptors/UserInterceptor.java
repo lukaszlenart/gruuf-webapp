@@ -1,24 +1,39 @@
 package com.gruuf.web.interceptors;
 
-import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.gruuf.RbwServices;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.RbwAuth;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UserInterceptor extends AbstractInterceptor {
+
+    private static Logger LOG = LogManager.getLogger(UserInterceptor.class);
+    private static final User NOT_LOGGED_IN = User.create().build();
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
         if (invocation.getAction() instanceof CurrentUserAware) {
+            LOG.debug("Action implements {}, injecting user", CurrentUserAware.class.getSimpleName());
+
             String authToken = (String) invocation.getInvocationContext().getSession().get(RbwAuth.AUTH_TOKEN);
-            UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(RbwServices.USER_REGISTER);
-            User currentUser = userStore.get(authToken);
-            ((CurrentUserAware) invocation.getAction()).setUser(currentUser);
+            if (authToken == null) {
+                LOG.debug("AuthToken is null, assuming not-logged-in");
+                ((CurrentUserAware) invocation.getAction()).setUser(NOT_LOGGED_IN);
+            } else {
+                LOG.debug("AuthToke is {}, fetching user from store", authToken);
+                UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(RbwServices.USER_REGISTER);
+                User currentUser = userStore.get(authToken);
+                ((CurrentUserAware) invocation.getAction()).setUser(currentUser);
+            }
         }
 
         if (invocation.getAction() instanceof UserStoreAware) {
+            LOG.debug("Action implements {}, injecting user store", UserStoreAware.class.getSimpleName());
+
             UserStoreAware userStoreAware = (UserStoreAware) invocation.getAction();
             UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(RbwServices.USER_REGISTER);
             userStoreAware.setUserStore(userStore);

@@ -4,15 +4,15 @@ import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.EventType;
 import com.gruuf.services.BikeHistory;
+import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.BikeHistoryAware;
-import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 @Tokens(Token.ADMIN)
-public class EventTypes extends ActionSupport implements BikeHistoryAware {
+public class EventTypes extends BaseAction implements BikeHistoryAware {
 
     private static Logger LOG = LogManager.getLogger(EventTypes.class);
 

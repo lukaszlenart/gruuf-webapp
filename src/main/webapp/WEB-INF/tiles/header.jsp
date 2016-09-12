@@ -22,6 +22,7 @@
           <s:url var="addbike" action="add" namespace="/bike"/>
           <s:a href="%{addbike}"><s:text name="bike.add"/></s:a>
         </li>
+        <s:if test="admin">
         <li>
           <s:url var="users" action="users" namespace="/admin"/>
           <s:a href="%{users}"><s:text name="users.title"/></s:a>
@@ -34,6 +35,7 @@
           <s:url var="backup" action="backup" namespace="/admin"/>
           <s:a href="%{backup}"><s:text name="backup.title"/></s:a>
         </li>
+        </s:if>
         <li>
           <s:url var="logout" action="logout"/>
           <s:a href="%{logout}"><s:text name="logout.title"/></s:a>

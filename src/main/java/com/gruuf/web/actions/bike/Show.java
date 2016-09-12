@@ -4,14 +4,12 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
-import com.gruuf.model.User;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.web.RbwActions;
+import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.BikeHistoryAware;
-import com.gruuf.web.interceptors.CurrentUserAware;
 import com.gruuf.web.interceptors.GarageAware;
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Result(name = "to-show-bike", location = "show", type = "redirectAction", params = {"bikeId", "${bikeId}"})
-public class Show extends ActionSupport implements GarageAware, CurrentUserAware, BikeHistoryAware {
+public class Show extends BaseAction implements GarageAware, BikeHistoryAware {
 
     private static Logger LOG = LogManager.getLogger(Show.class);
 
@@ -32,7 +30,6 @@ public class Show extends ActionSupport implements GarageAware, CurrentUserAware
     private BikeDetails bikeDetails;
 
     private Garage garage;
-    private User currentUser;
     private BikeHistory bikeHistory;
 
     private String eventTypeId;
@@ -93,11 +90,6 @@ public class Show extends ActionSupport implements GarageAware, CurrentUserAware
     @Override
     public void setGarage(Garage garage) {
         this.garage = garage;
-    }
-
-    @Override
-    public void setUser(User currentUser) {
-        this.currentUser = currentUser;
     }
 
     @Override

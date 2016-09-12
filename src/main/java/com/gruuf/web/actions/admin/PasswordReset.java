@@ -5,8 +5,8 @@ import com.gruuf.auth.Tokens;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.RbwActions;
+import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.UserStoreAware;
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 @Tokens(Token.ADMIN)
-public class PasswordReset extends ActionSupport implements UserStoreAware {
+public class PasswordReset extends BaseAction implements UserStoreAware {
 
     private static Logger LOG = LogManager.getLogger(PasswordReset.class);
 
@@ -53,7 +53,7 @@ public class PasswordReset extends ActionSupport implements UserStoreAware {
         if (user == null) {
             LOG.error("Cannot find user with id {} to reset password!", userId);
             addActionError("No user with such ID %{userId}!");
-        }  else {
+        } else {
             if (!user.getPassword().equals(oldPassword)) {
                 addFieldError("oldPassword", "Password doesn't match existing password!");
             }

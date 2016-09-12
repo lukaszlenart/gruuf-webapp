@@ -5,8 +5,8 @@ import com.gruuf.auth.Tokens;
 import com.gruuf.model.User;
 import com.gruuf.model.UserLocale;
 import com.gruuf.services.UserStore;
+import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.UserStoreAware;
-import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Tokens(Token.ADMIN)
 @Result(name = "to-users", location = "users", type = "redirectAction")
-public class EditUser extends ActionSupport implements UserStoreAware {
+public class EditUser extends BaseAction implements UserStoreAware {
 
     private static Logger LOG = LogManager.getLogger(EditUser.class);
 
