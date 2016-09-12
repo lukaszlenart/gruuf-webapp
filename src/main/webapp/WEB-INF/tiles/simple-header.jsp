@@ -16,9 +16,9 @@
       <ul class="nav navbar-nav">
         <li>
           <s:url var="registerBiker" action="register" namespace="/biker" />
-          <s:a href="%{registerBiker}">Register</s:a>
+          <s:a href="%{registerBiker}"><s:text name="general.register"/></s:a>
         </li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact"><s:text name="contact.title"/></a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

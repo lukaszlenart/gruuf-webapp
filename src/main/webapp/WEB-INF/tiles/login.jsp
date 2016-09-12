@@ -5,22 +5,22 @@
   <div class="col-md-12">
     <s:form action="login-submit" method="POST" cssClass="form-horizontal">
       <s:textfield name="email"
-                   placeholder="e.g. lukasz@gruuf.com"
+                   placeholder="%{getText('user.email.placeholder')}"
                    label="E-mail"
                    labelCssClass="col-md-4"
                    elementCssClass="col-md-4"
                    cssClass="input-md"/>
 
       <s:password name="password"
-                  placeholder="e.g. mysecret"
-                  label="Password"
+                  placeholder="%{getText('user.password.placeholder')}"
+                  key="user.password"
                   labelCssClass="col-md-4"
                   elementCssClass="col-md-4"
                   cssClass="input-md"/>
 
       <div class="form-group">
         <div class="col-sm-offset-7">
-          <s:submit cssClass="btn btn-primary" key="Login"/>
+          <s:submit cssClass="btn btn-primary" key="user.login"/>
         </div>
       </div>
 

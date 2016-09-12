@@ -19,17 +19,17 @@
   </definition>
 
   <definition name="home" extends="logged-in">
-    <put-attribute name="title" value="Home"/>
+    <put-attribute name="title" expression="I18N:home.title"/>
     <put-attribute name="body" value="/WEB-INF/tiles/home.jsp"/>
   </definition>
 
   <definition name="login" extends="not-logged-in">
-    <put-attribute name="title" value="Login"/>
+    <put-attribute name="title" expression="I18N:login.title"/>
     <put-attribute name="body" value="/WEB-INF/tiles/login.jsp"/>
   </definition>
 
   <definition name="biker/input" extends="not-logged-in">
-    <put-attribute name="title" value="Register a new biker"/>
+    <put-attribute name="title" expression="I18N:biker.register.title"/>
     <put-attribute name="body" value="/WEB-INF/tiles/biker/register-input.jsp"/>
   </definition>
 

@@ -16,29 +16,29 @@
       <ul class="nav navbar-nav">
         <li>
           <s:url var="home" action="home" namespace="/" />
-          <s:a href="%{home}">Home</s:a>
+          <s:a href="%{home}"><s:text name="home.title"/></s:a>
         </li>
         <li>
           <s:url var="addbike" action="add" namespace="/bike"/>
-          <s:a href="%{addbike}">Add bike</s:a>
+          <s:a href="%{addbike}"><s:text name="bike.add"/></s:a>
         </li>
         <li>
           <s:url var="users" action="users" namespace="/admin"/>
-          <s:a href="%{users}">Users</s:a>
+          <s:a href="%{users}"><s:text name="users.title"/></s:a>
         </li>
         <li>
           <s:url var="eventTypes" action="event-types" namespace="/admin"/>
-          <s:a href="%{eventTypes}">Event Types</s:a>
+          <s:a href="%{eventTypes}"><s:text name="eventTypes.title"/></s:a>
         </li>
         <li>
           <s:url var="backup" action="backup" namespace="/admin"/>
-          <s:a href="%{backup}">Backup</s:a>
+          <s:a href="%{backup}"><s:text name="backup.title"/></s:a>
         </li>
         <li>
           <s:url var="logout" action="logout"/>
-          <s:a href="%{logout}">Logout</s:a>
+          <s:a href="%{logout}"><s:text name="logout.title"/></s:a>
         </li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact"><s:text name="contact.title"/></a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
