@@ -5,12 +5,17 @@
 <tiles-definitions>
 
   <definition name="bike/add-input" extends="logged-in">
-    <put-attribute name="title" value="Add new bike"/>
+    <put-attribute name="title" expression="I18N:bike.addNewBike"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/add-input.jsp"/>
   </definition>
 
   <definition name="bike/show" extends="logged-in">
-    <put-attribute name="title" value="Bike details"/>
+    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/show.jsp"/>
+  </definition>
+
+  <definition name="bike/register-bike-event-input" extends="logged-in">
+    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/show.jsp"/>
   </definition>
 

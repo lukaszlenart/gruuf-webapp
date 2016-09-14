@@ -2,11 +2,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <div class="row">
-  <h2>
-    <s:property value="bikeDetails.bike.name"/>
-  </h2>
-</div>
-<div class="row">
   <div class="col-md-6">
     <h3>
       <s:text name="bike.registerNewEvent"/>
@@ -29,7 +24,9 @@
 
       <s:textarea name="descriptiveName"
                   key="bike.descriptiveName"
-                  placeholder="e.g. bought a new bike"
+                  placeholder="%{getText('bike.descriptiveName.placeholder')}"
+                  cols="40"
+                  rows="6"
                   labelCssClass="col-md-4"
                   elementCssClass="col-md-6"
                   cssClass="input-md"/>
@@ -37,7 +34,7 @@
       <s:textfield name="registerDate"
                    type="date"
                    key="bike.date"
-                   placeholder="e.g. 12/Aug/2016"
+                   placeholder="%{getText('bike.date.placeholder')}"
                    labelCssClass="col-md-4"
                    elementCssClass="col-md-6"
                    cssClass="input-md"/>
@@ -45,7 +42,7 @@
       <s:textfield name="mileage"
                    type="number"
                    key="bike.mileageInKm"
-                   placeholder="e.g. 12 000"
+                   placeholder="%{getText('bike.mileageInKm.placeholder')}"
                    labelCssClass="col-md-4"
                    elementCssClass="col-md-6"
                    cssClass="input-md"/>
@@ -60,9 +57,16 @@
   </div>
 </div>
 
-<s:iterator value="bikeDetails.events" var="event">
-  <div class="row">
-    <s:property value="#event.descriptiveName"/>
-    <s:property value="#event.timestamp"/>
+<div class="row">
+  <div class="col-md-6">
+    <h3><s:text name="bike.bikeHistory"/></h3>
   </div>
-</s:iterator>
+</div>
+<div class="row">
+  <s:iterator value="bikeDetails.events" var="event">
+    <div class="col-md-6">
+      <s:property value="#event.descriptiveName"/>
+      <s:property value="#event.timestamp"/>
+    </div>
+  </s:iterator>
+</div>
