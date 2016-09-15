@@ -21,7 +21,6 @@
                 com.opensymphony.xwork2.ActionContext" />
 
   <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
-  <constant name="struts.devMode" value="true"/>
   <constant name="struts.ui.theme" value="bootstrap"/>
   <constant name="struts.action.extension" value=""/>
   <constant name="struts.action.excludePattern" value="/_ah/.*,/favicon\.ico"/>
