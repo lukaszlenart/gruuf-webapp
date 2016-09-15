@@ -7,8 +7,9 @@
 - [X] dodwanie EventType
 - [X] dodawanie BikeEvent
 - [X] export danych celem backupowania
-- [ ] I18N (polski)
+- [X] I18N (polski)
 - [ ] walidacja po VIN celem unikniecia duplikatow
 - [ ] definiowanie triggerów dla poszczególnych EventType
+- [ ] tłumaczenie EventType
 - [ ] logowanie Facebook / Google
 - [ ] aktulizacja przebiegu
