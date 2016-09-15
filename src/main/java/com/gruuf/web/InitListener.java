@@ -8,6 +8,7 @@ import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.RbwServices;
 import com.gruuf.model.Bike;
+import com.gruuf.services.Reindexable;
 import com.gruuf.services.UserStore;
 import ognl.OgnlRuntime;
 
@@ -25,6 +26,8 @@ public class InitListener implements ServletContextListener {
         ObjectifyService.register(Bike.class);
 
         final Garage garage = new Garage();
+        garage.reindex();
+
         final UserStore userStore = new UserStore();
         final BikeHistory bikeHistory = new BikeHistory();
 

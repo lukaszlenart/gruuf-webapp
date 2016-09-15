@@ -14,6 +14,7 @@ public class Bike {
     private String name;
     @Index
     private Ref<User> owner;
+    @Index
     private String vin;
 
     private Bike() {
@@ -44,6 +45,8 @@ public class Bike {
         return "Bike{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", owner=" + owner +
+                ", vin='" + vin + '\'' +
                 '}';
     }
 

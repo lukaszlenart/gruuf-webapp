@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class Garage {
+public class Garage extends Reindexable<Bike> {
 
     private static Logger LOG = LogManager.getLogger(Garage.class);
 
@@ -55,5 +55,18 @@ public class Garage {
                 .load()
                 .type(Bike.class)
                 .list();
+    }
+
+    public Bike findByVin(String vin) {
+        List<Bike> bikes = ObjectifyService
+                .ofy()
+                .load()
+                .type(Bike.class)
+                .filter("vin =", vin.trim())
+                .list();
+        if (bikes.isEmpty()) {
+            return null;
+        }
+        return bikes.get(0);
     }
 }
