@@ -16,12 +16,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import java.util.Date;
 import java.util.List;
 
-@Result(name = "to-show-bike", location = "show", type = "redirectAction", params = {"bikeId", "${bikeId}"})
+import static com.opensymphony.xwork2.Action.INPUT;
+
+@Results(value = {
+        @Result(name = "to-show-bike", location = "show", type = "redirectAction", params = {"bikeId", "${bikeId}"}),
+        @Result(name = INPUT, location = "bike/show")
+})
 public class Show extends BaseAction implements GarageAware, BikeHistoryAware {
 
     private static Logger LOG = LogManager.getLogger(Show.class);
