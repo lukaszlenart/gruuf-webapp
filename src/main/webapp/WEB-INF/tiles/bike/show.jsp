@@ -63,10 +63,20 @@
   </div>
 </div>
 <div class="row">
-  <s:iterator value="bikeDetails.events" var="event">
-    <div class="col-md-6">
-      <s:property value="#event.descriptiveName"/>
-      <s:property value="#event.timestamp"/>
-    </div>
-  </s:iterator>
+  <div class="col-md-6">
+    <s:text name="bikeEvent.descriptiveName"/>
+    <s:text name="bikeEvent.eventDate"/>
+    <s:text name="bikeEvent.mileage"/>
+    <s:text name="bikeEvent.timestamp"/>
+  </div>
 </div>
+<s:iterator value="bikeDetails.events" var="event">
+<div class="row">
+  <div class="col-md-6">
+    <s:property value="descriptiveName"/>
+    <s:property value="registerDate"/>
+    <s:property value="mileage"/>
+    <s:property value="timestamp"/>
+  </div>
+</div>
+</s:iterator>
