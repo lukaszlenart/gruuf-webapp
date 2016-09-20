@@ -16,9 +16,9 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 @Tokens(Token.ADMIN)
 @Result(name = "to-event-types", location = "event-types", type = "redirectAction")
-public class AddEventType extends BaseAction implements BikeHistoryAware {
+public class AddEventTypeAction extends BaseAction implements BikeHistoryAware {
 
-    private static Logger LOG = LogManager.getLogger(AddEventType.class);
+    private static Logger LOG = LogManager.getLogger(AddEventTypeAction.class);
 
     private BikeHistory bikeHistory;
 

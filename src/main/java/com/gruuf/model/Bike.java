@@ -4,7 +4,7 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 
 @Entity
 public class Bike {
@@ -59,7 +59,7 @@ public class Bike {
 
         public BikeBuilder(User owner) {
             target = new Bike(owner);
-            target.id = RbwAuth.generateUUID();
+            target.id = GruufAuth.generateUUID();
         }
 
         public BikeBuilder withFriendlyName(String friendlyName) {

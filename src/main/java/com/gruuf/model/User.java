@@ -4,7 +4,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.gruuf.auth.Token;
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -77,7 +77,7 @@ public class User {
     }
 
     public static UserCreator create() {
-        return new UserCreator(RbwAuth.generateUUID());
+        return new UserCreator(GruufAuth.generateUUID());
     }
 
     public static UserCreator clone(User user) {

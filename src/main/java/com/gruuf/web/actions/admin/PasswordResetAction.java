@@ -15,9 +15,9 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 @Tokens(Token.ADMIN)
-public class PasswordReset extends BaseAction implements UserStoreAware {
+public class PasswordResetAction extends BaseAction implements UserStoreAware {
 
-    private static Logger LOG = LogManager.getLogger(PasswordReset.class);
+    private static Logger LOG = LogManager.getLogger(PasswordResetAction.class);
 
     private UserStore userStore;
 

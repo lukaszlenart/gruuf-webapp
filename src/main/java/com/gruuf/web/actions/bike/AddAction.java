@@ -14,7 +14,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import static com.opensymphony.xwork2.Action.INPUT;
 
 @Result(name = INPUT, location = "bike/add-input")
-public class Add extends BaseAction implements GarageAware, Validateable {
+public class AddAction extends BaseAction implements GarageAware, Validateable {
 
     private Garage garage;
 

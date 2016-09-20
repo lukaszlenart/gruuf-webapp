@@ -28,9 +28,9 @@ import static com.opensymphony.xwork2.Action.INPUT;
         @Result(name = "to-show-bike", location = "show", type = "redirectAction", params = {"bikeId", "${bikeId}"}),
         @Result(name = INPUT, location = "bike/show")
 })
-public class Show extends BaseAction implements GarageAware, BikeHistoryAware {
+public class ShowAction extends BaseAction implements GarageAware, BikeHistoryAware {
 
-    private static Logger LOG = LogManager.getLogger(Show.class);
+    private static Logger LOG = LogManager.getLogger(ShowAction.class);
 
     private String bikeId;
     private BikeDetails bikeDetails;

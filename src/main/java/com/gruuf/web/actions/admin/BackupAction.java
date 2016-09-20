@@ -33,9 +33,9 @@ import java.util.zip.ZipOutputStream;
                 "contentDisposition", "attachment;filename=\"backup.zip\""
         }
 )
-public class Backup extends BaseAction implements UserStoreAware, BikeHistoryAware, GarageAware {
+public class BackupAction extends BaseAction implements UserStoreAware, BikeHistoryAware, GarageAware {
 
-    private static Logger LOG = LogManager.getLogger(Backup.class);
+    private static Logger LOG = LogManager.getLogger(BackupAction.class);
     private UserStore userStore;
     private BikeHistory bikeHistory;
     private Garage garage;

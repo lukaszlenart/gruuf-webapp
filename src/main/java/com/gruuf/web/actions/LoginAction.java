@@ -1,7 +1,7 @@
 package com.gruuf.web.actions;
 
 import com.gruuf.web.GruufActions;
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @InterceptorRef("defaultWithMessages")
 @Anonymous
-public class Login extends BaseAction implements SessionAware, UserStoreAware {
+public class LoginAction extends BaseAction implements SessionAware, UserStoreAware {
 
     private Map<String, Object> session;
     private UserStore userStore;
@@ -30,8 +30,8 @@ public class Login extends BaseAction implements SessionAware, UserStoreAware {
     @Action(value = "login-submit")
     public String submit() {
         User user = userStore.getByEmail(email);
-        if (user != null && RbwAuth.isPasswordValid(password, user.getPassword())) {
-            session.put(RbwAuth.AUTH_TOKEN, user.getId());
+        if (user != null && GruufAuth.isPasswordValid(password, user.getPassword())) {
+            session.put(GruufAuth.AUTH_TOKEN, user.getId());
             LOG.debug("Sets user's Locale to {}", user.getUserLocale());
             session.put(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, user.getUserLocale().toLocale());
 
@@ -44,7 +44,7 @@ public class Login extends BaseAction implements SessionAware, UserStoreAware {
 
     @Action(value = "logout")
     public String logout() {
-        session.put(RbwAuth.AUTH_TOKEN, null);
+        session.put(GruufAuth.AUTH_TOKEN, null);
         return GruufActions.LOGIN;
     }
 

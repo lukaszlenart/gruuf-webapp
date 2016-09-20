@@ -1,7 +1,7 @@
 package com.gruuf.web.interceptors;
 
 import com.gruuf.web.GruufActions;
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.util.AnnotationUtils;
@@ -34,7 +34,7 @@ public class AuthInterceptor extends AbstractInterceptor {
     }
 
     private User readCurrentUser(ActionInvocation invocation) {
-        String authToken = (String) invocation.getInvocationContext().getSession().get(RbwAuth.AUTH_TOKEN);
+        String authToken = (String) invocation.getInvocationContext().getSession().get(GruufAuth.AUTH_TOKEN);
         UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(RbwServices.USER_REGISTER);
         if (authToken == null) {
             LOG.debug("User not logged-in yet!");

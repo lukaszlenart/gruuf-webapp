@@ -1,6 +1,6 @@
 package com.gruuf.web.interceptors;
 
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -33,8 +33,8 @@ public class LoginInterceptor extends AbstractInterceptor {
     }
 
     private boolean isUserLoggedIn(ActionContext context) {
-        LOG.debug("Checking if token {} exists", RbwAuth.AUTH_TOKEN);
-        return context.getSession().get(RbwAuth.AUTH_TOKEN) != null;
+        LOG.debug("Checking if token {} exists", GruufAuth.AUTH_TOKEN);
+        return context.getSession().get(GruufAuth.AUTH_TOKEN) != null;
     }
 
 }

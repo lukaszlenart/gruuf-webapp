@@ -1,9 +1,9 @@
 package com.gruuf;
 
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 
 public class RbwServices {
-    public static final String USER_REGISTER = RbwAuth.generateUUID() + "-userstore";
-    public static final String GARAGE = RbwAuth.generateUUID() + "-garage";
-    public static final String BIKE_HISTORY = RbwAuth.generateUUID() + "-bike-history";
+    public static final String USER_REGISTER = GruufAuth.generateUUID() + "-userstore";
+    public static final String GARAGE = GruufAuth.generateUUID() + "-garage";
+    public static final String BIKE_HISTORY = GruufAuth.generateUUID() + "-bike-history";
 }

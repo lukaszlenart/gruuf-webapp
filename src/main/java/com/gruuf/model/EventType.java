@@ -3,7 +3,7 @@ package com.gruuf.model;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 
 import java.util.Date;
 
@@ -40,7 +40,7 @@ public class EventType {
     }
 
     public static EventTypeCreator create() {
-        return new EventTypeCreator(RbwAuth.generateUUID());
+        return new EventTypeCreator(GruufAuth.generateUUID());
     }
 
     public static class EventTypeCreator {

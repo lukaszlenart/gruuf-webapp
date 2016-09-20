@@ -6,9 +6,9 @@ import org.apache.logging.log4j.Logger;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-public class RbwAuth {
+public class GruufAuth {
 
-    private static Logger LOG = LogManager.getLogger(RbwAuth.class);
+    private static Logger LOG = LogManager.getLogger(GruufAuth.class);
 
     public static final SecureRandom RANDOM = new SecureRandom();
 

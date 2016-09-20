@@ -18,9 +18,9 @@ import java.util.Set;
 
 @Tokens(Token.ADMIN)
 @Result(name = "to-users", location = "users", type = "redirectAction")
-public class EditUser extends BaseAction implements UserStoreAware {
+public class EditUserAction extends BaseAction implements UserStoreAware {
 
-    private static Logger LOG = LogManager.getLogger(EditUser.class);
+    private static Logger LOG = LogManager.getLogger(EditUserAction.class);
 
     private UserStore userStore;
 

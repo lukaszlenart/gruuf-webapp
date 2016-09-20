@@ -4,7 +4,7 @@ import com.gruuf.auth.Anonymous;
 import com.gruuf.web.GruufActions;
 
 @Anonymous
-public class Index extends BaseAction {
+public class IndexAction extends BaseAction {
 
     public String execute() {
         return GruufActions.GARAGE;

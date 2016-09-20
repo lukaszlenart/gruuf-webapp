@@ -12,9 +12,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 @Tokens(Token.ADMIN)
-public class EventTypes extends BaseAction implements BikeHistoryAware {
+public class EventTypesAction extends BaseAction implements BikeHistoryAware {
 
-    private static Logger LOG = LogManager.getLogger(EventTypes.class);
+    private static Logger LOG = LogManager.getLogger(EventTypesAction.class);
 
     private BikeHistory bikeHistory;
 

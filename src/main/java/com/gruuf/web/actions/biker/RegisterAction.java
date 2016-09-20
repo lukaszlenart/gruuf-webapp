@@ -14,7 +14,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 @Anonymous
-public class Register extends BaseAction implements UserStoreAware {
+public class RegisterAction extends BaseAction implements UserStoreAware {
 
     private UserStore userStore;
 

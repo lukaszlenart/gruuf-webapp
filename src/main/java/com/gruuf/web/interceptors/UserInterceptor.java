@@ -3,7 +3,7 @@ package com.gruuf.web.interceptors;
 import com.gruuf.RbwServices;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +19,7 @@ public class UserInterceptor extends AbstractInterceptor {
         if (invocation.getAction() instanceof CurrentUserAware) {
             LOG.debug("Action implements {}, injecting user", CurrentUserAware.class.getSimpleName());
 
-            String authToken = (String) invocation.getInvocationContext().getSession().get(RbwAuth.AUTH_TOKEN);
+            String authToken = (String) invocation.getInvocationContext().getSession().get(GruufAuth.AUTH_TOKEN);
             if (authToken == null) {
                 LOG.debug("AuthToken is null, assuming not-logged-in");
                 ((CurrentUserAware) invocation.getAction()).setUser(NOT_LOGGED_IN);

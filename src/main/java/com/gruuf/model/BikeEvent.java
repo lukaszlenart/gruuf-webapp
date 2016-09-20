@@ -6,11 +6,9 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
-import com.gruuf.web.RbwAuth;
+import com.gruuf.web.GruufAuth;
 
 import java.util.Date;
-
-import static org.apache.struts2.interceptor.DateTextFieldInterceptor.DateWord.y;
 
 @Entity
 public class BikeEvent {
@@ -85,7 +83,7 @@ public class BikeEvent {
 
         private BikeEventBuilder(Bike bike) {
             target = new BikeEvent(bike);
-            target.id = RbwAuth.generateUUID();
+            target.id = GruufAuth.generateUUID();
             target.timestamp = new Date();
         }
 
