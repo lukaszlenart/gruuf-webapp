@@ -7,9 +7,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class Garage extends BaseAction implements GarageAware {
+public class GarageAction extends BaseAction implements GarageAware {
 
-    private static Logger LOG = LogManager.getLogger(Garage.class);
+    private static Logger LOG = LogManager.getLogger(GarageAction.class);
 
     private com.gruuf.services.Garage garage;
 
