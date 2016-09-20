@@ -63,20 +63,44 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-2">
+    <s:text name="bikeEvent.eventType"/>
+  </div>
+  <div class="col-md-4">
     <s:text name="bikeEvent.descriptiveName"/>
+  </div>
+  <div class="col-md-1">
     <s:text name="bikeEvent.eventDate"/>
+  </div>
+  <div class="col-md-1">
     <s:text name="bikeEvent.mileage"/>
+  </div>
+  <div class="col-md-1">
     <s:text name="bikeEvent.timestamp"/>
   </div>
 </div>
 <s:iterator value="bikeDetails.events" var="event">
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-2">
+    <s:property value="eventType.name"/>
+  </div>
+  <div class="col-md-4">
     <s:property value="descriptiveName"/>
+  </div>
+  <div class="col-md-1">
     <s:property value="registerDate"/>
+  </div>
+  <div class="col-md-1">
     <s:property value="mileage"/>
+  </div>
+  <div class="col-md-1">
     <s:property value="timestamp"/>
   </div>
 </div>
 </s:iterator>
+
+<s:if test="showRegisterForm">
+<script type="application/javascript">
+  $('#new-bike-event-form').collapse('show');
+</script>
+</s:if>

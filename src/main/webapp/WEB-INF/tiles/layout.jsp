@@ -18,6 +18,9 @@
 
   <link rel="stylesheet" href="/main.css">
 
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

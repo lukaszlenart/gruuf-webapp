@@ -47,12 +47,7 @@ public class Show extends BaseAction implements GarageAware, BikeHistoryAware {
     public String execute() {
         Bike selectedBike = garage.getBike(bikeId);
         if (garage.canView(selectedBike, currentUser)) {
-            LOG.debug("User {} can view bike {}", selectedBike, currentUser);
-
-            List<BikeEvent> events = bikeHistory.get(selectedBike);
-            LOG.debug("Found Bike Events for bike {}: {}", bikeId, events);
-
-            bikeDetails = BikeDetails.create(selectedBike).withUser(currentUser).withHistory(events);
+            loadBikeDetails(selectedBike);
 
             return RbwActions.BIKE_SHOW;
         } else {
@@ -61,11 +56,23 @@ public class Show extends BaseAction implements GarageAware, BikeHistoryAware {
         }
     }
 
+    protected void loadBikeDetails(Bike selectedBike) {
+        LOG.debug("User {} can view bike {}", selectedBike, currentUser);
+
+        List<BikeEvent> events = bikeHistory.get(selectedBike);
+        LOG.debug("Found Bike Events for bike {}: {}", bikeId, events);
+
+        bikeDetails = BikeDetails.create(selectedBike).withUser(currentUser).withHistory(events);
+    }
+
     @Action("register-bike-event")
     public String registerBikeEvent() {
         LOG.debug("Registering new bike event for bike {}", bikeId);
 
         Bike selectedBike = garage.getBike(bikeId);
+        if (garage.canView(selectedBike, currentUser)) {
+            loadBikeDetails(selectedBike);
+        }
 
         BikeEvent bikeEvent = BikeEvent.create(selectedBike)
                 .withEventTypeId(eventTypeId)
@@ -140,5 +147,9 @@ public class Show extends BaseAction implements GarageAware, BikeHistoryAware {
     @RequiredFieldValidator
     public void setMileage(Long mileage) {
         this.mileage = mileage;
+    }
+
+    public boolean isShowRegisterForm() {
+        return !getActionErrors().isEmpty() || !getFieldErrors().isEmpty();
     }
 }
