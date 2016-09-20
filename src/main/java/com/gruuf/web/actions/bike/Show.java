@@ -119,7 +119,7 @@ public class Show extends BaseAction implements GarageAware, BikeHistoryAware {
         return descriptiveName;
     }
 
-    @StringLengthFieldValidator(minLength = "12")
+    @StringLengthFieldValidator(minLength = "4")
     public void setDescriptiveName(String descriptiveName) {
         this.descriptiveName = descriptiveName;
     }
