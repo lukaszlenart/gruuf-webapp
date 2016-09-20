@@ -49,7 +49,7 @@
 
       <div class="form-group">
         <div class="col-sm-offset-8">
-          <s:submit cssClass="btn btn-primary" key="general.register" />
+          <s:submit cssClass="btn btn-primary" key="general.register"/>
         </div>
       </div>
 
@@ -63,44 +63,44 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-2">
-    <s:text name="bikeEvent.eventType"/>
-  </div>
-  <div class="col-md-4">
-    <s:text name="bikeEvent.descriptiveName"/>
-  </div>
-  <div class="col-md-1">
-    <s:text name="bikeEvent.eventDate"/>
-  </div>
-  <div class="col-md-1">
-    <s:text name="bikeEvent.mileage"/>
-  </div>
-  <div class="col-md-1">
-    <s:text name="bikeEvent.timestamp"/>
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead class="thead-inverse">
+      <tr>
+        <th><s:text name="bikeEvent.eventType"/></th>
+        <th><s:text name="bikeEvent.descriptiveName"/></th>
+        <th><s:text name="bikeEvent.eventDate"/></th>
+        <th><s:text name="bikeEvent.mileage"/></th>
+        <th><s:text name="bikeEvent.timestamp"/>
+      </tr>
+      </thead>
+      <tbody>
+      <s:iterator value="bikeDetails.events" var="event">
+        <tr>
+          <td>
+            <s:property value="eventType.name"/>
+          </td>
+          <td>
+            <s:property value="descriptiveName"/>
+          </td>
+          <td>
+            <s:property value="registerDate"/>
+          </td>
+          <td>
+            <s:property value="mileage"/>
+          </td>
+          <td>
+            <s:property value="timestamp"/>
+          </td>
+        </tr>
+      </s:iterator>
+      </tbody>
+    </table>
   </div>
 </div>
-<s:iterator value="bikeDetails.events" var="event">
-<div class="row">
-  <div class="col-md-2">
-    <s:property value="eventType.name"/>
-  </div>
-  <div class="col-md-4">
-    <s:property value="descriptiveName"/>
-  </div>
-  <div class="col-md-1">
-    <s:property value="registerDate"/>
-  </div>
-  <div class="col-md-1">
-    <s:property value="mileage"/>
-  </div>
-  <div class="col-md-1">
-    <s:property value="timestamp"/>
-  </div>
-</div>
-</s:iterator>
 
 <s:if test="showRegisterForm">
-<script type="application/javascript">
-  $('#new-bike-event-form').collapse('show');
-</script>
+  <script type="application/javascript">
+    $('#new-bike-event-form').collapse('show');
+  </script>
 </s:if>
