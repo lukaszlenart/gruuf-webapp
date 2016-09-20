@@ -1,6 +1,6 @@
 package com.gruuf.web.interceptors;
 
-import com.gruuf.web.RbwActions;
+import com.gruuf.web.GruufActions;
 import com.gruuf.web.RbwAuth;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -28,7 +28,7 @@ public class AuthInterceptor extends AbstractInterceptor {
                 return invocation.invoke();
             } else {
                 LOG.debug("User {} is not allowed to see {}", currentUser, invocation.getAction());
-                return RbwActions.HOME;
+                return GruufActions.GARAGE;
             }
         }
     }

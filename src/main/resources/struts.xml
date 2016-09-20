@@ -82,8 +82,8 @@
         <param name="actionName">login</param>
         <param name="namespace">/</param>
       </result>
-      <result name="home" type="redirectAction">
-        <param name="actionName">home</param>
+      <result name="garage" type="redirectAction">
+        <param name="actionName">garage</param>
         <param name="namespace">/</param>
       </result>
     </global-results>

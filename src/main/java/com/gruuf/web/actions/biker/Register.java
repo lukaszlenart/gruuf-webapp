@@ -3,7 +3,7 @@ package com.gruuf.web.actions.biker;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
-import com.gruuf.web.RbwActions;
+import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -30,7 +30,7 @@ public class Register extends BaseAction implements UserStoreAware {
             newUser = newUser.withToken(Token.ADMIN);
         }
         userStore.put(newUser.build());
-        return RbwActions.LOGIN;
+        return GruufActions.LOGIN;
     }
 
     public void validateRegisterSubmit() {

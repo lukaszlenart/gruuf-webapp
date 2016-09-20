@@ -1,6 +1,6 @@
 package com.gruuf.web.actions;
 
-import com.gruuf.web.RbwActions;
+import com.gruuf.web.GruufActions;
 import com.gruuf.web.RbwAuth;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
@@ -35,17 +35,17 @@ public class Login extends BaseAction implements SessionAware, UserStoreAware {
             LOG.debug("Sets user's Locale to {}", user.getUserLocale());
             session.put(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, user.getUserLocale().toLocale());
 
-            return RbwActions.HOME;
+            return GruufActions.GARAGE;
         } else {
             addActionError("Cannot login!");
-            return RbwActions.LOGIN;
+            return GruufActions.LOGIN;
         }
     }
 
     @Action(value = "logout")
     public String logout() {
         session.put(RbwAuth.AUTH_TOKEN, null);
-        return RbwActions.LOGIN;
+        return GruufActions.LOGIN;
     }
 
     public void setSession(Map<String, Object> session) {

@@ -6,7 +6,7 @@ import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
-import com.gruuf.web.RbwActions;
+import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.BikeHistoryAware;
 import com.gruuf.web.interceptors.GarageAware;
@@ -49,10 +49,10 @@ public class Show extends BaseAction implements GarageAware, BikeHistoryAware {
         if (garage.canView(selectedBike, currentUser)) {
             loadBikeDetails(selectedBike);
 
-            return RbwActions.BIKE_SHOW;
+            return "show";
         } else {
             LOG.warn("User {} cannot view bike {}", selectedBike, currentUser);
-            return RbwActions.HOME;
+            return GruufActions.GARAGE;
         }
     }
 

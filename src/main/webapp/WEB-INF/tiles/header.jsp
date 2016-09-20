@@ -15,8 +15,8 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li>
-          <s:url var="home" action="home" namespace="/" />
-          <s:a href="%{home}"><s:text name="home.title"/></s:a>
+          <s:url var="garage" action="garage" namespace="/" />
+          <s:a href="%{garage}"><s:text name="garage.title"/></s:a>
         </li>
         <li>
           <s:url var="addbike" action="add" namespace="/bike"/>

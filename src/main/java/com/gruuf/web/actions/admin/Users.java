@@ -3,7 +3,7 @@ package com.gruuf.web.actions.admin;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
-import com.gruuf.web.RbwActions;
+import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.UserStoreAware;
 import com.gruuf.auth.Tokens;
@@ -19,7 +19,7 @@ public class Users extends BaseAction implements UserStoreAware {
     private UserStore userStore;
 
     public String execute() {
-        return RbwActions.ADMIN_USERS;
+        return "users";
     }
 
     public List<User> getList() {

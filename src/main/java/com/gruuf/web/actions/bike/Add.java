@@ -2,7 +2,7 @@ package com.gruuf.web.actions.bike;
 
 import com.gruuf.model.Bike;
 import com.gruuf.services.Garage;
-import com.gruuf.web.RbwActions;
+import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.GarageAware;
 import com.opensymphony.xwork2.Validateable;
@@ -32,7 +32,7 @@ public class Add extends BaseAction implements GarageAware, Validateable {
                 .build();
 
         garage.put(bike);
-        return RbwActions.HOME;
+        return GruufActions.GARAGE;
     }
 
     public void validateAddSubmit() throws Exception {
