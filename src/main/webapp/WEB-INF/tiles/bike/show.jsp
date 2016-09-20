@@ -65,7 +65,7 @@
 <div class="row">
   <div class="col-md-12">
     <table class="table table-striped">
-      <thead class="thead-inverse">
+      <thead>
       <tr>
         <th><s:text name="bikeEvent.eventType"/></th>
         <th><s:text name="bikeEvent.descriptiveName"/></th>
