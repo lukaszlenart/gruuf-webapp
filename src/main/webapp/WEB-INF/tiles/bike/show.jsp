@@ -86,7 +86,7 @@
             <s:property value="descriptiveName"/>
           </td>
           <td>
-            <s:property value="registerDate"/>
+            <s:date name="registerDate" format="%{userDateFormat}"/>
           </td>
           <td>
             <s:property value="mileage"/>

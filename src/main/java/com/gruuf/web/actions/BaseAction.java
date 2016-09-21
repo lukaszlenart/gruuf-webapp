@@ -21,4 +21,8 @@ abstract public class BaseAction extends ActionSupport implements CurrentUserAwa
     public String getUserLanguage() {
         return currentUser.getUserLocale().toString().toLowerCase();
     }
+
+    public String getUserDateFormat() {
+        return currentUser.getUserLocale().getDateFormat();
+    }
 }
