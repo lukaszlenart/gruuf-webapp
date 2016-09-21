@@ -3,6 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="sb" uri="/struts-bootstrap-tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <html>
@@ -18,15 +19,15 @@
 
   <link rel="stylesheet" href="/main.css">
 
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
   <sb:head includeScripts="false" includeScriptsValidation="false" includeStyles="false"/>
+  <sj:head loadFromGoogle="true" locale="%{userLanguage}" />
+
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body>
   <tiles:insertAttribute name="header"/>

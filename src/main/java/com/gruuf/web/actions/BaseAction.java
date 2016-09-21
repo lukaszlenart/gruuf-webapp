@@ -17,4 +17,8 @@ abstract public class BaseAction extends ActionSupport implements CurrentUserAwa
     public boolean isAdmin() {
         return currentUser.getTokens().contains(Token.ADMIN);
     }
+
+    public String getUserLanguage() {
+        return currentUser.getUserLocale().toString().toLowerCase();
+    }
 }

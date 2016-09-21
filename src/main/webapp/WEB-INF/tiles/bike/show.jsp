@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
 
 <div class="row">
   <div class="col-md-6">
@@ -31,13 +32,14 @@
                   elementCssClass="col-md-6"
                   cssClass="input-md"/>
 
-      <s:textfield name="registerDate"
-                   type="date"
-                   key="bike.date"
-                   placeholder="%{getText('bike.date.placeholder')}"
-                   labelCssClass="col-md-4"
-                   elementCssClass="col-md-6"
-                   cssClass="input-md"/>
+      <sj:datepicker name="registerDate"
+                     type="date"
+                     key="bike.date"
+                     displayFormat="yy-mm-dd"
+                     placeholder="%{getText('bike.date.placeholder')}"
+                     labelCssClass="col-md-4"
+                     elementCssClass="col-md-6"
+                     cssClass="input-md"/>
 
       <s:textfield name="mileage"
                    type="number"
