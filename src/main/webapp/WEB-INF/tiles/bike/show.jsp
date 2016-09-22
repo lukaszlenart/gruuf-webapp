@@ -92,7 +92,7 @@
             <s:property value="mileage"/>
           </td>
           <td>
-            <s:property value="timestamp"/>
+            <s:date name="timestamp" format="%{userDateFormat}"/>
           </td>
         </tr>
       </s:iterator>
