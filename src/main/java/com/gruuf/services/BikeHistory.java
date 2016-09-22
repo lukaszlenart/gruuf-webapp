@@ -8,7 +8,7 @@ import com.gruuf.model.EventType;
 
 import java.util.List;
 
-public class BikeHistory {
+public class BikeHistory extends Reindexable<BikeEvent> {
 
     public List<BikeEvent> get(Bike bike) {
         return ObjectifyService
@@ -16,6 +16,7 @@ public class BikeHistory {
                 .load()
                 .type(BikeEvent.class)
                 .filter("bike =", bike)
+                .order("-registerDate")
                 .list();
     }
 
@@ -44,6 +45,12 @@ public class BikeHistory {
                 .now();
     }
 
+    @Override
+    public void put(BikeEvent entity) {
+        register(entity);
+    }
+
+    @Override
     public List<BikeEvent> list() {
         return ObjectifyService
                 .ofy()

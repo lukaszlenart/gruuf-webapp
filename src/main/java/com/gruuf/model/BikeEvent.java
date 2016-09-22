@@ -22,6 +22,7 @@ public class BikeEvent {
     private Ref<EventType> eventTypeId;
     private Date timestamp;
     private String descriptiveName;
+    @Index
     private Date registerDate;
     private Long mileage;
 

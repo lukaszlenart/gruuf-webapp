@@ -30,6 +30,7 @@ public class InitListener implements ServletContextListener {
 
         final UserStore userStore = new UserStore();
         final BikeHistory bikeHistory = new BikeHistory();
+        bikeHistory.reindex();
 
         sce.getServletContext().setAttribute(RbwServices.GARAGE, garage);
         sce.getServletContext().setAttribute(RbwServices.USER_REGISTER, userStore);
