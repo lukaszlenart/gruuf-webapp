@@ -42,9 +42,11 @@
       <interceptor name="garage" class="com.gruuf.web.interceptors.GarageInterceptor"/>
       <interceptor name="bikeHistory" class="com.gruuf.web.interceptors.BikeHistoryInterceptor"/>
       <interceptor name="auth" class="com.gruuf.web.interceptors.AuthInterceptor"/>
+      <interceptor name="secure" class="com.gruuf.web.interceptors.SecureInterceptor"/>
 
       <interceptor-stack name="gruufDefaultDev">
         <interceptor-ref name="exception"/>
+        <interceptor-ref name="secure"/>
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
         <interceptor-ref name="user"/>
@@ -78,6 +80,9 @@
     <default-action-ref name="index"/>
 
     <global-results>
+      <result name="https-redirect" type="redirect">
+        <param name="location">https://gruuf.com/</param>
+      </result>
       <result name="login" type="redirectAction">
         <param name="actionName">login</param>
         <param name="namespace">/</param>
