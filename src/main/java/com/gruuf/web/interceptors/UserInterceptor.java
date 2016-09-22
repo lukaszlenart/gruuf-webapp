@@ -1,6 +1,6 @@
 package com.gruuf.web.interceptors;
 
-import com.gruuf.RbwServices;
+import com.gruuf.services.GruufServices;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufAuth;
@@ -25,7 +25,7 @@ public class UserInterceptor extends AbstractInterceptor {
                 ((CurrentUserAware) invocation.getAction()).setUser(NOT_LOGGED_IN);
             } else {
                 LOG.debug("AuthToke is {}, fetching user from store", authToken);
-                UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(RbwServices.USER_REGISTER);
+                UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(GruufServices.USER_REGISTER);
                 User currentUser = userStore.get(authToken);
                 ((CurrentUserAware) invocation.getAction()).setUser(currentUser);
             }
@@ -35,7 +35,7 @@ public class UserInterceptor extends AbstractInterceptor {
             LOG.debug("Action implements {}, injecting user store", UserStoreAware.class.getSimpleName());
 
             UserStoreAware userStoreAware = (UserStoreAware) invocation.getAction();
-            UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(RbwServices.USER_REGISTER);
+            UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(GruufServices.USER_REGISTER);
             userStoreAware.setUserStore(userStore);
         }
 
