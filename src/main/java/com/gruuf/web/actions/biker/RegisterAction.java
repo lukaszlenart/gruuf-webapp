@@ -3,8 +3,10 @@ package com.gruuf.web.actions.biker;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
+import com.gruuf.services.MailBox;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
@@ -17,6 +19,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 public class RegisterAction extends BaseAction implements UserStoreAware {
 
     private UserStore userStore;
+    private MailBox mailBox;
 
     @SkipValidation
     public String execute() {
@@ -29,7 +32,10 @@ public class RegisterAction extends BaseAction implements UserStoreAware {
         if (userStore.countAdmins() == 0) {
             newUser = newUser.withToken(Token.ADMIN);
         }
-        userStore.put(newUser.build());
+
+        User user = userStore.put(newUser.build());
+        mailBox.notifyAdmin("New biker", "New biker has been registered!", user);
+
         return GruufActions.LOGIN;
     }
 
@@ -37,6 +43,11 @@ public class RegisterAction extends BaseAction implements UserStoreAware {
         if (!password1.equals(password2)) {
             addFieldError("password1", "Passwords don't match!");
         }
+    }
+
+    @Inject
+    public void setMailBox(MailBox mailBox) {
+        this.mailBox = mailBox;
     }
 
     private String email;

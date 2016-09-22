@@ -1,6 +1,8 @@
 package com.gruuf.services;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.Ref;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 
@@ -18,12 +20,14 @@ public class UserStore {
                 .now();
     }
 
-    public void put(User newUser) {
-        ObjectifyService
+    public User put(User newUser) {
+        Key<User> userKey = ObjectifyService
                 .ofy()
                 .save()
                 .entity(newUser)
                 .now();
+
+        return Ref.create(userKey).get();
     }
 
     public User getByEmail(String email) {
@@ -52,6 +56,15 @@ public class UserStore {
                 .load()
                 .type(User.class)
                 .order("email")
+                .list();
+    }
+
+    public List<User> listAdmins() {
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(User.class)
+                .filter("tokens in", Collections.singletonList(Token.ADMIN))
                 .list();
     }
 }

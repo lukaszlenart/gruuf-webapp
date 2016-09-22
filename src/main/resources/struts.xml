@@ -29,6 +29,9 @@
 
   <bean type="com.opensymphony.xwork2.UnknownHandler" name="tiles-convention" class="com.gruuf.web.TilesUnknownHandler"/>
 
+  <bean class="com.gruuf.services.UserStore"/>
+  <bean class="com.gruuf.services.MailBox"/>
+
   <package name="gruufDefault" extends="struts-default">
 
     <result-types>

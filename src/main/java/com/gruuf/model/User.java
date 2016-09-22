@@ -90,6 +90,10 @@ public class User {
                 .withTokens(user.getTokens());
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     public static class UserCreator {
 
         private User target;

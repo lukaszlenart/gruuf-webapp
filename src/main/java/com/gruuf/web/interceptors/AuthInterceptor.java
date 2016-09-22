@@ -1,20 +1,22 @@
 package com.gruuf.web.interceptors;
 
-import com.gruuf.web.GruufActions;
-import com.gruuf.web.GruufAuth;
-import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.opensymphony.xwork2.util.AnnotationUtils;
-import com.gruuf.services.GruufServices;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
+import com.gruuf.web.GruufActions;
+import com.gruuf.web.GruufAuth;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.inject.Inject;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.opensymphony.xwork2.util.AnnotationUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class AuthInterceptor extends AbstractInterceptor {
 
     private static Logger LOG = LogManager.getLogger(AuthInterceptor.class);
+
+    private UserStore userStore;
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
@@ -35,7 +37,6 @@ public class AuthInterceptor extends AbstractInterceptor {
 
     private User readCurrentUser(ActionInvocation invocation) {
         String authToken = (String) invocation.getInvocationContext().getSession().get(GruufAuth.AUTH_TOKEN);
-        UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(GruufServices.USER_REGISTER);
         if (authToken == null) {
             LOG.debug("User not logged-in yet!");
             return null;
@@ -49,4 +50,8 @@ public class AuthInterceptor extends AbstractInterceptor {
         return tokens == null || user.hasAnyToken(tokens.value());
     }
 
+    @Inject
+    public void setUserStore(UserStore userStore) {
+        this.userStore = userStore;
+    }
 }

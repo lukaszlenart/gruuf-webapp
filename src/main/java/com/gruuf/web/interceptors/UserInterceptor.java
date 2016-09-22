@@ -1,10 +1,10 @@
 package com.gruuf.web.interceptors;
 
-import com.gruuf.services.GruufServices;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +13,8 @@ public class UserInterceptor extends AbstractInterceptor {
 
     private static Logger LOG = LogManager.getLogger(UserInterceptor.class);
     private static final User NOT_LOGGED_IN = User.create().build();
+
+    private UserStore userStore;
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
@@ -25,7 +27,6 @@ public class UserInterceptor extends AbstractInterceptor {
                 ((CurrentUserAware) invocation.getAction()).setUser(NOT_LOGGED_IN);
             } else {
                 LOG.debug("AuthToke is {}, fetching user from store", authToken);
-                UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(GruufServices.USER_REGISTER);
                 User currentUser = userStore.get(authToken);
                 ((CurrentUserAware) invocation.getAction()).setUser(currentUser);
             }
@@ -35,11 +36,14 @@ public class UserInterceptor extends AbstractInterceptor {
             LOG.debug("Action implements {}, injecting user store", UserStoreAware.class.getSimpleName());
 
             UserStoreAware userStoreAware = (UserStoreAware) invocation.getAction();
-            UserStore userStore = (UserStore) invocation.getInvocationContext().getApplication().get(GruufServices.USER_REGISTER);
             userStoreAware.setUserStore(userStore);
         }
 
         return invocation.invoke();
     }
 
+    @Inject
+    public void setUserStore(UserStore userStore) {
+        this.userStore = userStore;
+    }
 }
