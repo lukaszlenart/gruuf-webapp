@@ -5,7 +5,7 @@
 <tiles-definitions>
 
   <definition name="admin/users" extends="logged-in">
-    <put-attribute name="title" value="Users"/>
+    <put-attribute name="title" expression="I18N:users.title"/>
     <put-attribute name="body" value="/WEB-INF/tiles/admin/users.jsp"/>
   </definition>
 

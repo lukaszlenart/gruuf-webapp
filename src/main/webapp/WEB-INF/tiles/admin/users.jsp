@@ -7,6 +7,7 @@
     <thead>
     <tr>
       <th><s:text name="biker.email.address"/></th>
+      <th><s:text name="biker.fullName"/></th>
       <th><s:text name="biker.tokens"/></th>
       <th><s:text name="general.actions"/></th>
     </tr>
@@ -15,6 +16,7 @@
     <s:iterator value="list" var="user">
       <tr>
         <td><s:property value="email"/></td>
+        <td><s:property value="fullName"/></td>
         <td><s:property value="tokens"/></td>
         <td>
           <s:url var="editUserUrl" action="edit-user">
