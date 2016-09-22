@@ -18,7 +18,7 @@
                   elementCssClass="col-md-4"/>
 
       <s:password name="password2"
-                  key="biker.password.repeat"
+                  key="biker.repeatPassword"
                   placeholder="%{getText('biker.password.placeholder')}"
                   labelCssClass="col-md-4"
                   elementCssClass="col-md-4"/>
