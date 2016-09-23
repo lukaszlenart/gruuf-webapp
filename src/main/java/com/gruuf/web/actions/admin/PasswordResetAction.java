@@ -6,7 +6,7 @@ import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
-import com.gruuf.web.interceptors.UserStoreAware;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 @Tokens(Token.ADMIN)
-public class PasswordResetAction extends BaseAction implements UserStoreAware {
+public class PasswordResetAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(PasswordResetAction.class);
 
@@ -70,7 +70,7 @@ public class PasswordResetAction extends BaseAction implements UserStoreAware {
         return user;
     }
 
-    @Override
+    @Inject
     public void setUserStore(UserStore userStore) {
         this.userStore = userStore;
     }

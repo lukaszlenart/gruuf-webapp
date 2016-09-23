@@ -4,8 +4,8 @@ import com.gruuf.model.Bike;
 import com.gruuf.services.Garage;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
-import com.gruuf.web.interceptors.GarageAware;
 import com.opensymphony.xwork2.Validateable;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
@@ -14,7 +14,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import static com.opensymphony.xwork2.Action.INPUT;
 
 @Result(name = INPUT, location = "bike/add-input")
-public class AddAction extends BaseAction implements GarageAware, Validateable {
+public class AddAction extends BaseAction implements Validateable {
 
     private Garage garage;
 
@@ -62,7 +62,7 @@ public class AddAction extends BaseAction implements GarageAware, Validateable {
         this.vin = vin;
     }
 
-    @Override
+    @Inject
     public void setGarage(Garage garage) {
         this.garage = garage;
     }

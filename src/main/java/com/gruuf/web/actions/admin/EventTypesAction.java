@@ -5,14 +5,14 @@ import com.gruuf.auth.Tokens;
 import com.gruuf.model.EventType;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.web.actions.BaseAction;
-import com.gruuf.web.interceptors.BikeHistoryAware;
+import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 @Tokens(Token.ADMIN)
-public class EventTypesAction extends BaseAction implements BikeHistoryAware {
+public class EventTypesAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(EventTypesAction.class);
 
@@ -29,7 +29,7 @@ public class EventTypesAction extends BaseAction implements BikeHistoryAware {
         return eventTypes;
     }
 
-    @Override
+    @Inject
     public void setBikeHistory(BikeHistory bikeHistory) {
         this.bikeHistory = bikeHistory;
     }

@@ -8,9 +8,7 @@ import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.actions.BaseAction;
-import com.gruuf.web.interceptors.BikeHistoryAware;
-import com.gruuf.web.interceptors.GarageAware;
-import com.gruuf.web.interceptors.UserStoreAware;
+import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
@@ -33,7 +31,7 @@ import java.util.zip.ZipOutputStream;
                 "contentDisposition", "attachment;filename=\"backup.zip\""
         }
 )
-public class BackupAction extends BaseAction implements UserStoreAware, BikeHistoryAware, GarageAware {
+public class BackupAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(BackupAction.class);
     private UserStore userStore;
@@ -90,17 +88,17 @@ public class BackupAction extends BaseAction implements UserStoreAware, BikeHist
         return SUCCESS;
     }
 
-    @Override
+    @Inject
     public void setUserStore(UserStore userStore) {
         this.userStore = userStore;
     }
 
-    @Override
+    @Inject
     public void setBikeHistory(BikeHistory bikeHistory) {
         this.bikeHistory = bikeHistory;
     }
 
-    @Override
+    @Inject
     public void setGarage(Garage garage) {
         this.garage = garage;
     }

@@ -6,7 +6,7 @@ import com.gruuf.model.User;
 import com.gruuf.model.UserLocale;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.actions.BaseAction;
-import com.gruuf.web.interceptors.UserStoreAware;
+import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Tokens(Token.ADMIN)
 @Result(name = "to-users", location = "users", type = "redirectAction")
-public class EditUserAction extends BaseAction implements UserStoreAware {
+public class EditUserAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(EditUserAction.class);
 
@@ -81,7 +81,7 @@ public class EditUserAction extends BaseAction implements UserStoreAware {
         return "to-users";
     }
 
-    @Override
+    @Inject
     public void setUserStore(UserStore userStore) {
         this.userStore = userStore;
     }

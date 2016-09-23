@@ -8,8 +8,7 @@ import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
-import com.gruuf.web.interceptors.BikeHistoryAware;
-import com.gruuf.web.interceptors.GarageAware;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +27,7 @@ import static com.opensymphony.xwork2.Action.INPUT;
         @Result(name = "to-show-bike", location = "show", type = "redirectAction", params = {"bikeId", "${bikeId}"}),
         @Result(name = INPUT, location = "bike/show")
 })
-public class ShowAction extends BaseAction implements GarageAware, BikeHistoryAware {
+public class ShowAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(ShowAction.class);
 
@@ -108,12 +107,12 @@ public class ShowAction extends BaseAction implements GarageAware, BikeHistoryAw
         return "to-show-bike";
     }
 
-    @Override
+    @Inject
     public void setGarage(Garage garage) {
         this.garage = garage;
     }
 
-    @Override
+    @Inject
     public void setBikeHistory(BikeHistory bikeHistory) {
         this.bikeHistory = bikeHistory;
     }

@@ -1,17 +1,18 @@
 package com.gruuf.web.actions;
 
 import com.gruuf.model.Bike;
-import com.gruuf.web.interceptors.GarageAware;
+import com.gruuf.services.Garage;
+import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class GarageAction extends BaseAction implements GarageAware {
+public class GarageAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(GarageAction.class);
 
-    private com.gruuf.services.Garage garage;
+    private Garage garage;
 
     public String execute() throws Exception {
         return SUCCESS;
@@ -25,6 +26,7 @@ public class GarageAction extends BaseAction implements GarageAware {
         return bikes;
     }
 
+    @Inject
     public void setGarage(com.gruuf.services.Garage garage) {
         this.garage = garage;
     }

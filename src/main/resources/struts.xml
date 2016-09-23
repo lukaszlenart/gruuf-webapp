@@ -29,6 +29,8 @@
 
   <bean type="com.opensymphony.xwork2.UnknownHandler" name="tiles-convention" class="com.gruuf.web.TilesUnknownHandler"/>
 
+  <bean class="com.gruuf.services.BikeHistory"/>
+  <bean class="com.gruuf.services.Garage"/>
   <bean class="com.gruuf.services.UserStore"/>
   <bean class="com.gruuf.services.MailBox"/>
 
@@ -42,8 +44,6 @@
 
       <interceptor name="login" class="com.gruuf.web.interceptors.LoginInterceptor"/>
       <interceptor name="user" class="com.gruuf.web.interceptors.UserInterceptor"/>
-      <interceptor name="garage" class="com.gruuf.web.interceptors.GarageInterceptor"/>
-      <interceptor name="bikeHistory" class="com.gruuf.web.interceptors.BikeHistoryInterceptor"/>
       <interceptor name="auth" class="com.gruuf.web.interceptors.AuthInterceptor"/>
       <interceptor name="secure" class="com.gruuf.web.interceptors.SecureInterceptor"/>
 
@@ -53,8 +53,6 @@
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
         <interceptor-ref name="user"/>
-        <interceptor-ref name="garage"/>
-        <interceptor-ref name="bikeHistory"/>
         <interceptor-ref name="alias"/>
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>

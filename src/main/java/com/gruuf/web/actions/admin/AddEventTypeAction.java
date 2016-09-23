@@ -6,7 +6,7 @@ import com.gruuf.auth.Tokens;
 import com.gruuf.model.EventType;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.web.actions.BaseAction;
-import com.gruuf.web.interceptors.BikeHistoryAware;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +16,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 @Tokens(Token.ADMIN)
 @Result(name = "to-event-types", location = "event-types", type = "redirectAction")
-public class AddEventTypeAction extends BaseAction implements BikeHistoryAware {
+public class AddEventTypeAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(AddEventTypeAction.class);
 
@@ -42,7 +42,7 @@ public class AddEventTypeAction extends BaseAction implements BikeHistoryAware {
         return "to-event-types";
     }
 
-    @Override
+    @Inject
     public void setBikeHistory(BikeHistory bikeHistory) {
         this.bikeHistory = bikeHistory;
     }

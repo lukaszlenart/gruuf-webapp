@@ -8,7 +8,6 @@ import com.gruuf.services.MailBox;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
-import com.gruuf.web.interceptors.UserStoreAware;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Anonymous
-public class RegisterAction extends BaseAction implements UserStoreAware, ServletRequestAware {
+public class RegisterAction extends BaseAction implements ServletRequestAware {
 
     private UserStore userStore;
     private MailBox mailBox;
@@ -61,6 +60,16 @@ public class RegisterAction extends BaseAction implements UserStoreAware, Servle
         this.mailBox = mailBox;
     }
 
+    @Inject
+    public void setUserStore(UserStore userStore) {
+        this.userStore = userStore;
+    }
+
+    @Override
+    public void setServletRequest(HttpServletRequest request) {
+        browserLocale = request.getLocale();
+    }
+
     private String email;
     private String password1;
     private String password2;
@@ -95,14 +104,4 @@ public class RegisterAction extends BaseAction implements UserStoreAware, Servle
         this.password2 = password2;
     }
 
-    @Override
-    public void setUserStore(UserStore userStore) {
-        this.userStore = userStore;
-    }
-
-
-    @Override
-    public void setServletRequest(HttpServletRequest request) {
-        browserLocale = request.getLocale();
-    }
 }

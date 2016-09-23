@@ -32,13 +32,6 @@ public class UserInterceptor extends AbstractInterceptor {
             }
         }
 
-        if (invocation.getAction() instanceof UserStoreAware) {
-            LOG.debug("Action implements {}, injecting user store", UserStoreAware.class.getSimpleName());
-
-            UserStoreAware userStoreAware = (UserStoreAware) invocation.getAction();
-            userStoreAware.setUserStore(userStore);
-        }
-
         return invocation.invoke();
     }
 

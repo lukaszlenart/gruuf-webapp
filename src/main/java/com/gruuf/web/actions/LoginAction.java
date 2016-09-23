@@ -1,11 +1,11 @@
 package com.gruuf.web.actions;
 
-import com.gruuf.web.GruufActions;
-import com.gruuf.web.GruufAuth;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
-import com.gruuf.web.interceptors.UserStoreAware;
+import com.gruuf.web.GruufActions;
+import com.gruuf.web.GruufAuth;
+import com.opensymphony.xwork2.inject.Inject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.interceptor.I18nInterceptor;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @InterceptorRef("defaultWithMessages")
 @Anonymous
-public class LoginAction extends BaseAction implements SessionAware, UserStoreAware {
+public class LoginAction extends BaseAction implements SessionAware {
 
     private Map<String, Object> session;
     private UserStore userStore;
@@ -52,7 +52,7 @@ public class LoginAction extends BaseAction implements SessionAware, UserStoreAw
         this.session = session;
     }
 
-    @Override
+    @Inject
     public void setUserStore(UserStore userStore) {
         this.userStore = userStore;
     }
