@@ -30,7 +30,7 @@
         <th><s:text name="bikeEvent.descriptiveName"/></th>
         <th><s:text name="bikeEvent.eventDate"/></th>
         <th><s:text name="bikeEvent.mileage"/></th>
-        <th><s:text name="bikeEvent.timestamp"/>
+        <th><s:text name="general.timestamp"/>
       </tr>
       </thead>
       <tbody>

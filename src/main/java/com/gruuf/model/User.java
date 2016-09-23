@@ -6,6 +6,7 @@ import com.googlecode.objectify.annotation.Index;
 import com.gruuf.auth.Token;
 import com.gruuf.web.GruufAuth;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ public class User {
     private String firstName;
     private String lastName;
     private UserLocale userLocale;
+    private Date timestamp;
 
     private User() {
     }
@@ -64,6 +66,10 @@ public class User {
         return userLocale != null ? userLocale : UserLocale.EN;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -72,7 +78,8 @@ public class User {
                 ", tokens=" + tokens +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", userLocale='" + userLocale + '\'' +
+                ", userLocale=" + userLocale +
+                ", timestamp=" + timestamp +
                 '}';
     }
 
@@ -102,6 +109,7 @@ public class User {
             target = new User();
             target.id = id;
             target.userLocale = UserLocale.EN;
+            target.timestamp = new Date();
         }
 
         public UserCreator withEmail(String email) {
