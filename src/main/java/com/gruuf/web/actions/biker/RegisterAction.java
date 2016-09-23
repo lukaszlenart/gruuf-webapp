@@ -3,23 +3,29 @@ package com.gruuf.web.actions.biker;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
+import com.gruuf.model.UserLocale;
 import com.gruuf.services.MailBox;
+import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
+import com.gruuf.web.interceptors.UserStoreAware;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
-import com.gruuf.services.UserStore;
-import com.gruuf.web.interceptors.UserStoreAware;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
+
 @Anonymous
-public class RegisterAction extends BaseAction implements UserStoreAware {
+public class RegisterAction extends BaseAction implements UserStoreAware, ServletRequestAware {
 
     private UserStore userStore;
     private MailBox mailBox;
+    private Locale browserLocale;
 
     @SkipValidation
     public String execute() {
@@ -29,6 +35,11 @@ public class RegisterAction extends BaseAction implements UserStoreAware {
     @Action("register-submit")
     public String registerSubmit() {
         User.UserCreator newUser = User.create().withEmail(email).withPassword(password1).withToken(Token.USER);
+
+        if (UserLocale.isValidLocale(browserLocale)) {
+            newUser = newUser.withUserLocale(UserLocale.fromLocale(browserLocale));
+        }
+
         if (userStore.countAdmins() == 0) {
             newUser = newUser.withToken(Token.ADMIN);
         }
@@ -87,5 +98,11 @@ public class RegisterAction extends BaseAction implements UserStoreAware {
     @Override
     public void setUserStore(UserStore userStore) {
         this.userStore = userStore;
+    }
+
+
+    @Override
+    public void setServletRequest(HttpServletRequest request) {
+        browserLocale = request.getLocale();
     }
 }

@@ -1,31 +1,55 @@
 package com.gruuf.model;
 
-import com.google.appengine.repackaged.com.google.common.collect.Sets;
-
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
 public enum UserLocale {
 
-    EN(Constants.EN_DATE_FORMAT), PL(Constants.PL_DATE_FORMAT);
+    EN(Constants.EN_DATE_FORMAT, Locale.ENGLISH), PL(Constants.PL_DATE_FORMAT, new Locale("pl", "PL"));
 
     private String dateFormat;
+    private Locale locale;
 
-    UserLocale(String dateFormat) {
+    UserLocale(String dateFormat, Locale locale) {
         this.dateFormat = dateFormat;
+        this.locale = locale;
     }
 
     public static Set<UserLocale> all() {
-        return Collections.unmodifiableSet(Sets.newHashSet(EN, PL));
+        return Collections.unmodifiableSet(new HashSet<>(Arrays.asList(values())));
+    }
+
+    public static boolean isValidLocale(Locale locale) {
+        for (UserLocale userLocale : values()) {
+            if (userLocale.sameAs(locale)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static UserLocale fromLocale(Locale locale) {
+        for (UserLocale userLocale : values()) {
+            if (userLocale.sameAs(locale)) {
+                return userLocale;
+            }
+        }
+        return null;
     }
 
     public Locale toLocale() {
-        return new Locale(name().toLowerCase());
+        return locale;
     }
 
     public String getDateFormat() {
         return dateFormat;
+    }
+
+    public boolean sameAs(Locale locale) {
+        return this.toLocale().getLanguage().equals(locale.getLanguage());
     }
 
     private static class Constants {
