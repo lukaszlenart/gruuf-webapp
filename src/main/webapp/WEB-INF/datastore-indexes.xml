@@ -2,6 +2,7 @@
 <datastore-indexes autoGenerate="false">
   <datastore-index kind="BikeEvent" ancestor="false" source="manual">
     <property name="bike" direction="asc"/>
+    <property name="status" direction="asc"/>
     <property name="registerDate" direction="desc"/>
   </datastore-index>
 </datastore-indexes>

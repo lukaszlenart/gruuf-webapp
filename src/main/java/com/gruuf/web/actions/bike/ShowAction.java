@@ -43,6 +43,8 @@ public class ShowAction extends BaseAction implements GarageAware, BikeHistoryAw
     private Date registerDate;
     private Long mileage;
 
+    private String bikeEventId;
+
     @SkipValidation
     public String execute() {
         Bike selectedBike = garage.getBike(bikeId);
@@ -59,7 +61,7 @@ public class ShowAction extends BaseAction implements GarageAware, BikeHistoryAw
     protected void loadBikeDetails(Bike selectedBike) {
         LOG.debug("User {} can view bike {}", selectedBike, currentUser);
 
-        List<BikeEvent> events = bikeHistory.get(selectedBike);
+        List<BikeEvent> events = bikeHistory.listByBike(selectedBike);
         LOG.debug("Found Bike Events for bike {}: {}", bikeId, events);
 
         bikeDetails = BikeDetails.create(selectedBike).withUser(currentUser).withHistory(events);
@@ -88,16 +90,22 @@ public class ShowAction extends BaseAction implements GarageAware, BikeHistoryAw
         return "to-show-bike";
     }
 
-    public void setBikeId(String bikeId) {
-        this.bikeId = bikeId;
-    }
+    @SkipValidation
+    @Action("delete-bike-event")
+    public String deleteBikeEvent() {
+        LOG.debug("Deleting bike event {}", bikeEventId);
+        BikeEvent bikeEvent = bikeHistory.get(bikeEventId);
 
-    public String getBikeId() {
-        return bikeId;
-    }
+        if (bikeEvent != null) {
+            LOG.debug("Marking BikeEvent {} as deleted", bikeEvent);
+            bikeEvent = bikeEvent.markAsDeleted();
+            bikeHistory.put(bikeEvent);
 
-    public BikeDetails getBikeDetails() {
-        return bikeDetails;
+            bikeId = bikeEvent.getBike().getId();
+        }
+
+        LOG.debug("Returning to show bike {}", bikeId);
+        return "to-show-bike";
     }
 
     @Override
@@ -108,6 +116,18 @@ public class ShowAction extends BaseAction implements GarageAware, BikeHistoryAw
     @Override
     public void setBikeHistory(BikeHistory bikeHistory) {
         this.bikeHistory = bikeHistory;
+    }
+
+    public void setBikeId(String bikeId) {
+        this.bikeId = bikeId;
+    }
+
+    public String getBikeId() {
+        return bikeId;
+    }
+
+    public BikeDetails getBikeDetails() {
+        return bikeDetails;
     }
 
     public List<EventType> getEventTypesList() {
@@ -152,4 +172,9 @@ public class ShowAction extends BaseAction implements GarageAware, BikeHistoryAw
     public boolean isShowRegisterForm() {
         return !getActionErrors().isEmpty() || !getFieldErrors().isEmpty();
     }
+
+    public void setBikeEventId(String bikeEventId) {
+        this.bikeEventId = bikeEventId;
+    }
+
 }

@@ -5,17 +5,19 @@ import com.googlecode.objectify.ObjectifyService;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
+import com.gruuf.model.Status;
 
 import java.util.List;
 
 public class BikeHistory extends Reindexable<BikeEvent> {
 
-    public List<BikeEvent> get(Bike bike) {
+    public List<BikeEvent> listByBike(Bike bike) {
         return ObjectifyService
                 .ofy()
                 .load()
                 .type(BikeEvent.class)
                 .filter("bike =", bike)
+                .filter("status =", Status.NEW)
                 .order("-registerDate")
                 .list();
     }
@@ -57,5 +59,14 @@ public class BikeHistory extends Reindexable<BikeEvent> {
                 .load()
                 .type(BikeEvent.class)
                 .list();
+    }
+
+    public BikeEvent get(String bikeEventId) {
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(BikeEvent.class)
+                .id(bikeEventId)
+                .now();
     }
 }

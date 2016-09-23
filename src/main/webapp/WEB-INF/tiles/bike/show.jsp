@@ -74,6 +74,7 @@
         <th><s:text name="bikeEvent.eventDate"/></th>
         <th><s:text name="bikeEvent.mileage"/></th>
         <th><s:text name="bikeEvent.timestamp"/>
+        <th><s:text name="general.actions"/>
       </tr>
       </thead>
       <tbody>
@@ -93,6 +94,12 @@
           </td>
           <td>
             <s:date name="timestamp" format="%{userDateFormat}"/>
+          </td>
+          <td>
+            <s:url var="deleteEvent" action="delete-bike-event">
+              <s:param name="bikeEventId" value="id"/>
+            </s:url>
+            <s:a value="%{deleteEvent}"><s:text name="general.delete"/></s:a>
           </td>
         </tr>
       </s:iterator>
