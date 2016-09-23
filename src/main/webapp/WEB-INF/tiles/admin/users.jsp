@@ -9,6 +9,7 @@
       <th><s:text name="biker.email.address"/></th>
       <th><s:text name="biker.fullName"/></th>
       <th><s:text name="biker.tokens"/></th>
+      <th><s:text name="biker.language"/></th>
       <th><s:text name="general.actions"/></th>
     </tr>
     </thead>
@@ -18,6 +19,7 @@
         <td><s:property value="email"/></td>
         <td><s:property value="fullName"/></td>
         <td><s:property value="tokens"/></td>
+        <td><s:property value="userLocale"/></td>
         <td>
           <s:url var="editUserUrl" action="edit-user">
             <s:param name="userId" value="id"/>
