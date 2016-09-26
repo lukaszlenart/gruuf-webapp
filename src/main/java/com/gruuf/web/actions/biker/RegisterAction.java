@@ -53,6 +53,10 @@ public class RegisterAction extends BaseAction implements ServletRequestAware {
         if (!password1.equals(password2)) {
             addFieldError("password1", "Passwords don't match!");
         }
+
+        if(userStore.findBy("email", email.trim()).size() > 0) {
+            addFieldError("email", "E-mail address is already registered!");
+        }
     }
 
     @Inject
