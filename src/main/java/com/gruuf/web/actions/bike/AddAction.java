@@ -36,7 +36,7 @@ public class AddAction extends BaseAction implements Validateable {
     }
 
     public void validateAddSubmit() throws Exception {
-        if (garage.findByVin(vin) != null) {
+        if (garage.findUniqueBy("vin", vin) != null) {
             addFieldError("vin", getText("bike.vinAlreadyUsed"));
         }
     }

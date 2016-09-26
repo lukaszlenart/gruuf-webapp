@@ -5,9 +5,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public abstract class Reindexable<E> {
+public abstract class Reindexable<E> extends Storable<E> {
 
     private static final Logger LOG = LogManager.getLogger(Reindexable.class);
+
+    public Reindexable(Class<E> type) {
+        super(type);
+    }
 
     public void reindex() {
         LOG.debug("Reindexing {}", getClass().getSimpleName());
@@ -17,9 +21,5 @@ public abstract class Reindexable<E> {
             put(entity);
         }
     }
-
-    public abstract void put(E entity);
-
-    public abstract List<E> list();
 
 }

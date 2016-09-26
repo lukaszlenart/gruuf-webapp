@@ -29,7 +29,7 @@ public class LoginAction extends BaseAction implements SessionAware {
 
     @Action(value = "login-submit")
     public String submit() {
-        User user = userStore.getByEmail(email);
+        User user = userStore.findUniqueBy("email", email.trim());
         if (user != null && GruufAuth.isPasswordValid(password, user.getPassword())) {
             session.put(GruufAuth.AUTH_TOKEN, user.getId());
             LOG.debug("Sets user's Locale to {}", user.getUserLocale());

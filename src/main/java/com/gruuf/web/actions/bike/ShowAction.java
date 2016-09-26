@@ -46,7 +46,7 @@ public class ShowAction extends BaseAction {
 
     @SkipValidation
     public String execute() {
-        Bike selectedBike = garage.getBike(bikeId);
+        Bike selectedBike = garage.get(bikeId);
         if (garage.canView(selectedBike, currentUser)) {
             loadBikeDetails(selectedBike);
 
@@ -70,7 +70,7 @@ public class ShowAction extends BaseAction {
     public String registerBikeEvent() {
         LOG.debug("Registering new bike event for bike {}", bikeId);
 
-        Bike selectedBike = garage.getBike(bikeId);
+        Bike selectedBike = garage.get(bikeId);
         if (garage.canView(selectedBike, currentUser)) {
             loadBikeDetails(selectedBike);
         }
@@ -83,7 +83,7 @@ public class ShowAction extends BaseAction {
                 .build();
 
         LOG.debug("Storing new Bike Event {}", bikeEvent);
-        bikeHistory.register(bikeEvent);
+        bikeHistory.put(bikeEvent);
 
         LOG.debug("Returning to show bike {}", bikeId);
         return "to-show-bike";

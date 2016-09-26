@@ -19,7 +19,7 @@ public class GarageAction extends BaseAction {
     }
 
     public List<Bike> getBikes() {
-        List<Bike> bikes = garage.get(currentUser);
+        List<Bike> bikes = garage.findByOwner(currentUser);
 
         LOG.debug("Found following bikes {} for user {}", bikes, currentUser);
 
