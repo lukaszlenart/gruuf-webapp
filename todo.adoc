@@ -20,3 +20,8 @@
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
 - [ ] zgłaszanie typów eventów przez użytkownika
 - [ ] zgłaszanie tłumaczenia przez użytkownika
+- [ ] zdarzenia generowane przez system nie mogą być usuwane (Status.SYSTEM)
+
+### Płatne opcje
+- możliwość dodawania zdjęć / załączeników
+- możliwość przejęcia / przekazania historii bike'a
