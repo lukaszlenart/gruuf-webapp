@@ -33,7 +33,7 @@ public class RegisterAction extends BaseAction implements ServletRequestAware {
 
     @Action("register-submit")
     public String registerSubmit() {
-        User.UserCreator newUser = User.create().withEmail(email).withPassword(password1).withToken(Token.USER);
+        User.UserCreator newUser = User.create().withEmail(email.trim()).withPassword(password1).withToken(Token.USER);
 
         if (UserLocale.isValidLocale(browserLocale)) {
             newUser = newUser.withUserLocale(UserLocale.fromLocale(browserLocale));
