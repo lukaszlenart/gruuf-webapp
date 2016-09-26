@@ -3,13 +3,26 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <div class="row">
-  <s:url var="addEvent" action="add-event-type"/>
-  <s:a href="%{addEvent}">Add event type</s:a>
+  <div class="col-md-12">
+    <s:url var="addEvent" action="add-event-type"/>
+    <s:a href="%{addEvent}">Add event type</s:a>
+  </div>
 </div>
 
-<s:iterator value="list" var="eventType">
-  <div class="row">
-    <s:property value="name"/>
-    <s:property value="created"/>
-  </div>
-</s:iterator>
+<table class="table table-striped">
+  <thead class="header-inverse">
+  <tr>
+    <th>Name</th>
+    <th>Created</th>
+  </tr>
+  </thead>
+  <tbody>
+  <s:iterator value="list" var="eventType">
+    <tr>
+      <td><s:property value="name"/></td>
+      <td><s:property value="created"/></td>
+    </tr>
+  </s:iterator>
+  </tbody>
+</table>
+

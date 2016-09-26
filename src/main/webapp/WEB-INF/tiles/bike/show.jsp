@@ -3,7 +3,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <h3>
       <s:text name="bike.registerNewEvent"/>
       <button class="glyphicon glyphicon-chevron-down btn btn-link collapsed" aria-hidden="true" type="button"
@@ -19,8 +19,8 @@
                 listValueKey="name"
                 listKey="id"
                 key="bike.eventType"
-                labelCssClass="col-md-4"
-                elementCssClass="col-md-6"
+                labelCssClass="col-md-2"
+                elementCssClass="col-md-4"
                 cssClass="input-md"/>
 
       <s:textarea name="descriptiveName"
@@ -28,8 +28,8 @@
                   placeholder="%{getText('bike.descriptiveName.placeholder')}"
                   cols="40"
                   rows="6"
-                  labelCssClass="col-md-4"
-                  elementCssClass="col-md-6"
+                  labelCssClass="col-md-2"
+                  elementCssClass="col-md-8"
                   cssClass="input-md"/>
 
       <sj:datepicker name="registerDate"
@@ -37,16 +37,16 @@
                      key="bike.date"
                      displayFormat="yy-mm-dd"
                      placeholder="%{getText('bike.date.placeholder')}"
-                     labelCssClass="col-md-4"
-                     elementCssClass="col-md-6"
+                     labelCssClass="col-md-2"
+                     elementCssClass="col-md-4"
                      cssClass="input-md"/>
 
       <s:textfield name="mileage"
                    type="number"
                    key="bike.mileageInKm"
                    placeholder="%{getText('bike.mileageInKm.placeholder')}"
-                   labelCssClass="col-md-4"
-                   elementCssClass="col-md-6"
+                   labelCssClass="col-md-2"
+                   elementCssClass="col-md-2"
                    cssClass="input-md"/>
 
       <div class="form-group">
@@ -54,59 +54,55 @@
           <s:submit cssClass="btn btn-primary" key="general.register"/>
         </div>
       </div>
-
     </s:form>
+    <hr/>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <h3><s:text name="bike.bikeHistory"/></h3>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th><s:text name="bikeEvent.eventType"/></th>
-        <th><s:text name="bikeEvent.descriptiveName"/></th>
-        <th><s:text name="bikeEvent.eventDate"/></th>
-        <th><s:text name="bikeEvent.mileage"/></th>
-        <th><s:text name="general.timestamp"/>
-        <th><s:text name="general.actions"/>
-      </tr>
-      </thead>
-      <tbody>
-      <s:iterator value="bikeDetails.events" var="event">
-        <tr>
-          <td>
-            <s:property value="eventType.name"/>
-          </td>
-          <td>
-            <s:property value="descriptiveName"/>
-          </td>
-          <td>
-            <s:date name="registerDate" format="%{userDateFormat}"/>
-          </td>
-          <td>
-            <s:property value="mileage"/>
-          </td>
-          <td>
-            <s:date name="timestamp" format="%{userDateFormat}"/>
-          </td>
-          <td>
-            <s:url var="deleteEvent" action="delete-bike-event">
-              <s:param name="bikeEventId" value="id"/>
-            </s:url>
-            <s:a value="%{deleteEvent}"><s:text name="general.delete"/></s:a>
-          </td>
-        </tr>
-      </s:iterator>
-      </tbody>
-    </table>
-  </div>
-</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th><s:text name="bikeEvent.eventType"/></th>
+    <th><s:text name="bikeEvent.descriptiveName"/></th>
+    <th><s:text name="bikeEvent.eventDate"/></th>
+    <th><s:text name="bikeEvent.mileage"/></th>
+    <th><s:text name="general.timestamp"/>
+    <th><s:text name="general.actions"/>
+  </tr>
+  </thead>
+  <tbody>
+  <s:iterator value="bikeDetails.events" var="event">
+    <tr>
+      <td>
+        <s:property value="eventType.name"/>
+      </td>
+      <td>
+        <s:property value="descriptiveName"/>
+      </td>
+      <td>
+        <s:date name="registerDate" format="%{userDateFormat}"/>
+      </td>
+      <td>
+        <s:property value="mileage"/>
+      </td>
+      <td>
+        <s:date name="timestamp" format="%{userDateFormat}"/>
+      </td>
+      <td>
+        <s:url var="deleteEvent" action="delete-bike-event">
+          <s:param name="bikeEventId" value="id"/>
+        </s:url>
+        <s:a value="%{deleteEvent}"><s:text name="general.delete"/></s:a>
+      </td>
+    </tr>
+  </s:iterator>
+  </tbody>
+</table>
 
 <s:if test="showRegisterForm">
   <script type="application/javascript">
