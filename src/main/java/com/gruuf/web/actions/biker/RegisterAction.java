@@ -51,11 +51,11 @@ public class RegisterAction extends BaseAction implements ServletRequestAware {
 
     public void validateRegisterSubmit() {
         if (!password1.equals(password2)) {
-            addFieldError("password1", "Passwords don't match!");
+            addFieldError("password1", getText("biker.passwordDoNotMatch"));
         }
 
         if(userStore.findBy("email", email.trim()).size() > 0) {
-            addFieldError("email", "E-mail address is already registered!");
+            addFieldError("email", getText("biker.emailAddressAlreadyRegistered"));
         }
     }
 
@@ -82,8 +82,8 @@ public class RegisterAction extends BaseAction implements ServletRequestAware {
         return email;
     }
 
-    @RequiredStringValidator(message = "Email is required!")
-    @EmailValidator(message = "Wrong email!")
+    @RequiredStringValidator(key = "biker.emailIsRequired")
+    @EmailValidator(key = "biker.wrongEmail")
     public void setEmail(String email) {
         this.email = email;
     }
@@ -92,8 +92,8 @@ public class RegisterAction extends BaseAction implements ServletRequestAware {
         return password1;
     }
 
-    @RequiredStringValidator(message = "Password is required!")
-    @StringLengthFieldValidator(minLength = "8", message = "Min password length is %{minLength}")
+    @RequiredStringValidator(key = "biker.passwordIsRequired")
+    @StringLengthFieldValidator(minLength = "8", key = "biker.minimumPasswordLengthIs")
     public void setPassword1(String password1) {
         this.password1 = password1;
     }
@@ -102,8 +102,8 @@ public class RegisterAction extends BaseAction implements ServletRequestAware {
         return password2;
     }
 
-    @RequiredStringValidator(message = "Repeat password!")
-    @StringLengthFieldValidator(minLength = "8", message = "Min password length is %{minLength}")
+    @RequiredStringValidator(key = "biker.repeatPassword")
+    @StringLengthFieldValidator(minLength = "8", key = "biker.minimumPasswordLengthIs")
     public void setPassword2(String password2) {
         this.password2 = password2;
     }

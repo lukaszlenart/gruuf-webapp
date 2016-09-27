@@ -145,7 +145,7 @@ public class ShowAction extends BaseAction {
         return descriptiveName;
     }
 
-    @StringLengthFieldValidator(minLength = "4")
+    @StringLengthFieldValidator(minLength = "4", key = "bikeEvent.descriptiveNameTooShort")
     public void setDescriptiveName(String descriptiveName) {
         this.descriptiveName = descriptiveName;
     }
@@ -154,7 +154,7 @@ public class ShowAction extends BaseAction {
         return registerDate;
     }
 
-    @RequiredFieldValidator
+    @RequiredFieldValidator(key = "bikeEvent.registerDateIsRequired")
     public void setRegisterDate(Date registerDate) {
         this.registerDate = registerDate;
     }
@@ -163,7 +163,7 @@ public class ShowAction extends BaseAction {
         return mileage;
     }
 
-    @RequiredFieldValidator
+    @RequiredFieldValidator(key = "bikeEvent.mileageIsRequired")
     public void setMileage(Long mileage) {
         this.mileage = mileage;
     }

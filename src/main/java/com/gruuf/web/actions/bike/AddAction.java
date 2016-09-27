@@ -48,7 +48,7 @@ public class AddAction extends BaseAction implements Validateable {
         return friendlyName;
     }
 
-    @RequiredStringValidator(message = "'Friendly name' is required!")
+    @RequiredStringValidator(key = "bike.friendlyNameIsRequired")
     public void setFriendlyName(String friendlyName) {
         this.friendlyName = friendlyName;
     }
@@ -57,7 +57,7 @@ public class AddAction extends BaseAction implements Validateable {
         return vin;
     }
 
-    @RequiredStringValidator(message = "'VIN' is required!")
+    @RequiredStringValidator(key = "bike.vinIsRequired")
     public void setVin(String vin) {
         this.vin = vin;
     }
