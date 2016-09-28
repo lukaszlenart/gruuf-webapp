@@ -49,7 +49,7 @@
   </table>
 
   <p class="center-block">
-    <s:url var="url" action="show" namespace="/bike">
+    <s:url var="url" action="history" namespace="/bike">
       <s:param name="bikeId">${bike.id}</s:param>
     </s:url>
     <s:a class="btn btn-default" role="button" href="%{url}">

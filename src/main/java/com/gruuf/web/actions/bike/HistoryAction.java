@@ -11,17 +11,17 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import static com.opensymphony.xwork2.Action.INPUT;
 
-@Result(name = INPUT, location = "bike/show")
+@Result(name = INPUT, location = "bike/history")
 @BikeRestriction
-public class ShowAction extends BaseBikeAction {
+public class HistoryAction extends BaseBikeAction {
 
-    private static Logger LOG = LogManager.getLogger(ShowAction.class);
+    private static Logger LOG = LogManager.getLogger(HistoryAction.class);
 
     private String bikeEventId;
 
     @SkipValidation
     public String execute() {
-        return "show";
+        return "history";
     }
 
     @SkipValidation

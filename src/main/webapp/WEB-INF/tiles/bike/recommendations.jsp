@@ -5,10 +5,10 @@
 <nav class="navbar">
   <ul class="nav nav-tabs">
     <li role="presentation">
-      <s:url var="show" action="show">
+      <s:url var="history" action="history">
         <s:param name="bikeId" value="%{bikeId}"/>
       </s:url>
-      <s:a href="%{show}"><s:text name="bike.bikeHistory"/></s:a>
+      <s:a href="%{history}"><s:text name="bike.bikeHistory"/></s:a>
     </li>
     <li role="presentation" class="active">
       <s:url var="recommendations" action="recommendations">

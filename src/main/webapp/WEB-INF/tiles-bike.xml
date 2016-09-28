@@ -9,9 +9,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/add-input.jsp"/>
   </definition>
 
-  <definition name="bike/show" extends="logged-in">
+  <definition name="bike/history" extends="logged-in">
     <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
-    <put-attribute name="body" value="/WEB-INF/tiles/bike/show.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/history.jsp"/>
   </definition>
 
   <definition name="bike/recommendations" extends="logged-in">
