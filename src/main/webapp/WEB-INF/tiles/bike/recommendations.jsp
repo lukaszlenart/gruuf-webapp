@@ -4,13 +4,13 @@
 
 <nav class="navbar">
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active">
+    <li role="presentation">
       <s:url var="show" action="show">
         <s:param name="bikeId" value="%{bikeId}"/>
       </s:url>
       <s:a href="%{show}"><s:text name="bike.bikeHistory"/></s:a>
     </li>
-    <li role="presentation">
+    <li role="presentation" class="active">
       <s:url var="recommendations" action="recommendations">
         <s:param name="bikeId" value="bikeId"/>
       </s:url>

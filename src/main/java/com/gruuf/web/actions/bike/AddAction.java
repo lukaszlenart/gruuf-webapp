@@ -3,7 +3,6 @@ package com.gruuf.web.actions.bike;
 import com.gruuf.model.Bike;
 import com.gruuf.services.Garage;
 import com.gruuf.web.GruufActions;
-import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -14,9 +13,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import static com.opensymphony.xwork2.Action.INPUT;
 
 @Result(name = INPUT, location = "bike/add-input")
-public class AddAction extends BaseAction implements Validateable {
-
-    private Garage garage;
+public class AddAction extends BaseBikeAction implements Validateable {
 
     @SkipValidation
     public String execute() {

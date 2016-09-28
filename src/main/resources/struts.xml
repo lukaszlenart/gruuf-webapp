@@ -41,6 +41,7 @@
       <interceptor name="user" class="com.gruuf.web.interceptors.UserInterceptor"/>
       <interceptor name="auth" class="com.gruuf.web.interceptors.AuthInterceptor"/>
       <interceptor name="secure" class="com.gruuf.web.interceptors.SecureInterceptor"/>
+      <interceptor name="restriction" class="com.gruuf.web.interceptors.BikeRestrictionInterceptor"/>
 
       <interceptor-stack name="gruufDefaultDev">
         <interceptor-ref name="exception"/>
@@ -48,6 +49,7 @@
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
         <interceptor-ref name="user"/>
+        <interceptor-ref name="restriction"/>
         <interceptor-ref name="alias"/>
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>

@@ -14,4 +14,14 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/show.jsp"/>
   </definition>
 
+  <definition name="bike/recommendations" extends="logged-in">
+    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/recommendations.jsp"/>
+  </definition>
+
+  <definition name="bike/new-bike-event" extends="logged-in">
+    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/new-bike-event.jsp"/>
+  </definition>
+
 </tiles-definitions>
