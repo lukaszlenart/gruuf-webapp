@@ -29,13 +29,13 @@ public class BikeEvent {
     private Long mileage;
     @Index
     @IgnoreLoad
-    private Status status = Status.NEW;
+    private BikeEventStatus status = BikeEventStatus.NEW;
 
     public void migration(@AlsoLoad("status") String oldStatus) {
         if (oldStatus == null) {
-            status = Status.NEW;
+            status = BikeEventStatus.NEW;
         } else {
-            status = Status.valueOf(oldStatus);
+            status = BikeEventStatus.valueOf(oldStatus);
         }
     }
 
@@ -74,7 +74,7 @@ public class BikeEvent {
         return mileage;
     }
 
-    public Status getStatus() {
+    public BikeEventStatus getStatus() {
         return status;
     }
 
@@ -96,7 +96,7 @@ public class BikeEvent {
     }
 
     public BikeEvent markAsDeleted() {
-        this.status = Status.DELETED;
+        this.status = BikeEventStatus.DELETED;
         this.timestamp = new Date();
         return this;
     }
@@ -109,7 +109,7 @@ public class BikeEvent {
             target = new BikeEvent(bike);
             target.id = GruufAuth.generateUUID();
             target.timestamp = new Date();
-            target.status = Status.NEW;
+            target.status = BikeEventStatus.NEW;
         }
 
         public BikeEventBuilder withEventTypeId(String eventTypeId) {

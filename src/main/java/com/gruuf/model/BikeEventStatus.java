@@ -1,5 +1,5 @@
 package com.gruuf.model;
 
-public enum Status {
+public enum BikeEventStatus {
     NEW, DELETED
 }
