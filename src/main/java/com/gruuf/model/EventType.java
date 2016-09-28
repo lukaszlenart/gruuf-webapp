@@ -1,7 +1,9 @@
 package com.gruuf.model;
 
+import com.googlecode.objectify.annotation.AlsoLoad;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.IgnoreLoad;
 import com.googlecode.objectify.annotation.Index;
 import com.gruuf.web.GruufAuth;
 
@@ -14,6 +16,17 @@ public class EventType {
     @Index
     private String name;
     private Date created;
+    @Index
+    @IgnoreLoad
+    private EventTypeStatus status = EventTypeStatus.NORMAL;
+
+    public void migration(@AlsoLoad("status") String oldStatus) {
+        if (oldStatus == null) {
+            status = EventTypeStatus.NORMAL;
+        } else {
+            status = EventTypeStatus.valueOf(oldStatus);
+        }
+    }
 
     private EventType() {
     }
@@ -30,12 +43,17 @@ public class EventType {
         return created;
     }
 
+    public EventTypeStatus getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return "EventType{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", created=" + created +
+                ", status=" + status +
                 '}';
     }
 
@@ -60,6 +78,11 @@ public class EventType {
 
         public EventType build() {
             return target;
+        }
+
+        public EventTypeCreator witStatus(EventTypeStatus status) {
+            target.status = status;
+            return this;
         }
     }
 }

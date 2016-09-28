@@ -13,6 +13,7 @@
   <thead class="header-inverse">
   <tr>
     <th>Name</th>
+    <th>Status</th>
     <th>Created</th>
   </tr>
   </thead>
@@ -20,6 +21,7 @@
   <s:iterator value="list" var="eventType">
     <tr>
       <td><s:property value="name"/></td>
+      <td><s:property value="status"/></td>
       <td><s:property value="created"/></td>
     </tr>
   </s:iterator>
