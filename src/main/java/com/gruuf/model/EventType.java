@@ -61,6 +61,12 @@ public class EventType {
         return new EventTypeCreator(GruufAuth.generateUUID());
     }
 
+    public static EventTypeCreator create(EventType eventType) {
+        return new EventTypeCreator(eventType.getId())
+                .withName(eventType.getName())
+                .witStatus(eventType.getStatus());
+    }
+
     public static class EventTypeCreator {
 
         private final EventType target;

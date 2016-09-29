@@ -9,7 +9,9 @@ import com.gruuf.services.BikeHistory;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -23,32 +25,48 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Results({
         @Result(name = "to-event-types", location = "event-types", type = "redirectAction"),
-        @Result(name = INPUT, location = "admin/add-event-type-input")
+        @Result(name = INPUT, location = "admin/event-type-input")
 })
 @Tokens(Token.ADMIN)
-public class AddEventTypeAction extends BaseAction {
+public class EventTypeFormAction extends BaseAction {
 
-    private static Logger LOG = LogManager.getLogger(AddEventTypeAction.class);
+    private static Logger LOG = LogManager.getLogger(EventTypeFormAction.class);
 
     private BikeHistory bikeHistory;
+
+    private String eventTypeId;
 
     private String name;
     private EventTypeStatus status;
 
     @SkipValidation
     public String execute() {
-        LOG.debug("Showing event type create form");
+        if (StringUtils.isEmpty(eventTypeId)) {
+            LOG.debug("Showing event type create form");
+        } else {
+            LOG.debug("Showing event type edit form");
+            EventType eventType = bikeHistory.getEventType(eventTypeId);
+            name = eventType.getName();
+            status = eventType.getStatus();
+        }
         return INPUT;
     }
 
     @Action("update-event-type")
     public String updateEventType() {
-        LOG.debug("Creating new event type of name {}", name);
+        if (StringUtils.isEmpty(eventTypeId)) {
+            LOG.debug("Creating new event type of name {}", name);
 
-        EventType eventType = EventType.create().withName(name).witStatus(status).build();
-        Key<EventType> result = bikeHistory.addEventType(eventType);
+            EventType eventType = EventType.create().withName(name).witStatus(status).build();
+            Key<EventType> result = bikeHistory.putEventType(eventType);
 
-        LOG.debug("New event type created: {}", result);
+            LOG.debug("New event type created: {}", result);
+        } else {
+            LOG.debug("Updating existing event type of name {}", name);
+            EventType eventType = bikeHistory.getEventType(eventTypeId);
+            eventType = EventType.create(eventType).withName(name).witStatus(status).build();
+            bikeHistory.putEventType(eventType);
+        }
 
         return "to-event-types";
     }
@@ -58,11 +76,20 @@ public class AddEventTypeAction extends BaseAction {
         this.bikeHistory = bikeHistory;
     }
 
+    public String getEventTypeId() {
+        return eventTypeId;
+    }
+
+    public void setEventTypeId(String eventTypeId) {
+        this.eventTypeId = eventTypeId;
+    }
+
     public String getName() {
         return name;
     }
 
-    @StringLengthFieldValidator(minLength = "3")
+    @RequiredStringValidator
+    @StringLengthFieldValidator(minLength = "2")
     public void setName(String name) {
         this.name = name;
     }
@@ -76,7 +103,7 @@ public class AddEventTypeAction extends BaseAction {
         this.status = status;
     }
 
-    public Set<EventTypeStatus> getStatuses() {
+    public Set<EventTypeStatus> getAvailableStatuses() {
         return EventTypeStatus.all();
     }
 }

@@ -5,13 +5,14 @@
   <div class="col-md-12">
     <s:form action="update-event-type" method="POST" cssClass="form-horizontal">
       <s:hidden name="userId"/>
+      <s:hidden name="eventTypeId"/>
 
       <s:textfield name="name"
                    label="Event name"
                    labelCssClass="col-md-4"
                    elementCssClass="col-md-4"/>
 
-      <s:select list="statuses"
+      <s:select list="availableStatuses"
                 name="status"
                 label="Status"
                 labelCssClass="col-md-4"

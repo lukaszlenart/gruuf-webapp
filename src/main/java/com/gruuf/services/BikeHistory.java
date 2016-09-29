@@ -31,7 +31,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
                 .list();
     }
 
-    public Key<EventType> addEventType(EventType event) {
+    public Key<EventType> putEventType(EventType event) {
         return ObjectifyService
                 .ofy()
                 .save()
@@ -39,4 +39,12 @@ public class BikeHistory extends Reindexable<BikeEvent> {
                 .now();
     }
 
+    public EventType getEventType(String eventTypeId) {
+        return ObjectifyService
+                .ofy()
+                .load()
+                .type(EventType.class)
+                .id(eventTypeId)
+                .now();
+    }
 }

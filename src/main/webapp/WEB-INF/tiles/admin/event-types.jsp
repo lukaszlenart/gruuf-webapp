@@ -4,8 +4,8 @@
 
 <div class="row">
   <div class="col-md-12">
-    <s:url var="addEvent" action="add-event-type"/>
-    <s:a href="%{addEvent}">Add event type</s:a>
+    <s:url var="addEvent" action="event-type-form"/>
+    <s:a href="%{addEvent}" class="btn btn-default">Add event type</s:a>
   </div>
 </div>
 
@@ -15,6 +15,7 @@
     <th>Name</th>
     <th>Status</th>
     <th>Created</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -22,7 +23,13 @@
     <tr>
       <td><s:property value="name"/></td>
       <td><s:property value="status"/></td>
-      <td><s:property value="created"/></td>
+      <td><s:date name="created" format="%{userDateFormat}"/></td>
+      <td>
+        <s:url var="editEvent" action="event-type-form">
+          <s:param name="eventTypeId" value="id"/>
+        </s:url>
+        <s:a value="%{editEvent}">Edit</s:a>
+      </td>
     </tr>
   </s:iterator>
   </tbody>
