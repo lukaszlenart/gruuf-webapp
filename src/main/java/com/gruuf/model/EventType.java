@@ -2,6 +2,7 @@ package com.gruuf.model;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import com.gruuf.web.GruufAuth;
 
 import java.util.Date;
@@ -10,8 +11,10 @@ import java.util.Date;
 public class EventType {
     @Id
     private String id;
+    @Index
     private String name;
     private Date created;
+    @Index
     private EventTypeStatus status = EventTypeStatus.NORMAL;
 
     private EventType() {
