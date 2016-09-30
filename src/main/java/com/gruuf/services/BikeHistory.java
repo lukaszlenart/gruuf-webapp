@@ -27,7 +27,6 @@ public class BikeHistory extends Reindexable<BikeEvent> {
                 .ofy()
                 .load()
                 .type(EventType.class)
-                .order("name")
                 .list();
     }
 

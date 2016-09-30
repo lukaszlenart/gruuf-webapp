@@ -11,10 +11,8 @@ import java.util.Date;
 public class EventType {
     @Id
     private String id;
-    @Index
     private String name;
     private Date created;
-    @Index
     private EventTypeStatus status = EventTypeStatus.NORMAL;
 
     private EventType() {
