@@ -11,6 +11,7 @@
 - [X] walidacja po VIN celem unikniecia duplikatow
 - [X] zdarzenie można oznaczyć jako usunięte ale nie jest usuwane z bazy
 - [X] cert ssl
+- [ ] dodać autora zdarzenia
 - [ ] tłumaczenie EventType
 - [ ] definiowanie triggerów dla poszczególnych EventType
 - [ ] logowanie Facebook / Google
