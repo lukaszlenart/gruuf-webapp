@@ -9,7 +9,7 @@
 - [X] export danych celem backupowania
 - [X] I18N (polski)
 - [X] walidacja po VIN celem unikniecia duplikatow
-- [ ] możliwość edycji zdarzenia ???
+- [X] zdarzenie można oznaczyć jako usunięte ale nie jest usuwane z bazy
 - [X] cert ssl
 - [ ] tłumaczenie EventType
 - [ ] definiowanie triggerów dla poszczególnych EventType
