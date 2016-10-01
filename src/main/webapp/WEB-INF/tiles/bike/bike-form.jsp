@@ -2,7 +2,9 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <div class="row">
-  <s:form action="add-submit" method="POST" class="form-horizontal">
+  <s:form action="bike-form-submit" method="POST" class="form-horizontal">
+    <s:hidden name="bikeId"/>
+
     <s:textfield name="friendlyName"
                  key="bike.friendlyName"
                  placeholder="%{getText('bike.friendlyName.placeholder')}"
@@ -19,7 +21,7 @@
 
     <div class="form-group">
       <div class="col-sm-offset-7">
-        <s:submit cssClass="btn btn-primary" key="general.register"/>
+        <s:submit cssClass="btn btn-primary" key="general.save"/>
       </div>
     </div>
 

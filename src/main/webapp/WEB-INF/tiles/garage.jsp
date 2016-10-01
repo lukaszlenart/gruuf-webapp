@@ -25,6 +25,13 @@
     </tbody>
   </table>
 
+  <p class="center-block">
+    <s:url var="edit" action="bike-form" namespace="/bike">
+      <s:param name="bikeId" value="id"/>
+    </s:url>
+    <s:a value="%{edit}" class="btn btn-default"><s:text name="general.edit"/></s:a>
+  </p>
+
   <table class="table table-striped">
     <thead>
     <tr>

@@ -4,9 +4,9 @@
     "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-  <definition name="bike/add-input" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bike.addNewBike"/>
-    <put-attribute name="body" value="/WEB-INF/tiles/bike/add-input.jsp"/>
+  <definition name="bike/bike-form" extends="logged-in">
+    <put-attribute name="title" expression="S2:bikeFormTitle"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-form.jsp"/>
   </definition>
 
   <definition name="bike/history" extends="logged-in">

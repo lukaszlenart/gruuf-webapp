@@ -54,12 +54,23 @@ public class Bike {
         return new BikeBuilder(owner);
     }
 
+    public static BikeBuilder clone(Bike bike) {
+        return new BikeBuilder(bike);
+    }
+
     public static class BikeBuilder {
         private final Bike target;
 
         public BikeBuilder(User owner) {
             target = new Bike(owner);
             target.id = GruufAuth.generateUUID();
+        }
+
+        public BikeBuilder(Bike bike) {
+            target = new Bike(bike.getOwner());
+            target.id = bike.id;
+            target.name = bike.name;
+            target.vin = bike.vin;
         }
 
         public BikeBuilder withFriendlyName(String friendlyName) {

@@ -1,6 +1,5 @@
 package com.gruuf.web.actions.bike;
 
-import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
@@ -54,5 +53,13 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
 
     public String getBikeId() {
         return selectedBike.getId();
+    }
+
+    public String getBikeFormTitle() {
+        if (selectedBike == null) {
+            return getText("bike.addNewBike");
+        } else {
+            return getText("bike.editBike");
+        }
     }
 }

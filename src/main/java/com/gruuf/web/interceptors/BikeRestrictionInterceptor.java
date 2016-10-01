@@ -46,6 +46,9 @@ public class BikeRestrictionInterceptor extends AbstractInterceptor {
                 } else {
                     LOG.warn("User {} cannot view bike {}", currentUser, bike);
                 }
+            } else if (bikeRestriction.ignoreNullParam()) {
+                LOG.info("Ignoring null param {} and continue with action {}", bikeRestriction.value(), action);
+                return invocation.invoke();
             } else {
                 LOG.warn("Parameter {} not defined", bikeRestriction.value());
             }

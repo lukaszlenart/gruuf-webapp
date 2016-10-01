@@ -6,6 +6,10 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
 import com.gruuf.model.BikeEventStatus;
+import com.gruuf.model.EventTypeStatus;
+import org.apache.commons.beanutils.BeanPropertyValueEqualsPredicate;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 import java.util.Collections;
 import java.util.Comparator;

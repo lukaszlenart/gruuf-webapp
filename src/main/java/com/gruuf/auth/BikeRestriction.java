@@ -15,4 +15,6 @@ public @interface BikeRestriction {
 
     String resultName() default GruufActions.GARAGE;
 
+    boolean ignoreNullParam() default true;
+
 }

@@ -19,8 +19,8 @@
           <s:a href="%{garage}"><s:text name="garage.title"/></s:a>
         </li>
         <li>
-          <s:url var="addbike" action="add" namespace="/bike"/>
-          <s:a href="%{addbike}"><s:text name="bike.add"/></s:a>
+          <s:url var="addBike" action="bike-form" namespace="/bike"/>
+          <s:a href="%{addBike}"><s:text name="bike.add"/></s:a>
         </li>
         <s:if test="admin">
         <li>
