@@ -15,7 +15,7 @@
 - [ ] definiowanie triggerów dla poszczególnych EventType
 - [ ] logowanie Facebook / Google
 - [ ] aktulizacja przebiegu
-- [ ] powiadomienie o nowym użytkwoniku
+- [X] powiadomienie o nowym użytkwoniku
 - [ ] użytownik musi mieć możliwość zmiany swoich danych
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
 - [ ] zgłaszanie typów eventów przez użytkownika
@@ -25,3 +25,6 @@
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników
 - możliwość przejęcia / przekazania historii bike'a
+-- jeśli user ma płatne konto to może przejąć historię,
+   jeśli nie ma płatnego konta, to przejmuje historię
+   ale w trybie niewidocznym, po opłaceniu konta ma znowu pełny podgląd
