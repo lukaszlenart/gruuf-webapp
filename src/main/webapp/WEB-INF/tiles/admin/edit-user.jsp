@@ -2,40 +2,36 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6 col-md-offset-3">
     <s:form action="update-user" method="POST" cssClass="form-horizontal">
       <s:hidden name="userId"/>
 
       <s:textfield name="email"
                    label="e-mail"
                    readonly="true"
-                   labelCssClass="col-md-4"
-                   elementCssClass="col-md-4"/>
+                   cssClass="input-md"/>
 
       <s:textfield name="firstName"
                   label="First Name"
                   placeholder="e.g. John"
-                  labelCssClass="col-md-4"
-                  elementCssClass="col-md-4"/>
+                   cssClass="input-md"/>
 
       <s:textfield name="lastName"
                   label="Last Name"
                   placeholder="e.g. Kowalski"
-                  labelCssClass="col-md-4"
-                  elementCssClass="col-md-4"/>
+                   cssClass="input-md"/>
 
       <s:checkboxlist list="availableTokens"
                       name="tokens"
-                      labelCssClass="col-md-4"
-                      elementCssClass="col-md-4"/>
+                      label="Auth tokens"/>
 
       <s:select list="availableUserLocales"
                 name="userLocale"
-                labelCssClass="col-md-4"
-                elementCssClass="col-md-4"/>
+                label="User locale"
+                elementCssClass="col-sm-2"/>
 
       <div class="form-group">
-        <div class="col-sm-offset-7">
+        <div class="col-sm-offset-3 col-md-9">
           <s:submit cssClass="btn btn-primary" key="Change" />
         </div>
       </div>

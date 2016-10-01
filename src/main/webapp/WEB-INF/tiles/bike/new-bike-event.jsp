@@ -40,17 +40,14 @@
                 listKey="id"
                 key="bike.eventType"
                 labelCssClass="col-md-2"
-                elementCssClass="col-md-4"
-                cssClass="input-md"/>
+                elementCssClass="col-md-4"/>
 
       <s:textarea name="descriptiveName"
                   key="bike.descriptiveName"
                   placeholder="%{getText('bike.descriptiveName.placeholder')}"
-                  cols="40"
                   rows="6"
                   labelCssClass="col-md-2"
-                  elementCssClass="col-md-8"
-                  cssClass="input-md"/>
+                  elementCssClass="col-md-6"/>
 
       <sj:datepicker name="registerDate"
                      type="date"
@@ -58,8 +55,7 @@
                      displayFormat="yy-mm-dd"
                      placeholder="%{getText('bike.date.placeholder')}"
                      labelCssClass="col-md-2"
-                     elementCssClass="col-md-4"
-                     cssClass="input-md"/>
+                     elementCssClass="col-md-4"/>
 
       <s:textfield name="mileage"
                    type="number"
@@ -70,7 +66,7 @@
                    cssClass="input-md"/>
 
       <div class="form-group">
-        <div class="col-sm-offset-8">
+        <div class="col-sm-offset-2 col-md-9">
           <s:submit cssClass="btn btn-primary" key="general.register"/>
         </div>
       </div>

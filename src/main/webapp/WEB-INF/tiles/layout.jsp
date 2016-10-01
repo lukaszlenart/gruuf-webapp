@@ -15,19 +15,14 @@
   <title>
     <tiles:insertAttribute name="title" ignore="true"/>
   </title>
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-  <link rel="stylesheet" href="/main.css">
-
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
-  <sb:head includeScripts="false" includeScriptsValidation="false" includeStyles="false"/>
-  <sj:head loadFromGoogle="true" locale="%{userLanguage}" />
-
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <sj:head loadFromGoogle="true" locale="%{userLanguage}"/>
+  <sb:head includeScripts="false" includeScriptsValidation="false" includeStyles="true"/>
+  <link rel="stylesheet" href="/main.css">
 </head>
 <body>
   <tiles:insertAttribute name="header"/>

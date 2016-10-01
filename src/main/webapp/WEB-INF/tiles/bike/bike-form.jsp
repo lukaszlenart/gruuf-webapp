@@ -2,28 +2,26 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <div class="row">
-  <s:form action="bike-form-submit" method="POST" class="form-horizontal">
-    <s:hidden name="bikeId"/>
+  <div class="col-md-6 col-md-offset-3">
+    <s:form action="bike-form-submit" method="POST" class="form-horizontal">
+      <s:hidden name="bikeId"/>
 
-    <s:textfield name="friendlyName"
-                 key="bike.friendlyName"
-                 placeholder="%{getText('bike.friendlyName.placeholder')}"
-                 labelCssClass="col-md-4"
-                 elementCssClass="col-md-4"
-                 cssClass="input-md"/>
+      <s:textfield name="friendlyName"
+                   key="bike.friendlyName"
+                   placeholder="%{getText('bike.friendlyName.placeholder')}"
+                   cssClass="input-md"/>
 
-    <s:textfield name="vin"
-                 key="bike.vin"
-                 placeholder="%{getText('bike.vin.placeholder')}"
-                 labelCssClass="col-md-4"
-                 elementCssClass="col-md-4"
-                 cssClass="input-md"/>
+      <s:textfield name="vin"
+                   key="bike.vin"
+                   placeholder="%{getText('bike.vin.placeholder')}"
+                   cssClass="input-md"/>
 
-    <div class="form-group">
-      <div class="col-md-offset-7">
-        <s:submit cssClass="btn btn-primary" key="general.save"/>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-md-9">
+          <s:submit cssClass="btn btn-primary" key="general.save"/>
+        </div>
       </div>
-    </div>
 
-  </s:form>
+    </s:form>
+  </div>
 </div>
