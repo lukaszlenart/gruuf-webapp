@@ -47,9 +47,9 @@
       <tr>
         <td><s:property value="eventType.name"/></td>
         <td><s:property value="descriptiveName"/></td>
-        <td><s:property value="registerDate"/></td>
+        <td><s:date name="registerDate" format="%{userDateFormat}"/></td>
         <td><s:property value="mileage"/></td>
-        <td><s:property value="timestamp"/></td>
+        <td><s:date name="timestamp" format="%{userDateFormat}"/></td>
       </tr>
     </s:iterator>
     </tbody>
