@@ -2,10 +2,10 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<s:iterator value="bikes" var="bike">
+<s:iterator value="bikeDetails" var="details">
   <div class="row">
     <div class="col-md-12">
-      <h3><s:property value="name"/></h3>
+      <h3><s:property value="bike.name"/></h3>
     </div>
   </div>
   <table class="table table-striped">
@@ -18,9 +18,9 @@
     </thead>
     <tbody>
     <tr>
-      <td><s:property value="vin"/></td>
-      <td><s:property value="mileage"/></td>
-      <td><s:property value="registrationPlate"/></td>
+      <td><s:property value="bike.vin"/></td>
+      <td><s:property value="bike.mileage"/></td>
+      <td><s:property value="bike.registrationPlate"/></td>
     </tr>
     </tbody>
   </table>
@@ -43,7 +43,7 @@
     </tr>
     </thead>
     <tbody>
-    <s:iterator value="bikeDetails.events" var="event">
+    <s:iterator value="events" var="event">
       <tr>
         <td><s:property value="eventType.name"/></td>
         <td><s:property value="descriptiveName"/></td>

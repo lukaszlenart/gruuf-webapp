@@ -4,12 +4,8 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
-import com.gruuf.model.EventType;
 import com.gruuf.model.BikeEventStatus;
-import com.gruuf.model.EventTypeStatus;
-import org.apache.commons.beanutils.BeanPropertyValueEqualsPredicate;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
+import com.gruuf.model.EventType;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,6 +19,14 @@ public class BikeHistory extends Reindexable<BikeEvent> {
 
     public List<BikeEvent> listByBike(Bike bike) {
         return filter("bike =", bike)
+                .filter("status =", BikeEventStatus.NEW)
+                .order("-registerDate")
+                .list();
+    }
+
+    public List<BikeEvent> listRecentByBike(Bike bike) {
+        return filter("bike =", bike)
+                .limit(4)
                 .filter("status =", BikeEventStatus.NEW)
                 .order("-registerDate")
                 .list();
