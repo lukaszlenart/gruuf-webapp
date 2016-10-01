@@ -54,8 +54,12 @@
                      key="bike.date"
                      displayFormat="yy-mm-dd"
                      placeholder="%{getText('bike.date.placeholder')}"
+                     parentTheme="bootstrap"
                      labelCssClass="col-md-2"
-                     elementCssClass="col-md-4"/>
+                     elementCssClass="col-md-3"
+                     cssClass="form-control"
+                     showOn="focus"
+                     inputAppendIcon="calendar"/>
 
       <s:textfield name="mileage"
                    type="number"
