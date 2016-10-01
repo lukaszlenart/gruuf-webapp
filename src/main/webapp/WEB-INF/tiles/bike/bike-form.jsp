@@ -20,7 +20,7 @@
                  cssClass="input-md"/>
 
     <div class="form-group">
-      <div class="col-sm-offset-7">
+      <div class="col-md-offset-7">
         <s:submit cssClass="btn btn-primary" key="general.save"/>
       </div>
     </div>
