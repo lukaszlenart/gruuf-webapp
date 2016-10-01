@@ -27,7 +27,7 @@
 
   <p class="center-block">
     <s:url var="edit" action="bike-form" namespace="/bike">
-      <s:param name="bikeId" value="id"/>
+      <s:param name="bikeId" value="bike.id"/>
     </s:url>
     <s:a value="%{edit}" class="btn btn-default"><s:text name="general.edit"/></s:a>
   </p>
@@ -57,7 +57,7 @@
 
   <p class="center-block">
     <s:url var="url" action="history" namespace="/bike">
-      <s:param name="bikeId">${bike.id}</s:param>
+      <s:param name="bikeId" value="bike.id"/>
     </s:url>
     <s:a class="btn btn-default" role="button" href="%{url}">
       <s:text name="general.viewDetails"/>
