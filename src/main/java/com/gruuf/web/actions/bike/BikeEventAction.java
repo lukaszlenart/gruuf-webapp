@@ -33,7 +33,7 @@ public class BikeEventAction extends BaseBikeAction {
     public String registerBikeEvent() {
         LOG.debug("Registering new bike event for bike {}", getBikeId());
 
-        BikeEvent bikeEvent = BikeEvent.create(selectedBike)
+        BikeEvent bikeEvent = BikeEvent.create(selectedBike, currentUser)
                 .withEventTypeId(eventTypeId)
                 .withDescriptiveName(descriptiveName)
                 .withRegisterDate(registerDate)

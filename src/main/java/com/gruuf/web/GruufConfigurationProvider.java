@@ -88,14 +88,6 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
 
     @Override
     public void dispatcherInitialized(Dispatcher du) {
-        Garage garage = du.getContainer().getInstance(Garage.class);
-        if (garage != null) {
-            garage.reindex();
-        }
-        BikeHistory bikeHistory = du.getContainer().getInstance(BikeHistory.class);
-        if (bikeHistory != null) {
-            bikeHistory.reindex();
-        }
     }
 
     @Override

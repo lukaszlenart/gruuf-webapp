@@ -2,10 +2,8 @@ package com.gruuf.model;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.AlsoLoad;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.IgnoreLoad;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
 import com.gruuf.web.GruufAuth;
@@ -28,16 +26,8 @@ public class BikeEvent {
     private Date registerDate;
     private Long mileage;
     @Index
-    @IgnoreLoad
     private BikeEventStatus status = BikeEventStatus.NEW;
-
-    public void migration(@AlsoLoad("status") String oldStatus) {
-        if (oldStatus == null) {
-            status = BikeEventStatus.NEW;
-        } else {
-            status = BikeEventStatus.valueOf(oldStatus);
-        }
-    }
+    private Ref<User> registeredBy;
 
     private BikeEvent() {
     }
@@ -78,6 +68,10 @@ public class BikeEvent {
         return status;
     }
 
+    public User getAuthor() {
+        return registeredBy.get();
+    }
+
     @Override
     public String toString() {
         return "BikeEvent{" +
@@ -88,11 +82,13 @@ public class BikeEvent {
                 ", descriptiveName='" + descriptiveName + '\'' +
                 ", registerDate=" + registerDate +
                 ", mileage=" + mileage +
+                ", status=" + status +
+                ", registeredBy=" + registeredBy +
                 '}';
     }
 
-    public static BikeEventBuilder create(Bike bike) {
-        return new BikeEventBuilder(bike);
+    public static BikeEventBuilder create(Bike bike, User registeredBy) {
+        return new BikeEventBuilder(bike, registeredBy);
     }
 
     public BikeEvent markAsDeleted() {
@@ -105,11 +101,12 @@ public class BikeEvent {
 
         private final BikeEvent target;
 
-        private BikeEventBuilder(Bike bike) {
+        private BikeEventBuilder(Bike bike, User registeredBy) {
             target = new BikeEvent(bike);
             target.id = GruufAuth.generateUUID();
             target.timestamp = new Date();
             target.status = BikeEventStatus.NEW;
+            target.registeredBy = Ref.create(registeredBy);
         }
 
         public BikeEventBuilder withEventTypeId(String eventTypeId) {

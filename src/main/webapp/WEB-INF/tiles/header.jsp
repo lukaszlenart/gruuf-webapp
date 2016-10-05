@@ -35,6 +35,10 @@
           <s:url var="backup" action="backup" namespace="/admin"/>
           <s:a href="%{backup}"><s:text name="backup.title"/></s:a>
         </li>
+        <li>
+          <s:url var="reindex" action="reindex" namespace="/admin"/>
+          <s:a href="%{reindex}"><s:text name="reindex.title"/></s:a>
+        </li>
         </s:if>
         <li>
           <s:url var="logout" action="logout"/>
