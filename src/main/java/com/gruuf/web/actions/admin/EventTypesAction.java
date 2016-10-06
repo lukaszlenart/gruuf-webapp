@@ -3,7 +3,7 @@ package com.gruuf.web.actions.admin;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.EventType;
-import com.gruuf.services.BikeHistory;
+import com.gruuf.services.EventTypes;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
@@ -16,21 +16,21 @@ public class EventTypesAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(EventTypesAction.class);
 
-    private BikeHistory bikeHistory;
+    private EventTypes eventTypes;
 
     public String execute() {
         return "event-types";
     }
 
     public List<EventType> getList() {
-        List<EventType> eventTypes = bikeHistory.listEventTypes();
-        LOG.debug("Found event types {}", eventTypes);
+        List<EventType> types = eventTypes.list();
+        LOG.debug("Found event types {}", types);
 
-        return eventTypes;
+        return types;
     }
 
     @Inject
-    public void setBikeHistory(BikeHistory bikeHistory) {
-        this.bikeHistory = bikeHistory;
+    public void setEventTypes(EventTypes eventTypes) {
+        this.eventTypes = eventTypes;
     }
 }

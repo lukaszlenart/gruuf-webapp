@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.services.BikeHistory;
+import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.actions.BaseAction;
@@ -37,6 +38,7 @@ public class BackupAction extends BaseAction {
     private UserStore userStore;
     private BikeHistory bikeHistory;
     private Garage garage;
+    private EventTypes eventTypes;
 
     private ByteArrayInputStream backupFile;
 
@@ -49,7 +51,7 @@ public class BackupAction extends BaseAction {
         String bikes = gson.toJson(garage.list());
         LOG.debug("JSON bikes: {}", bikes);
 
-        String eventTypes = gson.toJson(bikeHistory.listEventTypes());
+        String eventTypes = gson.toJson(this.eventTypes.list());
         LOG.debug("JSON event types: {}", eventTypes);
 
         String events = gson.toJson(bikeHistory.list());
@@ -101,6 +103,11 @@ public class BackupAction extends BaseAction {
     @Inject
     public void setGarage(Garage garage) {
         this.garage = garage;
+    }
+
+    @Inject
+    public void setEventTypes(EventTypes eventTypes) {
+        this.eventTypes = eventTypes;
     }
 
     public InputStream getBackupFile() {
