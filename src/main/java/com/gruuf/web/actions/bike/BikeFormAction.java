@@ -1,5 +1,6 @@
 package com.gruuf.web.actions.bike;
 
+import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
@@ -73,7 +74,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
                 .withMileage(mileage)
                 .withEventTypeId(eventTypes.getMileageEventType().getId())
                 .withDescriptiveName(getText("bike.systemMileageUpdate"))
-                .withRegisterDate(new Date())
+                .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
                 .markAsSystem()
                 .build();
 

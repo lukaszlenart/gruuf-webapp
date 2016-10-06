@@ -31,7 +31,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
     public Long findCurrentMileage(Bike bike) {
         BikeEvent bikeEvent = filter("bike =", bike)
                 .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
-                .order("-registerDate")
+                .order("-timestamp")
                 .limit(1)
                 .first()
                 .now();

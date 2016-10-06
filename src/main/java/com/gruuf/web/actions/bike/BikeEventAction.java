@@ -23,10 +23,12 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     private String descriptiveName;
     private Date registerDate;
     private Long mileage;
+    private Long currentMileage;
 
     @SkipValidation
     @Action("new-bike-event")
     public String execute() {
+        currentMileage = bikeHistory.findCurrentMileage(selectedBike);
         return SUCCESS;
     }
 
@@ -49,8 +51,6 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     }
 
     public void validateRegisterBikeEvent() throws Exception {
-        Long currentMileage = bikeHistory.findCurrentMileage(selectedBike);
-
         if (currentMileage != null && mileage != null && currentMileage.compareTo(mileage) > 0) {
             LOG.debug("New mileage {} is less than current mileage {}", mileage, currentMileage);
             addFieldError("mileage", getText("bike.providedMileageIsLowerThanActual"));
@@ -94,6 +94,21 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     @RequiredFieldValidator(key = "bikeEvent.mileageIsRequired")
     public void setMileage(Long mileage) {
         this.mileage = mileage;
+    }
+
+    public Long getCurrentMileage() {
+        return currentMileage;
+    }
+
+    public void setCurrentMileage(Long currentMileage) {
+        this.currentMileage = currentMileage;
+    }
+
+    public String getCurrentMileageHelp() {
+        if (currentMileage == null) {
+            return getText("bike.currentMileageNotDefined");
+        }
+        return getText("bike.currentMileageInKmIs");
     }
 
 }

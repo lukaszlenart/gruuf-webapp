@@ -2,10 +2,8 @@ package com.gruuf.model;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.AlsoLoad;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.IgnoreLoad;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
 import com.gruuf.web.GruufAuth;
@@ -22,6 +20,7 @@ public class BikeEvent {
     private Ref<Bike> bike;
     @Load
     private Ref<EventType> eventTypeId;
+    @Index
     private Date timestamp;
     private String descriptiveName;
     @Index

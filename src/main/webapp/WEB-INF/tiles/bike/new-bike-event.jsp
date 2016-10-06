@@ -33,6 +33,7 @@
   <div class="col-md-12">
     <s:form action="register-bike-event" id="new-bike-event-form" method="POST" cssClass="form-horizontal">
       <s:hidden name="bikeId"/>
+      <s:hidden name="currentMileage"/>
 
       <s:select list="eventTypesList"
                 name="eventTypeId"
@@ -52,7 +53,7 @@
       <sj:datepicker name="registerDate"
                      type="date"
                      key="bike.date"
-                     displayFormat="yy-mm-dd"
+                     displayFormat="yy-dd-mm"
                      placeholder="%{getText('bike.date.placeholder')}"
                      parentTheme="bootstrap"
                      labelCssClass="col-md-2"
@@ -66,8 +67,9 @@
                    key="bike.mileageInKm"
                    placeholder="%{getText('bike.mileageInKm.placeholder')}"
                    labelCssClass="col-md-2"
-                   elementCssClass="col-md-2"
-                   cssClass="input-md"/>
+                   elementCssClass="col-md-3"
+                   cssClass="input-md"
+                   helpText="%{getCurrentMileageHelp()}"/>
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-9">
