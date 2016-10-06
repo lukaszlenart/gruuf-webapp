@@ -3,6 +3,7 @@ package com.gruuf.web.actions.bike;
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
+import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.struts2.convention.annotation.Action;
@@ -16,7 +17,7 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Result(name = INPUT, location = "bike/new-bike-event")
 @BikeRestriction
-public class BikeEventAction extends BaseBikeAction {
+public class BikeEventAction extends BaseBikeAction implements Validateable {
 
     private String eventTypeId;
     private String descriptiveName;
@@ -45,6 +46,15 @@ public class BikeEventAction extends BaseBikeAction {
 
         LOG.debug("Returning to show bike {}", getBikeId());
         return TO_SHOW_BIKE;
+    }
+
+    public void validateRegisterBikeEvent() throws Exception {
+        Long currentMileage = bikeHistory.findCurrentMileage(selectedBike);
+
+        if (currentMileage != null && mileage != null && currentMileage.compareTo(mileage) > 0) {
+            LOG.debug("New mileage {} is less than current mileage {}", mileage, currentMileage);
+            addFieldError("mileage", getText("bike.providedMileageIsLowerThanActual"));
+        }
     }
 
     public List<EventType> getEventTypesList() {
