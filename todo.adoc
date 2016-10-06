@@ -11,11 +11,11 @@
 - [X] walidacja po VIN celem unikniecia duplikatow
 - [X] zdarzenie można oznaczyć jako usunięte ale nie jest usuwane z bazy
 - [X] cert ssl
-- [ ] dodać autora zdarzenia
+- [X] dodać autora zdarzenia
+- [ ] aktulizacja przebiegu
 - [ ] tłumaczenie EventType
 - [ ] definiowanie triggerów dla poszczególnych EventType
 - [ ] logowanie Facebook / Google
-- [ ] aktulizacja przebiegu
 - [X] powiadomienie o nowym użytkwoniku
 - [ ] użytownik musi mieć możliwość zmiany swoich danych
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
@@ -28,4 +28,5 @@
 - możliwość przejęcia / przekazania historii bike'a
 -- jeśli user ma płatne konto to może przejąć historię,
    jeśli nie ma płatnego konta, to przejmuje historię
-   ale w trybie niewidocznym, po opłaceniu konta ma znowu pełny podgląd
+   ale w trybie niewidocznym w sensie nie widzi wpisów zrobionych przez innych,
+   po opłaceniu konta ma znowu pełny podgląd

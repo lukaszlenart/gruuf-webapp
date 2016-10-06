@@ -26,4 +26,7 @@ public class Garage extends Reindexable<Bike> {
         return bike.getOwner().getId().equals(byUser.getId());
     }
 
+    public void updateMileage(Bike bike, Long mileage) {
+
+    }
 }

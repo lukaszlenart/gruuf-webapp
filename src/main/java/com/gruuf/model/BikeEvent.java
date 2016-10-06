@@ -2,8 +2,10 @@ package com.gruuf.model;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.AlsoLoad;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.IgnoreLoad;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
 import com.gruuf.web.GruufAuth;
@@ -72,6 +74,10 @@ public class BikeEvent {
         return registeredBy.get();
     }
 
+    public boolean isDeletable() {
+        return status.isDeletable();
+    }
+
     @Override
     public String toString() {
         return "BikeEvent{" +
@@ -126,6 +132,11 @@ public class BikeEvent {
 
         public BikeEventBuilder withMileage(Long mileage) {
             target.mileage = mileage;
+            return this;
+        }
+
+        public BikeEventBuilder markAsSystem() {
+            target.status = BikeEventStatus.SYSTEM;
             return this;
         }
 

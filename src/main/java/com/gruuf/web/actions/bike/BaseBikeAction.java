@@ -4,6 +4,7 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.services.BikeHistory;
+import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
 import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.BikeAware;
@@ -21,6 +22,7 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
 
     protected Garage garage;
     protected BikeHistory bikeHistory;
+    protected EventTypes eventTypes;
 
     @Inject
     public void setGarage(Garage garage) {
@@ -30,6 +32,11 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
     @Inject
     public void setBikeHistory(BikeHistory bikeHistory) {
         this.bikeHistory = bikeHistory;
+    }
+
+    @Inject
+    public void setEventTypes(EventTypes eventTypes) {
+        this.eventTypes = eventTypes;
     }
 
     public String getBikeName() {
@@ -52,7 +59,10 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
     }
 
     public String getBikeId() {
-        return selectedBike.getId();
+        if (selectedBike != null) {
+            return selectedBike.getId();
+        }
+        return null;
     }
 
     public String getBikeFormTitle() {

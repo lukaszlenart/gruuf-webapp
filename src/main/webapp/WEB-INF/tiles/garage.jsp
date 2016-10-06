@@ -19,8 +19,8 @@
     <tbody>
     <tr>
       <td><s:property value="bike.vin"/></td>
-      <td><s:property value="bike.mileage"/></td>
-      <td><s:property value="bike.registrationPlate"/></td>
+      <td><s:property value="mileage"/></td>
+      <td><s:property value="registrationPlate"/></td>
     </tr>
     </tbody>
   </table>

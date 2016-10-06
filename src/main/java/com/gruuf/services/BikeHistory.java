@@ -1,12 +1,12 @@
 package com.gruuf.services;
 
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeEventStatus;
 import com.gruuf.model.EventType;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -19,7 +19,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
 
     public List<BikeEvent> listByBike(Bike bike) {
         return filter("bike =", bike)
-                .filter("status =", BikeEventStatus.NEW)
+                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
                 .order("-registerDate")
                 .list();
     }
@@ -27,7 +27,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
     public List<BikeEvent> listRecentByBike(Bike bike) {
         return filter("bike =", bike)
                 .limit(4)
-                .filter("status =", BikeEventStatus.NEW)
+                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
                 .order("-registerDate")
                 .list();
     }
@@ -49,20 +49,18 @@ public class BikeHistory extends Reindexable<BikeEvent> {
         return eventTypes;
     }
 
-    public Key<EventType> putEventType(EventType event) {
-        return ObjectifyService
-                .ofy()
-                .save()
-                .entity(event)
+    public Long findCurrentMileage(Bike bike) {
+        BikeEvent bikeEvent = filter("bike =", bike)
+                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
+                .order("-registerDate")
+                .limit(1)
+                .first()
                 .now();
+
+        if (bikeEvent == null) {
+            return null;
+        }
+        return bikeEvent.getMileage();
     }
 
-    public EventType getEventType(String eventTypeId) {
-        return ObjectifyService
-                .ofy()
-                .load()
-                .type(EventType.class)
-                .id(eventTypeId)
-                .now();
-    }
 }

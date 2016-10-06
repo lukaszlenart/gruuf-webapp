@@ -48,7 +48,12 @@ public class GarageAction extends BaseAction {
 
         for (Bike bike : bikes) {
             List<BikeEvent> events = bikeHistory.listRecentByBike(bike);
-            bikeDetails.add(BikeDetails.create(bike).withUser(currentUser).withHistory(events));
+            bikeDetails.add(
+                    BikeDetails.create(bike)
+                            .withUser(currentUser)
+                            .withHistory(events)
+                            .withMileage(bikeHistory.findCurrentMileage(bike))
+            );
         }
 
         return bikeDetails;

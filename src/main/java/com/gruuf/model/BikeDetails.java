@@ -7,6 +7,7 @@ public class BikeDetails {
     private Bike bike;
     private User currentUser;
     private List<BikeEvent> events;
+    private Long mileage;
 
     public static BikeDetails create(Bike bike) {
         return new BikeDetails(bike);
@@ -26,6 +27,11 @@ public class BikeDetails {
         return this;
     }
 
+    public BikeDetails withMileage(Long mileage) {
+        this.mileage = mileage;
+        return this;
+    }
+
     public Bike getBike() {
         return bike;
     }
@@ -38,12 +44,17 @@ public class BikeDetails {
         return events;
     }
 
+    public Long getMileage() {
+        return mileage;
+    }
+
     @Override
     public String toString() {
         return "BikeDetails{" +
                 "bike=" + bike +
                 ", currentUser=" + currentUser +
                 ", events=" + events +
+                ", mileage=" + mileage +
                 '}';
     }
 }

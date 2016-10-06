@@ -59,10 +59,12 @@
         <s:date name="timestamp" format="%{userDateFormat}"/>
       </td>
       <td>
+        <s:if test="deletable">
         <s:url var="deleteEvent" action="delete-bike-event">
           <s:param name="bikeEventId" value="id"/>
         </s:url>
         <s:a value="%{deleteEvent}"><s:text name="general.delete"/></s:a>
+        </s:if>
       </td>
     </tr>
   </s:iterator>

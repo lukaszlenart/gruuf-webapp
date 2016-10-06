@@ -6,6 +6,7 @@ import com.gruuf.auth.Tokens;
 import com.gruuf.model.EventType;
 import com.gruuf.model.EventTypeStatus;
 import com.gruuf.services.BikeHistory;
+import com.gruuf.services.EventTypes;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -32,7 +33,7 @@ public class EventTypeFormAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(EventTypeFormAction.class);
 
-    private BikeHistory bikeHistory;
+    private EventTypes eventTypes;
 
     private String eventTypeId;
 
@@ -45,7 +46,7 @@ public class EventTypeFormAction extends BaseAction {
             LOG.debug("Showing event type create form");
         } else {
             LOG.debug("Showing event type edit form");
-            EventType eventType = bikeHistory.getEventType(eventTypeId);
+            EventType eventType = eventTypes.get(eventTypeId);
             name = eventType.getName();
             status = eventType.getStatus();
         }
@@ -58,22 +59,22 @@ public class EventTypeFormAction extends BaseAction {
             LOG.debug("Creating new event type of name {}", name);
 
             EventType eventType = EventType.create().withName(name).witStatus(status).build();
-            Key<EventType> result = bikeHistory.putEventType(eventType);
+            EventType result = eventTypes.put(eventType);
 
             LOG.debug("New event type created: {}", result);
         } else {
             LOG.debug("Updating existing event type of name {}", name);
-            EventType eventType = bikeHistory.getEventType(eventTypeId);
+            EventType eventType = eventTypes.get(eventTypeId);
             eventType = EventType.create(eventType).withName(name).witStatus(status).build();
-            bikeHistory.putEventType(eventType);
+            eventTypes.put(eventType);
         }
 
         return "to-event-types";
     }
 
     @Inject
-    public void setBikeHistory(BikeHistory bikeHistory) {
-        this.bikeHistory = bikeHistory;
+    public void setEventTypes(EventTypes eventTypes) {
+        this.eventTypes = eventTypes;
     }
 
     public String getEventTypeId() {

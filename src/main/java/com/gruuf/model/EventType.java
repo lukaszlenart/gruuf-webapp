@@ -13,6 +13,7 @@ public class EventType {
     private String id;
     private String name;
     private Date created;
+    @Index
     private EventTypeStatus status = EventTypeStatus.NORMAL;
 
     private EventType() {

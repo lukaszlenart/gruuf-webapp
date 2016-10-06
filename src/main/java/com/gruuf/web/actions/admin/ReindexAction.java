@@ -3,6 +3,7 @@ package com.gruuf.web.actions.admin;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.services.BikeHistory;
+import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
@@ -14,6 +15,7 @@ public class ReindexAction extends BaseAction {
 
     private BikeHistory bikeHistory;
     private Garage garage;
+    private EventTypes eventTypes;
 
     public String execute() {
         if (garage != null) {
@@ -21,6 +23,9 @@ public class ReindexAction extends BaseAction {
         }
         if (bikeHistory != null) {
             bikeHistory.reindex();
+        }
+        if (eventTypes != null) {
+            eventTypes.reindex();
         }
 
         return SUCCESS;
@@ -37,4 +42,8 @@ public class ReindexAction extends BaseAction {
         this.garage = garage;
     }
 
+    @Inject
+    public void setEventTypes(EventTypes eventTypes) {
+        this.eventTypes = eventTypes;
+    }
 }

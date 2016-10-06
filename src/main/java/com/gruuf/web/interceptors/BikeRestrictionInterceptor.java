@@ -36,7 +36,7 @@ public class BikeRestrictionInterceptor extends AbstractInterceptor {
             String authToken = (String) invocation.getInvocationContext().getSession().get(GruufAuth.AUTH_TOKEN);
             User currentUser = userStore.get(authToken);
 
-            if (parameter.isDefined()) {
+            if (parameter.isDefined() && parameter.getValue().length() > 0) {
                 Bike bike = garage.get(parameter.getValue());
                 if (garage.canView(bike, currentUser)) {
                     if (action instanceof BikeAware) {

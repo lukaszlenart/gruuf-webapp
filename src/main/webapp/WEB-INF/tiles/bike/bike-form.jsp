@@ -16,6 +16,14 @@
                    placeholder="%{getText('bike.vin.placeholder')}"
                    cssClass="input-md"/>
 
+      <s:textfield name="mileage"
+                   key="bike.mileageInKm"
+                   type="number"
+                   placeholder="%{getText('bike.mileageInKm.placeholder')}"
+                   elementCssClass="col-md-4"
+                   cssClass="input-md"/>
+      <s:hidden name="currentMileage"/>
+
       <div class="form-group">
         <div class="col-sm-offset-3 col-md-9">
           <s:submit cssClass="btn btn-primary" key="general.save"/>

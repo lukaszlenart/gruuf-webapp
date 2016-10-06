@@ -3,8 +3,10 @@ package com.gruuf.web;
 import com.google.appengine.api.utils.SystemProperty;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.EventType;
 import com.gruuf.model.User;
 import com.gruuf.services.BikeHistory;
+import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
 import com.gruuf.services.MailBox;
 import com.gruuf.services.UserStore;
@@ -82,6 +84,13 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
             @Override
             public MailBox create(Context context) throws Exception {
                 return new MailBox();
+            }
+        }, Scope.SINGLETON);
+
+        containerBuilder.factory(EventTypes.class, new Factory<EventTypes>() {
+            @Override
+            public EventTypes create(Context context) throws Exception {
+                return new EventTypes(EventType.class);
             }
         }, Scope.SINGLETON);
     }

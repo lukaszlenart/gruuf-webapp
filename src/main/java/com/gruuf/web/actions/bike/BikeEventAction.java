@@ -48,7 +48,7 @@ public class BikeEventAction extends BaseBikeAction {
     }
 
     public List<EventType> getEventTypesList() {
-        return bikeHistory.listEventTypes();
+        return eventTypes.listAllowedEventTypes();
     }
 
     public String getEventTypeId() {
