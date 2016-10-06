@@ -12,7 +12,7 @@
 - [X] zdarzenie można oznaczyć jako usunięte ale nie jest usuwane z bazy
 - [X] cert ssl
 - [X] dodać autora zdarzenia
-- [ ] aktulizacja przebiegu
+- [X] aktulizacja przebiegu
 - [ ] tłumaczenie EventType
 - [ ] definiowanie triggerów dla poszczególnych EventType
 - [ ] logowanie Facebook / Google
