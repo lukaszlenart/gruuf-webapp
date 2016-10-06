@@ -23,7 +23,8 @@
 
       <s:checkboxlist list="availableTokens"
                       name="tokens"
-                      label="Auth tokens"/>
+                      label="Auth tokens"
+                      labelposition="inline"/>
 
       <s:select list="availableUserLocales"
                 name="userLocale"
