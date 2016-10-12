@@ -10,8 +10,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <struts2.version>2.5.3-SNAPSHOT</struts2.version>
-    <log4j2.version>2.6.3-SNAPSHOT</log4j2.version>
+    <struts2.version>2.5.6-SNAPSHOT</struts2.version>
+    <log4j2.version>2.7</log4j2.version>
     <google.appengine.version>1.9.42</google.appengine.version>
   </properties>
 
