@@ -23,7 +23,7 @@
   <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
   <constant name="struts.ui.theme" value="bootstrap"/>
   <constant name="struts.action.extension" value=""/>
-  <constant name="struts.action.excludePattern" value="/_ah/.*,/favicon\.ico"/>
+  <constant name="struts.action.excludePattern" value="/_ah/.*,/favicon\.ico,/~*.*"/>
   <constant name="struts.convention.action.packages" value="com.gruuf.web.actions"/>
   <constant name="struts.convention.default.parent.package" value="gruufDefault"/>
 
