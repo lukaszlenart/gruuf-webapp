@@ -13,7 +13,6 @@
 - [X] cert ssl
 - [X] dodać autora zdarzenia
 - [X] aktulizacja przebiegu
-- [ ] tłumaczenie EventType
 - [ ] definiowanie triggerów dla poszczególnych EventType
 - [ ] logowanie Facebook / Google
 - [X] powiadomienie o nowym użytkwoniku
@@ -21,7 +20,8 @@
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
 - [ ] zgłaszanie typów eventów przez użytkownika
 - [ ] zgłaszanie tłumaczenia przez użytkownika
-- [ ] zdarzenia generowane przez system nie mogą być usuwane (Status.SYSTEM)
+- [X] zdarzenia generowane przez system nie mogą być usuwane (Status.SYSTEM)
+- [ ] tłumaczenie EventType
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników
