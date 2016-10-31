@@ -25,4 +25,8 @@ abstract public class BaseAction extends ActionSupport implements CurrentUserAwa
     public String getUserDateFormat() {
         return currentUser.getUserLocale().getDateFormat();
     }
+
+    public String getUserDatePickerFormat() {
+        return currentUser.getUserLocale().getDatePickerFormat();
+    }
 }

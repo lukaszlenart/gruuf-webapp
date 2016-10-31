@@ -53,7 +53,7 @@
       <sj:datepicker name="registerDate"
                      type="date"
                      key="bike.date"
-                     displayFormat="yy-dd-mm"
+                     displayFormat="%{userDatePickerFormat}"
                      placeholder="%{getText('bike.date.placeholder')}"
                      parentTheme="bootstrap"
                      labelCssClass="col-md-2"
