@@ -13,7 +13,7 @@ import org.apache.struts2.convention.annotation.Result;
 
 import java.util.List;
 
-@Result(name = BaseBikeAction.TO_SHOW_BIKE, location = "show", type = "redirectAction", params = {"bikeId", "${bikeId}"})
+@Result(name = BaseBikeAction.TO_SHOW_BIKE, location = "history", type = "redirectAction", params = {"bikeId", "${bikeId}"})
 public abstract class BaseBikeAction extends BaseAction implements BikeAware {
 
     public static final String TO_SHOW_BIKE = "to-show-bike";
