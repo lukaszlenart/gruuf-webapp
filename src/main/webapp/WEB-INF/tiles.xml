@@ -28,6 +28,11 @@
     <put-attribute name="body" value="/WEB-INF/tiles/login.jsp"/>
   </definition>
 
+  <definition name="contact" extends="not-logged-in">
+    <put-attribute name="title" expression="I18N:contact.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/contact.jsp"/>
+  </definition>
+
   <definition name="biker/input" extends="not-logged-in">
     <put-attribute name="title" expression="I18N:biker.register.title"/>
     <put-attribute name="body" value="/WEB-INF/tiles/biker/register-input.jsp"/>
