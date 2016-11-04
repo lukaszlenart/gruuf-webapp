@@ -1,3 +1,4 @@
+### TODO
 - [X] tokeny i dostep do stron
 - [X] zarządzanie użytkownikami
   - [X] resetowanie hasła
@@ -32,3 +33,7 @@
    jeśli nie ma płatnego konta, to przejmuje historię
    ale w trybie niewidocznym w sensie nie widzi wpisów zrobionych przez innych,
    po opłaceniu konta ma znowu pełny podgląd
+
+
+### Usprawnienia
+- [ ] użyć https://www.cloudflare.com/ssl/ albo https://www.startssl.com/
