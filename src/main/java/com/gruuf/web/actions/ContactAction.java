@@ -20,6 +20,9 @@ public class ContactAction extends BaseAction {
 
     @SkipValidation
     public String execute() {
+        if (currentUser != null) {
+            email = currentUser.getEmail();
+        }
         return INPUT;
     }
 
