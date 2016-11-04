@@ -2,10 +2,11 @@ package com.gruuf.web.actions;
 
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
+import com.gruuf.model.UserLocale;
 import com.gruuf.web.interceptors.CurrentUserAware;
 import com.opensymphony.xwork2.ActionSupport;
 
-abstract public class BaseAction extends ActionSupport implements CurrentUserAware {
+public class BaseAction extends ActionSupport implements CurrentUserAware {
 
     protected User currentUser;
 
@@ -15,11 +16,19 @@ abstract public class BaseAction extends ActionSupport implements CurrentUserAwa
     }
 
     public boolean isAdmin() {
-        return currentUser.getTokens().contains(Token.ADMIN);
+        return currentUser != null && currentUser.getTokens().contains(Token.ADMIN);
+    }
+
+    public boolean isLoggedIn() {
+        return currentUser != null ;
     }
 
     public String getUserLanguage() {
-        return currentUser.getUserLocale().toString().toLowerCase();
+        if (currentUser != null) {
+            return currentUser.getUserLocale().toString().toLowerCase();
+        } else {
+            return UserLocale.EN.toString().toLowerCase();
+        }
     }
 
     public String getUserDateFormat() {

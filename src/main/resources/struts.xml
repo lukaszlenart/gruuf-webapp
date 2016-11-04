@@ -77,6 +77,8 @@
 
     <default-action-ref name="index"/>
 
+    <default-class-ref class="com.gruuf.web.actions.BaseAction"/>
+
     <global-results>
       <result name="https-redirect" type="redirect">
         <param name="location">https://gruuf.com/</param>

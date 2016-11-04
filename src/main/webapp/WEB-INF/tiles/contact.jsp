@@ -1,25 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <s:form action="contact-submit" method="POST" cssClass="form-horizontal">
-      <s:textfield name="email"
-                   placeholder="%{getText('user.email.placeholder')}"
-                   key="contact.yourEmail"
-                   cssClass="input-md"/>
+<s:if test="loggedIn">
+  <tiles:insertDefinition name="contact.logged-in"/>
+</s:if>
 
-      <s:textarea name="message"
-                  key="contact.message"
-                  cols="40"
-                  rows="8"/>
-
-      <div class="form-group">
-        <div class="col-md-8 col-sm-offset-3">
-          <s:submit cssClass="btn btn-primary" key="general.submit"/>
-        </div>
-      </div>
-
-    </s:form>
-  </div>
-</div>
+<s:if test="not loggedIn">
+  <tiles:insertDefinition name="contact.not-logged-in"/>
+</s:if>

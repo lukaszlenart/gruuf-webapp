@@ -28,9 +28,18 @@
     <put-attribute name="body" value="/WEB-INF/tiles/login.jsp"/>
   </definition>
 
-  <definition name="contact" extends="not-logged-in">
+  <definition name="contact" template="/WEB-INF/tiles/contact.jsp">
     <put-attribute name="title" expression="I18N:contact.title"/>
-    <put-attribute name="body" value="/WEB-INF/tiles/contact.jsp"/>
+  </definition>
+
+  <definition name="contact.logged-in" extends="logged-in">
+    <put-attribute name="title" expression="I18N:contact.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/contact-form.jsp"/>
+  </definition>
+
+  <definition name="contact.not-logged-in" extends="not-logged-in">
+    <put-attribute name="title" expression="I18N:contact.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/contact-form.jsp"/>
   </definition>
 
   <definition name="biker/input" extends="not-logged-in">
