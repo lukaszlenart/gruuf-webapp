@@ -44,9 +44,10 @@
                 elementCssClass="col-md-4"/>
 
       <s:textarea name="descriptiveName"
-                  key="bike.descriptiveName"
-                  placeholder="%{getText('bike.descriptiveName.placeholder')}"
+                  key="bikeEvent.descriptiveName"
+                  placeholder="%{getText('bikeEvent.descriptiveName.placeholder')}"
                   rows="6"
+                  tooltip="%{getText('bikeEvent.descriptiveName.tooltip')}"
                   labelCssClass="col-md-2"
                   elementCssClass="col-md-6"/>
 
