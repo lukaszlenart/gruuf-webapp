@@ -12,7 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <struts2.version>2.5.5</struts2.version>
     <log4j2.version>2.7</log4j2.version>
-    <google.appengine.version>1.9.42</google.appengine.version>
+    <google.appengine.version>1.9.46</google.appengine.version>
   </properties>
 
   <dependencies>
