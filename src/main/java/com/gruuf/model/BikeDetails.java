@@ -1,12 +1,13 @@
 package com.gruuf.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BikeDetails {
 
     private Bike bike;
     private User currentUser;
-    private List<BikeEvent> events;
+    private List<BikeEventDescriptor> events;
     private Long mileage;
 
     public static BikeDetails create(Bike bike) {
@@ -22,8 +23,11 @@ public class BikeDetails {
         return this;
     }
 
-    public BikeDetails withHistory(List<BikeEvent> events) {
-        this.events = events;
+    public BikeDetails withHistory(List<BikeEvent> bikeEvents) {
+        events = new ArrayList<>();
+        for (BikeEvent event : bikeEvents) {
+            events.add(new BikeEventDescriptor(event));
+        }
         return this;
     }
 
@@ -40,7 +44,7 @@ public class BikeDetails {
         return currentUser;
     }
 
-    public List<BikeEvent> getEvents() {
+    public List<BikeEventDescriptor> getEvents() {
         return events;
     }
 

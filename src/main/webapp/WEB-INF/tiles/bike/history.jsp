@@ -47,7 +47,7 @@
         <s:property value="eventType.name"/>
       </td>
       <td>
-        <s:property value="descriptiveName"/>
+        <s:property value="descriptiveName" escapeHtml="false"/>
       </td>
       <td>
         <s:date name="registerDate" format="%{userDateFormat}"/>
