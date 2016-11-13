@@ -43,22 +43,22 @@
   <tbody>
   <s:iterator value="bikeDetails.events" var="event">
     <tr>
-      <td>
+      <td class="text-nowrap">
         <s:property value="eventType.name"/>
       </td>
       <td>
         <s:property value="descriptiveName" escapeHtml="false"/>
       </td>
-      <td>
+      <td class="text-nowrap">
         <s:date name="registerDate" format="%{userDateFormat}"/>
       </td>
-      <td>
+      <td class="text-nowrap">
         <s:property value="mileage"/>
       </td>
-      <td>
+      <td class="text-nowrap">
         <s:date name="timestamp" format="%{userDateFormat}"/>
       </td>
-      <td>
+      <td class="text-nowrap">
         <s:if test="deletable">
         <s:url var="deleteEvent" action="delete-bike-event">
           <s:param name="bikeEventId" value="id"/>

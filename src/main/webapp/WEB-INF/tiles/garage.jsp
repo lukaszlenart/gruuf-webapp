@@ -45,11 +45,11 @@
     <tbody>
     <s:iterator value="events" var="event">
       <tr>
-        <td><s:property value="eventType.name"/></td>
+        <td class="text-nowrap"><s:property value="eventType.name"/></td>
         <td><s:property value="descriptiveName" escapeHtml="false"/></td>
-        <td><s:date name="registerDate" format="%{userDateFormat}"/></td>
-        <td><s:property value="mileage"/></td>
-        <td><s:date name="timestamp" format="%{userDateFormat}"/></td>
+        <td class="text-nowrap"><s:date name="registerDate" format="%{userDateFormat}"/></td>
+        <td class="text-nowrap"><s:property value="mileage"/></td>
+        <td class="text-nowrap"><s:date name="timestamp" format="%{userDateFormat}"/></td>
       </tr>
     </s:iterator>
     </tbody>
