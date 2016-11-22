@@ -16,7 +16,7 @@
   </context-param>
 
   <listener>
-    <listener-class>com.gruuf.web.InitListener</listener-class>
+    <listener-class>com.gruuf.struts2.gae.dispatcher.GaeInitListener</listener-class>
   </listener>
   <listener>
     <listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
@@ -24,7 +24,7 @@
 
   <filter>
     <filter-name>struts2</filter-name>
-    <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    <filter-class>com.gruuf.struts2.gae.dispatcher.GaePrepareAndExecuteFilter</filter-class>
     <init-param>
       <param-name>configProviders</param-name>
       <param-value>com.gruuf.web.GruufConfigurationProvider</param-value>

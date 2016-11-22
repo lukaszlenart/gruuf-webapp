@@ -10,7 +10,7 @@
       </s:url>
       <s:a href="%{history}"><s:text name="bike.bikeHistory"/></s:a>
     </li>
-    <li role="presentation" class="active">
+    <li role="presentation">
       <s:url var="recommendations" action="recommendations">
         <s:param name="bikeId" value="bikeId"/>
       </s:url>
@@ -26,7 +26,7 @@
         <s:text name="bike.registerNewEvent"/>
       </s:a>
     </li>
-    <li role="presentation">
+    <li role="presentation" class="active">
       <s:url var="attachments" action="attachments">
         <s:param name="bikeId" value="bikeId"/>
       </s:url>
@@ -37,13 +37,17 @@
   </ul>
 </nav>
 
+<s:form action="upload" enctype="multipart/form-data" method="POST">
+  <s:file name="attachment"/>
+  <s:submit/>
+</s:form>
+
 <table class="table table-striped">
   <thead>
   <tr>
-    <th><s:text name="bikeEvent.eventType"/></th>
-    <th><s:text name="bikeEvent.descriptiveName"/></th>
-    <th><s:text name="bikeEvent.eventDate"/></th>
-    <th><s:text name="bikeEvent.mileage"/></th>
+    <th><s:text name="bikeEvent.fileName"/></th>
+    <th><s:text name="bikeEvent.contentType"/></th>
+    <th><s:text name="bikeEvent.link"/></th>
     <th><s:text name="general.timestamp"/>
     <th><s:text name="general.actions"/>
   </tr>
@@ -51,26 +55,22 @@
   <tbody>
   <s:iterator value="bikeDetails.events" var="event">
     <tr>
-      <td>
-        <s:property value="eventType.name"/>
+      <td class="text-nowrap">
+        <s:property value="fileName"/>
       </td>
       <td>
-        <s:property value="descriptiveName"/>
+        <s:property value="contentType"/>
       </td>
-      <td>
-        <s:date name="registerDate" format="%{userDateFormat}"/>
+      <td class="text-nowrap">
+        <s:a value="%{link}">
+          <s:property value="fileName"/>
+        </s:a>
       </td>
-      <td>
-        <s:property value="mileage"/>
-      </td>
-      <td>
+      <td class="text-nowrap">
         <s:date name="timestamp" format="%{userDateFormat}"/>
       </td>
-      <td>
-        <s:url var="deleteEvent" action="delete-bike-event">
-          <s:param name="bikeEventId" value="id"/>
-        </s:url>
-        <s:a value="%{deleteEvent}"><s:text name="general.delete"/></s:a>
+      <td class="text-nowrap">
+        delete
       </td>
     </tr>
   </s:iterator>

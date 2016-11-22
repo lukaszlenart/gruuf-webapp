@@ -24,4 +24,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/new-bike-event.jsp"/>
   </definition>
 
+  <definition name="bike/attachments" extends="logged-in">
+    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/attachments.jsp"/>
+  </definition>
+
 </tiles-definitions>

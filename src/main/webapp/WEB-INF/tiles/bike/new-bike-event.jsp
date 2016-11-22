@@ -26,6 +26,14 @@
         <s:text name="bike.registerNewEvent"/>
       </s:a>
     </li>
+    <li role="presentation">
+      <s:url var="attachments" action="attachments">
+        <s:param name="bikeId" value="bikeId"/>
+      </s:url>
+      <s:a value="%{attachments}">
+        <s:text name="bike.attachments"/>
+      </s:a>
+    </li>
   </ul>
 </nav>
 

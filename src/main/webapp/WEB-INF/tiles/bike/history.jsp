@@ -26,6 +26,14 @@
         <s:text name="bike.registerNewEvent"/>
       </s:a>
     </li>
+    <li role="presentation">
+      <s:url var="attachments" action="attachments">
+        <s:param name="bikeId" value="bikeId"/>
+      </s:url>
+      <s:a value="%{attachments}">
+        <s:text name="bike.attachments"/>
+      </s:a>
+    </li>
   </ul>
 </nav>
 
@@ -70,9 +78,3 @@
   </s:iterator>
   </tbody>
 </table>
-
-<s:if test="showRegisterForm">
-  <script type="application/javascript">
-    $('#new-bike-event-form').collapse('show');
-  </script>
-</s:if>

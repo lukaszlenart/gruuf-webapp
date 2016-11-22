@@ -62,7 +62,28 @@
         <interceptor-ref name="workflow">
           <param name="excludeMethods">input,back,cancel,browse</param>
         </interceptor-ref>
-        <interceptor-ref name="debugging"/>
+      </interceptor-stack>
+
+      <interceptor-stack name="gruufDefaultUploadDev">
+        <interceptor-ref name="exception"/>
+        <interceptor-ref name="secure"/>
+        <interceptor-ref name="login"/>
+        <interceptor-ref name="auth"/>
+        <interceptor-ref name="user"/>
+        <interceptor-ref name="restriction"/>
+        <interceptor-ref name="alias"/>
+        <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="i18n"/>
+        <interceptor-ref name="fileUpload"/>
+        <interceptor-ref name="prepare"/>
+        <interceptor-ref name="params"/>
+        <interceptor-ref name="conversionError"/>
+        <interceptor-ref name="validation">
+          <param name="excludeMethods">input,back,cancel,browse</param>
+        </interceptor-ref>
+        <interceptor-ref name="workflow">
+          <param name="excludeMethods">input,back,cancel,browse</param>
+        </interceptor-ref>
       </interceptor-stack>
 
       <interceptor-stack name="defaultWithMessages">
