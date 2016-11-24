@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <s:form action="login-submit" method="POST" cssClass="form-horizontal">
+    <s:form action="login-submit" method="POST" cssClass="form-horizontal" focusElement="login-submit_email">
       <s:textfield name="email"
                    placeholder="%{getText('user.email.placeholder')}"
                    label="E-mail"
