@@ -8,3 +8,7 @@ deploy:
   provider: gae
   keyfile: gruuf-webapp.json.enc
   project: gruuf-webapp
+  default: true
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_4b6cbd69bf24_key -iv $encrypted_4b6cbd69bf24_iv -in gruuf-webapp.json.enc -out gruuf-webapp.json -d
