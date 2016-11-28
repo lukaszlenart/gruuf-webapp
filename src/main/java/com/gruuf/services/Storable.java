@@ -4,6 +4,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.cmd.Query;
+import com.gruuf.model.Attachment;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
@@ -18,6 +19,7 @@ public abstract class Storable<E> {
         ObjectifyService.register(EventType.class);
         ObjectifyService.register(BikeEvent.class);
         ObjectifyService.register(Bike.class);
+        ObjectifyService.register(Attachment.class);
     }
 
     private Class<E> type;

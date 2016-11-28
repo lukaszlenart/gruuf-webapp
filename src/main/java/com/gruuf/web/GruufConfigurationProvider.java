@@ -1,15 +1,12 @@
 package com.gruuf.web;
 
 import com.google.appengine.api.utils.SystemProperty;
+import com.gruuf.GruufConstants;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
 import com.gruuf.model.User;
-import com.gruuf.services.BikeHistory;
-import com.gruuf.services.EventTypes;
-import com.gruuf.services.Garage;
-import com.gruuf.services.MailBox;
-import com.gruuf.services.UserStore;
+import com.gruuf.services.*;
 import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.ConfigurationException;
 import com.opensymphony.xwork2.config.ConfigurationProvider;
@@ -59,6 +56,18 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
                 LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
+        locatableProperties.setProperty(
+                GruufConstants.STORAGE_BUCKET_NAME,
+                devMode ? "staging.gruuf-webapp.appspot.com" : "gruuf-webapp.appspot.com",
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
+        locatableProperties.setProperty(
+                GruufConstants.STORAGE_ROOT_URL,
+                "https://storage.googleapis.com/",
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
         containerBuilder.factory(UserStore.class, new Factory<UserStore>() {
             @Override
             public UserStore create(Context context) throws Exception {
@@ -93,6 +102,13 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
             @Override
             public EventTypes create(Context context) throws Exception {
                 return new EventTypes(EventType.class);
+            }
+        }, Scope.SINGLETON);
+
+        containerBuilder.factory(AttachmentsStorage.class, new Factory<AttachmentsStorage>() {
+            @Override
+            public AttachmentsStorage create(Context context) throws Exception {
+                return context.getContainer().inject(AttachmentsStorage.class);
             }
         }, Scope.SINGLETON);
     }

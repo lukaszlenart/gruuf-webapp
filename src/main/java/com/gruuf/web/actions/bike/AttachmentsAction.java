@@ -1,7 +1,14 @@
 package com.gruuf.web.actions.bike;
 
-import com.google.cloud.storage.*;
+import com.gruuf.GruufConstants;
+import com.gruuf.auth.BikeRestriction;
+import com.gruuf.model.Attachment;
+import com.gruuf.model.AttachmentDescriptor;
+import com.gruuf.services.AttachmentsStorage;
 import com.gruuf.struts2.gae.dispatcher.multipart.GaeUploadedFile;
+import com.opensymphony.xwork2.inject.Inject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
@@ -14,7 +21,13 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Result(name = INPUT, location = "bike/attachments")
 @InterceptorRef("gruufDefaultUploadDev")
+@BikeRestriction
 public class AttachmentsAction extends BaseBikeAction {
+
+    private static final Logger LOG = LogManager.getLogger(AttachmentsAction.class);
+
+    private AttachmentsStorage storage;
+    private String rootUrl;
 
     private UploadedFile attachment;
     private String attachmentFileName;
@@ -26,23 +39,20 @@ public class AttachmentsAction extends BaseBikeAction {
 
     @Action("upload")
     public String upload() throws Exception {
-        List<Acl> acls = new ArrayList<>();
-        acls.add(Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
-
-        Storage storage = StorageOptions.getDefaultInstance().getService();
-
-        BlobInfo blobInfo = BlobInfo.newBuilder("gruuf-webapp.appspot.com", attachmentFileName)
-                .setAcl(acls)
-                .setContentType(attachmentContentType)
-                .build();
-
-        Object content = attachment.getContent();
-        Blob blob = storage.create(blobInfo, (byte[]) content);
-
-        System.out.println(blob.getMediaLink());
-        System.out.println(blob.getSelfLink());
+        LOG.debug("Storing attachment [{}] of content type [{}] as [{}]", attachment, attachmentContentType, attachmentFileName);
+        storage.storeAttachment(currentUser, attachment, attachmentFileName, attachmentContentType);
 
         return INPUT;
+    }
+
+    @Inject
+    public void setStorage(AttachmentsStorage storage) {
+        this.storage = storage;
+    }
+
+    @Inject(GruufConstants.STORAGE_ROOT_URL)
+    public void setRootUrl(String rootUrl) {
+        this.rootUrl = rootUrl;
     }
 
     public UploadedFile getAttachment() {
@@ -67,5 +77,15 @@ public class AttachmentsAction extends BaseBikeAction {
 
     public void setAttachmentContentType(String attachmentContentType) {
         this.attachmentContentType = attachmentContentType;
+    }
+
+    public List<AttachmentDescriptor> getAttachments() {
+        List<AttachmentDescriptor> attachments = new ArrayList<>();
+
+        for (Attachment attachment : storage.findBy("owner", currentUser)) {
+            attachments.add(new AttachmentDescriptor(rootUrl, attachment));
+        }
+
+        return attachments;
     }
 }

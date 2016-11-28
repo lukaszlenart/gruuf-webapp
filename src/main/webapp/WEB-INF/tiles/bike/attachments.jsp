@@ -38,6 +38,7 @@
 </nav>
 
 <s:form action="upload" enctype="multipart/form-data" method="POST">
+  <s:hidden name="bikeId"/>
   <s:file name="attachment"/>
   <s:submit/>
 </s:form>
@@ -53,17 +54,17 @@
   </tr>
   </thead>
   <tbody>
-  <s:iterator value="bikeDetails.events" var="event">
+  <s:iterator value="attachments" var="attachment">
     <tr>
-      <td class="text-nowrap">
-        <s:property value="fileName"/>
+      <td>
+        <s:property value="originalFileName"/>
       </td>
       <td>
         <s:property value="contentType"/>
       </td>
-      <td class="text-nowrap">
+      <td>
         <s:a value="%{link}">
-          <s:property value="fileName"/>
+          <s:property value="originalFileName"/>
         </s:a>
       </td>
       <td class="text-nowrap">
