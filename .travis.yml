@@ -12,3 +12,4 @@ deploy:
   keyfile: gruuf-webapp.json
   project: gruuf-webapp
   default: true
+  skip_cleanup: true
