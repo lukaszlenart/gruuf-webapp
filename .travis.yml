@@ -1,0 +1,10 @@
+language: java
+sudo: false
+
+jdk:
+  - oraclejdk7
+
+deploy:
+  provider: gae
+  keyfile: "gruuf-webapp.json.enc"
+  project: "gruuf-webapp"
