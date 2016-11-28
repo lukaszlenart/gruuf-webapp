@@ -46,4 +46,12 @@ public class AttachmentsStorage extends Storable<Attachment> {
 
         return put(attachment);
     }
+
+    public long countSpaceByUser(User currentUser) {
+        long sum = 0;
+        for (Attachment attachment : findBy("owner", currentUser)) {
+            sum = sum + attachment.getSize();
+        }
+        return sum;
+    }
 }

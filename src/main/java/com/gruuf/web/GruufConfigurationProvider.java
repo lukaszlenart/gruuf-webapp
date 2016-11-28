@@ -68,6 +68,12 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
                 LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
+        locatableProperties.setProperty(
+                GruufConstants.STORAGE_TOTAL_ALLOWED_SPACE,
+                String.valueOf(1024 * 1024 * 20), // 20 MB
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
         containerBuilder.factory(UserStore.class, new Factory<UserStore>() {
             @Override
             public UserStore create(Context context) throws Exception {

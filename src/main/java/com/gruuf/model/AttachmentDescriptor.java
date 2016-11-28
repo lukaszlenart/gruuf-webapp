@@ -35,7 +35,7 @@ public class AttachmentDescriptor {
     }
 
     public Long getSize() {
-        return attachment.getSize();
+        return attachment.getSize()/1024;
     }
 
     public String getContentType() {

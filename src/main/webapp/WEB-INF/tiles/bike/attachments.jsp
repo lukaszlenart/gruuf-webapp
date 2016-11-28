@@ -37,17 +37,34 @@
   </ul>
 </nav>
 
-<s:form action="upload" enctype="multipart/form-data" method="POST">
-  <s:hidden name="bikeId"/>
-  <s:file name="attachment"/>
-  <s:submit/>
-</s:form>
+<div class="row">
+  <div class="col-md-6">
+
+    <s:form action="upload" enctype="multipart/form-data" method="POST" cssClass="form-inline">
+      <s:hidden name="bikeId"/>
+
+      <s:file name="attachment" key="bikeEvent.attachment"/>
+
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-md-6">
+          <s:submit key="bikeEvent.upload" cssClass="btn btn-default"/>
+        </div>
+      </div>
+
+    </s:form>
+
+    <p class="help-block"><s:text name="bikeEvent.spaceLeft"/>: <s:number name="spaceLeft"/> <s:text name="bikeEvent.kiloBytes"/></p>
+  </div>
+</div>
+
+<hr/>
 
 <table class="table table-striped">
   <thead>
   <tr>
     <th><s:text name="bikeEvent.fileName"/></th>
     <th><s:text name="bikeEvent.contentType"/></th>
+    <th><s:text name="bikeEvent.size"/></th>
     <th><s:text name="bikeEvent.link"/></th>
     <th><s:text name="general.timestamp"/>
     <th><s:text name="general.actions"/>
@@ -61,6 +78,9 @@
       </td>
       <td>
         <s:property value="contentType"/>
+      </td>
+      <td>
+        <s:number name="size"/> <s:text name="bikeEvent.kiloBytes"/>
       </td>
       <td>
         <s:a value="%{link}">

@@ -28,6 +28,7 @@ public class AttachmentsAction extends BaseBikeAction {
 
     private AttachmentsStorage storage;
     private String rootUrl;
+    private Long totalAllowedSpace;
 
     private UploadedFile attachment;
     private String attachmentFileName;
@@ -53,6 +54,11 @@ public class AttachmentsAction extends BaseBikeAction {
     @Inject(GruufConstants.STORAGE_ROOT_URL)
     public void setRootUrl(String rootUrl) {
         this.rootUrl = rootUrl;
+    }
+
+    @Inject(GruufConstants.STORAGE_TOTAL_ALLOWED_SPACE)
+    public void setTotalAllowedSpace(String totalAllowedSpace) {
+        this.totalAllowedSpace = Long.parseLong(totalAllowedSpace);
     }
 
     public UploadedFile getAttachment() {
@@ -87,5 +93,11 @@ public class AttachmentsAction extends BaseBikeAction {
         }
 
         return attachments;
+    }
+
+    public long getSpaceLeft() {
+        long usedSpace = storage.countSpaceByUser(currentUser);
+        long spaceLeft = totalAllowedSpace - usedSpace;
+        return spaceLeft/1024;
     }
 }
