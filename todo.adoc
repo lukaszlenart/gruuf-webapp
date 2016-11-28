@@ -24,10 +24,11 @@
 - [ ] zgłaszanie tłumaczenia przez użytkownika
 - [X] zdarzenia generowane przez system nie mogą być usuwane (Status.SYSTEM)
 - [ ] tłumaczenie EventType
-- [ ] Markdown support
+- [X] Markdown support
+- [X] możliwość dodawania zdjęć / załączeników limit 20MB
 
 ### Płatne opcje
-- możliwość dodawania zdjęć / załączeników
+- możliwość dodawania zdjęć / załączeników bez limitu
 - możliwość przejęcia / przekazania historii bike'a
 -- jeśli user ma płatne konto to może przejąć historię,
    jeśli nie ma płatnego konta, to przejmuje historię
