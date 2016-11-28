@@ -6,6 +6,7 @@ import com.gruuf.model.Attachment;
 import com.gruuf.model.AttachmentDescriptor;
 import com.gruuf.services.AttachmentsStorage;
 import com.gruuf.struts2.gae.dispatcher.multipart.GaeUploadedFile;
+import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,13 +23,14 @@ import static com.opensymphony.xwork2.Action.INPUT;
 @Result(name = INPUT, location = "bike/attachments")
 @InterceptorRef("gruufDefaultUploadDev")
 @BikeRestriction
-public class AttachmentsAction extends BaseBikeAction {
+public class AttachmentsAction extends BaseBikeAction implements Preparable {
 
     private static final Logger LOG = LogManager.getLogger(AttachmentsAction.class);
 
     private AttachmentsStorage storage;
     private String rootUrl;
     private Long totalAllowedSpace;
+    private Long spaceLeft;
 
     private UploadedFile attachment;
     private String attachmentFileName;
@@ -59,6 +61,12 @@ public class AttachmentsAction extends BaseBikeAction {
     @Inject(GruufConstants.STORAGE_TOTAL_ALLOWED_SPACE)
     public void setTotalAllowedSpace(String totalAllowedSpace) {
         this.totalAllowedSpace = Long.parseLong(totalAllowedSpace);
+    }
+
+    @Override
+    public void prepare() throws Exception {
+        long usedSpace = storage.countSpaceByUser(currentUser);
+        spaceLeft = totalAllowedSpace - usedSpace;
     }
 
     public UploadedFile getAttachment() {
@@ -96,8 +104,11 @@ public class AttachmentsAction extends BaseBikeAction {
     }
 
     public long getSpaceLeft() {
-        long usedSpace = storage.countSpaceByUser(currentUser);
-        long spaceLeft = totalAllowedSpace - usedSpace;
         return spaceLeft/1024;
     }
+
+    public boolean isSpaceAvailable() {
+        return spaceLeft <= totalAllowedSpace;
+    }
+
 }

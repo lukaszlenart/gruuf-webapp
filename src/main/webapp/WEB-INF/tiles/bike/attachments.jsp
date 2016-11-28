@@ -39,7 +39,7 @@
 
 <div class="row">
   <div class="col-md-6">
-
+<s:if test="spaceAvailable">
     <s:form action="upload" enctype="multipart/form-data" method="POST" cssClass="form-inline">
       <s:hidden name="bikeId"/>
 
@@ -54,6 +54,10 @@
     </s:form>
 
     <p class="help-block"><s:text name="bikeEvent.spaceLeft"/>: <s:number name="spaceLeft"/> <s:text name="bikeEvent.kiloBytes"/></p>
+</s:if>
+<s:if test="not spaceAvailable">
+    <p class="help-block"><s:text name="bikeEvent.noSpaceLeft"/></p>
+</s:if>
   </div>
 </div>
 
