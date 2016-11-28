@@ -1,6 +1,7 @@
 package com.gruuf.services;
 
 import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
@@ -12,14 +13,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.dispatcher.multipart.UploadedFile;
 
+import java.util.List;
+
 public class AttachmentsStorage extends Storable<Attachment> {
 
     private static final Logger LOG = LogManager.getLogger(AttachmentsStorage.class);
 
     private String bucketName;
+    private Storage storage;
 
     public AttachmentsStorage() {
         super(Attachment.class);
+        storage = StorageOptions.getDefaultInstance().getService();
     }
 
     @Inject("gruuf.storage.bucketName")
@@ -27,9 +32,13 @@ public class AttachmentsStorage extends Storable<Attachment> {
         this.bucketName = bucketName;
     }
 
-    public Attachment storeAttachment(User currentUser, UploadedFile file, String fileName, String contentType) {
-        Storage storage = StorageOptions.getDefaultInstance().getService();
+    public List<Attachment> findByOwner(User owner) {
+        return filter("owner", owner)
+                .order("timestamp")
+                .list();
+    }
 
+    public Attachment storeAttachment(User currentUser, UploadedFile file, String fileName, String contentType) {
         String uniqueName = currentUser.getId() + "/" + GruufAuth.generateUUID() + fileName.substring(fileName.lastIndexOf("."));
         LOG.debug("Unique file name [{}]", uniqueName);
 
@@ -53,5 +62,15 @@ public class AttachmentsStorage extends Storable<Attachment> {
             sum = sum + attachment.getSize();
         }
         return sum;
+    }
+
+    public boolean delete(Attachment attachment) {
+        BlobId blobId = BlobId.of(attachment.getBucketName(), attachment.getUniqueName());
+        boolean result = storage.delete(blobId);
+        if (result) {
+            LOG.debug("Dropping entity {}", attachment);
+            drop(attachment.getId());
+        }
+        return result;
     }
 }

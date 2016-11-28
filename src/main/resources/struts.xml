@@ -33,6 +33,7 @@
 
     <result-types>
       <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" default="true" />
+      <result-type name="redirectAction" class="org.apache.struts2.result.ServletActionRedirectResult"/>
     </result-types>
 
     <interceptors>
@@ -88,6 +89,13 @@
 
       <interceptor-stack name="defaultWithMessages">
         <interceptor-ref name="gruufDefaultDev"/>
+        <interceptor-ref name="store">
+          <param name="operationMode">AUTOMATIC</param>
+        </interceptor-ref>
+      </interceptor-stack>
+
+      <interceptor-stack name="defaultUploadWithMessages">
+        <interceptor-ref name="gruufDefaultUploadDev"/>
         <interceptor-ref name="store">
           <param name="operationMode">AUTOMATIC</param>
         </interceptor-ref>

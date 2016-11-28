@@ -82,4 +82,13 @@ public abstract class Storable<E> {
                 .first()
                 .now();
     }
+
+    public Void drop(String entityId) {
+        return ObjectifyService
+                .ofy()
+                .delete()
+                .type(type)
+                .id(entityId)
+                .now();
+    }
 }

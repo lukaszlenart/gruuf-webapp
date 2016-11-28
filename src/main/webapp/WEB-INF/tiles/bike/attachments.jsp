@@ -95,7 +95,13 @@
         <s:date name="timestamp" format="%{userDateFormat}"/>
       </td>
       <td class="text-nowrap">
-        delete
+        <s:url var="delete" action="delete" escapeAmp="false">
+          <s:param name="bikeId" value="bikeId"/>
+          <s:param name="attachmentId" value="%{id}"/>
+        </s:url>
+        <s:a value="%{delete}">
+          <s:text name="general.delete"/>
+        </s:a>
       </td>
     </tr>
   </s:iterator>

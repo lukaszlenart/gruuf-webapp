@@ -2,6 +2,7 @@ package com.gruuf.model;
 
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;

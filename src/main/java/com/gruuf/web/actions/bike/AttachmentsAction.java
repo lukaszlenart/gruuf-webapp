@@ -13,19 +13,27 @@ import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.dispatcher.multipart.UploadedFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.opensymphony.xwork2.Action.INPUT;
+import static com.gruuf.web.actions.bike.AttachmentsAction.REDIRECT_TO_ATTACHMENTS;
 
-@Result(name = INPUT, location = "bike/attachments")
-@InterceptorRef("gruufDefaultUploadDev")
+@Results({
+        @Result(name = INPUT, location = "bike/attachments"),
+        @Result(name = REDIRECT_TO_ATTACHMENTS, type = "redirectAction", location = "attachments",
+                params = { "bikeId", "${bikeId}" })
+})
+@InterceptorRef("defaultUploadWithMessages")
 @BikeRestriction
 public class AttachmentsAction extends BaseBikeAction implements Preparable {
 
     private static final Logger LOG = LogManager.getLogger(AttachmentsAction.class);
+
+    public static final String REDIRECT_TO_ATTACHMENTS = "redirect-to-attachments";
 
     private AttachmentsStorage storage;
     private String rootUrl;
@@ -36,6 +44,8 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
     private String attachmentFileName;
     private String attachmentContentType;
 
+    private String attachmentId;
+
     public String execute() throws Exception {
         return SUCCESS;
     }
@@ -45,7 +55,20 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
         LOG.debug("Storing attachment [{}] of content type [{}] as [{}]", attachment, attachmentContentType, attachmentFileName);
         storage.storeAttachment(currentUser, attachment, attachmentFileName, attachmentContentType);
 
-        return INPUT;
+        return REDIRECT_TO_ATTACHMENTS;
+    }
+
+    @Action("delete")
+    public String delete() throws Exception {
+        Attachment attachment = storage.get(attachmentId);
+        if (attachment != null) {
+            if (!storage.delete(attachment)) {
+                addActionError(getText("bikeEvent.cannotDeleteAttachment"));
+            }
+        } else {
+            addActionError(getText("bikeEvent.noAttachmentWithGivenId"));
+        }
+        return REDIRECT_TO_ATTACHMENTS;
     }
 
     @Inject
@@ -93,10 +116,14 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
         this.attachmentContentType = attachmentContentType;
     }
 
+    public void setAttachmentId(String attachmentId) {
+        this.attachmentId = attachmentId;
+    }
+
     public List<AttachmentDescriptor> getAttachments() {
         List<AttachmentDescriptor> attachments = new ArrayList<>();
 
-        for (Attachment attachment : storage.findBy("owner", currentUser)) {
+        for (Attachment attachment : storage.findByOwner(currentUser)) {
             attachments.add(new AttachmentDescriptor(rootUrl, attachment));
         }
 
@@ -104,7 +131,7 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
     }
 
     public long getSpaceLeft() {
-        return spaceLeft/1024;
+        return spaceLeft / 1024;
     }
 
     public boolean isSpaceAvailable() {
