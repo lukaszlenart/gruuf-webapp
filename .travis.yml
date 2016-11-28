@@ -6,5 +6,5 @@ jdk:
 
 deploy:
   provider: gae
-  keyfile: "gruuf-webapp.json.enc"
-  project: "gruuf-webapp"
+  keyfile: gruuf-webapp.json.enc
+  project: gruuf-webapp
