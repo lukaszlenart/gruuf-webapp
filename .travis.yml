@@ -13,3 +13,6 @@ deploy:
   project: gruuf-webapp
   default: true
   skip_cleanup: true
+
+after_deploy:
+  - rm gruuf-webapp.json
