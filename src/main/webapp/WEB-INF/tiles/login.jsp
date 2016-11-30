@@ -16,9 +16,18 @@
       <div class="form-group">
         <div class="col-sm-offset-3 col-md-6">
           <s:submit cssClass="btn btn-primary" key="user.login"/>
+
+          <s:text name="general.or">or</s:text>
+
+          <s:url action="google-login" var="googleLogin"/>
+          <s:a href="%{googleLogin}"
+               cssClass="btn btn-default google"
+               title="%{getText('user.signingWithGoogle')}">
+            <i class="fa fa-google" aria-hidden="true"></i>
+            <s:text name="user.login"/>
+          </s:a>
         </div>
       </div>
-
     </s:form>
   </div>
 </div>

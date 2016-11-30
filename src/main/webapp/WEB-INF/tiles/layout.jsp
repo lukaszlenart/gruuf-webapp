@@ -22,7 +22,8 @@
 
   <sj:head loadFromGoogle="true" locale="%{userLanguage}"/>
   <sb:head includeScripts="false" includeScriptsValidation="false" includeStyles="true"/>
-  <link rel="stylesheet" href="/main.css">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 <body>
   <tiles:insertAttribute name="header"/>

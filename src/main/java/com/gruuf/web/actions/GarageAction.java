@@ -9,10 +9,12 @@ import com.gruuf.web.actions.bike.HistoryAction;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@InterceptorRef("defaultWithMessages")
 public class GarageAction extends BaseAction {
 
     private static Logger LOG = LogManager.getLogger(GarageAction.class);

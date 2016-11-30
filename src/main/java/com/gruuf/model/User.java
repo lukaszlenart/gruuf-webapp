@@ -70,6 +70,10 @@ public class User {
         return timestamp;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -95,10 +99,6 @@ public class User {
                 .withLastName(user.getLastName())
                 .withUserLocale(user.getUserLocale())
                 .withTokens(user.getTokens());
-    }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
     }
 
     public static class UserCreator {

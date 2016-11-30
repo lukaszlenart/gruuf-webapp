@@ -17,3 +17,7 @@ body > .container {
 .container .text-muted {
   margin-top: 20px;
 }
+
+.google > .fa-google {
+  color: #ea4335;
+}

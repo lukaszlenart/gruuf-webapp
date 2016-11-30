@@ -10,9 +10,12 @@ import com.gruuf.services.*;
 import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.ConfigurationException;
 import com.opensymphony.xwork2.config.ConfigurationProvider;
+import com.opensymphony.xwork2.config.providers.EnvsValueSubstitutor;
+import com.opensymphony.xwork2.config.providers.ValueSubstitutor;
 import com.opensymphony.xwork2.inject.ContainerBuilder;
 import com.opensymphony.xwork2.inject.Context;
 import com.opensymphony.xwork2.inject.Factory;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.inject.Scope;
 import com.opensymphony.xwork2.util.location.LocatableProperties;
 import com.opensymphony.xwork2.util.location.LocationUtils;
@@ -25,6 +28,13 @@ import org.apache.struts2.dispatcher.DispatcherListener;
 public class GruufConfigurationProvider implements ConfigurationProvider, DispatcherListener {
 
     private static final Logger LOG = LogManager.getLogger(GruufConfigurationProvider.class);
+
+    private ValueSubstitutor substitutor;
+
+    @Inject
+    public void setSubstitutor(ValueSubstitutor substitutor) {
+        this.substitutor = substitutor;
+    }
 
     @Override
     public void destroy() {
@@ -57,6 +67,12 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
         );
 
         locatableProperties.setProperty(
+                GruufConstants.HOST_URL,
+                devMode ? "http://localhost:8080" : "https://gruuf.com",
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
+        locatableProperties.setProperty(
                 GruufConstants.STORAGE_BUCKET_NAME,
                 devMode ? "staging.gruuf-webapp.appspot.com" : "gruuf-webapp.appspot.com",
                 LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
@@ -71,6 +87,18 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
         locatableProperties.setProperty(
                 GruufConstants.STORAGE_TOTAL_ALLOWED_SPACE,
                 String.valueOf(1024 * 1024 * 20), // 20 MB
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
+        locatableProperties.setProperty(
+                GruufConstants.OAUTH_GOOGLE_API_KEY,
+                substitutor.substitute("${env.OAUTH_GOOGLE_API_KEY}"),
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
+        locatableProperties.setProperty(
+                GruufConstants.OAUTH_GOOGLE_API_SECRET,
+                substitutor.substitute("${env.OAUTH_GOOGLE_API_SECRET}"),
                 LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
