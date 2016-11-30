@@ -207,6 +207,26 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory>
+          <webappDirectory>${project.build.directory}/${project.artifactId}-${project.version}</webappDirectory>
+          <filters>
+            <filter>src/main/webapp/WEB-INF/appengine-web.xml</filter>
+          </filters>
+          <webResources>
+            <resource>
+              <directory>src/main/webapp</directory>
+              <filtering>true</filtering>
+              <includes>
+                <include>**/appengine-web.xml</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
         <version>${google.appengine.version}</version>
