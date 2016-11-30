@@ -90,6 +90,14 @@ public class GoogleLoginAction extends BaseAction implements Preparable, Session
                 }
             }
 
+            if (user != null && (user.getFirstName() == null || user.getLastName() == null)) {
+                user = User.clone(user)
+                        .withFirstName(firstName)
+                        .withLastName(lastName)
+                        .build();
+                user = userStore.put(user);
+            }
+
             if (user == null && emailAddress.size() > 0) {
                 String email = emailAddress.get(0);
 
