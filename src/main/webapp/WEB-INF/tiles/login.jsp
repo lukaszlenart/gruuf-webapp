@@ -22,9 +22,9 @@
           <s:url action="google-login" var="googleLogin"/>
           <s:a href="%{googleLogin}"
                cssClass="btn btn-default google"
-               title="%{getText('user.signingWithGoogle')}">
+               title="%{getText('user.signingAndLoginWithGoogle')}">
             <i class="fa fa-google" aria-hidden="true"></i>
-            <s:text name="user.login"/>
+            <s:text name="user.signingAndlogin"/>
           </s:a>
         </div>
       </div>
