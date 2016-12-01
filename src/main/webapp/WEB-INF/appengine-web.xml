@@ -6,9 +6,7 @@
   <threadsafe>true</threadsafe>
   <system-properties>
     <property name="log4j2.disable.jmx" value="true"/>
+    <property name="OAUTH_GOOGLE_API_KEY" value="${env.OAUTH_GOOGLE_API_KEY}"/>
+    <property name="OAUTH_GOOGLE_API_SECRET" value="${env.OAUTH_GOOGLE_API_SECRET}"/>
   </system-properties>
-  <env-variables>
-    <env-var name="OAUTH_GOOGLE_API_KEY" value="${env.OAUTH_GOOGLE_API_KEY}"/>
-    <env-var name="OAUTH_GOOGLE_API_SECRET" value="${env.OAUTH_GOOGLE_API_SECRET}"/>
-  </env-variables>
 </appengine-web-app>
