@@ -15,10 +15,7 @@ import java.util.Map;
 
 @InterceptorRef("defaultWithMessages")
 @Anonymous
-public class LoginAction extends BaseLoginAction implements SessionAware {
-
-    private Map<String, Object> session;
-    private UserStore userStore;
+public class LoginAction extends BaseLoginAction {
 
     private String email;
     private String password;
@@ -43,15 +40,6 @@ public class LoginAction extends BaseLoginAction implements SessionAware {
     public String logout() {
         session.put(GruufAuth.AUTH_TOKEN, null);
         return GruufActions.LOGIN;
-    }
-
-    public void setSession(Map<String, Object> session) {
-        this.session = session;
-    }
-
-    @Inject
-    public void setUserStore(UserStore userStore) {
-        this.userStore = userStore;
     }
 
     public String getEmail() {

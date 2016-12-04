@@ -34,19 +34,19 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
         session.put(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, user.getUserLocale().toLocale());
     }
 
-    protected User registerAndLogin(String emailAddress, String password, String firstName, String lastName) {
-        return registerAndLogin(Collections.singletonList(emailAddress), password, firstName, lastName);
+    protected User registerAndLogin(String emailAddress, String password) {
+        return registerAndLogin(Collections.singletonList(emailAddress), password, null, null);
     }
 
-    protected User registerAndLogin(List<String> emailAddress, String password, String firstName, String lastName) {
-        User user = finsExistingUser(emailAddress);
+    protected User registerAndLogin(List<String> emailAddresses, String password, String firstName, String lastName) {
+        User user = finsExistingUser(emailAddresses);
 
         if (user != null) {
             user = updateUser(user, firstName, lastName);
         }
 
-        if (user == null && emailAddress.size() > 0) {
-            String email = emailAddress.get(0);
+        if (user == null && emailAddresses.size() > 0) {
+            String email = emailAddresses.get(0);
             user = createNewUser(email, password, firstName, lastName);
         }
         return user;

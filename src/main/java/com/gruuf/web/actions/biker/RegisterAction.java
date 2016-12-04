@@ -30,7 +30,7 @@ public class RegisterAction extends BaseLoginAction {
 
     @Action("register-submit")
     public String registerSubmit() {
-        registerAndLogin(email, password1, null, null);
+        registerAndLogin(email, password1);
         return GruufActions.GARAGE;
     }
 
