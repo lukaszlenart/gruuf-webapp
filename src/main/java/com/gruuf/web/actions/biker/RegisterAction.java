@@ -8,6 +8,7 @@ import com.gruuf.services.MailBox;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseAction;
+import com.gruuf.web.actions.BaseLoginAction;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -20,11 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Anonymous
-public class RegisterAction extends BaseAction implements ServletRequestAware {
-
-    private UserStore userStore;
-    private MailBox mailBox;
-    private Locale browserLocale;
+public class RegisterAction extends BaseLoginAction {
 
     @SkipValidation
     public String execute() {
@@ -33,20 +30,8 @@ public class RegisterAction extends BaseAction implements ServletRequestAware {
 
     @Action("register-submit")
     public String registerSubmit() {
-        User.UserCreator newUser = User.create().withEmail(email.trim()).withPassword(password1).withToken(Token.USER);
-
-        if (UserLocale.isValidLocale(browserLocale)) {
-            newUser = newUser.withUserLocale(UserLocale.fromLocale(browserLocale));
-        }
-
-        if (userStore.countAdmins() == 0) {
-            newUser = newUser.withToken(Token.ADMIN);
-        }
-
-        User user = userStore.put(newUser.build());
-        mailBox.notifyAdmin("New biker", "New biker has been registered!", user);
-
-        return GruufActions.LOGIN;
+        registerAndLogin(email, password1, null, null);
+        return GruufActions.GARAGE;
     }
 
     public void validateRegisterSubmit() {
@@ -57,21 +42,6 @@ public class RegisterAction extends BaseAction implements ServletRequestAware {
         if(userStore.findBy("email", email.trim()).size() > 0) {
             addFieldError("email", getText("biker.emailAddressAlreadyRegistered"));
         }
-    }
-
-    @Inject
-    public void setMailBox(MailBox mailBox) {
-        this.mailBox = mailBox;
-    }
-
-    @Inject
-    public void setUserStore(UserStore userStore) {
-        this.userStore = userStore;
-    }
-
-    @Override
-    public void setServletRequest(HttpServletRequest request) {
-        browserLocale = request.getLocale();
     }
 
     private String email;

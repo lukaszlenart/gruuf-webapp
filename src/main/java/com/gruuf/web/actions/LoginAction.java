@@ -15,7 +15,7 @@ import java.util.Map;
 
 @InterceptorRef("defaultWithMessages")
 @Anonymous
-public class LoginAction extends BaseAction implements SessionAware {
+public class LoginAction extends BaseLoginAction implements SessionAware {
 
     private Map<String, Object> session;
     private UserStore userStore;
@@ -31,10 +31,7 @@ public class LoginAction extends BaseAction implements SessionAware {
     public String submit() {
         User user = userStore.findUniqueBy("email", email.trim());
         if (user != null && GruufAuth.isPasswordValid(password, user.getPassword())) {
-            session.put(GruufAuth.AUTH_TOKEN, user.getId());
-            LOG.debug("Sets user's Locale to {}", user.getUserLocale());
-            session.put(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, user.getUserLocale().toLocale());
-
+            markSessionAsLoggedIn(user);
             return GruufActions.GARAGE;
         } else {
             addActionError("Cannot login!");
