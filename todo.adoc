@@ -16,7 +16,7 @@
 - [X] aktulizacja przebiegu
 - [X] dodanie formularza kontaktowego
 - [ ] definiowanie triggerów dla poszczególnych EventType
-- [ ] logowanie Facebook / Google
+- [X] logowanie Google
 - [X] powiadomienie o nowym użytkwoniku
 - [ ] użytownik musi mieć możliwość zmiany swoich danych
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
@@ -26,6 +26,9 @@
 - [ ] tłumaczenie EventType
 - [X] Markdown support
 - [X] możliwość dodawania zdjęć / załączeników limit 20MB
+- [X] logowanie Facebook
+- [ ] strona GrufApp na Facebooku
+- [ ] konto Twitter
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
@@ -37,4 +40,4 @@
 
 
 ### Usprawnienia
-- [ ] użyć https://www.cloudflare.com/ssl/ albo https://www.startssl.com/
+- [X] https://www.startssl.com/
