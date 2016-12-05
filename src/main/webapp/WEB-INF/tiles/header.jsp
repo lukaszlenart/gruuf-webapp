@@ -49,6 +49,13 @@
           <s:a href="%{contact}"><s:text name="contact.title"/></s:a>
         </li>
       </ul>
+      <s:if test="loggedIn">
+      <span class="navbar-text navbar-right">
+        <s:url var="profile" action="profile" namespace="/biker"/>
+        <s:a href="%{profile}" cssClass="navbar-link"><s:property value="fullName"/></s:a>
+      </span>
+      </s:if>
     </div><!--/.nav-collapse -->
   </div>
 </nav>
+                                                                                                                            s

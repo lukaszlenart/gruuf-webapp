@@ -38,4 +38,9 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     public String getUserDatePickerFormat() {
         return currentUser.getUserLocale().getDatePickerFormat();
     }
+
+    public String getFullName() {
+        return currentUser != null ? currentUser.getFullName() : (isLoggedIn() ? getText("biker.profile") : null);
+    }
+
 }

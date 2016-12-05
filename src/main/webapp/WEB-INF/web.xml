@@ -11,6 +11,7 @@
     <param-value>
       /WEB-INF/tiles.xml,
       /WEB-INF/tiles-bike.xml,
+      /WEB-INF/tiles-biker.xml,
       /WEB-INF/tiles-admin.xml
     </param-value>
   </context-param>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+    "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+    "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+  <definition name="biker/register" extends="not-logged-in">
+    <put-attribute name="title" expression="I18N:biker.register.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/biker/register.jsp"/>
+  </definition>
+
+  <definition name="biker/profile" extends="logged-in">
+    <put-attribute name="title" expression="I18N:biker.profile.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/biker/profile.jsp"/>
+  </definition>
+
+</tiles-definitions>

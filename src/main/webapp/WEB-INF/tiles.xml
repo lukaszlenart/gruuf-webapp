@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
     "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
     "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
@@ -40,11 +40,6 @@
   <definition name="contact.not-logged-in" extends="not-logged-in">
     <put-attribute name="title" expression="I18N:contact.title"/>
     <put-attribute name="body" value="/WEB-INF/tiles/contact-form.jsp"/>
-  </definition>
-
-  <definition name="biker/input" extends="not-logged-in">
-    <put-attribute name="title" expression="I18N:biker.register.title"/>
-    <put-attribute name="body" value="/WEB-INF/tiles/biker/register-input.jsp"/>
   </definition>
 
 </tiles-definitions>

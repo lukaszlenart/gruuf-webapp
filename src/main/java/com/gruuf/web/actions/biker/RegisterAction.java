@@ -1,26 +1,19 @@
 package com.gruuf.web.actions.biker;
 
 import com.gruuf.auth.Anonymous;
-import com.gruuf.auth.Token;
-import com.gruuf.model.User;
-import com.gruuf.model.UserLocale;
-import com.gruuf.services.MailBox;
-import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufActions;
-import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.actions.BaseLoginAction;
-import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
+import static com.opensymphony.xwork2.Action.INPUT;
 
 @Anonymous
+@Result(name = INPUT, location = "biker/register")
 public class RegisterAction extends BaseLoginAction {
 
     @SkipValidation
@@ -39,7 +32,7 @@ public class RegisterAction extends BaseLoginAction {
             addFieldError("password1", getText("biker.passwordDoNotMatch"));
         }
 
-        if(userStore.findBy("email", email.trim()).size() > 0) {
+        if (userStore.findBy("email", email.trim()).size() > 0) {
             addFieldError("email", getText("biker.emailAddressAlreadyRegistered"));
         }
     }
