@@ -18,7 +18,7 @@
 - [ ] definiowanie triggerów dla poszczególnych EventType
 - [X] logowanie Google
 - [X] powiadomienie o nowym użytkwoniku
-- [ ] użytownik musi mieć możliwość zmiany swoich danych
+- [X] użytownik musi mieć możliwość zmiany swoich danych
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
 - [ ] zgłaszanie typów eventów przez użytkownika
 - [ ] zgłaszanie tłumaczenia przez użytkownika
