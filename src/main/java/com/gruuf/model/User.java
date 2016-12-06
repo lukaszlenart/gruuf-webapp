@@ -13,6 +13,8 @@ import java.util.Set;
 @Entity
 public class User {
 
+    public static final String EMAIL = "email";
+
     @Id
     private String id;
     @Index

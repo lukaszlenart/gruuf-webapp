@@ -26,6 +26,12 @@
                    elementCssClass="col-md-4"
                    cssClass="input-md"/>
 
+      <s:select list="availableUserLocales"
+                key="biker.language"
+                name="userLocale"
+                labelCssClass="col-md-4"
+                elementCssClass="col-sm-1"/>
+
       <s:password name="password1"
                   key="biker.password"
                   placeholder="%{getText('biker.password.placeholder')}"
