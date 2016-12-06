@@ -27,8 +27,8 @@
 - [X] Markdown support
 - [X] możliwość dodawania zdjęć / załączeników limit 20MB
 - [X] logowanie Facebook
-- [ ] strona GrufApp na Facebooku
-- [ ] konto Twitter
+- [X] strona GruufApp na Facebooku
+- [X] konto Twitter
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
