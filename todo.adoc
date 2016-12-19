@@ -41,3 +41,4 @@
 
 ### Usprawnienia
 - [X] https://www.startssl.com/
+- [ ] http://selectize.github.io/selectize.js/
