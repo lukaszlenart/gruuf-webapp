@@ -1,112 +1,90 @@
 package com.gruuf.web.actions;
 
-import com.github.scribejava.apis.GoogleApi20;
-import com.github.scribejava.core.builder.ServiceBuilder;
-import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.github.scribejava.core.model.OAuthRequest;
-import com.github.scribejava.core.model.Response;
-import com.github.scribejava.core.model.Verb;
-import com.github.scribejava.core.oauth.OAuth20Service;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.gruuf.GruufConstants;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
 import com.gruuf.web.GruufActions;
-import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
-import org.apache.struts2.json.JSONReader;
-import org.apache.struts2.result.ServletRedirectResult;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
+import org.apache.struts2.convention.annotation.Result;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Collections;
+
+import static com.opensymphony.xwork2.Action.SUCCESS;
 
 @Anonymous
-@InterceptorRef("defaultWithMessages")
-public class GoogleLoginAction extends BaseLoginAction implements Preparable {
+@InterceptorRefs({
+        @InterceptorRef("defaultWithMessages"),
+        @InterceptorRef("json")
+})
+@Result(name = SUCCESS, type = "jsonRedirect", params = { "actionName", "%{redirect}" })
+public class GoogleLoginAction extends BaseLoginAction {
 
-    public static final String PROFILE_URL = "https://www.googleapis.com/plus/v1/people/me";
+    public static final String TOKEN_URL = "https://www.googleapis.com/oauth2/v4/token";
 
     private String googleApiKey;
     private String googleApiSecret;
     private String hostUrl;
-    private OAuth20Service service;
 
     private String code;
+    private String redirect = GruufActions.LOGIN;
 
     @Action("google-login")
-    public Object googleLogin() {
-        final Map<String, String> additionalParams = new HashMap<>();
-        additionalParams.put("access_type", "offline");
-        additionalParams.put("prompt", "consent");
+    public Object googleLogin() throws Exception {
 
-        return new ServletRedirectResult(service.getAuthorizationUrl(additionalParams));
-    }
+        if (StringUtils.isEmpty(code)) {
+            LOG.warn("Google auth code is empty, redirecting back to login page");
+            redirect = GruufActions.LOGIN;
+        }
 
-    @Action("google-confirm")
-    public String googleConfirm() throws Exception {
+        GoogleTokenResponse response =
+                new GoogleAuthorizationCodeTokenRequest(
+                        new NetHttpTransport(),
+                        JacksonFactory.getDefaultInstance(),
+                        TOKEN_URL,
+                        googleApiKey,
+                        googleApiSecret,
+                        code,
+                        hostUrl)
+                        .execute();
 
-        OAuth2AccessToken accessToken = service.getAccessToken(code);
-        accessToken = service.refreshAccessToken(accessToken.getRefreshToken());
+        if (response.isEmpty()) {
+            LOG.error("Got error when tried authorise user using Google OAuth: {}", response);
+            addActionError(getText("user.cannotLoginWithGoogleAccount"));
 
-        OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_URL + "?fields=emails,name(familyName,givenName)", service);
-        service.signRequest(accessToken, request);
-
-        final Response response = request.send();
-
-        if (response.getCode() == 200) {
+            redirect = GruufActions.LOGIN;
+        } else {
             LOG.debug("Got proper response from Google, trying to fetch user's data");
-            Object userData = new JSONReader().read(response.getBody());
-            List<String> emailAddress = extractEmail(userData);
-            String firstName = extractFirstName(userData);
-            String lastName = extractLastName(userData);
+            GoogleIdToken idToken = response.parseIdToken();
+            GoogleIdToken.Payload payload = idToken.getPayload();
+            String emailAddress = payload.getEmail();
+            String lastName = (String) payload.get("family_name");
+            String firstName = (String) payload.get("given_name");
 
             LOG.debug("Got {} {} with emails {}", firstName, lastName, emailAddress);
 
-            User user = registerAndLogin(emailAddress, null, firstName, lastName);
+            User user = registerAndLogin(Collections.singletonList(emailAddress), null, firstName, lastName);
 
             if (user != null) {
                 markSessionAsLoggedIn(user);
-                addActionMessage(getText("user.loggedInWithGoogleAccount", new String[] { user.getFullName(), user.getEmail() }));
-                return GruufActions.GARAGE;
+                addActionMessage(getText("user.loggedInWithGoogleAccount", new String[]{user.getFullName(), user.getEmail()}));
+                redirect = GruufActions.GARAGE;
             } else {
                 LOG.debug("User is null, cannot login!");
                 addActionError(getText("user.cannotLoginWithGoogleAccount"));
-                return GruufActions.LOGIN;
+                redirect = GruufActions.LOGIN;
             }
-        } else {
-            LOG.error("Got error [{}] when tried authorise user using Google OAuth: {}", response.getCode(), response.getBody());
-            addActionError(getText("user.cannotLoginWithGoogleAccount"));
-
-            return GruufActions.LOGIN;
-        }
-    }
-
-    private String extractLastName(Object userData) {
-        Map data = (Map) userData;
-        Map nameMap = (Map) data.get("name");
-        return String.valueOf(nameMap.get("familyName"));
-    }
-
-    private String extractFirstName(Object userData) {
-        Map data = (Map) userData;
-        Map nameMap = (Map) data.get("name");
-        return String.valueOf(nameMap.get("givenName"));
-    }
-
-    private List<String> extractEmail(Object userData) {
-        List<String> emails = new ArrayList<>();
-
-        Map data = (Map) userData;
-        List emailList = (List) data.get("emails");
-        for (Object emailMap : emailList) {
-            String email = String.valueOf(((Map)emailMap).get("value"));
-            emails.add(email);
         }
 
-        return emails;
+        return SUCCESS;
     }
 
     @Inject(GruufConstants.OAUTH_GOOGLE_API_KEY)
@@ -124,18 +102,12 @@ public class GoogleLoginAction extends BaseLoginAction implements Preparable {
         this.hostUrl = hostUrl;
     }
 
-    @Override
-    public void prepare() throws Exception {
-        service = new ServiceBuilder()
-                .apiKey(googleApiKey)
-                .apiSecret(googleApiSecret)
-                .callback(hostUrl + "/google-confirm")
-                .scope("email profile")
-                .build(GoogleApi20.instance());
-    }
-
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getRedirect() {
+        return redirect;
     }
 
 }

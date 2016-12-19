@@ -34,6 +34,7 @@
     <result-types>
       <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" default="true" />
       <result-type name="redirectAction" class="org.apache.struts2.result.ServletActionRedirectResult"/>
+      <result-type name="jsonRedirect" class="org.apache.struts2.json.JSONActionRedirectResult"/>
     </result-types>
 
     <interceptors>
@@ -43,6 +44,7 @@
       <interceptor name="auth" class="com.gruuf.web.interceptors.AuthInterceptor"/>
       <interceptor name="secure" class="com.gruuf.web.interceptors.SecureInterceptor"/>
       <interceptor name="restriction" class="com.gruuf.web.interceptors.BikeRestrictionInterceptor"/>
+      <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
 
       <interceptor-stack name="gruufDefaultDev">
         <interceptor-ref name="exception"/>

@@ -15,15 +15,13 @@
   <title>
     <tiles:insertAttribute name="title" ignore="true"/>
   </title>
-  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
 
   <sj:head loadFromGoogle="true" locale="%{userLanguage}"/>
   <sb:head includeScripts="false" includeScriptsValidation="false" includeStyles="true"/>
+
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/main.css">
+
 </head>
 <body>
   <tiles:insertAttribute name="header"/>

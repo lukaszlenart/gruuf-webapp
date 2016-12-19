@@ -21,3 +21,7 @@ body > .container {
 .google > .fa-google {
   color: #ea4335;
 }
+
+.google.in-progress {
+  opacity: 0.6;
+}
