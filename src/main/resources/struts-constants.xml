@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+  <constant name="struts.excludedClasses"
+            value="
+                java.lang.Object,
+                java.lang.Runtime,
+                java.lang.System,
+                java.lang.Class,
+                java.lang.ClassLoader,
+                java.lang.ProcessBuilder,
+                ognl.OgnlContext,
+                ognl.ClassResolver,
+                ognl.TypeConverter,
+                ognl.MemberAccess,
+                ognl.DefaultMemberAccess,
+                com.opensymphony.xwork2.ognl.SecurityMemberAccess,
+                com.opensymphony.xwork2.ActionContext" />
+
+  <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+  <constant name="struts.ui.theme" value="bootstrap"/>
+  <constant name="struts.action.extension" value=""/>
+  <constant name="struts.action.excludePattern" value="/_ah/.*,/favicon\.ico"/>
+  <constant name="struts.convention.action.packages" value="com.gruuf.web.actions"/>
+  <constant name="struts.convention.default.parent.package" value="gruufDefault"/>
+
+</struts>
