@@ -9,6 +9,8 @@ import com.gruuf.services.Garage;
 import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.BikeAware;
 import com.opensymphony.xwork2.inject.Inject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
 public abstract class BaseBikeAction extends BaseAction implements BikeAware {
 
     public static final String TO_SHOW_BIKE = "to-show-bike";
+
+    private static final Logger LOG = LogManager.getLogger(BaseBikeAction.class);
 
     protected Bike selectedBike;
 

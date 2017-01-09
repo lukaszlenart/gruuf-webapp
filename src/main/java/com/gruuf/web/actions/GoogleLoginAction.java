@@ -11,6 +11,8 @@ import com.gruuf.model.User;
 import com.gruuf.web.GruufActions;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
@@ -29,6 +31,8 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 public class GoogleLoginAction extends BaseLoginAction {
 
     public static final String TOKEN_URL = "https://www.googleapis.com/oauth2/v4/token";
+
+    private static final Logger LOG = LogManager.getLogger(GoogleLoginAction.class);
 
     private String googleApiKey;
     private String googleApiSecret;

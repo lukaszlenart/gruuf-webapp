@@ -6,6 +6,8 @@ import com.gruuf.model.EventType;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -18,6 +20,8 @@ import static com.opensymphony.xwork2.Action.INPUT;
 @Result(name = INPUT, location = "bike/new-bike-event")
 @BikeRestriction
 public class BikeEventAction extends BaseBikeAction implements Validateable {
+
+    private static final Logger LOG = LogManager.getLogger(BikeEventAction.class);
 
     private String eventTypeId;
     private String descriptiveName;

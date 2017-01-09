@@ -7,18 +7,21 @@ import com.gruuf.services.MailBox;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.inject.Inject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.interceptor.I18nInterceptor;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public abstract class BaseLoginAction extends BaseAction implements SessionAware, ServletRequestAware {
+
+    private static final Logger LOG = LogManager.getLogger(BaseLoginAction.class);
 
     protected UserStore userStore;
     protected MailBox mailBox;
