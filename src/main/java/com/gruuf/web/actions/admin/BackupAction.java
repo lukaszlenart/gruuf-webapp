@@ -1,7 +1,5 @@
 package com.gruuf.web.actions.admin;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.services.BikeHistory;
@@ -13,6 +11,7 @@ import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.json.JSONWriter;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -42,19 +41,20 @@ public class BackupAction extends BaseAction {
 
     private ByteArrayInputStream backupFile;
 
-    public String execute() {
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
+    public String execute() throws Exception {
+        JSONWriter writer = new JSONWriter();
+        writer.setDateFormatter("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-        String users = gson.toJson(userStore.list());
+        String users = writer.write(userStore.list());
         LOG.debug("JSON users: {}", users);
 
-        String bikes = gson.toJson(garage.list());
+        String bikes = writer.write(garage.list());
         LOG.debug("JSON bikes: {}", bikes);
 
-        String eventTypes = gson.toJson(this.eventTypes.list());
+        String eventTypes = writer.write(this.eventTypes.list());
         LOG.debug("JSON event types: {}", eventTypes);
 
-        String bikeEvents = gson.toJson(bikeHistory.list());
+        String bikeEvents = writer.write(bikeHistory.list());
         LOG.debug("JSON bikeEvents: {}", bikeEvents);
 
         ByteArrayOutputStream backup = new ByteArrayOutputStream();
