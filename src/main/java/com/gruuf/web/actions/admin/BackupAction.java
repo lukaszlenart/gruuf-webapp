@@ -54,8 +54,8 @@ public class BackupAction extends BaseAction {
         String eventTypes = gson.toJson(this.eventTypes.list());
         LOG.debug("JSON event types: {}", eventTypes);
 
-        String events = gson.toJson(bikeHistory.list());
-        LOG.debug("JSON events: {}", events);
+        String bikeEvents = gson.toJson(bikeHistory.list());
+        LOG.debug("JSON bikeEvents: {}", bikeEvents);
 
         ByteArrayOutputStream backup = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(backup);
@@ -72,8 +72,8 @@ public class BackupAction extends BaseAction {
             zos.write(eventTypes.getBytes("UTF-8"));
             zos.closeEntry();
 
-            zos.putNextEntry(new ZipEntry("events.json"));
-            zos.write(events.getBytes("UTF-8"));
+            zos.putNextEntry(new ZipEntry("bike-events.json"));
+            zos.write(bikeEvents.getBytes("UTF-8"));
             zos.closeEntry();
 
             zos.finish();
