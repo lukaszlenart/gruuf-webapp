@@ -2,13 +2,17 @@ package com.gruuf.model;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.AlsoLoad;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
 import com.gruuf.web.GruufAuth;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class BikeEvent {
@@ -18,8 +22,7 @@ public class BikeEvent {
     @Load
     @Index
     private Ref<Bike> bike;
-    @Load
-    private Ref<EventType> eventTypeId;
+    private List<Ref<EventType>> eventTypeIds;
     @Index
     private Date timestamp;
     private String descriptiveName;
@@ -37,6 +40,15 @@ public class BikeEvent {
         this.bike = Ref.create(bike);
     }
 
+    public void migrate(@AlsoLoad("eventTypeId") Ref<EventType> eventTypeId) {
+        if (eventTypeIds == null) {
+            eventTypeIds = new ArrayList<>();
+        }
+        if (eventTypeId != null && !eventTypeIds.contains(eventTypeId)) {
+            eventTypeIds.add(eventTypeId);
+        }
+    }
+
     public String getId() {
         return id;
     }
@@ -45,8 +57,12 @@ public class BikeEvent {
         return bike.get();
     }
 
-    public EventType getEventType() {
-        return eventTypeId.get();
+    public List<EventType> getEventTypes() {
+        List<EventType> eventTypes = new ArrayList<>();
+        for (Ref<EventType> eventTypeId : eventTypeIds) {
+            eventTypes.add(eventTypeId.get());
+        }
+        return eventTypes;
     }
 
     public Date getTimestamp() {
@@ -82,7 +98,7 @@ public class BikeEvent {
         return "BikeEvent{" +
                 "id='" + id + '\'' +
                 ", bike=" + bike +
-                ", eventTypeId=" + eventTypeId +
+                ", eventTypeIds=" + eventTypeIds +
                 ", timestamp=" + timestamp +
                 ", descriptiveName='" + descriptiveName + '\'' +
                 ", registerDate=" + registerDate +
@@ -114,8 +130,11 @@ public class BikeEvent {
             target.registeredBy = Ref.create(registeredBy);
         }
 
-        public BikeEventBuilder withEventTypeId(String eventTypeId) {
-            target.eventTypeId = Ref.create(Key.create(EventType.class, eventTypeId));
+        public BikeEventBuilder withEventTypeId(Set<String> eventTypeIds) {
+            target.eventTypeIds = new ArrayList<>();
+            for (String eventTypeId : eventTypeIds) {
+                target.eventTypeIds.add(Ref.create(Key.create(EventType.class, eventTypeId)));
+            }
             return this;
         }
 

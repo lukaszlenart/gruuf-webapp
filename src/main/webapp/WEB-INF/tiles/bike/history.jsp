@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
+<%@ taglib prefix="c" uri="/struts-tags" %>
 
 <nav class="navbar">
   <ul class="nav nav-tabs">
@@ -52,7 +53,9 @@
   <s:iterator value="bikeDetails.events" var="event">
     <tr>
       <td class="text-nowrap">
-        <s:property value="eventType.name"/>
+        <s:iterator value="eventTypes" var="eventType" status="stats">
+          <s:property value="name"/><s:if test="%{not #stats.last}">,</s:if>
+        </s:iterator>
       </td>
       <td>
         <s:property value="descriptiveName" escapeHtml="false"/>

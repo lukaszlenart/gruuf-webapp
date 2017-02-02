@@ -43,13 +43,13 @@
       <s:hidden name="bikeId"/>
       <s:hidden name="currentMileage"/>
 
-      <s:select list="eventTypesList"
-                name="eventTypeId"
-                listValueKey="name"
-                listKey="id"
-                key="bike.eventType"
-                labelCssClass="col-md-2"
-                elementCssClass="col-md-4"/>
+      <s:textfield id="event-types"
+                   name="eventTypeIds"
+                   key="bike.eventType"
+                   placeholder="%{getText('bike.eventType.placeholder')}"
+                   tooltip="%{getText('bike.eventType.tooltip')}"
+                   labelCssClass="col-md-2"
+                   elementCssClass="col-md-4"/>
 
       <s:textarea name="descriptiveName"
                   key="bikeEvent.descriptiveName"
@@ -88,3 +88,33 @@
     </s:form>
   </div>
 </div>
+
+<script type="application/javascript">
+
+  $('#event-types').selectize({
+    valueField: 'id',
+    labelField: 'name',
+    searchField: 'name',
+    sortField: 'name',
+    create: false,
+    render: {
+      option: function(item, escape) {
+        return '<div><span class="name">' + escape(item.name) + '</span></div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: 'event-types',
+        type: 'GET',
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+</script>

@@ -4,6 +4,7 @@ import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
 import com.opensymphony.xwork2.Validateable;
+import com.opensymphony.xwork2.util.TextParseUtil;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +24,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
 
     private static final Logger LOG = LogManager.getLogger(BikeEventAction.class);
 
-    private String eventTypeId;
+    private String eventTypeIds;
     private String descriptiveName;
     private Date registerDate;
     private Long mileage;
@@ -41,7 +42,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         LOG.debug("Registering new bike event for bike {}", getBikeId());
 
         BikeEvent bikeEvent = BikeEvent.create(selectedBike, currentUser)
-                .withEventTypeId(eventTypeId)
+                .withEventTypeId(TextParseUtil.commaDelimitedStringToSet(eventTypeIds))
                 .withDescriptiveName(descriptiveName)
                 .withRegisterDate(registerDate)
                 .withMileage(mileage)
@@ -65,12 +66,13 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return eventTypes.listAllowedEventTypes();
     }
 
-    public String getEventTypeId() {
-        return eventTypeId;
+    public String getEventTypeIds() {
+        return eventTypeIds;
     }
 
-    public void setEventTypeId(String eventTypeId) {
-        this.eventTypeId = eventTypeId;
+    @StringLengthFieldValidator(minLength = "4", key = "bikeEvent.eventTypeIsRequired")
+    public void setEventTypeIds(String eventTypeIds) {
+        this.eventTypeIds = eventTypeIds;
     }
 
     public String getDescriptiveName() {

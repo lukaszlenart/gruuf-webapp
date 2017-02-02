@@ -3,6 +3,7 @@ package com.gruuf.model;
 import com.github.rjeschke.txtmark.Processor;
 
 import java.util.Date;
+import java.util.List;
 
 public class BikeEventDescriptor {
 
@@ -20,8 +21,8 @@ public class BikeEventDescriptor {
         return bikeEvent.getBike();
     }
 
-    public EventType getEventType() {
-        return bikeEvent.getEventType();
+    public List<EventType> getEventTypes() {
+        return bikeEvent.getEventTypes();
     }
 
     public Date getTimestamp() {

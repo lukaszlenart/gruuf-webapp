@@ -45,7 +45,11 @@
     <tbody>
     <s:iterator value="events" var="event">
       <tr>
-        <td class="text-nowrap"><s:property value="eventType.name"/></td>
+        <td class="text-nowrap">
+          <s:iterator value="eventTypes" var="eventType" status="stats">
+            <s:property value="name"/><s:if test="%{not #stats.last}">,<br/></s:if>
+          </s:iterator>
+        </td>
         <td><s:property value="descriptiveName" escapeHtml="false"/></td>
         <td class="text-nowrap"><s:date name="registerDate" format="%{userDateFormat}"/></td>
         <td class="text-nowrap"><s:property value="mileage"/></td>

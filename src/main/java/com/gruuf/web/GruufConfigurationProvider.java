@@ -126,9 +126,7 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
         containerBuilder.factory(MailBox.class, new Factory<MailBox>() {
             @Override
             public MailBox create(Context context) throws Exception {
-                MailBox mailBox = new MailBox();
-                context.getContainer().inject(mailBox);
-                return mailBox;
+                return context.getContainer().inject(MailBox.class);
             }
         }, Scope.SINGLETON);
 

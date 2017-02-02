@@ -14,6 +14,7 @@
       <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" default="true" />
       <result-type name="redirectAction" class="org.apache.struts2.result.ServletActionRedirectResult"/>
       <result-type name="jsonRedirect" class="org.apache.struts2.json.JSONActionRedirectResult"/>
+      <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
     </result-types>
 
     <interceptors>

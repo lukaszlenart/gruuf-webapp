@@ -13,7 +13,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import java.util.Date;
+import java.util.Collections;
 
 import static com.opensymphony.xwork2.Action.INPUT;
 
@@ -72,7 +72,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
     private void updateMileage(Bike bike, Long mileage) {
         BikeEvent bikeEvent = BikeEvent.create(bike, currentUser)
                 .withMileage(mileage)
-                .withEventTypeId(eventTypes.getMileageEventType().getId())
+                .withEventTypeId(Collections.singleton(eventTypes.getMileageEventType().getId()))
                 .withDescriptiveName(getText("bike.systemMileageUpdate"))
                 .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
                 .markAsSystem()
