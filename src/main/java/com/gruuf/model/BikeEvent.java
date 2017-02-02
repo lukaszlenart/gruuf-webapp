@@ -40,6 +40,7 @@ public class BikeEvent {
         this.bike = Ref.create(bike);
     }
 
+/*
     public void migrate(@AlsoLoad("eventTypeId") Ref<EventType> eventTypeId) {
         if (eventTypeIds == null) {
             eventTypeIds = new ArrayList<>();
@@ -49,6 +50,7 @@ public class BikeEvent {
         }
     }
 
+*/
     public String getId() {
         return id;
     }
