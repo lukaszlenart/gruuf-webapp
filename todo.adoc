@@ -26,7 +26,8 @@
 - [ ] tłumaczenie EventType
 - [X] Markdown support
 - [X] możliwość dodawania zdjęć / załączeników limit 20MB
-- [X] logowanie Facebook
+- [ ] logowanie Facebook
+- [X] logowanie Google
 - [X] strona GruufApp na Facebooku
 - [X] konto Twitter
 
@@ -41,4 +42,4 @@
 
 ### Usprawnienia
 - [X] https://www.startssl.com/
-- [ ] http://selectize.github.io/selectize.js/
+- [X] http://selectize.github.io/selectize.js/
