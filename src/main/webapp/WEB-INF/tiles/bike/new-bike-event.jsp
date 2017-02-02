@@ -45,9 +45,9 @@
 
       <s:textfield id="event-types"
                    name="eventTypeIds"
-                   key="bike.eventType"
-                   placeholder="%{getText('bike.eventType.placeholder')}"
-                   tooltip="%{getText('bike.eventType.tooltip')}"
+                   key="bike.eventTypes"
+                   placeholder="%{getText('bike.eventTypes.placeholder')}"
+                   tooltip="%{getText('bike.eventTypes.tooltip')}"
                    labelCssClass="col-md-2"
                    elementCssClass="col-md-4"/>
 
