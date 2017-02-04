@@ -19,6 +19,7 @@
 
       <s:textfield name="productionStartYear"
                    label="Production Start Year"
+                   type="number"
                    labelCssClass="col-md-2"
                    elementCssClass="col-md-2"
                    cssClass="form-control"
@@ -26,6 +27,7 @@
 
       <s:textfield name="productionEndYear"
                    label="Production End Year"
+                   type="number"
                    labelCssClass="col-md-2"
                    elementCssClass="col-md-2"
                    cssClass="form-control"
