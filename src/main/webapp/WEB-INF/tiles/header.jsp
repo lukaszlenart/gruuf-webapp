@@ -32,6 +32,10 @@
           <s:a href="%{eventTypes}"><s:text name="eventTypes.title"/></s:a>
         </li>
         <li>
+          <s:url var="bikeMetadata" action="bike-metadata" namespace="/admin"/>
+          <s:a href="%{bikeMetadata}"><s:text name="bikeMetadata.title"/></s:a>
+        </li>
+        <li>
           <s:url var="backup" action="backup" namespace="/admin"/>
           <s:a href="%{backup}"><s:text name="backup.title"/></s:a>
         </li>

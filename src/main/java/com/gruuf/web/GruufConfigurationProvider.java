@@ -4,13 +4,11 @@ import com.google.appengine.api.utils.SystemProperty;
 import com.gruuf.GruufConstants;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
-import com.gruuf.model.EventType;
 import com.gruuf.model.User;
 import com.gruuf.services.*;
 import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.ConfigurationException;
 import com.opensymphony.xwork2.config.ConfigurationProvider;
-import com.opensymphony.xwork2.config.providers.EnvsValueSubstitutor;
 import com.opensymphony.xwork2.config.providers.ValueSubstitutor;
 import com.opensymphony.xwork2.inject.ContainerBuilder;
 import com.opensymphony.xwork2.inject.Context;
@@ -141,6 +139,13 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
             @Override
             public AttachmentsStorage create(Context context) throws Exception {
                 return context.getContainer().inject(AttachmentsStorage.class);
+            }
+        }, Scope.SINGLETON);
+
+        containerBuilder.factory(BikeMetadataStore.class, new Factory<BikeMetadataStore>() {
+            @Override
+            public BikeMetadataStore create(Context context) throws Exception {
+                return context.getContainer().inject(BikeMetadataStore.class);
             }
         }, Scope.SINGLETON);
     }

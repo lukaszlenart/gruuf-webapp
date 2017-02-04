@@ -34,4 +34,14 @@
     <put-attribute name="body" value="/WEB-INF/tiles/admin/event-type-input.jsp"/>
   </definition>
 
+  <definition name="admin/bike-metadata" extends="logged-in">
+    <put-attribute name="title" value="Bike Metadata"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/bike-metadata.jsp"/>
+  </definition>
+
+  <definition name="admin/bike-metadata-input" extends="logged-in">
+    <put-attribute name="title" value="Bike Metadata form"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/bike-metadata-input.jsp"/>
+  </definition>
+
 </tiles-definitions>
