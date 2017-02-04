@@ -16,6 +16,9 @@ public class Bike {
     private Ref<User> owner;
     @Index
     private String vin;
+    private Integer modelYear;
+
+    private Ref<BikeMetadata> bikeMetadata;
 
     private Bike() {
     }
@@ -40,6 +43,14 @@ public class Bike {
         return owner.get();
     }
 
+    public Integer getModelYear() {
+        return modelYear;
+    }
+
+    public BikeMetadata getBikeMetadata() {
+        return bikeMetadata.get();
+    }
+
     @Override
     public String toString() {
         return "Bike{" +
@@ -47,6 +58,8 @@ public class Bike {
                 ", name='" + name + '\'' +
                 ", owner=" + owner +
                 ", vin='" + vin + '\'' +
+                ", modelYear=" + modelYear +
+                ", bikeMetadata=" + bikeMetadata +
                 '}';
     }
 
@@ -80,6 +93,11 @@ public class Bike {
 
         public BikeBuilder withVIN(String vin) {
             target.vin = vin;
+            return this;
+        }
+
+        public BikeBuilder withModelYear(Integer modelYear) {
+            target.modelYear = modelYear;
             return this;
         }
 

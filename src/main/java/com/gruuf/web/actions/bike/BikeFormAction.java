@@ -28,6 +28,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
         if (selectedBike != null) {
             friendlyName = selectedBike.getName();
             vin = selectedBike.getVin();
+            modelYear = selectedBike.getModelYear();
 
             mileage = bikeHistory.findCurrentMileage(selectedBike);
             currentMileage = mileage;
@@ -43,6 +44,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
                     .create(currentUser)
                     .withFriendlyName(friendlyName)
                     .withVIN(vin)
+                    .withModelYear(modelYear)
                     .build();
 
             selectedBike = garage.put(bike);
@@ -51,6 +53,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
             Bike bike = Bike.clone(selectedBike)
                     .withFriendlyName(friendlyName)
                     .withVIN(vin)
+                    .withModelYear(modelYear)
                     .build();
 
             selectedBike = garage.put(bike);
@@ -105,6 +108,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
 
     private String friendlyName;
     private String vin;
+    private Integer modelYear;
     private Long mileage;
     private Long currentMileage;
 
@@ -124,6 +128,14 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
     @RequiredStringValidator(key = "bike.vinIsRequired")
     public void setVin(String vin) {
         this.vin = vin;
+    }
+
+    public Integer getModelYear() {
+        return modelYear;
+    }
+
+    public void setModelYear(Integer modelYear) {
+        this.modelYear = modelYear;
     }
 
     public Long getMileage() {

@@ -16,6 +16,13 @@
                    placeholder="%{getText('bike.vin.placeholder')}"
                    cssClass="input-md"/>
 
+      <s:textfield name="modelYear"
+                   key="bike.modelYear"
+                   placeholder="%{getText('bike.modelYear.placeholder')}"
+                   type="number"
+                   elementCssClass="col-md-4"
+                   cssClass="input-md"/>
+
       <s:textfield name="mileage"
                    key="bike.mileageInKm"
                    type="number"
