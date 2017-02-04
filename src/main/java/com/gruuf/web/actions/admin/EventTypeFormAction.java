@@ -1,11 +1,9 @@
 package com.gruuf.web.actions.admin;
 
-import com.googlecode.objectify.Key;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.EventType;
 import com.gruuf.model.EventTypeStatus;
-import com.gruuf.services.BikeHistory;
 import com.gruuf.services.EventTypes;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
