@@ -133,7 +133,7 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
         containerBuilder.factory(EventTypes.class, new Factory<EventTypes>() {
             @Override
             public EventTypes create(Context context) throws Exception {
-                return new EventTypes(EventType.class);
+                return new EventTypes();
             }
         }, Scope.SINGLETON);
 

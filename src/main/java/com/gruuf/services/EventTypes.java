@@ -10,8 +10,8 @@ import java.util.List;
 
 public class EventTypes extends Reindexable<EventType> {
 
-    public EventTypes(Class<EventType> type) {
-        super(type);
+    public EventTypes() {
+        super(EventType.class);
     }
 
     public EventType getMileageEventType() {
