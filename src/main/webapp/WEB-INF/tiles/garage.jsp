@@ -13,6 +13,7 @@
     <tr>
       <th><s:text name="bike.vin"/></th>
       <th><s:text name="bike.modelYear"/></th>
+      <th><s:text name="bike.metadata"/></th>
       <th><s:text name="bike.mileageInKm"/></th>
       <th><s:text name="bike.registrationPlate"/></th>
     </tr>
@@ -21,6 +22,7 @@
     <tr>
       <td><s:property value="bike.vin"/></td>
       <td><s:property value="bike.modelYear"/></td>
+      <td><s:property value="metadata.name"/></td>
       <td><s:property value="mileage"/></td>
       <td><s:property value="registrationPlate"/></td>
     </tr>

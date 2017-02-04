@@ -4,6 +4,7 @@ import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.BikeMetadata;
 import com.gruuf.web.GruufActions;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -14,6 +15,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import java.util.Collections;
+import java.util.List;
 
 import static com.opensymphony.xwork2.Action.INPUT;
 
@@ -43,6 +45,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
             Bike bike = Bike
                     .create(currentUser)
                     .withFriendlyName(friendlyName)
+                    .withBikeMetadataId(bikeMetadataId)
                     .withVIN(vin)
                     .withModelYear(modelYear)
                     .build();
@@ -52,6 +55,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
             LOG.debug("Updating existing bike {}", selectedBike.getId());
             Bike bike = Bike.clone(selectedBike)
                     .withFriendlyName(friendlyName)
+                    .withBikeMetadataId(bikeMetadataId)
                     .withVIN(vin)
                     .withModelYear(modelYear)
                     .build();
@@ -107,6 +111,7 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
     }
 
     private String friendlyName;
+    private String bikeMetadataId;
     private String vin;
     private Integer modelYear;
     private Long mileage;
@@ -119,6 +124,14 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
     @RequiredStringValidator(key = "bike.friendlyNameIsRequired")
     public void setFriendlyName(String friendlyName) {
         this.friendlyName = friendlyName;
+    }
+
+    public String getBikeMetadataId() {
+        return bikeMetadataId;
+    }
+
+    public void setBikeMetadataId(String bikeMetadataId) {
+        this.bikeMetadataId = bikeMetadataId;
     }
 
     public String getVin() {
@@ -153,4 +166,14 @@ public class BikeFormAction extends BaseBikeAction implements Validateable {
     public void setCurrentMileage(Long currentMileage) {
         this.currentMileage = currentMileage;
     }
+
+    public List<BikeMetadataOption> getBikeMetadata() {
+        BikeMetadata bikeMetadata = selectedBike.getBikeMetadata();
+        if (bikeMetadata == null) {
+            return Collections.emptyList();
+        } else {
+            return Collections.singletonList(new BikeMetadataOption(bikeMetadata));
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.gruuf.model;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -48,6 +49,9 @@ public class Bike {
     }
 
     public BikeMetadata getBikeMetadata() {
+        if (bikeMetadata == null) {
+            return null;
+        }
         return bikeMetadata.get();
     }
 
@@ -98,6 +102,11 @@ public class Bike {
 
         public BikeBuilder withModelYear(Integer modelYear) {
             target.modelYear = modelYear;
+            return this;
+        }
+
+        public BikeBuilder withBikeMetadataId(String bikeMetadataId) {
+            target.bikeMetadata = Ref.create(Key.create(BikeMetadata.class, bikeMetadataId));
             return this;
         }
 

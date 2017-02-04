@@ -1,5 +1,7 @@
 package com.gruuf.model;
 
+import com.gruuf.web.actions.bike.BikeMetadataOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,10 @@ public class BikeDetails {
 
     public Bike getBike() {
         return bike;
+    }
+
+    public BikeMetadataOption getMetadata() {
+        return new BikeMetadataOption(bike.getBikeMetadata());
     }
 
     public User getCurrentUser() {
