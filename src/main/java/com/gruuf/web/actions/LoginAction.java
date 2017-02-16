@@ -2,16 +2,10 @@ package com.gruuf.web.actions;
 
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
-import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.GruufAuth;
-import com.opensymphony.xwork2.inject.Inject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
-import org.apache.struts2.interceptor.I18nInterceptor;
-import org.apache.struts2.interceptor.SessionAware;
-
-import java.util.Map;
 
 @InterceptorRef("defaultWithMessages")
 @Anonymous
