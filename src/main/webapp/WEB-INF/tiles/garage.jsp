@@ -2,9 +2,20 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
+<ul>
+<s:iterator value="bikeDetails" var="details">
+  <li>
+    <a href="#<s:property value='bike.id'/>">
+      <s:property value="bike.name"/>
+    </a>
+  </li>
+</s:iterator>
+</ul>
+
 <s:iterator value="bikeDetails" var="details">
   <div class="row">
     <div class="col-md-12">
+      <div id="<s:property value='bike.id'/>" class="bike-anchor"></div>
       <h3><s:property value="bike.name"/></h3>
     </div>
   </div>

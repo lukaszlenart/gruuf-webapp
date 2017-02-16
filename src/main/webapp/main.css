@@ -25,3 +25,10 @@ body > .container {
 .google.in-progress {
   opacity: 0.6;
 }
+
+.bike-anchor {
+  display: block;
+  height: 36px;
+  margin-top: -45px;
+  visibility: hidden;
+}
