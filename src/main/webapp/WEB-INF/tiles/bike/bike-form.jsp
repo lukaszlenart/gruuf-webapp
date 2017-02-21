@@ -15,10 +15,11 @@
 
       <s:select id="metadata"
                 name="bikeMetadataId"
-                list="bikeMetadata"
+                list="metadataOptions"
                 listValueKey="name"
                 listKey="id"
                 key="bike.metadata"
+                emptyOption="true"
                 placeholder="%{getText('bike.metadata.placeholder')}"
                 tooltip="%{getText('bike.metadata.tooltip')}"
                 labelCssClass="col-md-3"
@@ -80,7 +81,7 @@
     load: function(query, callback) {
       if (!query.length) return callback();
       $.ajax({
-        url: 'bike-metadata',
+        url: 'bike-metadata-json',
         type: 'GET',
         error: function() {
           callback();

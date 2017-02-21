@@ -6,6 +6,7 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeMetadata;
 import com.gruuf.web.GruufActions;
+import com.gruuf.web.actions.BaseBikeMetadataAction;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +22,7 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Result(name = INPUT, location = "bike/bike-form")
 @BikeRestriction
-public class BikeFormAction extends BaseBikeAction implements Validateable {
+public class BikeFormAction extends BaseBikeMetadataAction implements Validateable {
 
     private static final Logger LOG = LogManager.getLogger(BikeFormAction.class);
 

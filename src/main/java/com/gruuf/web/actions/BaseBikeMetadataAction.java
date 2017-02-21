@@ -2,6 +2,7 @@ package com.gruuf.web.actions;
 
 import com.gruuf.model.BikeMetadata;
 import com.gruuf.services.BikeMetadataStore;
+import com.gruuf.web.actions.bike.BaseBikeAction;
 import com.gruuf.web.actions.bike.BikeMetadataOption;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
@@ -14,8 +15,8 @@ import java.util.List;
 
 import static com.gruuf.web.actions.BaseAction.JSON;
 
-@Result(name = JSON, type = "json", params = {"root", "metadataList"})
-abstract public class BaseBikeMetadataAction extends BaseAction {
+@Result(name = JSON, type = "json", params = {"root", "metadataOptions"})
+abstract public class BaseBikeMetadataAction extends BaseBikeAction {
 
     private static final Logger LOG = LogManager.getLogger(BaseBikeMetadataAction.class);
 
