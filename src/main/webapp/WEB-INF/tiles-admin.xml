@@ -44,4 +44,13 @@
     <put-attribute name="body" value="/WEB-INF/tiles/admin/bike-metadata-input.jsp"/>
   </definition>
 
+  <definition name="admin/recommendations" extends="logged-in">
+    <put-attribute name="title" value="Recommendations"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/recommendations.jsp"/>
+  </definition>
+  <definition name="admin/recommendation-input" extends="logged-in">
+    <put-attribute name="title" value="Recommendation form"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/recommendation-input.jsp"/>
+  </definition>
+
 </tiles-definitions>

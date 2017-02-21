@@ -23,25 +23,36 @@
           <s:a href="%{addBike}"><s:text name="bike.add"/></s:a>
         </li>
         <s:if test="admin">
-        <li>
-          <s:url var="users" action="users" namespace="/admin"/>
-          <s:a href="%{users}"><s:text name="users.title"/></s:a>
-        </li>
-        <li>
-          <s:url var="eventTypes" action="event-types" namespace="/admin"/>
-          <s:a href="%{eventTypes}"><s:text name="eventTypes.title"/></s:a>
-        </li>
-        <li>
-          <s:url var="bikeMetadata" action="bike-metadata" namespace="/admin"/>
-          <s:a href="%{bikeMetadata}"><s:text name="bikeMetadata.title"/></s:a>
-        </li>
-        <li>
-          <s:url var="backup" action="backup" namespace="/admin"/>
-          <s:a href="%{backup}"><s:text name="backup.title"/></s:a>
-        </li>
-        <li>
-          <s:url var="reindex" action="reindex" namespace="/admin"/>
-          <s:a href="%{reindex}"><s:text name="reindex.title"/></s:a>
+        <li role="presentation" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            Admin <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <s:url var="users" action="users" namespace="/admin"/>
+              <s:a href="%{users}"><s:text name="users.title"/></s:a>
+            </li>
+            <li>
+              <s:url var="eventTypes" action="event-types" namespace="/admin"/>
+              <s:a href="%{eventTypes}"><s:text name="eventTypes.title"/></s:a>
+            </li>
+            <li>
+              <s:url var="bikeMetadata" action="bike-metadata" namespace="/admin"/>
+              <s:a href="%{bikeMetadata}"><s:text name="bikeMetadata.title"/></s:a>
+            </li>
+            <li>
+              <s:url var="recommendations" action="recommendations" namespace="/admin"/>
+              <s:a href="%{recommendations}"><s:text name="recommendations.title"/></s:a>
+            </li>
+            <li>
+              <s:url var="backup" action="backup" namespace="/admin"/>
+              <s:a href="%{backup}"><s:text name="backup.title"/></s:a>
+            </li>
+            <li>
+              <s:url var="reindex" action="reindex" namespace="/admin"/>
+              <s:a href="%{reindex}"><s:text name="reindex.title"/></s:a>
+            </li>
+          </ul>
         </li>
         </s:if>
         <li>

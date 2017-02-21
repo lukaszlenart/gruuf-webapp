@@ -3,9 +3,7 @@ package com.gruuf.web.actions.admin;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.BikeMetadata;
-import com.gruuf.services.BikeMetadataStore;
-import com.gruuf.web.actions.BaseAction;
-import com.opensymphony.xwork2.inject.Inject;
+import com.gruuf.web.actions.BaseBikeMetadataAction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -13,11 +11,9 @@ import org.apache.struts2.convention.annotation.Action;
 import java.util.List;
 
 @Tokens(Token.ADMIN)
-public class BikeMetadataAction extends BaseAction {
+public class BikeMetadataAction extends BaseBikeMetadataAction {
 
     private static Logger LOG = LogManager.getLogger(BikeMetadataAction.class);
-
-    private BikeMetadataStore bikeMetadataStore;
 
     @Action("bike-metadata")
     public String execute() {
@@ -30,8 +26,4 @@ public class BikeMetadataAction extends BaseAction {
         return metaData;
     }
 
-    @Inject
-    public void setBikeMetadataStore(BikeMetadataStore bikeMetadataStore) {
-        this.bikeMetadataStore = bikeMetadataStore;
-    }
 }

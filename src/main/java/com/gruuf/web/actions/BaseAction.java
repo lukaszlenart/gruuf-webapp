@@ -8,6 +8,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class BaseAction extends ActionSupport implements CurrentUserAware {
 
+    public static final String JSON = "json";
+
     protected User currentUser;
 
     @Override

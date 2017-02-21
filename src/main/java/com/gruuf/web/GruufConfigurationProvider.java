@@ -148,6 +148,13 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
                 return context.getContainer().inject(BikeMetadataStore.class);
             }
         }, Scope.SINGLETON);
+
+        containerBuilder.factory(Recommendations.class, new Factory<Recommendations>() {
+            @Override
+            public Recommendations create(Context context) throws Exception {
+                return context.getContainer().inject(Recommendations.class);
+            }
+        }, Scope.SINGLETON);
     }
 
     @Override

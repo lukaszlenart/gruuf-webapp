@@ -32,6 +32,8 @@
 - [X] konto Twitter
 - [ ] możliwość definiowania producenta/modelu/roku produkcji
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
+- [ ] wyświetlanie wersji serwisu
+- [ ] strona z listą wprowadzonych zmian
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu

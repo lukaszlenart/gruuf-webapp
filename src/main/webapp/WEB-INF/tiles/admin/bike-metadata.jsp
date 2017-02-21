@@ -19,7 +19,7 @@
   </tr>
   </thead>
   <tbody>
-  <s:iterator value="list" var="eventType">
+  <s:iterator value="list" var="metadata">
     <tr>
       <td><s:property value="manufacturer"/></td>
       <td><s:property value="model"/></td>

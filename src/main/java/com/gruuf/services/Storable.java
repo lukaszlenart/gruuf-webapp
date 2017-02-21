@@ -8,6 +8,7 @@ import com.gruuf.model.Attachment;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeMetadata;
+import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.EventType;
 import com.gruuf.model.User;
 
@@ -22,6 +23,7 @@ public abstract class Storable<E> {
         ObjectifyService.register(Bike.class);
         ObjectifyService.register(Attachment.class);
         ObjectifyService.register(BikeMetadata.class);
+        ObjectifyService.register(BikeRecommendation.class);
     }
 
     private Class<E> type;
