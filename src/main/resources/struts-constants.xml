@@ -21,6 +21,7 @@
                 com.opensymphony.xwork2.ognl.
                 com.opensymphony.xwork2.inject." />
 
+  <constant name="struts.multipart.maxSize" value="20971520"/>
   <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
   <constant name="struts.ui.theme" value="bootstrap"/>
   <constant name="struts.action.extension" value=""/>

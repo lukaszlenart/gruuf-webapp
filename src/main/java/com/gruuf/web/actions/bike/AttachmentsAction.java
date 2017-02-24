@@ -47,7 +47,7 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
     private String attachmentId;
 
     public String execute() throws Exception {
-        return SUCCESS;
+        return INPUT;
     }
 
     @Action("upload")

@@ -57,7 +57,9 @@
         <interceptor-ref name="alias"/>
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>
-        <interceptor-ref name="fileUpload"/>
+        <interceptor-ref name="fileUpload">
+          <param name="maximumSize">2097152</param>
+        </interceptor-ref>
         <interceptor-ref name="prepare"/>
         <interceptor-ref name="params"/>
         <interceptor-ref name="conversionError"/>
