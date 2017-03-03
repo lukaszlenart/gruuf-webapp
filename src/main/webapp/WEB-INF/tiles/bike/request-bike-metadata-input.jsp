@@ -6,10 +6,13 @@
     <s:form action="request-bike-metadata-submit" method="POST" cssClass="form-horizontal">
       <s:hidden name="userId"/>
 
-      <s:textfield name="manufacturer"
-                   key="bikeMetadata.manufacturer"
-                   labelCssClass="col-md-2"
-                   elementCssClass="col-md-4"/>
+      <s:select name="manufacturer"
+                list="manufacturers"
+                id="manufacturers"
+                emptyOption="true"
+                key="bikeMetadata.manufacturer"
+                labelCssClass="col-md-2"
+                elementCssClass="col-md-4"/>
 
       <s:textfield name="model"
                    key="bikeMetadata.model"
@@ -40,3 +43,38 @@
     </s:form>
   </div>
 </div>
+
+<script type="application/javascript">
+
+  $('#manufacturers').selectize({
+    valueField: 'value',
+    searchField: 'value',
+    sortField: 'value',
+    labelField: 'text',
+    create: true,
+    preload: true,
+    render: {
+      option: function(item, escape) {
+        return '<div><span class="name">' + escape(item.text) + '</span></div>';
+      },
+      item: function(item, escape) {
+        console.log(item)
+        return '<div><span class="name">' + escape(item.text) + '</span></div>';
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      $.ajax({
+        url: 'bike-manufacturers-json',
+        type: 'GET',
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+</script>

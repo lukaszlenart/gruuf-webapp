@@ -16,11 +16,17 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static com.gruuf.web.actions.BaseAction.JSON;
 import static com.opensymphony.xwork2.Action.INPUT;
 
 @Results({
         @Result(name = "to-input", location = "request-bike-metadata", type = "redirectAction"),
-        @Result(name = INPUT, location = "bike/request-bike-metadata-input")
+        @Result(name = INPUT, location = "bike/request-bike-metadata-input"),
+        @Result(name = JSON, type = "json", params = {"root", "manufacturers"})
 })
 @InterceptorRef("defaultWithMessages")
 public class RequestBikeMetadataAction extends BaseAction {
@@ -63,6 +69,11 @@ public class RequestBikeMetadataAction extends BaseAction {
         return "to-input";
     }
 
+    @SkipValidation
+    public String bikeManufacturers() throws Exception {
+        return JSON;
+    }
+
     @Inject
     public void setBikeMetadataStore(BikeMetadataStore bikeMetadataStore) {
         this.bikeMetadataStore = bikeMetadataStore;
@@ -71,6 +82,18 @@ public class RequestBikeMetadataAction extends BaseAction {
     @Inject
     public void setMailBox(MailBox mailBox) {
         this.mailBox = mailBox;
+    }
+
+    public List<String> getManufacturers() {
+        List<String> result = new ArrayList<>();
+
+        for (BikeMetadata bikeMetadata : bikeMetadataStore.list()) {
+            if (!result.contains(bikeMetadata.getManufacturer())) {
+                result.add(bikeMetadata.getManufacturer());
+            }
+        }
+
+        return result;
     }
 
     public String getManufacturer() {
