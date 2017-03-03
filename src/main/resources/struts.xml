@@ -104,7 +104,12 @@
         <param name="actionName">garage</param>
         <param name="namespace">/</param>
       </result>
+      <result name="error">error</result>
     </global-results>
+
+    <global-exception-mappings>
+      <exception-mapping exception="java.lang.Exception" result="error" />
+    </global-exception-mappings>
 
   </package>
 

@@ -42,4 +42,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/contact-form.jsp"/>
   </definition>
 
+  <definition name="error" extends="not-logged-in">
+    <put-attribute name="title" expression="I18N:error.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/error.jsp"/>
+  </definition>
+
 </tiles-definitions>
