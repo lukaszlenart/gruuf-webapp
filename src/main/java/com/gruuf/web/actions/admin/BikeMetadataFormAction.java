@@ -62,6 +62,7 @@ public class BikeMetadataFormAction extends BaseAction {
                     .withModel(model)
                     .withProductionStartYear(productionStartYear)
                     .withProductionEndYear(productionEndYear)
+                    .withRequester(currentUser)
                     .build();
 
             BikeMetadata result = bikeMetadataStore.put(bikeMetadata);
@@ -75,6 +76,7 @@ public class BikeMetadataFormAction extends BaseAction {
                     .withModel(model)
                     .withProductionStartYear(productionStartYear)
                     .withProductionEndYear(productionEndYear)
+                    .withRequester(currentUser)
                     .build();
             bikeMetadataStore.put(bikeMetadata);
         }

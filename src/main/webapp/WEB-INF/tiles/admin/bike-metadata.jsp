@@ -16,6 +16,9 @@
     <th>Model</th>
     <th>Production Start</th>
     <th>Production End</th>
+    <th>Approved</th>
+    <th>Requested By</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -25,6 +28,18 @@
       <td><s:property value="model"/></td>
       <td><s:property value="productionStartYear"/></td>
       <td><s:property value="productionEndYear"/></td>
+      <td>
+        <s:if test="not approved">
+          <s:url var="approveMetadata" action="approve-bike-metadata">
+            <s:param name="bikeMetadataId" value="id"/>
+          </s:url>
+          <s:a value="%{approveMetadata}">Approve</s:a>
+        </s:if>
+        <s:if test="approved">
+          <s:property value="approved"/>
+        </s:if>
+      </td>
+      <td><s:property value="requestedBy.fullName"/></td>
       <td>
         <s:url var="editMetadata" action="bike-metadata-form">
           <s:param name="bikeMetadataId" value="id"/>

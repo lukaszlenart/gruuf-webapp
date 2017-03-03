@@ -32,3 +32,8 @@ body > .container {
   margin-top: -45px;
   visibility: hidden;
 }
+
+.new-request {
+  padding: 6px 0;
+  margin-left: -4px;
+}

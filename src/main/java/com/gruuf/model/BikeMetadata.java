@@ -1,5 +1,6 @@
 package com.gruuf.model;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -16,14 +17,26 @@ public class BikeMetadata {
     private String model;
     private Integer productionStartYear;
     private Integer productionEndYear;
+    @Index
+    private boolean approved;
+    private Ref<User> requestedBy;
 
     public static BikeMetadataBuilder create() {
-        return new BikeMetadataBuilder();
+        BikeMetadataBuilder builder = new BikeMetadataBuilder();
+        builder.target.approved = true;
+        return builder;
     }
 
     public static BikeMetadataBuilder create(BikeMetadata bikeMetadata) {
         BikeMetadataBuilder builder = new BikeMetadataBuilder();
         builder.target = bikeMetadata;
+        builder.target.approved = true;
+        return builder;
+    }
+
+    public static BikeMetadataBuilder createRequest() {
+        BikeMetadataBuilder builder = new BikeMetadataBuilder();
+        builder.target.approved = false;
         return builder;
     }
 
@@ -48,6 +61,14 @@ public class BikeMetadata {
 
     public Integer getProductionEndYear() {
         return productionEndYear;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public User getRequestedBy() {
+        return requestedBy.get();
     }
 
     public static class BikeMetadataBuilder {
@@ -79,6 +100,11 @@ public class BikeMetadata {
             return this;
         }
 
+        public BikeMetadataBuilder withRequester(User user) {
+            target.requestedBy = Ref.create(user);
+            return this;
+        }
+
         public BikeMetadata build() {
             return target;
         }
@@ -92,6 +118,8 @@ public class BikeMetadata {
                 ", model='" + model + '\'' +
                 ", productionStartYear=" + productionStartYear +
                 ", productionEndYear=" + productionEndYear +
+                ", approved=" + approved +
+                ", requestedBy=" + requestedBy +
                 '}';
     }
 }

@@ -29,4 +29,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/attachments.jsp"/>
   </definition>
 
+  <definition name="bike/request-bike-metadata-input" extends="logged-in">
+    <put-attribute name="title" expression="I18N:bikeMetadata.requestNew"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/request-bike-metadata-input.jsp"/>
+  </definition>
+
 </tiles-definitions>

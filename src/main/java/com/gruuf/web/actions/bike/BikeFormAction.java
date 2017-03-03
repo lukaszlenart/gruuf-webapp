@@ -169,12 +169,16 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
     }
 
     public List<BikeMetadataOption> getBikeMetadata() {
-        BikeMetadata bikeMetadata = selectedBike.getBikeMetadata();
-        if (bikeMetadata == null) {
-            return Collections.emptyList();
-        } else {
-            return Collections.singletonList(new BikeMetadataOption(bikeMetadata));
+        List<BikeMetadataOption> result = Collections.emptyList();
+
+        if (selectedBike != null) {
+            BikeMetadata bikeMetadata = selectedBike.getBikeMetadata();
+            if (bikeMetadata != null) {
+                result = Collections.singletonList(new BikeMetadataOption(bikeMetadata));
+            }
         }
+
+        return result;
     }
 
 }
