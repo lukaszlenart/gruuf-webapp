@@ -129,7 +129,6 @@ public class BikeMetadataFormAction extends BaseAction {
         return productionEndYear;
     }
 
-    @RequiredFieldValidator
     public void setProductionEndYear(Integer productionEndYear) {
         this.productionEndYear = productionEndYear;
     }
