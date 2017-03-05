@@ -16,7 +16,7 @@
   <div class="row">
     <div class="col-md-12">
       <div id="<s:property value='bike.id'/>" class="bike-anchor"></div>
-      <h3><s:property value="bike.name"/></h3>
+      <h2><s:property value="bike.name"/></h2>
     </div>
   </div>
   <table class="table table-striped">
