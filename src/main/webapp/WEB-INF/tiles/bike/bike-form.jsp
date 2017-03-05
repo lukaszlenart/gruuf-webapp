@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-2">
           <s:a class="media-middle center-block new-request" action="request-bike-metadata" target="_blank">
-            Request new
+            <s:text name="general.requestNew"/>
             <span class="glyphicon glyphicon-new-window"></span>
           </s:a>
         </div>
