@@ -13,7 +13,7 @@ public class BikeMetadataOption {
             this.name = "";
         } else {
             this.id = metadata.getId();
-            this.name = metadata.getManufacturer() + "-" + metadata.getModel() + " (" + metadata.getProductionStartYear() + "-" + metadata.getProductionEndYear() + ")";
+            this.name = metadata.getManufacturer() + " " + metadata.getModel() + " (" + metadata.getProductionStartYear() + "-" + metadata.getProductionEndYear() + ")";
         }
     }
 
