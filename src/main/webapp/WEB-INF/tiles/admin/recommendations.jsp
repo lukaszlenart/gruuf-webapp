@@ -50,7 +50,7 @@
     <tr>
       <td><s:property value="englishDescription"/></td>
       <td><s:property value="eventType.name"/></td>
-      <td><s:property value="source"/></td>
+      <td><s:text name="%{'source.' + source.name().toLowerCase()}"/></td>
       <td><s:property value="mileagePeriod"/></td>
       <td><s:property value="monthPeriod"/></td>
       <td>
