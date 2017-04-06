@@ -4,6 +4,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import com.gruuf.web.GruufAuth;
 
 @Entity
@@ -12,6 +13,7 @@ public class BikeRecommendation {
     @Id
     private String id;
     private Ref<EventType> eventTypeId;
+    @Index
     private Ref<BikeMetadata> bikeMetadataId;
     private String englishDescription;
     private RecommendationSource source;

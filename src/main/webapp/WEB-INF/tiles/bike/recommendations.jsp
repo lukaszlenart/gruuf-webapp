@@ -40,37 +40,45 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th><s:text name="bikeEvent.eventType"/></th>
-    <th><s:text name="bikeEvent.descriptiveName"/></th>
-    <th><s:text name="bikeEvent.eventDate"/></th>
-    <th><s:text name="bikeEvent.mileage"/></th>
-    <th><s:text name="general.timestamp"/>
-    <th><s:text name="general.actions"/>
+    <th><s:text name="recommendations.recommendation"/></th>
+    <th><s:text name="recommendations.source"/></th>
+    <th><s:text name="recommendations.period"/></th>
+    <th><s:text name="recommendations.fulfilled"/></th>
+    <th><s:text name="recommendations.fulfillDate"/></th>
+    <th><s:text name="recommendations.fulfillMileage"/></th>
   </tr>
   </thead>
   <tbody>
-  <s:iterator value="bikeDetails.events" var="event">
+  <s:iterator value="bikeRecommendations">
     <tr>
       <td>
-        <s:property value="eventType.name"/>
+        <s:property value="recommendation.eventType.name"/>:
+        <s:property value="recommendation.englishDescription"/>
+      </td>
+      <td class="text-nowrap">
+        <s:text name="%{'source.' + recommendation.source.name().toLowerCase()}"/>
       </td>
       <td>
-        <s:property value="descriptiveName"/>
+        <s:if test="recommendation.mileagePeriod">
+          <s:text name="recommendations.every"/> <s:number name="recommendation.mileagePeriod"/> <s:text name="general.km"/>
+        </s:if>
+        <s:if test="recommendation.mileagePeriod && recommendation.monthPeriod">
+          <s:text name="general.or"/>
+        </s:if>
+        <s:if test="recommendation.monthPeriod">
+          <s:text name="recommendations.every"/> <s:number name="recommendation.monthPeriod"/> <s:text name="general.months"/>
+        </s:if>
       </td>
-      <td>
-        <s:date name="registerDate" format="%{userDateFormat}"/>
+      <s:if test="fulfilled">
+      <td><s:property value="bikeEvent.descriptiveName"/></td>
+      <td class="text-nowrap"><s:date name="bikeEvent.registerDate" format="%{userDateFormat}"/></td>
+      <td class="text-nowrap"><s:number name="bikeEvent.mileage"/></td>
+      </s:if>
+      <s:if test="not fulfilled">
+      <td colspan="3" class="missing alert alert-danger">
+        <s:text name="recommendations.notFulfilled"/>
       </td>
-      <td>
-        <s:property value="mileage"/>
-      </td>
-      <td>
-        <s:date name="timestamp" format="%{userDateFormat}"/>
-      </td>
-      <td>
-        <s:url var="deleteEvent" action="delete-bike-event">
-          <s:param name="bikeEventId" value="id"/>
-        </s:url>
-        <s:a value="%{deleteEvent}"><s:text name="general.delete"/></s:a>
+      </s:if>
       </td>
     </tr>
   </s:iterator>

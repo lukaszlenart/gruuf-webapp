@@ -37,3 +37,9 @@ body > .container {
   padding: 6px 0;
   margin-left: -4px;
 }
+
+.missing.alert {
+  vertical-align: middle;
+  text-align: center;
+  margin-bottom: 0;
+}
