@@ -39,10 +39,11 @@
   </tr>
   <tr>
     <th>Description (English)</th>
-    <th>Model</th>
+    <th>Event Type</th>
     <th>Source</th>
     <th>Mileage period</th>
     <th>Monthly period</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -51,8 +52,8 @@
       <td><s:property value="englishDescription"/></td>
       <td><s:property value="eventType.name"/></td>
       <td><s:text name="%{'source.' + source.name().toLowerCase()}"/></td>
-      <td><s:property value="mileagePeriod"/></td>
-      <td><s:property value="monthPeriod"/></td>
+      <td><s:number name="mileagePeriod"/></td>
+      <td><s:number name="monthPeriod"/></td>
       <td>
         <s:url var="edit" action="recommendation-form">
           <s:param name="recommendationId" value="id"/>
