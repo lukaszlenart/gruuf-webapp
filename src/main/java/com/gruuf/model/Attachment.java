@@ -96,9 +96,7 @@ public class Attachment {
 
             target.id = GruufAuth.generateUUID();
             target.owner = Ref.create(owner);
-            if (bike != null) {
-                target.bike = Ref.create(bike);
-            }
+            target.bike = Ref.create(bike);
             target.bucketName = blob.getBucket();
 
             target.originalFileName = fileName;
