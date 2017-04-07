@@ -55,21 +55,25 @@
           </ul>
         </li>
         </s:if>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <s:if test="loggedIn">
         <li>
-          <s:url var="logout" action="logout"/>
-          <s:a href="%{logout}"><s:text name="logout.title"/></s:a>
+          <s:url var="profile" action="profile" namespace="/biker"/>
+          <s:a href="%{profile}" cssClass="navbar-link"><s:property value="fullName"/></s:a>
         </li>
+        </s:if>
         <li>
           <s:url var="contact" action="contact"/>
           <s:a href="%{contact}"><s:text name="contact.title"/></s:a>
         </li>
+        <s:if test="loggedIn">
+        <li>
+          <s:url var="logout" action="logout"/>
+          <s:a href="%{logout}"><s:text name="logout.title"/></s:a>
+        </li>
+        </s:if>
       </ul>
-      <s:if test="loggedIn">
-      <span class="navbar-text navbar-right">
-        <s:url var="profile" action="profile" namespace="/biker"/>
-        <s:a href="%{profile}" cssClass="navbar-link"><s:property value="fullName"/></s:a>
-      </span>
-      </s:if>
     </div><!--/.nav-collapse -->
   </div>
 </nav>
