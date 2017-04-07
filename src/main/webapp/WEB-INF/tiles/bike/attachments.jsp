@@ -75,7 +75,7 @@
   </tr>
   </thead>
   <tbody>
-  <s:iterator value="attachments" var="attachment">
+  <s:iterator value="attachments">
     <tr>
       <td>
         <s:property value="originalFileName"/>
