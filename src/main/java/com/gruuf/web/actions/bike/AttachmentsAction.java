@@ -36,6 +36,7 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
     public static final String REDIRECT_TO_ATTACHMENTS = "redirect-to-attachments";
 
     private AttachmentsStorage storage;
+
     private String rootUrl;
     private Long totalAllowedSpace;
     private Long spaceLeft;
@@ -88,7 +89,7 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
 
     @Override
     public void prepare() throws Exception {
-        long usedSpace = storage.countSpaceByUser(currentUser);
+        long usedSpace = storage.countSpaceByBike(selectedBike);
         spaceLeft = totalAllowedSpace - usedSpace;
     }
 

@@ -14,7 +14,6 @@ public class Attachment {
 
     @Id
     private String id;
-    @Index
     private Ref<User> owner;
     @Index
     private Ref<Bike> bike;

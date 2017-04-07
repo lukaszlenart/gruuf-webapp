@@ -12,7 +12,6 @@
   </datastore-index>
   <datastore-index kind="Attachment" ancestor="false" source="manual">
     <property name="bike" direction="asc"/>
-    <property name="owner" direction="asc"/>
     <property name="timestamp" direction="asc"/>
   </datastore-index>
 </datastore-indexes>

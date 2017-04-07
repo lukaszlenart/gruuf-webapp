@@ -57,9 +57,9 @@ public class AttachmentsStorage extends Reindexable<Attachment> {
         return put(attachment);
     }
 
-    public long countSpaceByUser(User currentUser) {
+    public long countSpaceByBike(Bike bike) {
         long sum = 0;
-        for (Attachment attachment : findBy("owner", currentUser)) {
+        for (Attachment attachment : findBy("bike", bike)) {
             sum = sum + attachment.getSize();
         }
         return sum;
