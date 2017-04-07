@@ -16,7 +16,7 @@ import org.apache.struts2.dispatcher.multipart.UploadedFile;
 
 import java.util.List;
 
-public class AttachmentsStorage extends Storable<Attachment> {
+public class AttachmentsStorage extends Reindexable<Attachment> {
 
     private static final Logger LOG = LogManager.getLogger(AttachmentsStorage.class);
 

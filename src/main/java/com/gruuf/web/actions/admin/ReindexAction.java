@@ -2,6 +2,7 @@ package com.gruuf.web.actions.admin;
 
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
+import com.gruuf.services.AttachmentsStorage;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
@@ -18,6 +19,7 @@ public class ReindexAction extends BaseAction {
     private Garage garage;
     private EventTypes eventTypes;
     private Recommendations recommendations;
+    private AttachmentsStorage attachmentsStorage;
 
     public String execute() {
         if (garage != null) {
@@ -30,6 +32,7 @@ public class ReindexAction extends BaseAction {
             eventTypes.reindex();
         }
         recommendations.reindex();
+        attachmentsStorage.reindex();
 
         return SUCCESS;
     }
@@ -53,5 +56,10 @@ public class ReindexAction extends BaseAction {
     @Inject
     public void setRecommendations(Recommendations recommendations) {
         this.recommendations = recommendations;
+    }
+
+    @Inject
+    public void setAttachmentsStorage(AttachmentsStorage attachmentsStorage) {
+        this.attachmentsStorage = attachmentsStorage;
     }
 }
