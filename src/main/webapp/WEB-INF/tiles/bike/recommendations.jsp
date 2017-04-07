@@ -52,18 +52,17 @@
   <s:iterator value="bikeRecommendations">
     <tr>
       <td>
-        <s:property value="recommendation.eventType.name"/>:
-        <s:property value="recommendation.englishDescription"/>
+        <s:property value="recommendation.eventType.name"/>
       </td>
       <td class="text-nowrap">
-        <s:text name="%{'source.' + recommendation.source.name().toLowerCase()}"/>
+        <s:text name="%{recommendation.source.key}"/>
       </td>
-      <td>
+      <td class="text-nowrap">
         <s:if test="recommendation.mileagePeriod">
           <s:text name="recommendations.every"/> <s:number name="recommendation.mileagePeriod"/> <s:text name="general.km"/>
         </s:if>
         <s:if test="recommendation.mileagePeriod && recommendation.monthPeriod">
-          <s:text name="general.or"/>
+          <s:text name="general.or"/><br/>
         </s:if>
         <s:if test="recommendation.monthPeriod">
           <s:text name="recommendations.every"/> <s:number name="recommendation.monthPeriod"/> <s:text name="general.months"/>

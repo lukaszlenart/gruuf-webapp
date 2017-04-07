@@ -53,7 +53,7 @@
     <tr>
       <td><s:property value="englishDescription"/></td>
       <td><s:property value="eventType.name"/></td>
-      <td><s:text name="%{'source.' + source.name().toLowerCase()}"/></td>
+      <td><s:text name="%{source.key}"/></td>
       <td><s:property value="notify"/></td>
       <td><s:number name="mileagePeriod"/></td>
       <td><s:number name="monthPeriod"/></td>

@@ -36,7 +36,7 @@
 
       <s:select name="source"
                 list="allSources"
-                listValueKey="'source.' + name().toLowerCase()"
+                listValueKey="key"
                 label="Source of recommendation"
                 labelCssClass="col-md-2"
                 elementCssClass="col-md-2"
