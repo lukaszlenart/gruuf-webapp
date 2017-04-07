@@ -44,6 +44,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
     private String eventTypeId;
     private String englishDescription;
     private RecommendationSource source;
+    private boolean notify;
     private Boolean monthlyReview = false;
     private Integer monthPeriod = 12;
     private Boolean mileageReview = false;
@@ -60,6 +61,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
             eventTypeId = recommendation.getEventTypeId();
             englishDescription = recommendation.getEnglishDescription();
             source = recommendation.getSource();
+            notify = recommendation.isNotify();
             monthlyReview = recommendation.getMonthPeriod() != null;
             if (monthlyReview) {
                 monthPeriod = recommendation.getMonthPeriod();
@@ -89,6 +91,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
                 .withEventTypeId(eventTypeId)
                 .withEnglishDescription(englishDescription)
                 .withSource(source)
+                .withNotify(notify)
                 .withMonthPeriod(monthlyReview, monthPeriod)
                 .withMileagePeriod(mileageReview, mileagePeriod)
                 .build();
@@ -202,5 +205,13 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
 
     public void setMileagePeriod(Integer mileagePeriod) {
         this.mileagePeriod = mileagePeriod;
+    }
+
+    public boolean isNotify() {
+        return notify;
+    }
+
+    public void setNotify(boolean notify) {
+        this.notify = notify;
     }
 }

@@ -43,3 +43,7 @@ body > .container {
   text-align: center;
   margin-bottom: 0;
 }
+
+.bike.selectize-control {
+  min-width: 340px;
+}

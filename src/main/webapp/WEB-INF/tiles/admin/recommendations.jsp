@@ -30,6 +30,7 @@
                   emptyOption="true"
                   placeholder="%{getText('bike.metadata.placeholder')}"
                   tooltip="%{getText('bike.metadata.tooltip')}"
+                  cssClass="bike"
                   elementCssClass="col-md-8"/>
       </s:form>
     </td>
@@ -41,6 +42,7 @@
     <th>Description (English)</th>
     <th>Event Type</th>
     <th>Source</th>
+    <th>Notify</th>
     <th>Mileage period</th>
     <th>Monthly period</th>
     <th>Actions</th>
@@ -52,6 +54,7 @@
       <td><s:property value="englishDescription"/></td>
       <td><s:property value="eventType.name"/></td>
       <td><s:text name="%{'source.' + source.name().toLowerCase()}"/></td>
+      <td><s:property value="notify"/></td>
       <td><s:number name="mileagePeriod"/></td>
       <td><s:number name="monthPeriod"/></td>
       <td>

@@ -43,6 +43,10 @@
                 cssClass="form-control"/>
 
       <s:set var="s2b_form_label_class" value="'col-md-2'"/>
+
+      <s:checkbox name="notify"
+                  label="Notify"/>
+
       <s:checkbox name="monthlyReview"
                   label="Anual maintenance review"/>
 

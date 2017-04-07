@@ -16,7 +16,10 @@ public class BikeRecommendation {
     @Index
     private Ref<BikeMetadata> bikeMetadataId;
     private String englishDescription;
+    @Index
     private RecommendationSource source;
+    @Index
+    private boolean notify;
     private Integer mileagePeriod = null;
     private Integer monthPeriod = null;
 
@@ -57,6 +60,10 @@ public class BikeRecommendation {
 
     public Integer getMonthPeriod() {
         return monthPeriod;
+    }
+
+    public boolean isNotify() {
+        return notify;
     }
 
     public static BikeRecommendationBuilder create() {
@@ -114,6 +121,11 @@ public class BikeRecommendation {
             } else {
                 target.mileagePeriod = null;
             }
+            return this;
+        }
+
+        public BikeRecommendationBuilder withNotify(boolean notify) {
+            target.notify = notify;
             return this;
         }
 
