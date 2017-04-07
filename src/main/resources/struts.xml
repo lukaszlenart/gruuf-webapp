@@ -27,7 +27,10 @@
       <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
 
       <interceptor-stack name="gruufDefaultDev">
-        <interceptor-ref name="exception"/>
+        <interceptor-ref name="exception">
+          <param name="logCategory">com.gruuf</param>
+          <param name="logLevel">error</param>
+        </interceptor-ref>
         <interceptor-ref name="secure"/>
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
