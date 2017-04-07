@@ -18,6 +18,8 @@ public class Attachment {
     private String id;
     @Index
     private Ref<User> owner;
+    @Index
+    private Ref<Bike> bike;
 
     private String bucketName;
     private String uniqueName;
@@ -40,10 +42,13 @@ public class Attachment {
         return owner;
     }
 
+    public Ref<Bike> getBike() {
+        return bike;
+    }
+
     public String getBucketName() {
         return bucketName;
     }
-
 
     public String getUniqueName() {
         return uniqueName;
@@ -79,19 +84,22 @@ public class Attachment {
                 '}';
     }
 
-    public static AttachmentBuilder create(User owner, String fileName, String uniqueName, Blob blob) {
-        return new AttachmentBuilder(owner, fileName, uniqueName, blob);
+    public static AttachmentBuilder create(User owner, Bike bike, String fileName, String uniqueName, Blob blob) {
+        return new AttachmentBuilder(owner, bike, fileName, uniqueName, blob);
     }
 
     public static class AttachmentBuilder {
 
         private Attachment target;
 
-        AttachmentBuilder(User owner, String fileName, String uniqueName, Blob blob) {
+        AttachmentBuilder(User owner, Bike bike, String fileName, String uniqueName, Blob blob) {
             target = new Attachment();
 
             target.id = GruufAuth.generateUUID();
             target.owner = Ref.create(owner);
+            if (bike != null) {
+                target.bike = Ref.create(bike);
+            }
             target.bucketName = blob.getBucket();
 
             target.originalFileName = fileName;

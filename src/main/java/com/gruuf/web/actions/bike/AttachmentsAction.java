@@ -53,7 +53,7 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
     @Action("upload")
     public String upload() throws Exception {
         LOG.debug("Storing attachment [{}] of content type [{}] as [{}]", attachment, attachmentContentType, attachmentFileName);
-        storage.storeAttachment(currentUser, attachment, attachmentFileName, attachmentContentType);
+        storage.storeAttachment(currentUser, selectedBike, attachment, attachmentFileName, attachmentContentType);
 
         return REDIRECT_TO_ATTACHMENTS;
     }
@@ -123,7 +123,7 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
     public List<AttachmentDescriptor> getAttachments() {
         List<AttachmentDescriptor> attachments = new ArrayList<>();
 
-        for (Attachment attachment : storage.findByOwner(currentUser)) {
+        for (Attachment attachment : storage.findByBike(selectedBike)) {
             attachments.add(new AttachmentDescriptor(rootUrl, attachment));
         }
 

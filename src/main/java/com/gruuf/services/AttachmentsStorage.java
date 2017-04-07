@@ -6,6 +6,7 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.gruuf.model.Attachment;
+import com.gruuf.model.Bike;
 import com.gruuf.model.User;
 import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.inject.Inject;
@@ -32,14 +33,14 @@ public class AttachmentsStorage extends Storable<Attachment> {
         this.bucketName = bucketName;
     }
 
-    public List<Attachment> findByOwner(User owner) {
-        return filter("owner", owner)
+    public List<Attachment> findByBike(Bike bike) {
+        return filter("bike", bike)
                 .order("timestamp")
                 .list();
     }
 
-    public Attachment storeAttachment(User currentUser, UploadedFile file, String fileName, String contentType) {
-        String uniqueName = currentUser.getId() + "/" + GruufAuth.generateUUID() + fileName.substring(fileName.lastIndexOf("."));
+    public Attachment storeAttachment(User currentUser, Bike bike,  UploadedFile file, String fileName, String contentType) {
+        String uniqueName = bike.getId() + "/" + GruufAuth.generateUUID() + fileName.substring(fileName.lastIndexOf("."));
         LOG.debug("Unique file name [{}]", uniqueName);
 
         BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, uniqueName)
@@ -51,7 +52,7 @@ public class AttachmentsStorage extends Storable<Attachment> {
 
         LOG.debug("Stored object: {}", blob);
 
-        Attachment attachment = Attachment.create(currentUser, fileName, uniqueName, blob).build();
+        Attachment attachment = Attachment.create(currentUser, bike, fileName, uniqueName, blob).build();
 
         return put(attachment);
     }
