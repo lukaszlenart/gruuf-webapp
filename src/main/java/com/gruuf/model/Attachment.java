@@ -1,8 +1,6 @@
 package com.gruuf.model;
 
-import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobId;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -75,6 +73,7 @@ public class Attachment {
         return "Attachment{" +
                 "id='" + id + '\'' +
                 ", owner=" + owner +
+                ", bike=" + bike +
                 ", bucketName='" + bucketName + '\'' +
                 ", uniqueName='" + uniqueName + '\'' +
                 ", originalFileName='" + originalFileName + '\'' +
