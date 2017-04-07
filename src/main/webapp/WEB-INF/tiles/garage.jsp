@@ -34,7 +34,7 @@
       <td><s:property value="bike.vin"/></td>
       <td><s:property value="bike.modelYear"/></td>
       <td><s:property value="metadata.name"/></td>
-      <td><s:property value="mileage"/></td>
+      <td><s:number name="mileage"/></td>
       <td><s:property value="registrationPlate"/></td>
     </tr>
     </tbody>
@@ -67,7 +67,7 @@
         </td>
         <td><s:property value="descriptiveName" escapeHtml="false"/></td>
         <td class="text-nowrap"><s:date name="registerDate" format="%{userDateFormat}"/></td>
-        <td class="text-nowrap"><s:property value="mileage"/></td>
+        <td class="text-nowrap"><s:number name="mileage"/></td>
         <td class="text-nowrap"><s:date name="timestamp" format="%{userDateFormat}"/></td>
       </tr>
     </s:iterator>

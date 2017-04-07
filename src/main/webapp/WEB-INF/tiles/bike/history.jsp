@@ -64,7 +64,7 @@
         <s:date name="registerDate" format="%{userDateFormat}"/>
       </td>
       <td class="text-nowrap">
-        <s:property value="mileage"/>
+        <s:number name="mileage"/>
       </td>
       <td class="text-nowrap">
         <s:date name="timestamp" format="%{userDateFormat}"/>
