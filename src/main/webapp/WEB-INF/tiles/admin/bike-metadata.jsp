@@ -39,7 +39,7 @@
           <s:property value="approved"/>
         </s:if>
       </td>
-      <td><s:property value="requestedBy.fullName"/></td>
+      <td><s:property value="requestedByUser.fullName"/></td>
       <td>
         <s:url var="editMetadata" action="bike-metadata-form">
           <s:param name="bikeMetadataId" value="id"/>

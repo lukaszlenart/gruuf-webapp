@@ -71,6 +71,10 @@ public class BikeMetadata {
         return requestedBy;
     }
 
+    public User getRequestedByUser() {
+        return requestedBy.get();
+    }
+
     public static class BikeMetadataBuilder {
 
         private BikeMetadata target;
