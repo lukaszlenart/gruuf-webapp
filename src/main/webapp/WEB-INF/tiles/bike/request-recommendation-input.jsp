@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-md-12 col-md-offset-2">
-    <s:form action="update-recommendation" method="POST" cssClass="form-horizontal">
+    <s:form action="request-recommendation" method="POST" cssClass="form-horizontal">
       <s:hidden name="bikeId"/>
 
       <s:textfield name="bikeMetadata.name"

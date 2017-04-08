@@ -1,9 +1,6 @@
 package com.gruuf.web.actions.bike;
 
 import com.gruuf.auth.BikeRestriction;
-import com.gruuf.auth.Token;
-import com.gruuf.auth.Tokens;
-import com.gruuf.model.BikeMetadata;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.EventType;
 import com.gruuf.model.RecommendationSource;
@@ -12,29 +9,31 @@ import com.gruuf.services.MailBox;
 import com.gruuf.services.Recommendations;
 import com.gruuf.web.actions.BaseBikeMetadataAction;
 import com.opensymphony.xwork2.inject.Inject;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.opensymphony.xwork2.Action.INPUT;
 
 @Results({
-        @Result(name = RequestRecommendationFormAction.TO_RECOMMENDATIONS, location = "recommendations", type = "redirectAction", params = {
-                "bikeId", "${bikeId}"
-        }),
+        @Result(name = RequestRecommendationFormAction.TO_INPUT,
+                location = "request-recommendation-form",
+                type = "redirectAction",
+                params = { "bikeId", "${bikeId}" }
+        ),
         @Result(name = INPUT, location = "bike/request-recommendation-input")
 })
+@InterceptorRef("defaultWithMessages")
 @BikeRestriction
 public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
 
-    public static final String TO_RECOMMENDATIONS = "to-recommendations";
+    public static final String TO_INPUT = "to-request-recommendation-form";
 
     private static Logger LOG = LogManager.getLogger(RequestRecommendationFormAction.class);
 
@@ -57,7 +56,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
         return INPUT;
     }
 
-    @Action("update-recommendation")
+    @Action("request-recommendation")
     public String updateRecommendation() {
         LOG.debug("Requesting new recommendation");
 
@@ -78,7 +77,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
         mailBox.notifyAdmin("New Bike Recommendation request", "A new Bike Recommendation was requested", recommendation);
         addActionMessage(getText("recommendations.newRequestSubmitted"));
 
-        return TO_RECOMMENDATIONS;
+        return TO_INPUT;
     }
 
     public List<EventType> getEventTypes() {
