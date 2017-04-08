@@ -33,7 +33,8 @@
                    labelCssClass="col-md-2"
                    elementCssClass="col-md-2"
                    cssClass="form-control"
-                   inputAppendIcon="log-in"/>
+                   inputAppendIcon="log-in"
+                   tooltip="%{getText('bikeMetadata.productionEndYear.tooltip')}"/>
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-9">
