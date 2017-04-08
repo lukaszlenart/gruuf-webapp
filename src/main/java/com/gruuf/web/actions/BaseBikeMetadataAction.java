@@ -28,7 +28,7 @@ abstract public class BaseBikeMetadataAction extends BaseBikeAction {
     }
 
     public List<BikeMetadataOption> getMetadataOptions() {
-        List<BikeMetadata> metaData = bikeMetadataStore.list();
+        List<BikeMetadata> metaData = bikeMetadataStore.listApproved(currentUser);
 
         LOG.debug("Found meta data {}", metaData);
 

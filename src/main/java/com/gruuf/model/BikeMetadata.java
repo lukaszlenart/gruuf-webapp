@@ -68,8 +68,8 @@ public class BikeMetadata {
         return approved;
     }
 
-    public User getRequestedBy() {
-        return requestedBy.get();
+    public Ref<User> getRequestedBy() {
+        return requestedBy;
     }
 
     public static class BikeMetadataBuilder {
