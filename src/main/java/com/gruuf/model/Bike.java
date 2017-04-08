@@ -76,6 +76,10 @@ public class Bike {
         return new BikeBuilder(bike);
     }
 
+    public String getBikeMetadataId() {
+        return bikeMetadata.getKey().getName();
+    }
+
     public static class BikeBuilder {
         private final Bike target;
 

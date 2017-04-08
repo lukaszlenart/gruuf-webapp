@@ -30,9 +30,9 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
     public String execute() {
         if (selectedBike != null) {
             friendlyName = selectedBike.getName();
+            bikeMetadataId = selectedBike.getBikeMetadataId();
             vin = selectedBike.getVin();
             modelYear = selectedBike.getModelYear();
-
             mileage = bikeHistory.findCurrentMileage(selectedBike);
             currentMileage = mileage;
         }
