@@ -28,6 +28,7 @@
 
       <interceptor-stack name="gruufDefaultDev">
         <interceptor-ref name="exception">
+          <param name="logEnabled">true</param>
           <param name="logCategory">com.gruuf</param>
           <param name="logLevel">error</param>
         </interceptor-ref>

@@ -1,7 +1,9 @@
-package com.gruuf.web.actions.admin;
+package com.gruuf.web.actions.bike;
 
+import com.gruuf.auth.BikeRestriction;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
+import com.gruuf.model.BikeMetadata;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.EventType;
 import com.gruuf.model.RecommendationSource;
@@ -23,24 +25,21 @@ import java.util.List;
 import static com.opensymphony.xwork2.Action.INPUT;
 
 @Results({
-        @Result(name = RecommendationFormAction.TO_RECOMMENDATIONS, location = "recommendations", type = "redirectAction", params = {
-                "bikeMetadataId", "${bikeMetadataId}"
+        @Result(name = RequestRecommendationFormAction.TO_RECOMMENDATIONS, location = "recommendations", type = "redirectAction", params = {
+                "bikeId", "${bikeId}"
         }),
-        @Result(name = INPUT, location = "admin/recommendation-input")
+        @Result(name = INPUT, location = "bike/request-recommendation-input")
 })
-@Tokens(Token.ADMIN)
-public class RecommendationFormAction extends BaseBikeMetadataAction {
+@BikeRestriction
+public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
 
     public static final String TO_RECOMMENDATIONS = "to-recommendations";
 
-    private static Logger LOG = LogManager.getLogger(RecommendationFormAction.class);
+    private static Logger LOG = LogManager.getLogger(RequestRecommendationFormAction.class);
 
     private Recommendations recommendations;
     private EventTypes eventTypes;
 
-    private String recommendationId;
-
-    private String bikeMetadataId;
     private String eventTypeId;
     private String englishDescription;
     private RecommendationSource source;
@@ -52,76 +51,34 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
 
     @SkipValidation
     public String execute() {
-        if (StringUtils.isEmpty(recommendationId)) {
-            LOG.debug("Showing recommendation create form");
-        } else {
-            LOG.debug("Showing recommendation edit form for id = {}", recommendationId);
-            BikeRecommendation recommendation = recommendations.get(recommendationId);
-            bikeMetadataId = recommendation.getBikeMetadataId();
-            eventTypeId = recommendation.getEventTypeId();
-            englishDescription = recommendation.getEnglishDescription();
-            source = recommendation.getSource();
-            notify = recommendation.isNotify();
-            monthlyReview = recommendation.getMonthPeriod() != null;
-            if (monthlyReview) {
-                monthPeriod = recommendation.getMonthPeriod();
-            }
-            mileageReview = recommendation.getMileagePeriod() != null;
-            if (mileageReview) {
-                mileagePeriod = recommendation.getMileagePeriod();
-            }
-        }
+        LOG.debug("Showing recommendation request form");
         return INPUT;
     }
 
     @Action("update-recommendation")
     public String updateRecommendation() {
-        BikeRecommendation.BikeRecommendationBuilder builder;
-        if (StringUtils.isEmpty(recommendationId)) {
-            LOG.debug("Creating new recommendation");
-            builder = BikeRecommendation.create()
-                    .withRequestedBy(currentUser)
-                    .withApproved();
-        } else {
-            LOG.debug("Updating existing recommendation id = {}", recommendationId);
-            BikeRecommendation recommendation = recommendations.get(recommendationId);
-            builder = BikeRecommendation.create(recommendation);
-        }
+        LOG.debug("Requesting new recommendation");
 
-        BikeRecommendation recommendation = builder
-                .withBikeMetadataId(bikeMetadataId)
+        BikeRecommendation recommendation = BikeRecommendation.create()
+                .withBikeMetadataId(selectedBike.getBikeMetadataId())
                 .withEventTypeId(eventTypeId)
                 .withEnglishDescription(englishDescription)
                 .withSource(source)
                 .withNotify(notify)
                 .withMonthPeriod(monthlyReview, monthPeriod)
                 .withMileagePeriod(mileageReview, mileagePeriod)
-                .withRequestedByIfNull(currentUser)
+                .withRequestedBy(currentUser)
                 .build();
 
         recommendations.put(recommendation);
+
+        addActionMessage(getText("recommendations.newRequestSubmitted"));
 
         return TO_RECOMMENDATIONS;
     }
 
     public List<EventType> getEventTypes() {
         return eventTypes.listAllowedEventTypes();
-    }
-
-    public List<BikeRecommendation> getList() {
-        List<BikeRecommendation> bikeRecommendations = recommendations.list();
-
-        List<BikeRecommendation> result = new ArrayList<>();
-
-        if (StringUtils.isNoneEmpty(bikeMetadataId)) {
-            for (BikeRecommendation bikeRecommendation : bikeRecommendations) {
-                if (bikeMetadataId.equals(bikeRecommendation.getBikeMetadata().getId())) {
-                    result.add(bikeRecommendation);
-                }
-            }
-        }
-
-        return result;
     }
 
     @Inject
@@ -138,20 +95,8 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
         return RecommendationSource.values();
     }
 
-    public String getBikeMetadataId() {
-        return bikeMetadataId;
-    }
-
-    public void setBikeMetadataId(String bikeMetadataId) {
-        this.bikeMetadataId = bikeMetadataId;
-    }
-
-    public String getRecommendationId() {
-        return recommendationId;
-    }
-
-    public void setRecommendationId(String recommendationId) {
-        this.recommendationId = recommendationId;
+    public BikeMetadataOption getBikeMetadata() {
+        return new BikeMetadataOption(selectedBike.getBikeMetadata());
     }
 
     public String getEventTypeId() {

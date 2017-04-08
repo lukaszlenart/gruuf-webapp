@@ -45,6 +45,8 @@
     <th>Notify</th>
     <th>Mileage period</th>
     <th>Monthly period</th>
+    <th>Approved</th>
+    <th>Requested by</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -57,6 +59,8 @@
       <td><s:property value="notify"/></td>
       <td><s:number name="mileagePeriod"/></td>
       <td><s:number name="monthPeriod"/></td>
+      <td><s:property value="approved"/></td>
+      <td><s:property value="requestedByUser.fullName"/></td>
       <td>
         <s:url var="edit" action="recommendation-form">
           <s:param name="recommendationId" value="id"/>

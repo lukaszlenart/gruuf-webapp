@@ -23,6 +23,10 @@ public class BikeRecommendation {
     private Integer mileagePeriod = null;
     private Integer monthPeriod = null;
 
+    @Index
+    private boolean approved = false;
+    private Ref<User> requestedBy;
+
     private BikeRecommendation() {
     }
 
@@ -66,24 +70,36 @@ public class BikeRecommendation {
         return notify;
     }
 
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public Ref<User> getRequestedBy() {
+        return requestedBy;
+    }
+
+    public User getRequestedByUser() {
+        return requestedBy == null ? null : requestedBy.get();
+    }
+
     public static BikeRecommendationBuilder create() {
         return new BikeRecommendationBuilder();
     }
 
-    public static BikeRecommendationBuilder create(BikeRecommendation bikeRecommendation) {
-        return new BikeRecommendationBuilder(bikeRecommendation.getId());
+    public static BikeRecommendationBuilder create(BikeRecommendation original) {
+        return new BikeRecommendationBuilder(original);
     }
 
     public static class BikeRecommendationBuilder {
         private BikeRecommendation target;
 
         public BikeRecommendationBuilder() {
-            this(GruufAuth.generateUUID());
+            target = new BikeRecommendation();
+            target.id = GruufAuth.generateUUID();
         }
 
-        public BikeRecommendationBuilder(String id) {
-            target = new BikeRecommendation();
-            target.id = id;
+        public BikeRecommendationBuilder(BikeRecommendation original) {
+            target = original;
         }
 
         public BikeRecommendationBuilder withBikeMetadataId(String bikeMetadataId) {
@@ -129,8 +145,25 @@ public class BikeRecommendation {
             return this;
         }
 
+        public BikeRecommendationBuilder withRequestedBy(User user) {
+            target.requestedBy = Ref.create(user);
+            return this;
+        }
+
+        public BikeRecommendationBuilder withApproved() {
+            target.approved = true;
+            return this;
+        }
+
         public BikeRecommendation build() {
             return target;
+        }
+
+        public BikeRecommendationBuilder withRequestedByIfNull(User user) {
+            if (target.requestedBy == null) {
+                target.requestedBy = Ref.create(user);
+            }
+            return this;
         }
     }
 }

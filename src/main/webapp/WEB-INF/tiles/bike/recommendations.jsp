@@ -37,6 +37,17 @@
   </ul>
 </nav>
 
+<div class="row">
+  <div class="col-md-12">
+    <s:url var="requestRecommendation" action="request-recommendation-form">
+      <s:param name="bikeId" value="%{bikeId}"/>
+    </s:url>
+    <s:a href="%{requestRecommendation}" class="btn btn-default">
+      <s:text name="general.requestNew"/>
+    </s:a>
+  </div>
+</div>
+
 <table class="table table-striped">
   <thead>
   <tr>

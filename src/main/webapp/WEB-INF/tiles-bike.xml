@@ -34,4 +34,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/request-bike-metadata-input.jsp"/>
   </definition>
 
+  <definition name="bike/request-recommendation-input" extends="logged-in">
+    <put-attribute name="title" expression="I18N:recommendations.requestNew"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/request-recommendation-input.jsp"/>
+  </definition>
+
 </tiles-definitions>
