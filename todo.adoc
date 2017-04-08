@@ -15,7 +15,7 @@
 - [X] dodać autora zdarzenia
 - [X] aktulizacja przebiegu
 - [X] dodanie formularza kontaktowego
-- [ ] definiowanie triggerów dla poszczególnych EventType
+- [X] definiowanie triggerów dla poszczególnych EventType
 - [X] logowanie Google
 - [X] powiadomienie o nowym użytkwoniku
 - [X] użytownik musi mieć możliwość zmiany swoich danych
@@ -30,7 +30,7 @@
 - [X] logowanie Google
 - [X] strona GruufApp na Facebooku
 - [X] konto Twitter
-- [ ] możliwość definiowania producenta/modelu/roku produkcji
+- [X] możliwość definiowania producenta/modelu/roku produkcji
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
 - [ ] wyświetlanie wersji serwisu
 - [ ] strona z listą wprowadzonych zmian
