@@ -33,7 +33,7 @@
           <s:url var="approveMetadata" action="approve-bike-metadata">
             <s:param name="bikeMetadataId" value="id"/>
           </s:url>
-          <s:a value="%{approveMetadata}">Approve</s:a>
+          <s:a href="%{approveMetadata}">Approve</s:a>
         </s:if>
         <s:if test="approved">
           <s:property value="approved"/>

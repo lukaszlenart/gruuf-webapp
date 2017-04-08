@@ -36,7 +36,7 @@ public class RecommendationsAction extends BaseBikeAction {
     }
 
     public List<RecommendationDescriptor> getBikeRecommendations() {
-        List<BikeRecommendation> recommendations = this.recommendations.findByBikeMetadata(selectedBike.getBikeMetadata());
+        List<BikeRecommendation> recommendations = this.recommendations.listApprovedByBikeMetadata(currentUser, selectedBike.getBikeMetadata());
         List<BikeEvent> bikeEvents = history.listByBike(selectedBike);
 
         LOG.debug("Recommendations: {}", recommendations);

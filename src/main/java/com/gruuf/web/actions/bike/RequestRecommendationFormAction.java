@@ -8,6 +8,7 @@ import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.EventType;
 import com.gruuf.model.RecommendationSource;
 import com.gruuf.services.EventTypes;
+import com.gruuf.services.MailBox;
 import com.gruuf.services.Recommendations;
 import com.gruuf.web.actions.BaseBikeMetadataAction;
 import com.opensymphony.xwork2.inject.Inject;
@@ -39,6 +40,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
 
     private Recommendations recommendations;
     private EventTypes eventTypes;
+    private MailBox mailBox;
 
     private String eventTypeId;
     private String englishDescription;
@@ -70,8 +72,10 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
                 .withRequestedBy(currentUser)
                 .build();
 
-        recommendations.put(recommendation);
+        recommendation = recommendations.put(recommendation);
 
+        LOG.debug("New bike recommendation created: {}", recommendation);
+        mailBox.notifyAdmin("New Bike Recommendation request", "A new Bike Recommendation was requested", recommendation);
         addActionMessage(getText("recommendations.newRequestSubmitted"));
 
         return TO_RECOMMENDATIONS;
@@ -89,6 +93,11 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
     @Inject
     public void setEventTypes(EventTypes eventTypes) {
         this.eventTypes = eventTypes;
+    }
+
+    @Inject
+    public void setMailBox(MailBox mailBox) {
+        this.mailBox = mailBox;
     }
 
     public RecommendationSource[] getAllSources() {

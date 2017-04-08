@@ -57,12 +57,10 @@ public class RequestBikeMetadataAction extends BaseAction {
                 .withRequester(currentUser)
                 .build();
 
-        BikeMetadata result = bikeMetadataStore.put(bikeMetadata);
+        bikeMetadata = bikeMetadataStore.put(bikeMetadata);
 
-        mailBox.notifyAdmin("New Bike Metadata request", "A new Bike Metadata was requested", result);
-
-        LOG.debug("New bike metadata created: {}", result);
-
+        LOG.debug("New bike metadata created: {}", bikeMetadata);
+        mailBox.notifyAdmin("New Bike Metadata request", "A new Bike Metadata was requested", bikeMetadata);
         addActionMessage(getText("bikeMetadata.newRequestSubmitted"));
 
         return "to-input";

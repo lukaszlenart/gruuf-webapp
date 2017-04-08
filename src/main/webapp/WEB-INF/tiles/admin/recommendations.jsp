@@ -59,7 +59,18 @@
       <td><s:property value="notify"/></td>
       <td><s:number name="mileagePeriod"/></td>
       <td><s:number name="monthPeriod"/></td>
-      <td><s:property value="approved"/></td>
+      <td>
+        <s:if test="not approved">
+          <s:url var="approveRecommendation" action="approve-recommendation">
+            <s:param name="bikeRecommendationId" value="id"/>
+            <s:param name="bikeMetadataId" value="%{bikeMetadataId}"/>
+          </s:url>
+          <s:a href="%{approveRecommendation}">Approve</s:a>
+        </s:if>
+        <s:if test="approved">
+          <s:property value="approved"/>
+        </s:if>
+      </td>
       <td><s:property value="requestedByUser.fullName"/></td>
       <td>
         <s:url var="edit" action="recommendation-form">
