@@ -17,7 +17,6 @@ import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.gruuf.web.actions.BaseAction.JSON;
