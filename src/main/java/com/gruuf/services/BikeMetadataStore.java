@@ -10,7 +10,4 @@ public class BikeMetadataStore extends Storable<BikeMetadata> {
         super(BikeMetadata.class);
     }
 
-    public List<BikeMetadata> listApproved() {
-        return filter("approved", Boolean.TRUE).list();
-    }
 }
