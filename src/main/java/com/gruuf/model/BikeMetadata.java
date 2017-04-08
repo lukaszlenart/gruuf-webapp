@@ -5,7 +5,6 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.gruuf.web.GruufAuth;
-import org.apache.commons.lang3.StringUtils;
 
 @Entity
 public class BikeMetadata {
@@ -82,7 +81,7 @@ public class BikeMetadata {
         }
 
         public BikeMetadataBuilder withManufacturer(String manufacturer) {
-            target.manufacturer = StringUtils.capitalize(manufacturer.toLowerCase());
+            target.manufacturer = manufacturer;
             return this;
         }
 
