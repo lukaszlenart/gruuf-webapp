@@ -15,6 +15,81 @@
     <google.appengine.version>1.9.49</google.appengine.version>
   </properties>
 
+  <scm>
+    <connection>scm:git:git@github.com:lukaszlenart/gruuf-webapp.git</connection>
+    <developerConnection>scm:git:git@github.com:lukaszlenart/gruuf-webapp.git</developerConnection>
+    <url>https://github.com/lukaszlenart/gruuf-webapp</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/version.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>**/*</include>
+        </includes>
+        <excludes>
+          <exclude>**/version.properties</exclude>
+        </excludes>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory>
+          <webappDirectory>${project.build.directory}/${project.artifactId}-${project.version}</webappDirectory>
+          <filters>
+            <filter>src/main/webapp/WEB-INF/appengine-web.xml</filter>
+          </filters>
+          <webResources>
+            <resource>
+              <directory>src/main/webapp</directory>
+              <filtering>true</filtering>
+              <includes>
+                <include>**/appengine-web.xml</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.google.appengine</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>${google.appengine.version}</version>
+        <configuration>
+          <enableJarClasses>false</enableJarClasses>
+          <port>8080</port>
+          <address>0.0.0.0</address>
+          <jvmFlags>
+            <jvmFlag>-Ddatastore.backing_store=${project.basedir}/local_db.bin</jvmFlag>
+          </jvmFlags>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
 
     <dependency>
@@ -177,71 +252,4 @@
 
   </dependencies>
 
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-        <includes>
-          <include>**/version.properties</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>false</filtering>
-        <includes>
-          <include>**/*</include>
-        </includes>
-        <excludes>
-          <exclude>**/version.properties</exclude>
-        </excludes>
-      </resource>
-    </resources>
-
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory>
-          <webappDirectory>${project.build.directory}/${project.artifactId}-${project.version}</webappDirectory>
-          <filters>
-            <filter>src/main/webapp/WEB-INF/appengine-web.xml</filter>
-          </filters>
-          <webResources>
-            <resource>
-              <directory>src/main/webapp</directory>
-              <filtering>true</filtering>
-              <includes>
-                <include>**/appengine-web.xml</include>
-              </includes>
-            </resource>
-          </webResources>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.google.appengine</groupId>
-        <artifactId>appengine-maven-plugin</artifactId>
-        <version>${google.appengine.version}</version>
-        <configuration>
-          <enableJarClasses>false</enableJarClasses>
-          <port>8080</port>
-          <address>0.0.0.0</address>
-          <jvmFlags>
-            <jvmFlag>-Ddatastore.backing_store=${project.basedir}/local_db.bin</jvmFlag>
-          </jvmFlags>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
