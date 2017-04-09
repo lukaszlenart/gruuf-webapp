@@ -1,12 +1,17 @@
 package com.gruuf.web.actions;
 
+import com.gruuf.GruufVersion;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.model.UserLocale;
 import com.gruuf.web.interceptors.CurrentUserAware;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BaseAction extends ActionSupport implements CurrentUserAware {
+
+    private static final Logger LOG = LogManager.getLogger(BaseAction.class);
 
     public static final String JSON = "json";
 
@@ -45,4 +50,8 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
         return currentUser != null ? currentUser.getFullName() : (isLoggedIn() ? getText("biker.profile") : null);
     }
 
+    public String getCurrentVersion() {
+        LOG.debug("Current version: {}", GruufVersion.CURRENT_VERSION);
+        return GruufVersion.CURRENT_VERSION;
+    }
 }

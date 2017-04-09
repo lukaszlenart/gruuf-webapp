@@ -3,6 +3,8 @@
 
 <footer class="footer">
   <div class="container">
-    <div class="text-muted text-center"><s:text name="general.allRightsReserved"/> @ Łukasz Lenart</div>
+    <div class="text-muted text-center">
+      <s:text name="general.allRightsReserved"/> @ Łukasz Lenart, ver. <s:property value="currentVersion"/>
+    </div>
   </div>
 </footer>
