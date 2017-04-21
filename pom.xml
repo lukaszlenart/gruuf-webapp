@@ -14,7 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <struts2.version>2.5.10.1</struts2.version>
     <log4j2.version>2.7</log4j2.version>
-    <google.appengine.version>1.9.49</google.appengine.version>
+    <google.appengine.version>1.9.51</google.appengine.version>
   </properties>
 
   <scm>
