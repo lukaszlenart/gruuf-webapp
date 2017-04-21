@@ -5,7 +5,6 @@ import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
-import com.gruuf.web.actions.bike.HistoryAction;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
