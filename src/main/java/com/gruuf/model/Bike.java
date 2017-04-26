@@ -77,7 +77,11 @@ public class Bike {
     }
 
     public String getBikeMetadataId() {
-        return bikeMetadata.getKey().getName();
+        if (bikeMetadata != null) {
+            return bikeMetadata.getKey().getName();
+        } else {
+            return null;
+        }
     }
 
     public static class BikeBuilder {
