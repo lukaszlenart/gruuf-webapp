@@ -75,6 +75,19 @@ public class BikeMetadata {
         return requestedBy.get();
     }
 
+    @Override
+    public String toString() {
+        return "BikeMetadata{" +
+                "id='" + id + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", model='" + model + '\'' +
+                ", productionStartYear=" + productionStartYear +
+                ", productionEndYear=" + productionEndYear +
+                ", approved=" + approved +
+                ", requestedBy=" + requestedBy +
+                '}';
+    }
+
     public static class BikeMetadataBuilder {
 
         private BikeMetadata target;
@@ -114,16 +127,4 @@ public class BikeMetadata {
         }
     }
 
-    @Override
-    public String toString() {
-        return "BikeMetadata{" +
-                "id='" + id + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
-                ", model='" + model + '\'' +
-                ", productionStartYear=" + productionStartYear +
-                ", productionEndYear=" + productionEndYear +
-                ", approved=" + approved +
-                ", requestedBy=" + requestedBy +
-                '}';
-    }
 }
