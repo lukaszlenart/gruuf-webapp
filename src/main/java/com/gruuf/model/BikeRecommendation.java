@@ -82,6 +82,22 @@ public class BikeRecommendation {
         return requestedBy == null ? null : requestedBy.get();
     }
 
+    @Override
+    public String toString() {
+        return "BikeRecommendation{" +
+                "id='" + id + '\'' +
+                ", eventTypeId=" + eventTypeId +
+                ", bikeMetadataId=" + bikeMetadataId +
+                ", englishDescription='" + englishDescription + '\'' +
+                ", source=" + source +
+                ", notify=" + notify +
+                ", mileagePeriod=" + mileagePeriod +
+                ", monthPeriod=" + monthPeriod +
+                ", approved=" + approved +
+                ", requestedBy=" + requestedBy +
+                '}';
+    }
+
     public static BikeRecommendationBuilder create() {
         return new BikeRecommendationBuilder();
     }
