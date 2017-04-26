@@ -105,7 +105,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
             addFieldError("vin", getText("bike.vinAlreadyUsed"));
         }
 
-        if (currentMileage != null && mileage != null && currentMileage.compareTo(mileage) > 0) {
+        if (currentMileage != null && mileage != null && currentMileage.compareTo(mileage) >= 0) {
             LOG.debug("New mileage {} is less than current mileage {}", mileage, currentMileage);
             addFieldError("mileage", getText("bike.providedMileageIsLowerThanActual"));
         }
