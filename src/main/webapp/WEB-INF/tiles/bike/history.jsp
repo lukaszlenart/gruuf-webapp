@@ -70,11 +70,20 @@
         <s:date name="timestamp" format="%{userDateFormat}"/>
       </td>
       <td class="text-nowrap">
+        <s:if test="editable">
+          <s:url var="editEvent" action="edit-bike-event" escapeAmp="false">
+            <s:param name="bikeId" value="%{bikeId}"/>
+            <s:param name="bikeEventId" value="id"/>
+          </s:url>
+          <s:a value="%{editEvent}" cssClass="editable glyphicon glyphicon-edit" title="%{getText('general.edit')}"><s:text name="general.edit"/></s:a>
+        </s:if>
+
         <s:if test="deletable">
-        <s:url var="deleteEvent" action="delete-bike-event">
+        <s:url var="deleteEvent" action="delete-bike-event" escapeAmp="false">
+          <s:param name="bikeId" value="%{bikeId}"/>
           <s:param name="bikeEventId" value="id"/>
         </s:url>
-        <s:a value="%{deleteEvent}"><s:text name="general.delete"/></s:a>
+        <s:a value="%{deleteEvent}" cssClass="deletable glyphicon glyphicon-trash" title="%{getText('general.delete')}"><s:text name="general.delete"/></s:a>
         </s:if>
       </td>
     </tr>

@@ -53,4 +53,8 @@ public class BikeEventDescriptor {
         return bikeEvent.isDeletable();
     }
 
+    public boolean isEditable() {
+        return bikeEvent.isEditable();
+    }
+
 }

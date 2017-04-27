@@ -7,6 +7,7 @@ import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.util.TextParseUtil;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -24,6 +25,8 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
 
     private static final Logger LOG = LogManager.getLogger(BikeEventAction.class);
 
+    private String bikeEventId;
+
     private String eventTypeIds;
     private String descriptiveName;
     private Date registerDate;
@@ -34,22 +37,60 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     @Action("new-bike-event")
     public String execute() {
         currentMileage = bikeHistory.findCurrentMileage(selectedBike);
-        return SUCCESS;
+        return INPUT;
+    }
+
+    @SkipValidation
+    @Action("edit-bike-event")
+    public String edit() {
+        if (StringUtils.isEmpty(bikeEventId)) {
+            LOG.debug("New bike event");
+        } else {
+            BikeEvent bikeEvent = bikeHistory.get(bikeEventId);
+            if (bikeEvent.isEditable()) {
+                eventTypeIds = StringUtils.join(bikeEvent.getEventTypeIds(), ",");
+                descriptiveName = bikeEvent.getDescriptiveName();
+                registerDate = bikeEvent.getRegisterDate();
+                mileage = bikeEvent.getMileage();
+            } else {
+                LOG.debug("Bike event [{}] is not editable!", bikeEventId);
+            }
+        }
+
+        currentMileage = bikeHistory.findCurrentMileage(selectedBike);
+        return INPUT;
     }
 
     @Action("register-bike-event")
     public String registerBikeEvent() {
-        LOG.debug("Registering new bike event for bike {}", getBikeId());
+        if (StringUtils.isEmpty(bikeEventId)) {
+            LOG.debug("Registering new bike event for bike {}", getBikeId());
 
-        BikeEvent bikeEvent = BikeEvent.create(selectedBike, currentUser)
-                .withEventTypeId(TextParseUtil.commaDelimitedStringToSet(eventTypeIds))
-                .withDescriptiveName(descriptiveName)
-                .withRegisterDate(registerDate)
-                .withMileage(mileage)
-                .build();
+            BikeEvent bikeEvent = BikeEvent.create(selectedBike, currentUser)
+                    .withEventTypeId(TextParseUtil.commaDelimitedStringToSet(eventTypeIds))
+                    .withDescriptiveName(descriptiveName)
+                    .withRegisterDate(registerDate)
+                    .withMileage(mileage)
+                    .build();
 
-        LOG.debug("Storing new Bike Event {}", bikeEvent);
-        bikeHistory.put(bikeEvent);
+            LOG.debug("Storing new Bike Event {}", bikeEvent);
+            bikeHistory.put(bikeEvent);
+        } else {
+            BikeEvent oldBikeEvent = bikeHistory.get(bikeEventId);
+            if (oldBikeEvent.isEditable()) {
+                BikeEvent bikeEvent = BikeEvent.create(oldBikeEvent)
+                        .withEventTypeId(TextParseUtil.commaDelimitedStringToSet(eventTypeIds))
+                        .withDescriptiveName(descriptiveName)
+                        .withRegisterDate(registerDate)
+                        .withMileage(mileage)
+                        .build();
+
+                LOG.debug("Storing new Bike Event {}", bikeEvent);
+                bikeHistory.put(bikeEvent);
+            } else {
+                LOG.debug("Bike event [{}] is not editable!", bikeEventId);
+            }
+        }
 
         LOG.debug("Returning to show bike {}", getBikeId());
         return TO_SHOW_BIKE;
@@ -117,4 +158,11 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return getText("bike.currentMileageInKmIs");
     }
 
+    public String getBikeEventId() {
+        return bikeEventId;
+    }
+
+    public void setBikeEventId(String bikeEventId) {
+        this.bikeEventId = bikeEventId;
+    }
 }

@@ -41,6 +41,7 @@
   <div class="col-md-12">
     <s:form action="register-bike-event" id="new-bike-event-form" method="POST" cssClass="form-horizontal">
       <s:hidden name="bikeId"/>
+      <s:hidden name="bikeEventId"/>
       <s:hidden name="currentMileage"/>
 
       <s:textfield id="event-types"
@@ -91,19 +92,23 @@
 
 <script type="application/javascript">
 
-  $('#event-types').selectize({
+  var $eventTypes = $('#event-types');
+  var preloadedItems = $eventTypes.val().split(',');
+  $eventTypes.val('');
+
+  $eventTypes.selectize({
     valueField: 'id',
     labelField: 'name',
     searchField: 'name',
     sortField: 'name',
     create: false,
+    preload: true,
     render: {
       option: function(item, escape) {
         return '<div><span class="name">' + escape(item.name) + '</span></div>';
       }
     },
     load: function(query, callback) {
-      if (!query.length) return callback();
       $.ajax({
         url: 'event-types',
         type: 'GET',
@@ -114,6 +119,10 @@
           callback(res);
         }
       });
+    },
+    onLoad: function(_) {
+      var selectize = $eventTypes[0].selectize;
+      selectize.setValue(preloadedItems);
     }
   });
 

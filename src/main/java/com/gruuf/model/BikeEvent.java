@@ -10,12 +10,15 @@ import com.googlecode.objectify.annotation.Load;
 import com.gruuf.web.GruufAuth;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 public class BikeEvent {
+
+    private static final int EDIT_PERIOD = -1;
 
     @Id
     private String id;
@@ -67,6 +70,14 @@ public class BikeEvent {
         return eventTypes;
     }
 
+    public List<String> getEventTypeIds() {
+        List<String> eventTypes = new ArrayList<>();
+        for (Ref<EventType> eventTypeId : eventTypeIds) {
+            eventTypes.add(eventTypeId.getKey().getName());
+        }
+        return eventTypes;
+    }
+
     public Date getTimestamp() {
         return timestamp;
     }
@@ -110,14 +121,25 @@ public class BikeEvent {
                 '}';
     }
 
-    public static BikeEventBuilder create(Bike bike, User registeredBy) {
-        return new BikeEventBuilder(bike, registeredBy);
-    }
-
     public BikeEvent markAsDeleted() {
         this.status = BikeEventStatus.DELETED;
         this.timestamp = new Date();
         return this;
+    }
+
+    public boolean isEditable() {
+        Calendar nowMinusSevenDays = Calendar.getInstance();
+        nowMinusSevenDays.add(Calendar.DAY_OF_MONTH, EDIT_PERIOD);
+
+        return timestamp.after(nowMinusSevenDays.getTime());
+    }
+
+    public static BikeEventBuilder create(Bike bike, User registeredBy) {
+        return new BikeEventBuilder(bike, registeredBy);
+    }
+
+    public static BikeEventBuilder create(BikeEvent oldBikeEvent) {
+        return new BikeEventBuilder(oldBikeEvent);
     }
 
     public static class BikeEventBuilder {
@@ -130,6 +152,15 @@ public class BikeEvent {
             target.timestamp = new Date();
             target.status = BikeEventStatus.NEW;
             target.registeredBy = Ref.create(registeredBy);
+        }
+
+        public BikeEventBuilder(BikeEvent old) {
+            target = new BikeEvent();
+            target.id = old.id;
+            target.bike = old.bike;
+            target.status = old.status;
+            target.registeredBy = old.registeredBy;
+            target.timestamp = old.timestamp;
         }
 
         public BikeEventBuilder withEventTypeId(Set<String> eventTypeIds) {

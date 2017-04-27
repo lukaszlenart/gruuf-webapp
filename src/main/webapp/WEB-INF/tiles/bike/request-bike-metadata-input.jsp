@@ -59,7 +59,6 @@
         return '<div><span class="name">' + escape(item.text) + '</span></div>';
       },
       item: function(item, escape) {
-        console.log(item)
         return '<div><span class="name">' + escape(item.text) + '</span></div>';
       }
     },
