@@ -5,6 +5,7 @@ import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.util.TextParseUtil;
+import com.opensymphony.xwork2.validator.annotations.LongRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.commons.lang3.StringUtils;
@@ -96,13 +97,6 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return TO_SHOW_BIKE;
     }
 
-    public void validateRegisterBikeEvent() throws Exception {
-        if (currentMileage != null && mileage != null && currentMileage.compareTo(mileage) > 0) {
-            LOG.debug("New mileage {} is less than current mileage {}", mileage, currentMileage);
-            addFieldError("mileage", getText("bike.providedMileageIsLowerThanActual"));
-        }
-    }
-
     public List<EventType> getEventTypesList() {
         return eventTypes.listAllowedEventTypes();
     }
@@ -139,6 +133,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     }
 
     @RequiredFieldValidator(key = "bikeEvent.mileageIsRequired")
+    @LongRangeFieldValidator(min = "0", key = "bike.providedMileageMustBeZeroOrGreater")
     public void setMileage(Long mileage) {
         this.mileage = mileage;
     }
