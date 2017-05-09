@@ -1,4 +1,17 @@
 ### TODO
+- [ ] zgłaszanie typów eventów przez użytkownika
+- [ ] dodawanie załączników przy wpisach z historią
+- [ ] dodawanie obrazka motocykla przy definiowaniu metadata
+- [ ] dodanie wsparcia dla motogodzin
+- [ ] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
+- [ ] logowanie Facebook
+- [ ] tłumaczenie EventType
+- [ ] strona z listą wprowadzonych zmian
+- [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
+- [ ] zgłaszanie tłumaczenia przez użytkownika
+- [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
+
+### DONE
 - [X] tokeny i dostep do stron
 - [X] zarządzanie użytkownikami
   - [X] resetowanie hasła
@@ -19,21 +32,14 @@
 - [X] logowanie Google
 - [X] powiadomienie o nowym użytkwoniku
 - [X] użytownik musi mieć możliwość zmiany swoich danych
-- [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
-- [ ] zgłaszanie typów eventów przez użytkownika
-- [ ] zgłaszanie tłumaczenia przez użytkownika
 - [X] zdarzenia generowane przez system nie mogą być usuwane (Status.SYSTEM)
-- [ ] tłumaczenie EventType
 - [X] Markdown support
 - [X] możliwość dodawania zdjęć / załączeników limit 20MB
-- [ ] logowanie Facebook
 - [X] logowanie Google
 - [X] strona GruufApp na Facebooku
 - [X] konto Twitter
 - [X] możliwość definiowania producenta/modelu/roku produkcji
-- [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
-- [ ] wyświetlanie wersji serwisu
-- [ ] strona z listą wprowadzonych zmian
+- [X] wyświetlanie wersji serwisu
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
