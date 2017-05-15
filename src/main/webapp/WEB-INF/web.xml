@@ -49,6 +49,10 @@
   <servlet>
     <servlet-name>letsencrypt</servlet-name>
     <servlet-class>com.gruuf.web.LetsEncryptServlet</servlet-class>
+    <init-param>
+      <param-name>challenge</param-name>
+      <param-value>wswKOdAH83wLM5x0BdXwyIO56GVchf-f0005wdEWPG4.XYpKCqttSgSj9RgQ4WdjATLNDcf53J-jUkF71Uj8qsg</param-value>
+    </init-param>
   </servlet>
   
   <servlet-mapping>
