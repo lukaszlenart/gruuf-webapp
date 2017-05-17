@@ -2,9 +2,9 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<ul>
+<ul class="nav nav-pills">
 <s:iterator value="bikeDetails" var="details">
-  <li>
+  <li role="presentation">
     <a href="#<s:property value='bike.id'/>">
       <s:property value="bike.name"/>
     </a>
