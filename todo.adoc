@@ -4,7 +4,6 @@
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
 - [ ] dodanie wsparcia dla motogodzin
 - [ ] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
-- [ ] logowanie Facebook
 - [ ] tłumaczenie EventType
 - [ ] strona z listą wprowadzonych zmian
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
@@ -40,6 +39,7 @@
 - [X] konto Twitter
 - [X] możliwość definiowania producenta/modelu/roku produkcji
 - [X] wyświetlanie wersji serwisu
+- [X] logowanie Facebook
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
