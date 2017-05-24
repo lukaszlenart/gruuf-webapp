@@ -15,6 +15,8 @@
     <struts2.version>2.5.11-SNAPSHOT</struts2.version>
     <log4j2.version>2.8.2</log4j2.version>
     <google.appengine.version>1.9.51</google.appengine.version>
+    <gruuf.oauth.facebookAppId>${env.OAUTH_FACEBOOK_APP_ID}</gruuf.oauth.facebookAppId>
+    <gruuf.oauth.facebookAppSecret>${env.OAUTH_FACEBOOK_APP_SECRET}</gruuf.oauth.facebookAppSecret>
   </properties>
 
   <scm>
@@ -31,6 +33,7 @@
         <filtering>true</filtering>
         <includes>
           <include>**/version.properties</include>
+          <include>**/facebook4j.properties</include>
         </includes>
       </resource>
       <resource>
@@ -41,6 +44,7 @@
         </includes>
         <excludes>
           <exclude>**/version.properties</exclude>
+          <exclude>**/facebook4j.properties</exclude>
         </excludes>
       </resource>
     </resources>
@@ -238,6 +242,12 @@
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-storage</artifactId>
       <version>0.6.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.facebook4j</groupId>
+      <artifactId>facebook4j-core</artifactId>
+      <version>2.4.9</version>
     </dependency>
 
     <dependency>
