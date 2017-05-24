@@ -51,4 +51,17 @@ public class LoginAction extends BaseLoginAction {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getDemoUserName() {
+        return "test@gruuf.com";
+    }
+
+    public String getDemoPassword() {
+        User demoUser = userStore.findUniqueBy("email", getDemoUserName());
+
+        if (demoUser != null) {
+            return demoUser.getPassword();
+        }
+        return "";
+    }
 }

@@ -74,3 +74,25 @@
     </s:form>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-5 col-md-offset-4">
+    <div class="well">
+      <div class="panel panel-info">
+      <div class="panel-heading">
+          <s:text name="login.youCanLoginWithDemoUser"/>
+      </div>
+      <div class="panel-body">
+        <div>
+          <span><s:text name="user.login"/>:</span>
+          <span class="text-info"><s:property value="demoUserName"/></span>
+        </div>
+        <div>
+          <span><s:text name="user.password"/>:</span>
+          <span class="text-info"><s:property value="demoPassword"/></span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
