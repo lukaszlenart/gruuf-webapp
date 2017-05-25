@@ -103,45 +103,40 @@
             <s:text name="user.signin"/>
             <i class="fa fa-facebook" aria-hidden="true"></i>
           </button>
-
-          <script>
-            $('#google-signin').click(function() {
-              auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInGoogleCallback);
-
-              return false;
-            });
-
-            $('#facebook-signin').click(function() {
-              FB.getLoginStatus(function(response) {
-                signInFacebookCallback(response);
-              }, {scope: 'public_profile,email'});
-              return false;
-            })
-          </script>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-md-9">
+          <button id="demo-login" class="btn btn-default facebook"
+                  title="<s:text name='user.signinWithDemoUser'/>">
+            <s:text name="user.signinWithDemoUser"/>
+            <i class="fa fa-user-secret" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     </s:form>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-5 col-md-offset-4">
-    <div class="well">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-            <s:text name="login.youCanLoginWithDemoUser"/>
-        </div>
-        <div class="panel-body">
-          <div>
-            <span><s:text name="user.login"/>:</span>
-            <span class="text-info"><s:property value="demoUserName"/></span>
-          </div>
-          <div>
-            <span><s:text name="user.password"/>:</span>
-            <span class="text-info"><s:property value="demoPassword"/></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+  $('#google-signin').click(function() {
+    auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInGoogleCallback);
+
+    return false;
+  });
+
+  $('#facebook-signin').click(function() {
+    FB.getLoginStatus(function(response) {
+      signInFacebookCallback(response);
+    }, {scope: 'public_profile,email'});
+    return false;
+  })
+
+  $('#demo-login').click(function() {
+    $('[name=email]').val('<s:property value="demoUserName"/>');
+    $('[name=password]').val('<s:property value="demoPassword"/>');
+    $('form').submit();
+
+    return false;
+  })
+</script>
