@@ -85,23 +85,23 @@
                   key="user.password"/>
 
       <div class="form-group">
-        <div class="col-sm-offset-3 col-md-9">
+        <div class="col-sm-offset-3 col-md-12">
           <s:submit cssClass="btn btn-primary" key="user.login"/>
 
           <s:text name="general.or">or</s:text>
 
           <button id="google-signin" class="btn btn-default google"
                   title="<s:text name='user.signinWithGoogle'/>">
-            <s:text name="user.signin"/>
             <i class="fa fa-google" aria-hidden="true"></i>
+            <s:text name="user.signinWithGoogle"/>
           </button>
 
           <s:text name="general.or">or</s:text>
 
           <button id="facebook-signin" class="btn btn-default facebook"
                   title="<s:text name='user.signinWithFacebook'/>">
-            <s:text name="user.signin"/>
             <i class="fa fa-facebook" aria-hidden="true"></i>
+            <s:text name="user.signinWithFacebook"/>
           </button>
         </div>
       </div>
@@ -109,8 +109,8 @@
         <div class="col-sm-offset-3 col-md-9">
           <button id="demo-login" class="btn btn-default facebook"
                   title="<s:text name='user.signinWithDemoUser'/>">
-            <s:text name="user.signinWithDemoUser"/>
             <i class="fa fa-user-secret" aria-hidden="true"></i>
+            <s:text name="user.signinWithDemoUser"/>
           </button>
         </div>
       </div>
