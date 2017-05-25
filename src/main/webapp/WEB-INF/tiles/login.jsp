@@ -32,46 +32,6 @@
 
 <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
 
-<script>
-
-  function signInGoogleCallback(authResult) {
-    if (authResult['code']) {
-
-      // Hide the sign-in button now that the user is authorized, for example:
-      $('#google-signin').addClass("in-progress").attr("disabled", "disabled");
-
-      // Send the code to the server
-      $.post({
-        dataType: 'json',
-        contentType: 'application/json',
-        url: '/google-login?struts.enableJSONValidation=true',
-        data: JSON.stringify({ 'code': authResult['code'] })
-      }).done(function(result) {
-        window.location = result.location;
-      });
-    }
-  }
-
-  function signInFacebookCallback(response) {
-    if (response.status === 'connected') {
-
-      // Hide the sign-in button now that the user is authorized, for example:
-      $('#facebook-signin').addClass("in-progress").attr("disabled", "disabled");
-
-      // Send the code to the server
-      $.post({
-        dataType: 'json',
-        contentType: 'application/json',
-        url: '/facebook-login?struts.enableJSONValidation=true',
-        data: JSON.stringify({ 'accessToken': response.authResponse.accessToken })
-      }).done(function(result) {
-        window.location = result.location;
-      });
-    }
-  }
-
-</script>
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <s:form action="login-submit" method="POST" cssClass="form-horizontal" focusElement="login-submit_email">
@@ -119,6 +79,47 @@
 </div>
 
 <script>
+
+  function disableButtons() {
+    $('form button, form input[type=submit]').each(function() {
+      $(this).addClass("in-progress").attr("disabled", "disabled");
+    })
+  }
+
+  function signInGoogleCallback(authResult) {
+    if (authResult['code']) {
+
+      disableButtons();
+
+      // Send the code to the server
+      $.post({
+        dataType: 'json',
+        contentType: 'application/json',
+        url: '/google-login?struts.enableJSONValidation=true',
+        data: JSON.stringify({ 'code': authResult['code'] })
+      }).done(function(result) {
+        window.location = result.location;
+      });
+    }
+  }
+
+  function signInFacebookCallback(response) {
+    if (response.status === 'connected') {
+
+      disableButtons();
+
+      // Send the code to the server
+      $.post({
+        dataType: 'json',
+        contentType: 'application/json',
+        url: '/facebook-login?struts.enableJSONValidation=true',
+        data: JSON.stringify({ 'accessToken': response.authResponse.accessToken })
+      }).done(function(result) {
+        window.location = result.location;
+      });
+    }
+  }
+
   $('#google-signin').click(function() {
     auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInGoogleCallback);
 
@@ -130,9 +131,11 @@
       signInFacebookCallback(response);
     }, {scope: 'public_profile,email'});
     return false;
-  })
+  });
 
   $('#demo-login').click(function() {
+    disableButtons();
+
     $('[name=email]').val('<s:property value="demoUserName"/>');
     $('[name=password]').val('<s:property value="demoPassword"/>');
     $('form').submit();
