@@ -86,7 +86,7 @@
         </s:if>
       </td>
       <s:if test="fulfilled">
-      <td><s:property value="bikeEvent.descriptiveName"/></td>
+      <td><s:property value="bikeEvent.descriptiveName" escapeHtml="false"/></td>
       <td class="text-nowrap"><s:date name="bikeEvent.registerDate" format="%{userDateFormat}"/></td>
       <td class="text-nowrap"><s:number name="bikeEvent.mileage"/></td>
       </s:if>

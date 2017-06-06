@@ -3,11 +3,11 @@ package com.gruuf.model;
 public class RecommendationDescriptor {
 
     private final BikeRecommendation recommendation;
-    private final BikeEvent bikeEvent;
+    private final BikeEventDescriptor bikeEvent;
 
     public RecommendationDescriptor(BikeRecommendation recommendation, BikeEvent bikeEvent) {
         this.recommendation = recommendation;
-        this.bikeEvent = bikeEvent;
+        this.bikeEvent = new BikeEventDescriptor(bikeEvent);
     }
 
     public boolean isFulfilled() {
@@ -18,7 +18,7 @@ public class RecommendationDescriptor {
         return recommendation;
     }
 
-    public BikeEvent getBikeEvent() {
+    public BikeEventDescriptor getBikeEvent() {
         return bikeEvent;
     }
 }
