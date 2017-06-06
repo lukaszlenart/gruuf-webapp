@@ -49,6 +49,8 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
     private Integer monthPeriod = 12;
     private Boolean mileageReview = false;
     private Integer mileagePeriod = 10000;
+    private Boolean mthReview = false;
+    private Integer mthPeriod = 40;
 
     @SkipValidation
     public String execute() {
@@ -69,6 +71,10 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
             mileageReview = recommendation.getMileagePeriod() != null;
             if (mileageReview) {
                 mileagePeriod = recommendation.getMileagePeriod();
+            }
+            mthReview = recommendation.getMthPeriod() != null;
+            if (mthReview) {
+                mthPeriod = recommendation.getMthPeriod();
             }
         }
         return INPUT;
@@ -96,6 +102,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
                 .withNotify(notify)
                 .withMonthPeriod(monthlyReview, monthPeriod)
                 .withMileagePeriod(mileageReview, mileagePeriod)
+                .withMthPeriod(mthReview, mthPeriod)
                 .withRequestedByIfNull(currentUser)
                 .build();
 
@@ -208,6 +215,22 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
 
     public void setMileagePeriod(Integer mileagePeriod) {
         this.mileagePeriod = mileagePeriod;
+    }
+
+    public Boolean getMthReview() {
+        return mthReview;
+    }
+
+    public void setMthReview(Boolean mthReview) {
+        this.mthReview = mthReview;
+    }
+
+    public Integer getMthPeriod() {
+        return mthPeriod;
+    }
+
+    public void setMthPeriod(Integer mthPeriod) {
+        this.mthPeriod = mthPeriod;
     }
 
     public boolean isNotify() {

@@ -72,7 +72,13 @@
         <s:if test="recommendation.mileagePeriod">
           <s:text name="recommendations.every"/> <s:number name="recommendation.mileagePeriod"/> <s:text name="general.km"/>
         </s:if>
-        <s:if test="recommendation.mileagePeriod && recommendation.monthPeriod">
+        <s:if test="recommendation.mileagePeriod && (recommendation.mthPeriod || recommendation.monthPeriod)">
+          <s:text name="general.or"/><br/>
+        </s:if>
+        <s:if test="recommendation.mthPeriod">
+          <s:text name="recommendations.every"/> <s:number name="recommendation.mthPeriod"/> <s:text name="general.hours"/>
+        </s:if>
+        <s:if test="recommendation.mthPeriod && recommendation.monthPeriod">
           <s:text name="general.or"/><br/>
         </s:if>
         <s:if test="recommendation.monthPeriod">

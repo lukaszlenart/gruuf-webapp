@@ -22,6 +22,7 @@ public class BikeRecommendation {
     private boolean notify;
     private Integer mileagePeriod = null;
     private Integer monthPeriod = null;
+    private Integer mthPeriod = null;
 
     @Index
     private boolean approved = false;
@@ -66,6 +67,10 @@ public class BikeRecommendation {
         return monthPeriod;
     }
 
+    public Integer getMthPeriod() {
+        return mthPeriod;
+    }
+
     public boolean isNotify() {
         return notify;
     }
@@ -104,6 +109,18 @@ public class BikeRecommendation {
 
     public static BikeRecommendationBuilder create(BikeRecommendation original) {
         return new BikeRecommendationBuilder(original);
+    }
+
+    public boolean isMileagePeriod() {
+        return mileagePeriod != null;
+    }
+
+    public boolean isMonthPeriod() {
+        return monthPeriod != null;
+    }
+
+    public boolean isMthPeriod() {
+        return mthPeriod != null;
     }
 
     public static class BikeRecommendationBuilder {
@@ -152,6 +169,15 @@ public class BikeRecommendation {
                 target.mileagePeriod = mileagePeriod;
             } else {
                 target.mileagePeriod = null;
+            }
+            return this;
+        }
+
+        public BikeRecommendationBuilder withMthPeriod(Boolean mthReview, Integer mthPeriod) {
+            if (mthReview != null && mthReview) {
+                target.mthPeriod = mthPeriod;
+            } else {
+                target.mthPeriod = null;
             }
             return this;
         }

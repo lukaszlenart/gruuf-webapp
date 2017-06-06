@@ -44,6 +44,7 @@
     <th>Source</th>
     <th>Notify</th>
     <th>Mileage period</th>
+    <th>Mth period</th>
     <th>Monthly period</th>
     <th>Approved</th>
     <th>Requested by</th>
@@ -58,6 +59,7 @@
       <td><s:text name="%{source.key}"/></td>
       <td><s:property value="notify"/></td>
       <td><s:number name="mileagePeriod"/></td>
+      <td><s:number name="mthPeriod"/></td>
       <td><s:number name="monthPeriod"/></td>
       <td>
         <s:if test="not approved">

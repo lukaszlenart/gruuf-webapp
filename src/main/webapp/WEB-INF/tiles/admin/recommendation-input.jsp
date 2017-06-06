@@ -67,6 +67,16 @@
                    labelCssClass="col-md-2"
                    elementCssClass="col-md-2"/>
 
+      <s:checkbox name="mthReview"
+                  label="Mth maintenance review"/>
+
+      <s:textfield name="mthPeriod"
+                   type="number"
+                   label="Every mth"
+                   disabled="%{mthReview != true}"
+                   labelCssClass="col-md-2"
+                   elementCssClass="col-md-1"/>
+
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-9">
           <s:submit cssClass="btn btn-primary" key="Save" />
@@ -142,7 +152,7 @@
       } else {
         $("[name=monthPeriod]").attr("disabled", "disabled");
       }
-    })
+    });
 
     $("[name=mileageReview]").on("change", function () {
       if ($(this).is(":checked")) {
@@ -150,7 +160,15 @@
       } else {
         $("[name=mileagePeriod]").attr("disabled", "disabled");
       }
-    })
+    });
+
+    $("[name=mthReview]").on("change", function () {
+      if ($(this).is(":checked")) {
+        $("[name=mthPeriod]").removeAttr("disabled").focus();
+      } else {
+        $("[name=mthPeriod]").attr("disabled", "disabled");
+      }
+    });
   });
 
 </script>

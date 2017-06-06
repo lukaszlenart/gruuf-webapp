@@ -148,6 +148,14 @@ public class BikeEvent {
         return new BikeEventBuilder(oldBikeEvent);
     }
 
+    public boolean isMth() {
+        return mth != null;
+    }
+
+    public boolean isMileage() {
+        return mileage != null;
+    }
+
     public static class BikeEventBuilder {
 
         private final BikeEvent target;
