@@ -2,7 +2,6 @@
 - [ ] zgłaszanie typów eventów przez użytkownika
 - [ ] dodawanie załączników przy wpisach z historią
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
-- [ ] dodanie wsparcia dla motogodzin
 - [ ] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
 - [ ] tłumaczenie EventType
 - [ ] strona z listą wprowadzonych zmian
@@ -40,6 +39,7 @@
 - [X] możliwość definiowania producenta/modelu/roku produkcji
 - [X] wyświetlanie wersji serwisu
 - [X] logowanie Facebook
+- [X] dodanie wsparcia dla motogodzin
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
