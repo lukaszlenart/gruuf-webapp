@@ -61,6 +61,15 @@
                    cssClass="input-md"/>
       <s:hidden name="currentMileage"/>
 
+      <s:textfield name="mth"
+                   key="bike.mth"
+                   type="number"
+                   placeholder="%{getText('bike.mth.placeholder')}"
+                   labelCssClass="col-md-2"
+                   elementCssClass="col-md-2"
+                   cssClass="input-md"/>
+      <s:hidden name="currentMth"/>
+
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-9">
           <s:submit cssClass="btn btn-primary" key="general.save"/>

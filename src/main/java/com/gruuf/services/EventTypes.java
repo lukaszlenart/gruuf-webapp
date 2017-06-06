@@ -18,6 +18,10 @@ public class EventTypes extends Reindexable<EventType> {
         return findUniqueBy("status =", EventTypeStatus.MILEAGE);
     }
 
+    public EventType getMthEventType() {
+        return findUniqueBy("status =", EventTypeStatus.MTH);
+    }
+
     public List<EventType> listAllowedEventTypes() {
         return filter("status in", Arrays.asList(EventTypeStatus.NORMAL, EventTypeStatus.IMPORTANT))
                 .list();

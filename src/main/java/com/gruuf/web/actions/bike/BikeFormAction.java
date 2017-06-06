@@ -34,7 +34,9 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
             vin = selectedBike.getVin();
             modelYear = selectedBike.getModelYear();
             mileage = bikeHistory.findCurrentMileage(selectedBike);
+            mth = bikeHistory.findCurrentMth(selectedBike);
             currentMileage = mileage;
+            currentMth = mth;
         }
         return INPUT;
     }
@@ -66,7 +68,11 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
 
         if (hasMileageChanged()) {
             LOG.debug("Updating mileage {} for bike {}", mileage, selectedBike);
-            updateMileage(selectedBike, mileage);
+            updateMileage(selectedBike);
+        }
+        if (hasMthChanged()) {
+            LOG.debug("Updating mth {} for bike {}", mth, selectedBike);
+            updateMth(selectedBike);
         }
         return GruufActions.GARAGE;
     }
@@ -77,11 +83,31 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                 (currentMileage != null  && mileage != null && mileage.compareTo(currentMileage) > 0);
     }
 
-    private void updateMileage(Bike bike, Long mileage) {
+    private boolean hasMthChanged() {
+        LOG.debug("Checking if provided mth {} is greater than current mth {}", mth, currentMth);
+        return (currentMth == null && mth != null) ||
+                (currentMth != null  && mth != null && mth.compareTo(currentMth) > 0);
+    }
+
+    private void updateMileage(Bike bike) {
         BikeEvent bikeEvent = BikeEvent.create(bike, currentUser)
                 .withMileage(mileage)
+                .withMth(mth)
                 .withEventTypeId(Collections.singleton(eventTypes.getMileageEventType().getId()))
                 .withDescriptiveName(getText("bike.systemMileageUpdate"))
+                .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
+                .markAsSystem()
+                .build();
+
+        bikeHistory.put(bikeEvent);
+    }
+
+    private void updateMth(Bike bike) {
+        BikeEvent bikeEvent = BikeEvent.create(bike, currentUser)
+                .withMileage(mileage)
+                .withMth(mth)
+                .withEventTypeId(Collections.singleton(eventTypes.getMthEventType().getId()))
+                .withDescriptiveName(getText("bike.systemMthUpdate"))
                 .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
                 .markAsSystem()
                 .build();
@@ -105,9 +131,14 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
             addFieldError("vin", getText("bike.vinAlreadyUsed"));
         }
 
-        if (currentMileage != null && mileage != null && currentMileage.compareTo(mileage) >= 0) {
+        if (currentMileage != null && mileage != null && currentMileage.compareTo(mileage) > 0) {
             LOG.debug("New mileage {} is less than current mileage {}", mileage, currentMileage);
             addFieldError("mileage", getText("bike.providedMileageIsLowerThanActual"));
+        }
+
+        if (currentMth != null && mth != null && currentMth.compareTo(mth) > 0) {
+            LOG.debug("New mth {} is less than current mth {}", mth, currentMth);
+            addFieldError("mth", getText("bike.providedMthIsLowerThanActual"));
         }
     }
 
@@ -116,7 +147,9 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
     private String vin;
     private Integer modelYear;
     private Long mileage;
+    private Long mth;
     private Long currentMileage;
+    private Long currentMth;
 
     public String getFriendlyName() {
         return friendlyName;
@@ -166,6 +199,22 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
 
     public void setCurrentMileage(Long currentMileage) {
         this.currentMileage = currentMileage;
+    }
+
+    public Long getMth() {
+        return mth;
+    }
+
+    public void setMth(Long mth) {
+        this.mth = mth;
+    }
+
+    public Long getCurrentMth() {
+        return currentMth;
+    }
+
+    public void setCurrentMth(Long currentMth) {
+        this.currentMth = currentMth;
     }
 
     public List<BikeMetadataOption> getBikeMetadata() {

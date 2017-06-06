@@ -41,6 +41,10 @@ public class BikeEventDescriptor {
         return bikeEvent.getMileage();
     }
 
+    public Long getMth() {
+        return bikeEvent.getMth();
+    }
+
     public BikeEventStatus getStatus() {
         return bikeEvent.getStatus();
     }

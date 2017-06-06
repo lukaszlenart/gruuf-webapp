@@ -42,4 +42,18 @@ public class BikeHistory extends Reindexable<BikeEvent> {
         return bikeEvent.getMileage();
     }
 
+    public Long findCurrentMth(Bike bike) {
+        BikeEvent bikeEvent = filter("bike =", bike)
+                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
+                .order("-timestamp")
+                .limit(1)
+                .first()
+                .now();
+
+        if (bikeEvent == null) {
+            return null;
+        }
+        return bikeEvent.getMth();
+    }
+
 }

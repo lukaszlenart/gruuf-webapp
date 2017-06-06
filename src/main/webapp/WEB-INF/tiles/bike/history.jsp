@@ -45,6 +45,7 @@
     <th><s:text name="bikeEvent.descriptiveName"/></th>
     <th><s:text name="bikeEvent.eventDate"/></th>
     <th><s:text name="bikeEvent.mileage"/></th>
+    <th><s:text name="bikeEvent.mth"/></th>
     <th><s:text name="general.timestamp"/>
     <th><s:text name="general.actions"/>
   </tr>
@@ -65,6 +66,9 @@
       </td>
       <td class="text-nowrap">
         <s:number name="mileage"/>
+      </td>
+      <td class="text-nowrap">
+        <s:number name="mth"/>
       </td>
       <td class="text-nowrap">
         <s:date name="timestamp" format="%{userDateFormat}"/>

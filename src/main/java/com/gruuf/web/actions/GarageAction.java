@@ -54,6 +54,7 @@ public class GarageAction extends BaseAction {
                             .withUser(currentUser)
                             .withHistory(events)
                             .withMileage(bikeHistory.findCurrentMileage(bike))
+                            .withMth(bikeHistory.findCurrentMth(bike))
             );
         }
 

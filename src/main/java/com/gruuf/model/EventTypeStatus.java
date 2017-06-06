@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.Set;
 
 public enum EventTypeStatus {
-    NORMAL, IMPORTANT, MILEAGE;
+    NORMAL, IMPORTANT, MILEAGE, MTH;
 
     public static Set<EventTypeStatus> all() {
-        return Collections.unmodifiableSet(Sets.newHashSet(NORMAL, IMPORTANT, MILEAGE));
+        return Collections.unmodifiableSet(Sets.newHashSet(NORMAL, IMPORTANT, MILEAGE, MTH));
     }
 
 }

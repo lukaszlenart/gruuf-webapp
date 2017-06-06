@@ -11,6 +11,7 @@ public class BikeDetails {
     private User currentUser;
     private List<BikeEventDescriptor> events;
     private Long mileage;
+    private Long mth;
 
     public static BikeDetails create(Bike bike) {
         return new BikeDetails(bike);
@@ -38,6 +39,11 @@ public class BikeDetails {
         return this;
     }
 
+    public BikeDetails withMth(Long mth) {
+        this.mth = mth;
+        return this;
+    }
+
     public Bike getBike() {
         return bike;
     }
@@ -56,6 +62,10 @@ public class BikeDetails {
 
     public Long getMileage() {
         return mileage;
+    }
+
+    public Long getMth() {
+        return mth;
     }
 
     @Override

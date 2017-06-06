@@ -32,6 +32,7 @@ public class BikeEvent {
     @Index
     private Date registerDate;
     private Long mileage;
+    private Long mth;
     @Index
     private BikeEventStatus status = BikeEventStatus.NEW;
     private Ref<User> registeredBy;
@@ -94,6 +95,10 @@ public class BikeEvent {
         return mileage;
     }
 
+    public Long getMth() {
+        return mth;
+    }
+
     public BikeEventStatus getStatus() {
         return status;
     }
@@ -116,6 +121,7 @@ public class BikeEvent {
                 ", descriptiveName='" + descriptiveName + '\'' +
                 ", registerDate=" + registerDate +
                 ", mileage=" + mileage +
+                ", mth=" + mth +
                 ", status=" + status +
                 ", registeredBy=" + registeredBy +
                 '}';
@@ -183,6 +189,11 @@ public class BikeEvent {
 
         public BikeEventBuilder withMileage(Long mileage) {
             target.mileage = mileage;
+            return this;
+        }
+
+        public BikeEventBuilder withMth(Long mth) {
+            target.mth = mth;
             return this;
         }
 

@@ -26,6 +26,7 @@
       <th><s:text name="bike.modelYear"/></th>
       <th><s:text name="bike.metadata"/></th>
       <th><s:text name="bike.mileageInKm"/></th>
+      <th><s:text name="bike.mth"/></th>
       <th><s:text name="bike.registrationPlate"/></th>
     </tr>
     </thead>
@@ -35,6 +36,7 @@
       <td><s:property value="bike.modelYear"/></td>
       <td><s:property value="metadata.name"/></td>
       <td><s:number name="mileage"/></td>
+      <td><s:number name="mth"/></td>
       <td><s:property value="registrationPlate"/></td>
     </tr>
     </tbody>
@@ -54,6 +56,7 @@
       <th><s:text name="bikeEvent.descriptiveName"/></th>
       <th><s:text name="bikeEvent.eventDate"/></th>
       <th><s:text name="bikeEvent.mileage"/></th>
+      <th><s:text name="bikeEvent.mth"/></th>
       <th><s:text name="general.timestamp"/>
     </tr>
     </thead>
@@ -68,6 +71,7 @@
         <td><s:property value="descriptiveName" escapeHtml="false"/></td>
         <td class="text-nowrap"><s:date name="registerDate" format="%{userDateFormat}"/></td>
         <td class="text-nowrap"><s:number name="mileage"/></td>
+        <td class="text-nowrap"><s:number name="mth"/></td>
         <td class="text-nowrap"><s:date name="timestamp" format="%{userDateFormat}"/></td>
       </tr>
     </s:iterator>

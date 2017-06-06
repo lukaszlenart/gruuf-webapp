@@ -32,12 +32,15 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     private String descriptiveName;
     private Date registerDate;
     private Long mileage;
+    private Long mth;
     private Long currentMileage;
+    private Long currentMth;
 
     @SkipValidation
     @Action("new-bike-event")
     public String execute() {
         currentMileage = bikeHistory.findCurrentMileage(selectedBike);
+        currentMth = bikeHistory.findCurrentMth(selectedBike);
         return INPUT;
     }
 
@@ -53,12 +56,14 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
                 descriptiveName = bikeEvent.getDescriptiveName();
                 registerDate = bikeEvent.getRegisterDate();
                 mileage = bikeEvent.getMileage();
+                mth = bikeEvent.getMth();
             } else {
                 LOG.debug("Bike event [{}] is not editable!", bikeEventId);
             }
         }
 
         currentMileage = bikeHistory.findCurrentMileage(selectedBike);
+        currentMth = bikeHistory.findCurrentMth(selectedBike);
         return INPUT;
     }
 
@@ -72,6 +77,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
                     .withDescriptiveName(descriptiveName)
                     .withRegisterDate(registerDate)
                     .withMileage(mileage)
+                    .withMth(mth)
                     .build();
 
             LOG.debug("Storing new Bike Event {}", bikeEvent);
@@ -84,6 +90,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
                         .withDescriptiveName(descriptiveName)
                         .withRegisterDate(registerDate)
                         .withMileage(mileage)
+                        .withMth(mth)
                         .build();
 
                 LOG.debug("Storing new Bike Event {}", bikeEvent);
@@ -138,6 +145,14 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         this.mileage = mileage;
     }
 
+    public Long getMth() {
+        return mth;
+    }
+
+    public void setMth(Long mth) {
+        this.mth = mth;
+    }
+
     public Long getCurrentMileage() {
         return currentMileage;
     }
@@ -151,6 +166,21 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
             return getText("bike.currentMileageNotDefined");
         }
         return getText("bike.currentMileageInKmIs");
+    }
+
+    public Long getCurrentMth() {
+        return currentMth;
+    }
+
+    public void setCurrentMth(Long currentMth) {
+        this.currentMth = currentMth;
+    }
+
+    public String getCurrentMthHelp() {
+        if (currentMth == null) {
+            return getText("bike.currentMthNotDefined");
+        }
+        return getText("bike.currentMthIs");
     }
 
     public String getBikeEventId() {
