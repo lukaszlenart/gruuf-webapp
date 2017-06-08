@@ -1,5 +1,6 @@
 package com.gruuf.model;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -15,6 +16,10 @@ public class EventType {
     private Date created;
     @Index
     private EventTypeStatus status = EventTypeStatus.NORMAL;
+
+    @Index
+    private boolean approved = false;
+    private Ref<User> requestedBy;
 
     private EventType() {
     }
@@ -35,6 +40,21 @@ public class EventType {
         return status;
     }
 
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public Ref<User> getRequestedBy() {
+        return requestedBy;
+    }
+
+    public String getRequesterFullName() {
+        if (requestedBy != null) {
+            return requestedBy.get().getFullName();
+        }
+        return "";
+    }
+
     @Override
     public String toString() {
         return "EventType{" +
@@ -42,6 +62,8 @@ public class EventType {
                 ", name='" + name + '\'' +
                 ", created=" + created +
                 ", status=" + status +
+                ", approved=" + approved +
+                ", requestedBy=" + requestedBy +
                 '}';
     }
 
@@ -52,7 +74,7 @@ public class EventType {
     public static EventTypeCreator create(EventType eventType) {
         return new EventTypeCreator(eventType.getId())
                 .withName(eventType.getName())
-                .witStatus(eventType.getStatus());
+                .withStatus(eventType.getStatus());
     }
 
     public static class EventTypeCreator {
@@ -74,8 +96,20 @@ public class EventType {
             return target;
         }
 
-        public EventTypeCreator witStatus(EventTypeStatus status) {
+        public EventTypeCreator withStatus(EventTypeStatus status) {
             target.status = status;
+            return this;
+        }
+
+        public EventTypeCreator withRequestedBy(User requester) {
+            if (target.requestedBy == null) {
+                target.requestedBy = Ref.create(requester);
+            }
+            return this;
+        }
+
+        public EventTypeCreator withApproved() {
+            target.approved = true;
             return this;
         }
     }

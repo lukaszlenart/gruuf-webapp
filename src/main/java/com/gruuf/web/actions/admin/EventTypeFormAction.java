@@ -56,14 +56,24 @@ public class EventTypeFormAction extends BaseAction {
         if (StringUtils.isEmpty(eventTypeId)) {
             LOG.debug("Creating new event type of name {}", name);
 
-            EventType eventType = EventType.create().withName(name).witStatus(status).build();
+            EventType eventType = EventType.create()
+                    .withName(name)
+                    .withRequestedBy(currentUser)
+                    .withApproved()
+                    .withStatus(status)
+                    .build();
             EventType result = eventTypes.put(eventType);
 
             LOG.debug("New event type created: {}", result);
         } else {
             LOG.debug("Updating existing event type of name {}", name);
             EventType eventType = eventTypes.get(eventTypeId);
-            eventType = EventType.create(eventType).withName(name).witStatus(status).build();
+            eventType = EventType.create(eventType)
+                    .withName(name)
+                    .withRequestedBy(currentUser)
+                    .withApproved()
+                    .withStatus(status)
+                    .build();
             eventTypes.put(eventType);
         }
 

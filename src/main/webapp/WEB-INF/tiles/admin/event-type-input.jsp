@@ -16,7 +16,7 @@
 
       <div class="form-group">
         <div class="col-md-offset-10">
-          <s:submit cssClass="btn btn-primary" key="Add" />
+          <s:submit cssClass="btn btn-primary" key="general.save" />
         </div>
       </div>
     </s:form>

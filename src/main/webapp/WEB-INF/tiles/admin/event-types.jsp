@@ -15,6 +15,8 @@
     <th>Name</th>
     <th>Status</th>
     <th>Created</th>
+    <th>Requested by</th>
+    <th>Approved</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -24,6 +26,8 @@
       <td><s:property value="name"/></td>
       <td><s:property value="status"/></td>
       <td><s:date name="created" format="%{userDateFormat}"/></td>
+      <td><s:property value="requesterFullName"/></td>
+      <td><s:property value="approved"/></td>
       <td>
         <s:url var="editEvent" action="event-type-form">
           <s:param name="eventTypeId" value="id"/>
