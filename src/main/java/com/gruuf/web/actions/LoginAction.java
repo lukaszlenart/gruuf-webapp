@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import static com.opensymphony.xwork2.Action.INPUT;
 
@@ -19,6 +20,7 @@ public class LoginAction extends BaseLoginAction {
     private String email;
     private String password;
 
+    @SkipValidation
     public String execute() {
         return SUCCESS;
     }
@@ -36,6 +38,7 @@ public class LoginAction extends BaseLoginAction {
     }
 
     @Action(value = "logout")
+    @SkipValidation
     public String logout() {
         session.put(GruufAuth.AUTH_TOKEN, null);
         return GruufActions.LOGIN;
