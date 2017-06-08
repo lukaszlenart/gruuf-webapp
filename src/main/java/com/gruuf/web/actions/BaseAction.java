@@ -14,6 +14,7 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     private static final Logger LOG = LogManager.getLogger(BaseAction.class);
 
     public static final String JSON = "json";
+    public static final String TO_INPUT = "to-input";
 
     protected User currentUser;
 
