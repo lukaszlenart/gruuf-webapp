@@ -39,4 +39,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/request-recommendation-input.jsp"/>
   </definition>
 
+  <definition name="bike/request-event-type-input" extends="logged-in">
+    <put-attribute name="title" expression="I18N:eventType.requestNew"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/request-event-type-input.jsp"/>
+  </definition>
+
 </tiles-definitions>

@@ -100,8 +100,8 @@ public class BikeMetadataFormAction extends BaseAction {
         return manufacturer;
     }
 
-    @RequiredStringValidator
-    @StringLengthFieldValidator(minLength = "2")
+    @RequiredStringValidator(key = "general.fieldIsRequired")
+    @StringLengthFieldValidator(minLength = "2", key = "general.minLength")
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
@@ -110,8 +110,8 @@ public class BikeMetadataFormAction extends BaseAction {
         return model;
     }
 
-    @RequiredStringValidator
-    @StringLengthFieldValidator(minLength = "2")
+    @RequiredStringValidator(key = "general.fieldIsRequired")
+    @StringLengthFieldValidator(minLength = "2", key = "general.minLength")
     public void setModel(String model) {
         this.model = model;
     }

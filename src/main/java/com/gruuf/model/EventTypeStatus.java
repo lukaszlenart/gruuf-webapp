@@ -12,4 +12,12 @@ public enum EventTypeStatus {
         return Collections.unmodifiableSet(Sets.newHashSet(NORMAL, IMPORTANT, MILEAGE, MTH));
     }
 
+    public static Set<EventTypeStatus> nonSystem() {
+        return Collections.unmodifiableSet(Sets.newHashSet(NORMAL, IMPORTANT));
+    }
+
+    public String getKey() {
+        return "status." + name().toLowerCase();
+    }
+
 }

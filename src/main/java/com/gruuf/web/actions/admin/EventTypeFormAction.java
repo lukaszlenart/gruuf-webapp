@@ -97,8 +97,8 @@ public class EventTypeFormAction extends BaseAction {
         return name;
     }
 
-    @RequiredStringValidator
-    @StringLengthFieldValidator(minLength = "2")
+    @RequiredStringValidator(key = "general.fieldIsRequired")
+    @StringLengthFieldValidator(minLength = "2", key = "general.minLength")
     public void setName(String name) {
         this.name = name;
     }

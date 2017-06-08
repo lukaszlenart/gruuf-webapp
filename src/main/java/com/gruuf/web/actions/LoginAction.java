@@ -48,7 +48,7 @@ public class LoginAction extends BaseLoginAction {
         return email;
     }
 
-    @RequiredStringValidator
+    @RequiredStringValidator(key = "general.fieldIsRequired")
     public void setEmail(String email) {
         this.email = email;
     }
@@ -57,7 +57,7 @@ public class LoginAction extends BaseLoginAction {
         return password;
     }
 
-    @RequiredStringValidator
+    @RequiredStringValidator(key = "general.fieldIsRequired")
     public void setPassword(String password) {
         this.password = password;
     }

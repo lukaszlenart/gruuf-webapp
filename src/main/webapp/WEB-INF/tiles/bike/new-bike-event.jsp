@@ -44,13 +44,24 @@
       <s:hidden name="bikeEventId"/>
       <s:hidden name="currentMileage"/>
 
-      <s:textfield id="event-types"
-                   name="eventTypeIds"
-                   key="bike.eventTypes"
-                   placeholder="%{getText('bike.eventTypes.placeholder')}"
-                   tooltip="%{getText('bike.eventTypes.tooltip')}"
-                   labelCssClass="col-md-2"
-                   elementCssClass="col-md-4"/>
+      <div class="row">
+        <div class="col-md-6">
+          <s:textfield id="event-types"
+                       name="eventTypeIds"
+                       key="bike.eventTypes"
+                       placeholder="%{getText('bike.eventTypes.placeholder')}"
+                       tooltip="%{getText('bike.eventTypes.tooltip')}"
+                       labelCssClass="col-md-4"
+                       elementCssClass="col-md-8"
+                       cssClass="input-md"/>
+        </div>
+        <div class="col-md-2">
+          <s:a class="media-middle center-block new-request" action="request-event-type" target="_blank">
+            <s:text name="general.requestNew"/>
+            <span class="glyphicon glyphicon-new-window"></span>
+          </s:a>
+        </div>
+      </div>
 
       <s:textarea name="descriptiveName"
                   key="bikeEvent.descriptiveName"
