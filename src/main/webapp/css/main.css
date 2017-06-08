@@ -18,6 +18,10 @@ body > .container {
   margin-top: 20px;
 }
 
+.container .navbar {
+  margin-bottom: 8px;
+}
+
 .google > .fa-google {
   color: #ea4335;
 }

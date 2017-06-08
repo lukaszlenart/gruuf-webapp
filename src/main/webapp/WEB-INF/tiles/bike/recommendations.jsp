@@ -42,8 +42,9 @@
     <s:url var="requestRecommendation" action="request-recommendation-form">
       <s:param name="bikeId" value="%{bikeId}"/>
     </s:url>
-    <s:a href="%{requestRecommendation}" class="btn btn-default">
+    <s:a href="%{requestRecommendation}" class="media-middle center-block new-request" target="_blank">
       <s:text name="general.requestNew"/>
+      <span class="glyphicon glyphicon-new-window"></span>
     </s:a>
   </div>
 </div>
