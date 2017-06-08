@@ -1,12 +1,10 @@
 ### TODO
-- [ ] zgłaszanie typów eventów przez użytkownika
+- [ ] tłumaczenie EventType
+- [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] dodawanie załączników przy wpisach z historią
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
-- [ ] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
-- [ ] tłumaczenie EventType
 - [ ] strona z listą wprowadzonych zmian
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
-- [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
 
 ### DONE
@@ -40,6 +38,8 @@
 - [X] wyświetlanie wersji serwisu
 - [X] logowanie Facebook
 - [X] dodanie wsparcia dla motogodzin
+- [X] zgłaszanie typów eventów przez użytkownika
+- [X] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
