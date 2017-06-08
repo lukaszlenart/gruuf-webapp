@@ -61,7 +61,7 @@ public class RequestBikeMetadataAction extends BaseAction {
 
         LOG.debug("New bike metadata created: {}", bikeMetadata);
         mailBox.notifyAdmin("New Bike Metadata request", "A new Bike Metadata was requested", bikeMetadata);
-        addActionMessage(getText("bikeMetadata.newRequestSubmitted"));
+        addActionMessage(getText("general.newRequestSubmitted"));
 
         return "to-input";
     }

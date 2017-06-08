@@ -75,7 +75,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
 
         LOG.debug("New bike recommendation created: {}", recommendation);
         mailBox.notifyAdmin("New Bike Recommendation request", "A new Bike Recommendation was requested", recommendation);
-        addActionMessage(getText("recommendations.newRequestSubmitted"));
+        addActionMessage(getText("general.newRequestSubmitted"));
 
         return TO_INPUT;
     }
