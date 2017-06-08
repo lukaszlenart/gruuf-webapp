@@ -81,7 +81,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
     }
 
     public List<EventType> getEventTypes() {
-        return eventTypes.listAllowedEventTypes();
+        return eventTypes.listApproved(currentUser);
     }
 
     @Inject

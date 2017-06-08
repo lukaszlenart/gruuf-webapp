@@ -34,7 +34,7 @@ public class EventTypesAction extends BaseBikeAction {
     }
 
     public List<EventType> getList() {
-        List<EventType> types = eventTypes.list();
+        List<EventType> types = eventTypes.listApproved(currentUser);
         LOG.debug("Found event types {}", types);
 
         return types;

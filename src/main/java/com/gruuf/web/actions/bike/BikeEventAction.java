@@ -105,7 +105,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     }
 
     public List<EventType> getEventTypesList() {
-        return eventTypes.listAllowedEventTypes();
+        return eventTypes.listApproved(currentUser);
     }
 
     public String getEventTypeIds() {

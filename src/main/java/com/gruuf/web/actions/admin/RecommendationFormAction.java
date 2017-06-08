@@ -112,7 +112,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
     }
 
     public List<EventType> getEventTypes() {
-        return eventTypes.listAllowedEventTypes();
+        return eventTypes.listApproved(currentUser);
     }
 
     public List<BikeRecommendation> getList() {
