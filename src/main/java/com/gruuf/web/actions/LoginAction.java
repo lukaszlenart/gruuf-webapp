@@ -4,10 +4,15 @@ import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.GruufAuth;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.Result;
+
+import static com.opensymphony.xwork2.Action.INPUT;
 
 @InterceptorRef("defaultWithMessages")
+@Result(name = INPUT, location = "login")
 @Anonymous
 public class LoginAction extends BaseLoginAction {
 
@@ -40,6 +45,7 @@ public class LoginAction extends BaseLoginAction {
         return email;
     }
 
+    @RequiredStringValidator
     public void setEmail(String email) {
         this.email = email;
     }
@@ -48,6 +54,7 @@ public class LoginAction extends BaseLoginAction {
         return password;
     }
 
+    @RequiredStringValidator
     public void setPassword(String password) {
         this.password = password;
     }
