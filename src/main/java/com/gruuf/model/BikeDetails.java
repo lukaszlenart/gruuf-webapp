@@ -26,10 +26,10 @@ public class BikeDetails {
         return this;
     }
 
-    public BikeDetails withHistory(List<BikeEvent> bikeEvents) {
+    public BikeDetails withHistory(UserLocale locale, List<BikeEvent> bikeEvents) {
         events = new ArrayList<>();
         for (BikeEvent event : bikeEvents) {
-            events.add(new BikeEventDescriptor(event));
+            events.add(new BikeEventDescriptor(locale, event));
         }
         return this;
     }

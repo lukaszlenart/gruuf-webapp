@@ -4,6 +4,7 @@ import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.EventType;
+import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.model.RecommendationSource;
 import com.gruuf.services.EventTypes;
 import com.gruuf.services.Recommendations;
@@ -111,7 +112,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
         return TO_RECOMMENDATIONS;
     }
 
-    public List<EventType> getEventTypes() {
+    public List<EventTypeDescriptor> getEventTypes() {
         return eventTypes.listApproved(currentUser);
     }
 

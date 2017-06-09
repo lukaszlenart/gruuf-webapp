@@ -12,7 +12,7 @@
 <table class="table table-striped">
   <thead class="header-inverse">
   <tr>
-    <th>Name</th>
+    <th>Names</th>
     <th>Status</th>
     <th>Created</th>
     <th>Requested by</th>
@@ -23,7 +23,11 @@
   <tbody>
   <s:iterator value="list" var="eventType">
     <tr>
-      <td><s:property value="name"/></td>
+      <td>
+        <s:iterator value="names">
+          <s:property/><br/>
+        </s:iterator>
+      </td>
       <td><s:property value="status"/></td>
       <td><s:date name="created" format="%{userDateFormat}"/></td>
       <td><s:property value="requesterFullName"/></td>

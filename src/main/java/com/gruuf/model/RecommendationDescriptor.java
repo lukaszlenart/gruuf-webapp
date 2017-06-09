@@ -2,23 +2,25 @@ package com.gruuf.model;
 
 public class RecommendationDescriptor {
 
+    private UserLocale locale;
     private final BikeRecommendation recommendation;
-    private final BikeEventDescriptor bikeEvent;
+    private final BikeEvent bikeEvent;
 
-    public RecommendationDescriptor(BikeRecommendation recommendation, BikeEvent bikeEvent) {
+    public RecommendationDescriptor(UserLocale locale, BikeRecommendation recommendation, BikeEvent bikeEvent) {
+        this.locale = locale;
         this.recommendation = recommendation;
-        this.bikeEvent = new BikeEventDescriptor(bikeEvent);
+        this.bikeEvent = bikeEvent;
     }
 
     public boolean isFulfilled() {
         return this.bikeEvent != null;
     }
 
-    public BikeRecommendation getRecommendation() {
-        return recommendation;
+    public BikeRecommendationDescriptor getRecommendation() {
+        return new BikeRecommendationDescriptor(locale, recommendation);
     }
 
     public BikeEventDescriptor getBikeEvent() {
-        return bikeEvent;
+        return new BikeEventDescriptor(locale, bikeEvent);
     }
 }

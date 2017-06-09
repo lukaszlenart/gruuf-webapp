@@ -51,7 +51,7 @@ public class RecommendationsAction extends BaseBikeAction {
             for (BikeEvent bikeEvent : bikeEvents) {
                 if (bikeEvent.getEventTypes().contains(recommendation.getEventType())) {
                     if (matchesPeriod(bikeEvent, recommendation, bikeEvents)) {
-                        RecommendationDescriptor descriptor = new RecommendationDescriptor(recommendation, bikeEvent);
+                        RecommendationDescriptor descriptor = new RecommendationDescriptor(currentUser.getUserLocale(), recommendation, bikeEvent);
                         result.add(descriptor);
                         missingRecommendation = false;
                         break;
@@ -60,7 +60,7 @@ public class RecommendationsAction extends BaseBikeAction {
             }
 
             if (missingRecommendation) {
-                result.add(new RecommendationDescriptor(recommendation, null));
+                result.add(new RecommendationDescriptor(currentUser.getUserLocale(), recommendation, null));
             }
         }
 

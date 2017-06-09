@@ -2,9 +2,11 @@ package com.gruuf.services;
 
 import com.googlecode.objectify.Ref;
 import com.gruuf.model.EventType;
+import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.model.EventTypeStatus;
 import com.gruuf.model.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,26 +26,58 @@ public class EventTypes extends Reindexable<EventType> {
         return findUniqueBy("status =", EventTypeStatus.MTH);
     }
 
-    public List<EventType> listApproved(User currentUser) {
-        List<EventType> approved = filter("status in", Arrays.asList(EventTypeStatus.NORMAL, EventTypeStatus.IMPORTANT))
+    public List<EventTypeDescriptor> listApproved(User currentUser) {
+        List<EventType> approvedEvents = filter("status in", Arrays.asList(EventTypeStatus.NORMAL, EventTypeStatus.IMPORTANT))
                 .filter("approved = ", Boolean.TRUE)
                 .list();
-        List<EventType> unapproved = filter("approved =", Boolean.FALSE).list();
+        List<EventType> unapprovedEvents = filter("approved =", Boolean.FALSE).list();
 
-        for (EventType eventType : unapproved) {
-            if (eventType.getRequestedBy().equivalent(Ref.create(currentUser))) {
-                approved.add(eventType);
+        List<EventTypeDescriptor> approved = new ArrayList<>();
+
+        for (EventType approvedEvent : approvedEvents) {
+            approved.add(new EventTypeDescriptor(currentUser.getUserLocale(), approvedEvent));
+        }
+
+        for (EventType eventType : unapprovedEvents) {
+            if (Ref.create(currentUser).equivalent(eventType.getRequestedBy())) {
+                approved.add(new EventTypeDescriptor(currentUser.getUserLocale(), eventType));
             }
         }
 
-        Collections.sort(approved, new Comparator<EventType>() {
+        sort(approved);
+
+        return approved;
+    }
+
+    public List<EventTypeDescriptor> listAll(User currentUser) {
+        List<EventTypeDescriptor> approved = new ArrayList<>();
+
+        for (EventType approvedEvent : list()) {
+            approved.add(new EventTypeDescriptor(currentUser.getUserLocale(), approvedEvent));
+        }
+
+        sort(approved);
+
+        return approved;
+    }
+
+    private void sort(List<EventTypeDescriptor> approved) {
+        Collections.sort(approved, new Comparator<EventTypeDescriptor>() {
             @Override
-            public int compare(EventType o1, EventType o2) {
+            public int compare(EventTypeDescriptor o1, EventTypeDescriptor o2) {
+                if (o1.getName() == null) {
+                    return 0;
+                }
                 return o1.getName().compareTo(o2.getName());
             }
         });
+    }
 
-        return approved;
-
+    @Override
+    public void reindex() {
+        List<EventType> entities = list();
+        for (EventType entity : entities) {
+            put(EventType.create(entity).withNames(null).withApproved().build());
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.gruuf.web.actions.bike;
 
 import com.gruuf.model.EventType;
+import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.services.EventTypes;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
@@ -33,11 +34,8 @@ public class EventTypesAction extends BaseBikeAction {
         this.eventTypes = eventTypes;
     }
 
-    public List<EventType> getList() {
-        List<EventType> types = eventTypes.listApproved(currentUser);
-        LOG.debug("Found event types {}", types);
-
-        return types;
+    public List<EventTypeDescriptor> getList() {
+        return eventTypes.listApproved(currentUser);
     }
 
 }

@@ -3,6 +3,7 @@ package com.gruuf.web.actions.admin;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.EventType;
+import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.services.EventTypes;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
@@ -18,8 +19,6 @@ import java.util.List;
 @Result(name = "json", type = "json", params = {"root", "list"})
 public class EventTypesAction extends BaseAction {
 
-    private static Logger LOG = LogManager.getLogger(EventTypesAction.class);
-
     private EventTypes eventTypes;
 
     public String execute() {
@@ -31,11 +30,8 @@ public class EventTypesAction extends BaseAction {
         return "json";
     }
 
-    public List<EventType> getList() {
-        List<EventType> types = eventTypes.list();
-        LOG.debug("Found event types {}", types);
-
-        return types;
+    public List<EventTypeDescriptor> getList() {
+        return eventTypes.listAll(currentUser);
     }
 
     @Inject
