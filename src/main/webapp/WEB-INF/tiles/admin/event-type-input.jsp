@@ -5,14 +5,12 @@
   <div class="col-md-6 col-md-offset-2">
     <s:form action="update-event-type?eventTypeId=%{eventTypeId}" method="POST" cssClass="form-horizontal">
 
-      <s:property value="names"/>
-
       <s:iterator value="availableUserLocales" var="userLocale">
         <s:label value="%{userLocale}"
                  elementCssClass="col-sm-2"/>
 
         <s:textfield name="names['%{userLocale}']"
-                     value="%{names[userLocale]}"
+                     value="%{names[#userLocale]}"
                      key="eventType.eventName"/>
       </s:iterator>
 
