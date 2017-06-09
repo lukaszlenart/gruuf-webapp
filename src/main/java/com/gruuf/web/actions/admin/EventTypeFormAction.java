@@ -66,7 +66,6 @@ public class EventTypeFormAction extends BaseAction {
         if (StringUtils.isEmpty(eventTypeId)) {
             LOG.debug("Creating new event type of name {}", names);
 
-
             EventType eventType = EventType.create()
                     .withNames(names)
                     .withRequestedBy(currentUser)
