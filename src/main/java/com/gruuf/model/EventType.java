@@ -114,6 +114,7 @@ public class EventType {
             target = new EventType();
             target.id = id;
             target.created = new Date();
+            target.names = new HashMap<>();
         }
 
         public EventType build() {
