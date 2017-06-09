@@ -73,11 +73,4 @@ public class EventTypes extends Reindexable<EventType> {
         });
     }
 
-    @Override
-    public void reindex() {
-        List<EventType> entities = list();
-        for (EventType entity : entities) {
-            put(EventType.create(entity).withNames(null).withApproved().build());
-        }
-    }
 }
