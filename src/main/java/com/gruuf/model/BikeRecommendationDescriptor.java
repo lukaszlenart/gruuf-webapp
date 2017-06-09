@@ -10,6 +10,26 @@ public class BikeRecommendationDescriptor {
         this.recommendation = recommendation;
     }
 
+    public String getId() {
+        return recommendation.getId();
+    }
+
+    public String getEnglishDescription() {
+        return recommendation.getEnglishDescription();
+    }
+
+    public boolean isNotify() {
+        return recommendation.isNotify();
+    }
+
+    public User getRequestedByUser() {
+        return recommendation.getRequestedByUser();
+    }
+
+    public boolean isApproved() {
+        return recommendation.isApproved();
+    }
+
     public EventTypeDescriptor getEventType() {
         return new EventTypeDescriptor(locale, recommendation.getEventType());
     }

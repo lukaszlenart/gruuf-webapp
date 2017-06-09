@@ -2,7 +2,9 @@ package com.gruuf.web.actions.admin;
 
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
+import com.gruuf.model.BikeMetadata;
 import com.gruuf.model.BikeRecommendation;
+import com.gruuf.model.BikeRecommendationDescriptor;
 import com.gruuf.services.Recommendations;
 import com.gruuf.web.actions.BaseBikeMetadataAction;
 import com.opensymphony.xwork2.inject.Inject;
@@ -50,16 +52,13 @@ public class RecommendationsAction extends BaseBikeMetadataAction {
         return TO_RECOMMENDATIONS;
     }
 
-    public List<BikeRecommendation> getList() {
-        List<BikeRecommendation> bikeRecommendations = recommendations.list();
-
-        List<BikeRecommendation> result = new ArrayList<>();
+    public List<BikeRecommendationDescriptor> getList() {
+        List<BikeRecommendationDescriptor> result = new ArrayList<>();
 
         if (StringUtils.isNoneEmpty(bikeMetadataId)) {
-            for (BikeRecommendation bikeRecommendation : bikeRecommendations) {
-                if (bikeMetadataId.equals(bikeRecommendation.getBikeMetadata().getId())) {
-                    result.add(bikeRecommendation);
-                }
+            BikeMetadata bikeMetadata = bikeMetadataStore.get(bikeMetadataId);
+            for (BikeRecommendation recommendation : recommendations.listAllBy(bikeMetadata)) {
+                result.add(new BikeRecommendationDescriptor(currentUser.getUserLocale(), recommendation));
             }
         }
 
