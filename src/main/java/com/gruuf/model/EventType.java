@@ -1,35 +1,64 @@
 package com.gruuf.model;
 
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.AlsoLoad;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Stringify;
+import com.googlecode.objectify.stringifier.Stringifier;
 import com.gruuf.web.GruufAuth;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+class UserLocaleStringifier implements Stringifier<UserLocale> {
+
+    @Override
+    public String toString(UserLocale userLocale) {
+        return userLocale.name();
+    }
+
+    @Override
+    public UserLocale fromString(String name) {
+        return UserLocale.valueOf(name);
+    }
+}
 
 @Entity
 public class EventType {
     @Id
     private String id;
-    private String name;
-    private Date created;
+
+    @Stringify(UserLocaleStringifier.class)
+    private Map<UserLocale, String> names;
     @Index
     private EventTypeStatus status = EventTypeStatus.NORMAL;
 
     @Index
-    private boolean approved = false;
+    private boolean approved = true;
     private Ref<User> requestedBy;
+    private Date created;
 
     private EventType() {
+    }
+
+    public void migrate(@AlsoLoad("name") String name) {
+        if (names == null) {
+            names = new HashMap<>();
+        }
+        if (!names.containsKey(UserLocale.PL)) {
+            names.put(UserLocale.PL, name);
+        }
     }
 
     public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public Map<UserLocale, String> getNames() {
+        return names;
     }
 
     public Date getCreated() {
@@ -59,7 +88,7 @@ public class EventType {
     public String toString() {
         return "EventType{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                ", names='" + names + '\'' +
                 ", created=" + created +
                 ", status=" + status +
                 ", approved=" + approved +
@@ -73,7 +102,7 @@ public class EventType {
 
     public static EventTypeCreator create(EventType eventType) {
         return new EventTypeCreator(eventType.getId())
-                .withName(eventType.getName())
+                .withNames(eventType.getNames())
                 .withStatus(eventType.getStatus());
     }
 
@@ -87,13 +116,13 @@ public class EventType {
             target.created = new Date();
         }
 
-        public EventTypeCreator withName(String name) {
-            target.name = name;
-            return this;
-        }
-
         public EventType build() {
             return target;
+        }
+
+        public EventTypeCreator withNames(Map<UserLocale, String> names) {
+            target.names = names;
+            return this;
         }
 
         public EventTypeCreator withStatus(EventTypeStatus status) {
@@ -110,6 +139,11 @@ public class EventType {
 
         public EventTypeCreator withApproved() {
             target.approved = true;
+            return this;
+        }
+
+        public EventTypeCreator withName(UserLocale locale, String name) {
+            target.names.put(locale, name);
             return this;
         }
     }
