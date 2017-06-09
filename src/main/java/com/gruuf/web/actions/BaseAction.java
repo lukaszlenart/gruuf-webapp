@@ -9,6 +9,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Set;
+
 public class BaseAction extends ActionSupport implements CurrentUserAware {
 
     private static final Logger LOG = LogManager.getLogger(BaseAction.class);
@@ -28,15 +30,11 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     }
 
     public boolean isLoggedIn() {
-        return currentUser != null ;
+        return currentUser != null;
     }
 
     public String getUserLanguage() {
-        if (currentUser != null) {
-            return currentUser.getUserLocale().toString().toLowerCase();
-        } else {
-            return UserLocale.EN.toString().toLowerCase();
-        }
+        return getCurrentUserLocale().toString().toLowerCase();
     }
 
     public String getUserDateFormat() {
@@ -54,5 +52,16 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     public String getCurrentVersion() {
         LOG.debug("Current version: {}", GruufVersion.CURRENT_VERSION);
         return GruufVersion.CURRENT_VERSION;
+    }
+
+    public UserLocale getCurrentUserLocale() {
+        if (currentUser == null) {
+            return UserLocale.EN;
+        }
+        return currentUser.getUserLocale();
+    }
+
+    public Set<UserLocale> getAvailableUserLocales() {
+        return UserLocale.all();
     }
 }
