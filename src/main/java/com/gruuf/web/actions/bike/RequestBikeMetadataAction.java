@@ -25,7 +25,7 @@ import static com.opensymphony.xwork2.Action.INPUT;
 @Results({
         @Result(name = "to-input", location = "request-bike-metadata", type = "redirectAction"),
         @Result(name = INPUT, location = "bike/request-bike-metadata-input"),
-        @Result(name = JSON, type = "json", params = {"root", "manufacturers"})
+        @Result(name = JSON, type = JSON, params = {"root", "manufacturers"})
 })
 @InterceptorRef("defaultWithMessages")
 public class RequestBikeMetadataAction extends BaseAction {
