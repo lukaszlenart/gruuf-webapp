@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.gruuf.web.actions.BaseAction.JSON;
 
-@Result(name = JSON, type = "json", params = {"root", "metadataOptions"})
+@Result(name = JSON, type = JSON, params = {"root", "metadataOptions"})
 abstract public class BaseBikeMetadataAction extends BaseBikeAction {
 
     private static final Logger LOG = LogManager.getLogger(BaseBikeMetadataAction.class);
