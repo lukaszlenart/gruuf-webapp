@@ -27,8 +27,8 @@ public class LoginAction extends BaseLoginAction {
 
     @Action(value = "login-submit")
     public String submit() {
-        User user = userStore.findUniqueBy("email", email.trim());
-        if (user != null && GruufAuth.isPasswordValid(password, user.getPassword())) {
+        User user = userStore.login(email, password);
+        if (user != null) {
             markSessionAsLoggedIn(user);
             return GruufActions.GARAGE;
         } else {
