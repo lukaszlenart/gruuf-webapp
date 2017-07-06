@@ -2,7 +2,7 @@ package com.gruuf.web.actions.bike;
 
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeEvent;
-import com.gruuf.model.EventType;
+import com.gruuf.model.EventTypeDescriptor;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.util.TextParseUtil;
 import com.opensymphony.xwork2.validator.annotations.LongRangeFieldValidator;
@@ -104,7 +104,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return TO_SHOW_BIKE;
     }
 
-    public List<EventType> getEventTypesList() {
+    public List<EventTypeDescriptor> getEventTypesList() {
         return eventTypes.listApproved(currentUser);
     }
 

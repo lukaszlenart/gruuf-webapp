@@ -26,4 +26,7 @@ public class Recommendations extends Reindexable<BikeRecommendation> {
         return approved;
     }
 
+    public List<BikeRecommendation> listAllBy(BikeMetadata bikeMetadata) {
+        return filter("bikeMetadataId =", bikeMetadata).list();
+    }
 }

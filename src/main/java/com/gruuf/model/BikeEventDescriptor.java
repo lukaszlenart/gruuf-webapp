@@ -2,14 +2,17 @@ package com.gruuf.model;
 
 import com.github.rjeschke.txtmark.Processor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class BikeEventDescriptor {
 
+    private UserLocale locale;
     private BikeEvent bikeEvent;
 
-    public BikeEventDescriptor(BikeEvent bikeEvent) {
+    public BikeEventDescriptor(UserLocale locale, BikeEvent bikeEvent) {
+        this.locale = locale;
         this.bikeEvent = bikeEvent;
     }
 
@@ -21,8 +24,12 @@ public class BikeEventDescriptor {
         return bikeEvent.getBike();
     }
 
-    public List<EventType> getEventTypes() {
-        return bikeEvent.getEventTypes();
+    public List<EventTypeDescriptor> getEventTypes() {
+        List<EventTypeDescriptor> eventTypes = new ArrayList<>();
+        for (EventType eventType : bikeEvent.getEventTypes()) {
+            eventTypes.add(new EventTypeDescriptor(locale, eventType));
+        }
+        return eventTypes;
     }
 
     public Date getTimestamp() {

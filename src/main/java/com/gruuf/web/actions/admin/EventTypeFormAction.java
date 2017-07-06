@@ -4,9 +4,14 @@ import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.EventType;
 import com.gruuf.model.EventTypeStatus;
+import com.gruuf.model.UserLocale;
 import com.gruuf.services.EventTypes;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
+import com.opensymphony.xwork2.util.CreateIfNull;
+import com.opensymphony.xwork2.util.Element;
+import com.opensymphony.xwork2.util.Key;
+import com.opensymphony.xwork2.util.KeyProperty;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
@@ -16,8 +21,11 @@ import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import static com.opensymphony.xwork2.Action.INPUT;
@@ -35,8 +43,9 @@ public class EventTypeFormAction extends BaseAction {
 
     private String eventTypeId;
 
-    private String name;
-    private EventTypeStatus status;
+    @Key(UserLocale.class)
+    private Map<UserLocale, String> names;
+    private EventTypeStatus status = EventTypeStatus.NORMAL;
 
     @SkipValidation
     public String execute() {
@@ -45,7 +54,8 @@ public class EventTypeFormAction extends BaseAction {
         } else {
             LOG.debug("Showing event type edit form");
             EventType eventType = eventTypes.get(eventTypeId);
-            name = eventType.getName();
+
+            names = eventType.getNames();
             status = eventType.getStatus();
         }
         return INPUT;
@@ -54,10 +64,10 @@ public class EventTypeFormAction extends BaseAction {
     @Action("update-event-type")
     public String updateEventType() {
         if (StringUtils.isEmpty(eventTypeId)) {
-            LOG.debug("Creating new event type of name {}", name);
+            LOG.debug("Creating new event type of name {}", names);
 
             EventType eventType = EventType.create()
-                    .withName(name)
+                    .withNames(names)
                     .withRequestedBy(currentUser)
                     .withApproved()
                     .withStatus(status)
@@ -66,10 +76,10 @@ public class EventTypeFormAction extends BaseAction {
 
             LOG.debug("New event type created: {}", result);
         } else {
-            LOG.debug("Updating existing event type of name {}", name);
+            LOG.debug("Updating existing event type [{}] with names [{}]", eventTypeId, names);
             EventType eventType = eventTypes.get(eventTypeId);
             eventType = EventType.create(eventType)
-                    .withName(name)
+                    .withNames(names)
                     .withRequestedBy(currentUser)
                     .withApproved()
                     .withStatus(status)
@@ -93,21 +103,18 @@ public class EventTypeFormAction extends BaseAction {
         this.eventTypeId = eventTypeId;
     }
 
-    public String getName() {
-        return name;
+    public Map<UserLocale, String > getNames() {
+        return names;
     }
 
-    @RequiredStringValidator(key = "general.fieldIsRequired")
-    @StringLengthFieldValidator(minLength = "2", key = "general.minLength")
-    public void setName(String name) {
-        this.name = name;
+    public void setNames(Map<UserLocale, String> names) {
+        this.names = names;
     }
 
     public EventTypeStatus getStatus() {
         return status;
     }
 
-    @RequiredFieldValidator
     public void setStatus(EventTypeStatus status) {
         this.status = status;
     }

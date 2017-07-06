@@ -3,6 +3,7 @@ package com.gruuf.web.actions.bike;
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.EventType;
+import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.model.RecommendationSource;
 import com.gruuf.services.EventTypes;
 import com.gruuf.services.MailBox;
@@ -80,7 +81,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
         return TO_INPUT;
     }
 
-    public List<EventType> getEventTypes() {
+    public List<EventTypeDescriptor> getEventTypes() {
         return eventTypes.listApproved(currentUser);
     }
 

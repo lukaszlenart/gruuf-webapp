@@ -16,8 +16,6 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import java.util.Set;
-
 import static com.gruuf.web.actions.biker.ProfileAction.REDIRECT_TO_FORM;
 import static com.opensymphony.xwork2.Action.INPUT;
 
@@ -147,10 +145,6 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
 
     public void setPassword2(String password2) {
         this.password2 = password2;
-    }
-
-    public Set<UserLocale> getAvailableUserLocales() {
-        return UserLocale.all();
     }
 
 }
