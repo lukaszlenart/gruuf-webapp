@@ -46,7 +46,7 @@ public class RequestEventTypeAction extends BaseAction {
         LOG.debug("Requesting new event type {}-{}", name, status);
 
         EventType eventType = EventType.create()
-                .withName(currentUser.getUserLocale(),name)
+                .withName(currentUser.getUserLocale(), name)
                 .withRequestedBy(currentUser)
                 .withStatus(status)
                 .build();
