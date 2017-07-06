@@ -44,6 +44,7 @@ public class EventType {
     private EventType() {
     }
 
+/*
     public void migrate(@AlsoLoad("name") String name) {
         if (names == null) {
             names = new HashMap<>();
@@ -52,6 +53,7 @@ public class EventType {
             names.put(UserLocale.PL, name);
         }
     }
+*/
 
     public String getId() {
         return id;
