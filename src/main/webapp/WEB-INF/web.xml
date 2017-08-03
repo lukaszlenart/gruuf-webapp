@@ -60,7 +60,7 @@
     <servlet-class>com.gruuf.web.LetsEncryptServlet</servlet-class>
     <init-param>
       <param-name>challenge</param-name>
-      <param-value>wswKOdAH83wLM5x0BdXwyIO56GVchf-f0005wdEWPG4.XYpKCqttSgSj9RgQ4WdjATLNDcf53J-jUkF71Uj8qsg</param-value>
+      <param-value>-nDqt8xwp4xmHI5OsRdoNI-2hCB_ntP71j5lH5GJfao.XYpKCqttSgSj9RgQ4WdjATLNDcf53J-jUkF71Uj8qsg</param-value>
     </init-param>
   </servlet>
   
