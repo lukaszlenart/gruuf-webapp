@@ -8,7 +8,6 @@ import com.opensymphony.xwork2.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
@@ -32,7 +31,6 @@ public class LoginEndpoint extends BaseAction {
     private String username;
     private String password;
 
-    @Action("login")
     public String execute() {
         if (StringUtils.isEmpty(username) && StringUtils.isEmpty(password)) {
             LOG.debug("Username and password are empty!");
