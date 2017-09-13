@@ -1,5 +1,7 @@
 ### TODO
-- [ ] tłumaczenie EventType
+- [ ] definiowanie globalnych Zaleceń niezależnie od motocykla
+- [ ] używanie Markdowna w Description w Zaleceniach
+- [ ] powiadomienia mailem na 7 dni przed Zaleceniem
 - [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] dodawanie załączników przy wpisach z historią
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
@@ -40,6 +42,7 @@
 - [X] dodanie wsparcia dla motogodzin
 - [X] zgłaszanie typów eventów przez użytkownika
 - [X] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
+- [X] tłumaczenie EventType
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
