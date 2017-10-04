@@ -53,6 +53,9 @@ public class BikeRecommendation {
     }
 
     public String getBikeMetadataId() {
+        if (bikeMetadataId == null) {
+            return null;
+        }
         return bikeMetadataId.getKey().getName();
     }
 
