@@ -55,9 +55,13 @@ public class RecommendationsAction extends BaseBikeMetadataAction {
     public List<BikeRecommendationDescriptor> getList() {
         List<BikeRecommendationDescriptor> result = new ArrayList<>();
 
-        if (StringUtils.isNoneEmpty(bikeMetadataId)) {
+        if (StringUtils.isNotBlank(bikeMetadataId)) {
             BikeMetadata bikeMetadata = bikeMetadataStore.get(bikeMetadataId);
             for (BikeRecommendation recommendation : recommendations.listAllBy(bikeMetadata)) {
+                result.add(new BikeRecommendationDescriptor(currentUser.getUserLocale(), recommendation));
+            }
+        } else {
+            for (BikeRecommendation recommendation : recommendations.listForAllBikes()) {
                 result.add(new BikeRecommendationDescriptor(currentUser.getUserLocale(), recommendation));
             }
         }

@@ -6,6 +6,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.gruuf.web.GruufAuth;
+import org.apache.commons.lang3.StringUtils;
 
 @Entity
 public class BikeRecommendation {
@@ -136,7 +137,11 @@ public class BikeRecommendation {
         }
 
         public BikeRecommendationBuilder withBikeMetadataId(String bikeMetadataId) {
-            target.bikeMetadataId = Ref.create(Key.create(BikeMetadata.class,bikeMetadataId));
+            if (StringUtils.isNotBlank(bikeMetadataId)) {
+                target.bikeMetadataId = Ref.create(Key.create(BikeMetadata.class, bikeMetadataId));
+            } else {
+                target.bikeMetadataId = null;
+            }
             return this;
         }
 
