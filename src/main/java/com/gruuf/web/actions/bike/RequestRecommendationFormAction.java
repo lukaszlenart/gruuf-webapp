@@ -43,7 +43,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
     private MailBox mailBox;
 
     private String eventTypeId;
-    private String englishDescription;
+    private String description;
     private RecommendationSource source;
     private boolean notify;
     private Boolean monthlyReview = false;
@@ -64,7 +64,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
         BikeRecommendation recommendation = BikeRecommendation.create()
                 .withBikeMetadataId(selectedBike.getBikeMetadataId())
                 .withEventTypeId(eventTypeId)
-                .withEnglishDescription(englishDescription)
+                .withDescription(description)
                 .withSource(source)
                 .withNotify(notify)
                 .withMonthPeriod(monthlyReview, monthPeriod)
@@ -116,12 +116,12 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
         this.eventTypeId = eventTypeId;
     }
 
-    public String getEnglishDescription() {
-        return englishDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEnglishDescription(String englishDescription) {
-        this.englishDescription = englishDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public RecommendationSource getSource() {

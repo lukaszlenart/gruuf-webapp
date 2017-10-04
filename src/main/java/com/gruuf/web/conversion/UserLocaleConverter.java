@@ -1,4 +1,4 @@
-package com.gruuf.web;
+package com.gruuf.web.conversion;
 
 import com.gruuf.model.UserLocale;
 import org.apache.logging.log4j.LogManager;

@@ -1,6 +1,4 @@
 ### TODO
-- [ ] definiowanie globalnych Zaleceń niezależnie od motocykla
-- [ ] używanie Markdowna w Description w Zaleceniach
 - [ ] powiadomienia mailem na 7 dni przed Zaleceniem
 - [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] dodawanie załączników przy wpisach z historią
@@ -8,6 +6,7 @@
 - [ ] strona z listą wprowadzonych zmian
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
+- [ ] generowanie raportów z wykonanych czynności
 
 ### DONE
 - [X] tokeny i dostep do stron
@@ -43,6 +42,8 @@
 - [X] zgłaszanie typów eventów przez użytkownika
 - [X] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
 - [X] tłumaczenie EventType
+- [X] definiowanie globalnych Zaleceń niezależnie od motocykla
+- [X] używanie Markdowna w Description w Zaleceniach
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu

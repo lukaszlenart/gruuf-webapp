@@ -13,6 +13,12 @@ public class BikeHistory extends Reindexable<BikeEvent> {
         super(type);
     }
 
+    @Override
+    protected boolean shouldReindex() {
+        // change to true when migrating data
+        return false;
+    }
+
     public List<BikeEvent> listByBike(Bike bike) {
         return filter("bike =", bike)
                 .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))

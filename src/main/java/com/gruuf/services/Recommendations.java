@@ -13,6 +13,12 @@ public class Recommendations extends Reindexable<BikeRecommendation> {
         super(BikeRecommendation.class);
     }
 
+    @Override
+    protected boolean shouldReindex() {
+        // change to true when migrating data
+        return true;
+    }
+
     public List<BikeRecommendation> listApprovedByBikeMetadata(User currentUser, BikeMetadata bikeMetadata) {
         List<BikeRecommendation> approvedForAll = filter("bikeMetadataId =", null).filter("approved =", Boolean.TRUE).list();
         List<BikeRecommendation> approved = filter("bikeMetadataId =", bikeMetadata).filter("approved =", Boolean.TRUE).list();

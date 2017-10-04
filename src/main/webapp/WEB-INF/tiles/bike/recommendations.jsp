@@ -64,7 +64,8 @@
   <s:iterator value="bikeRecommendations">
     <tr>
       <td>
-        <s:property value="recommendation.eventType.name"/>
+        <s:property value="recommendation.eventType.name"/>:
+        <s:property value="recommendation.description" escapeHtml="false"/>
       </td>
       <td class="text-nowrap">
         <s:text name="%{recommendation.source.key}"/>

@@ -14,8 +14,8 @@ public class BikeRecommendationDescriptor {
         return recommendation.getId();
     }
 
-    public String getEnglishDescription() {
-        return recommendation.getEnglishDescription();
+    public Markdown getDescription() {
+        return recommendation.getDescription();
     }
 
     public boolean isNotify() {

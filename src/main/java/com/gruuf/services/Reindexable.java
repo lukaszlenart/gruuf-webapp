@@ -14,12 +14,16 @@ public abstract class Reindexable<E> extends Storable<E> {
     }
 
     public void reindex() {
-        LOG.debug("Reindexing {}", getClass().getSimpleName());
+        if (shouldReindex()) {
+            LOG.debug("Reindexing {}", getClass().getSimpleName());
 
-        List<E> entities = list();
-        for (E entity : entities) {
-            put(entity);
+            List<E> entities = list();
+            for (E entity : entities) {
+                put(entity);
+            }
         }
     }
+
+    protected abstract boolean shouldReindex();
 
 }

@@ -2,11 +2,14 @@ package com.gruuf.model;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.AlsoLoad;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.gruuf.web.GruufAuth;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
 
 @Entity
 public class BikeRecommendation {
@@ -16,7 +19,7 @@ public class BikeRecommendation {
     private Ref<EventType> eventTypeId;
     @Index
     private Ref<BikeMetadata> bikeMetadataId;
-    private String englishDescription;
+    private Markdown description;
     @Index
     private RecommendationSource source;
     @Index
@@ -32,6 +35,12 @@ public class BikeRecommendation {
     private BikeRecommendation() {
     }
 
+    public void migrate(@AlsoLoad("englishDescription") String englishDescription) {
+        if (description == null || StringUtils.isBlank(description.getContent())) {
+            description = Markdown.of(englishDescription);
+        }
+    }
+
     public String getId() {
         return id;
     }
@@ -44,8 +53,8 @@ public class BikeRecommendation {
         return bikeMetadataId.get();
     }
 
-    public String getEnglishDescription() {
-        return englishDescription;
+    public Markdown getDescription() {
+        return description;
     }
 
     public RecommendationSource getSource() {
@@ -97,7 +106,7 @@ public class BikeRecommendation {
                 "id='" + id + '\'' +
                 ", eventTypeId=" + eventTypeId +
                 ", bikeMetadataId=" + bikeMetadataId +
-                ", englishDescription='" + englishDescription + '\'' +
+                ", description='" + description + '\'' +
                 ", source=" + source +
                 ", notify=" + notify +
                 ", mileagePeriod=" + mileagePeriod +
@@ -153,8 +162,8 @@ public class BikeRecommendation {
             return this;
         }
 
-        public BikeRecommendationBuilder withEnglishDescription(String englishDescription) {
-            target.englishDescription = englishDescription;
+        public BikeRecommendationBuilder withDescription(String description) {
+            target.description = Markdown.of(description);
             return this;
         }
 

@@ -28,6 +28,12 @@ public class AttachmentsStorage extends Reindexable<Attachment> {
         storage = StorageOptions.getDefaultInstance().getService();
     }
 
+    @Override
+    protected boolean shouldReindex() {
+        // change to true when migrating data
+        return false;
+    }
+
     @Inject("gruuf.storage.bucketName")
     public void setBucketName(String bucketName) {
         this.bucketName = bucketName;

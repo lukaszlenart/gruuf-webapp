@@ -15,6 +15,12 @@ public class Garage extends Reindexable<Bike> {
         super(type);
     }
 
+    @Override
+    protected boolean shouldReindex() {
+        // change to true when migrating data
+        return false;
+    }
+
     public List<Bike> findByOwner(User user) {
         LOG.debug("Fetching bikes for user {}", user);
 

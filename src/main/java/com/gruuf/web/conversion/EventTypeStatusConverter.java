@@ -1,16 +1,16 @@
-package com.gruuf.web;
+package com.gruuf.web.conversion;
 
-import com.gruuf.auth.Token;
+import com.gruuf.model.EventTypeStatus;
 import org.apache.struts2.util.StrutsTypeConverter;
 
 import java.util.Map;
 
-public class TokenTypeConverter extends StrutsTypeConverter {
+public class EventTypeStatusConverter extends StrutsTypeConverter {
 
     @Override
     public Object convertFromString(Map map, String[] strings, Class aClass) {
         if (strings != null && strings.length > 0) {
-            return Token.valueOf(strings[0]);
+            return EventTypeStatus.valueOf(strings[0]);
         }
         return null;
     }

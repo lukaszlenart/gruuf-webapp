@@ -22,10 +22,11 @@
                 labelCssClass="col-md-2"
                 elementCssClass="col-md-4"/>
 
-      <s:textarea name="englishDescription"
-                  key="recommendations.descriptionInEnglish"
+      <s:textarea name="description"
+                  key="recommendations.description"
                   cols="20"
                   rows="4"
+                  tooltip="%{getText('recommendations.description.tooltip')}"
                   labelCssClass="col-md-2"
                   elementCssClass="col-md-4"/>
 

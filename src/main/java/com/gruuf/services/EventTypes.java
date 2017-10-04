@@ -18,6 +18,12 @@ public class EventTypes extends Reindexable<EventType> {
         super(EventType.class);
     }
 
+    @Override
+    protected boolean shouldReindex() {
+        // change to true when migrating data
+        return false;
+    }
+
     public EventType getMileageEventType() {
         return findUniqueBy("status =", EventTypeStatus.MILEAGE);
     }

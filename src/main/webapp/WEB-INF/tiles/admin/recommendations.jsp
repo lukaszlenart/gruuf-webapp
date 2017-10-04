@@ -39,8 +39,7 @@
     </td>
   </tr>
   <tr>
-    <th>Description (English)</th>
-    <th>Event Type</th>
+    <th>Event Type & Description</th>
     <th>Source</th>
     <th>Notify</th>
     <th>Mileage period</th>
@@ -54,8 +53,10 @@
   <tbody>
   <s:iterator value="list" var="recommendation">
     <tr>
-      <td><s:property value="englishDescription"/></td>
-      <td><s:property value="eventType.name"/></td>
+      <td>
+        <s:property value="eventType.name"/>:
+        <s:property value="description" escapeHtml="false"/>
+      </td>
       <td><s:text name="%{source.key}"/></td>
       <td><s:property value="notify"/></td>
       <td><s:number name="mileagePeriod"/></td>
