@@ -3,7 +3,6 @@ package com.gruuf.web.actions.admin;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.BikeRecommendation;
-import com.gruuf.model.EventType;
 import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.model.RecommendationSource;
 import com.gruuf.services.EventTypes;
