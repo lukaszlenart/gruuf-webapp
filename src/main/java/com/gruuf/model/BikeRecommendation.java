@@ -9,8 +9,6 @@ import com.googlecode.objectify.annotation.Index;
 import com.gruuf.web.GruufAuth;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
-
 @Entity
 public class BikeRecommendation {
 
@@ -35,11 +33,13 @@ public class BikeRecommendation {
     private BikeRecommendation() {
     }
 
+/*
     public void migrate(@AlsoLoad("englishDescription") String englishDescription) {
         if (description == null || StringUtils.isBlank(description.getContent())) {
             description = Markdown.of(englishDescription);
         }
     }
+*/
 
     public String getId() {
         return id;
