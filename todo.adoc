@@ -1,5 +1,4 @@
 ### TODO
-- [ ] generowanie raportów z wykonanych czynności
 - [ ] podgląd raportu dla admina
 - [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] dodawanie załączników przy wpisach z historią
@@ -46,6 +45,7 @@
 - [X] używanie Markdowna w Description w Zaleceniach
 - [X] powiadomienia mailem na 7 dni przed Zaleceniem
 - [X] konwersja description na Markdowna
+- [X] generowanie raportów z wykonanych czynności
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
