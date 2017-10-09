@@ -24,7 +24,8 @@ public class MailBox {
 
     private static final Logger LOG = LogManager.getLogger(MailBox.class);
 
-    public static final String NOREPLY_GRUUF_COM = "noreply@gruuf.com";
+    public static final String NOREPLY_GRUUF_COM = "noreply@gruuf-webapp.appspotmail.com";
+    //public static final String NOREPLY_GRUUF_COM = "noreply@gruuf.com";
     public static final String GRUUF_APP = "Gruuf App";
 
     private UserStore userStore;
