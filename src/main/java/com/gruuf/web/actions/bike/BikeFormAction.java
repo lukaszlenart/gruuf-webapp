@@ -94,7 +94,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                 .withMileage(mileage)
                 .withMth(mth)
                 .withEventTypeId(Collections.singleton(eventTypes.getMileageEventType().getId()))
-                .withDescriptiveName(getText("bike.systemMileageUpdate"))
+                .withDescription(getText("bike.systemMileageUpdate"))
                 .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
                 .markAsSystem()
                 .build();
@@ -107,7 +107,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                 .withMileage(mileage)
                 .withMth(mth)
                 .withEventTypeId(Collections.singleton(eventTypes.getMthEventType().getId()))
-                .withDescriptiveName(getText("bike.systemMthUpdate"))
+                .withDescription(getText("bike.systemMthUpdate"))
                 .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
                 .markAsSystem()
                 .build();

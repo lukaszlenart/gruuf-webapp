@@ -8,6 +8,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
 import com.gruuf.web.GruufAuth;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,7 +29,7 @@ public class BikeEvent {
     private List<Ref<EventType>> eventTypeIds;
     @Index
     private Date timestamp;
-    private String descriptiveName;
+    private Markdown description;
     @Index
     private Date registerDate;
     private Long mileage;
@@ -44,17 +45,12 @@ public class BikeEvent {
         this.bike = Ref.create(bike);
     }
 
-/*
-    public void migrate(@AlsoLoad("eventTypeId") Ref<EventType> eventTypeId) {
-        if (eventTypeIds == null) {
-            eventTypeIds = new ArrayList<>();
-        }
-        if (eventTypeId != null && !eventTypeIds.contains(eventTypeId)) {
-            eventTypeIds.add(eventTypeId);
+    public void migrate(@AlsoLoad("descriptiveName") String descriptiveName) {
+        if (description == null || StringUtils.isBlank(description.getContent())) {
+            description = Markdown.of(descriptiveName);
         }
     }
 
-*/
     public String getId() {
         return id;
     }
@@ -83,8 +79,8 @@ public class BikeEvent {
         return timestamp;
     }
 
-    public String getDescriptiveName() {
-        return descriptiveName;
+    public Markdown getDescription() {
+        return description;
     }
 
     public Date getRegisterDate() {
@@ -118,7 +114,7 @@ public class BikeEvent {
                 ", bike=" + bike +
                 ", eventTypeIds=" + eventTypeIds +
                 ", timestamp=" + timestamp +
-                ", descriptiveName='" + descriptiveName + '\'' +
+                ", description='" + description + '\'' +
                 ", registerDate=" + registerDate +
                 ", mileage=" + mileage +
                 ", mth=" + mth +
@@ -185,8 +181,8 @@ public class BikeEvent {
             return this;
         }
 
-        public BikeEventBuilder withDescriptiveName(String descriptiveName) {
-            target.descriptiveName = descriptiveName;
+        public BikeEventBuilder withDescription(String description) {
+            target.description = Markdown.of(description);
             return this;
         }
 

@@ -36,8 +36,8 @@ public class BikeEventDescriptor {
         return bikeEvent.getTimestamp();
     }
 
-    public String getDescriptiveName() {
-        return Processor.process(bikeEvent.getDescriptiveName());
+    public Markdown getDescription() {
+        return bikeEvent.getDescription();
     }
 
     public Date getRegisterDate() {

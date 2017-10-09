@@ -29,7 +29,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     private String bikeEventId;
 
     private String eventTypeIds;
-    private String descriptiveName;
+    private String description;
     private Date registerDate;
     private Long mileage;
     private Long mth;
@@ -53,7 +53,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
             BikeEvent bikeEvent = bikeHistory.get(bikeEventId);
             if (bikeEvent.isEditable()) {
                 eventTypeIds = StringUtils.join(bikeEvent.getEventTypeIds(), ",");
-                descriptiveName = bikeEvent.getDescriptiveName();
+                description = bikeEvent.getDescription().getContent();
                 registerDate = bikeEvent.getRegisterDate();
                 mileage = bikeEvent.getMileage();
                 mth = bikeEvent.getMth();
@@ -74,7 +74,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
 
             BikeEvent bikeEvent = BikeEvent.create(selectedBike, currentUser)
                     .withEventTypeId(TextParseUtil.commaDelimitedStringToSet(eventTypeIds))
-                    .withDescriptiveName(descriptiveName)
+                    .withDescription(description)
                     .withRegisterDate(registerDate)
                     .withMileage(mileage)
                     .withMth(mth)
@@ -87,7 +87,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
             if (oldBikeEvent.isEditable()) {
                 BikeEvent bikeEvent = BikeEvent.create(oldBikeEvent)
                         .withEventTypeId(TextParseUtil.commaDelimitedStringToSet(eventTypeIds))
-                        .withDescriptiveName(descriptiveName)
+                        .withDescription(description)
                         .withRegisterDate(registerDate)
                         .withMileage(mileage)
                         .withMth(mth)
@@ -117,13 +117,13 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         this.eventTypeIds = eventTypeIds;
     }
 
-    public String getDescriptiveName() {
-        return descriptiveName;
+    public String getDescription() {
+        return description;
     }
 
-    @StringLengthFieldValidator(minLength = "4", key = "bikeEvent.descriptiveNameTooShort")
-    public void setDescriptiveName(String descriptiveName) {
-        this.descriptiveName = descriptiveName;
+    @StringLengthFieldValidator(minLength = "4", key = "bikeEvent.descriptionTooShort")
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getRegisterDate() {

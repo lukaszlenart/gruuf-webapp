@@ -42,7 +42,7 @@
   <thead>
   <tr>
     <th><s:text name="bikeEvent.eventType"/></th>
-    <th><s:text name="bikeEvent.descriptiveName"/></th>
+    <th><s:text name="bikeEvent.description"/></th>
     <th><s:text name="bikeEvent.eventDate"/></th>
     <th><s:text name="bikeEvent.mileage"/></th>
     <th><s:text name="bikeEvent.mth"/></th>
@@ -59,7 +59,7 @@
         </s:iterator>
       </td>
       <td>
-        <s:property value="descriptiveName" escapeHtml="false"/>
+        <s:property value="description" escapeHtml="false"/>
       </td>
       <td class="text-nowrap">
         <s:date name="registerDate" format="%{userDateFormat}"/>

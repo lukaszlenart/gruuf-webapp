@@ -63,11 +63,11 @@
         </div>
       </div>
 
-      <s:textarea name="descriptiveName"
-                  key="bikeEvent.descriptiveName"
-                  placeholder="%{getText('bikeEvent.descriptiveName.placeholder')}"
+      <s:textarea name="description"
+                  key="bikeEvent.description"
+                  placeholder="%{getText('bikeEvent.description.placeholder')}"
                   rows="6"
-                  tooltip="%{getText('bikeEvent.descriptiveName.tooltip')}"
+                  tooltip="%{getText('bikeEvent.description.tooltip')}"
                   labelCssClass="col-md-2"
                   elementCssClass="col-md-6"/>
 

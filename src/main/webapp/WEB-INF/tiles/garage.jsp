@@ -53,7 +53,7 @@
     <thead>
     <tr>
       <th><s:text name="bikeEvent.eventType"/></th>
-      <th><s:text name="bikeEvent.descriptiveName"/></th>
+      <th><s:text name="bikeEvent.description"/></th>
       <th><s:text name="bikeEvent.eventDate"/></th>
       <th><s:text name="bikeEvent.mileage"/></th>
       <th><s:text name="bikeEvent.mth"/></th>
@@ -68,7 +68,7 @@
             <s:property value="name"/><s:if test="%{not #stats.last}">,<br/></s:if>
           </s:iterator>
         </td>
-        <td><s:property value="descriptiveName" escapeHtml="false"/></td>
+        <td><s:property value="description" escapeHtml="false"/></td>
         <td class="text-nowrap"><s:date name="registerDate" format="%{userDateFormat}"/></td>
         <td class="text-nowrap"><s:number name="mileage"/></td>
         <td class="text-nowrap"><s:number name="mth"/></td>

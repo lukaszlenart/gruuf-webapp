@@ -1,7 +1,6 @@
 ### TODO
 - [ ] generowanie raportów z wykonanych czynności
 - [ ] podgląd raportu dla admina
-- [ ] konwersja descriptiveName na Markdowna
 - [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] dodawanie załączników przy wpisach z historią
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
@@ -46,6 +45,7 @@
 - [X] definiowanie globalnych Zaleceń niezależnie od motocykla
 - [X] używanie Markdowna w Description w Zaleceniach
 - [X] powiadomienia mailem na 7 dni przed Zaleceniem
+- [X] konwersja description na Markdowna
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
