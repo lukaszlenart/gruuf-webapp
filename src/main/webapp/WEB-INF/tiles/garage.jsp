@@ -46,7 +46,7 @@
     <s:url var="edit" action="bike-form" namespace="/bike">
       <s:param name="bikeId" value="bike.id"/>
     </s:url>
-    <s:a value="%{edit}" class="btn btn-default"><s:text name="general.edit"/></s:a>
+    <s:a value="%{edit}" class="btn btn-success"><s:text name="general.edit"/></s:a>
   </p>
 
   <table class="table table-striped">
@@ -79,11 +79,17 @@
   </table>
 
   <p class="center-block">
-    <s:url var="url" action="history" namespace="/bike">
+    <s:url var="historyUrl" action="history" namespace="/bike">
       <s:param name="bikeId" value="bike.id"/>
     </s:url>
-    <s:a class="btn btn-default" role="button" href="%{url}">
+    <s:a class="btn btn-primary" role="button" href="%{historyUrl}">
       <s:text name="general.viewDetails"/>
+    </s:a>
+    <s:url var="reportUrl" action="report" namespace="/bike">
+      <s:param name="bikeId" value="bike.id"/>
+    </s:url>
+    <s:a class="btn btn-info" role="button" href="%{reportUrl}" target="_blank">
+      <s:text name="general.fullReport"/>
     </s:a>
   </p>
 </s:iterator>
