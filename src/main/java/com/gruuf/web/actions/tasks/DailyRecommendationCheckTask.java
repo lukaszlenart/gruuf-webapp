@@ -33,7 +33,7 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 public class DailyRecommendationCheckTask extends BaseAction {
 
     private static final Integer MILEAGE_CHECK = 1000;
-    private static final int DAYS_CHECK = 7;
+    private static final int DAYS_CHECK = 14;
     private static final Integer MTH_CHECK = 10;
 
     private Bike selectedBike;
