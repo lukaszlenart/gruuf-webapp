@@ -9,9 +9,6 @@ import com.gruuf.services.Recommendations;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.Period;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +47,7 @@ public class RecommendationsAction extends BaseBikeAction {
             boolean missingRecommendation = true;
             for (BikeEvent bikeEvent : bikeEvents) {
                 if (bikeEvent.getEventTypes().contains(recommendation.getEventType())) {
-                    if (matchesPeriod(bikeEvent, recommendation, bikeEvents)) {
+                    if (Recommendations.matchesPeriod(bikeEvent, recommendation, bikeEvents)) {
                         RecommendationDescriptor descriptor = new RecommendationDescriptor(currentUser.getUserLocale(), recommendation, bikeEvent);
                         result.add(descriptor);
                         missingRecommendation = false;
@@ -61,49 +58,6 @@ public class RecommendationsAction extends BaseBikeAction {
 
             if (missingRecommendation) {
                 result.add(new RecommendationDescriptor(currentUser.getUserLocale(), recommendation, null));
-            }
-        }
-
-        return result;
-    }
-
-    private boolean matchesPeriod(BikeEvent bikeEvent, BikeRecommendation recommendation, List<BikeEvent> bikeEvents) {
-        boolean result = false;
-
-        if (recommendation.isMileagePeriod()) {
-            for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId()) && bikeEvent.isMileage() && event.isMileage()) {
-                    result = (bikeEvent.getMileage() - event.getMileage()) <= recommendation.getMileagePeriod();
-                    if (result) {
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (recommendation.isMonthPeriod()) {
-            for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId())) {
-
-                    LocalDate from = new DateTime(bikeEvent.getRegisterDate()).toLocalDate();
-                    LocalDate to = new DateTime(event.getRegisterDate()).toLocalDate();
-
-                    result = Period.fieldDifference(from, to).getMonths() < recommendation.getMonthPeriod();
-                    if (result) {
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (recommendation.isMthPeriod()) {
-            for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId()) && bikeEvent.isMth() && event.isMth()) {
-                    result = (bikeEvent.getMth() - event.getMth()) <= recommendation.getMthPeriod();
-                    if (result) {
-                        break;
-                    }
-                }
             }
         }
 

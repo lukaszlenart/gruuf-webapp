@@ -5,4 +5,9 @@
         <description>Clean up sessions</description>
         <schedule>every 60 minutes</schedule>
     </cron>
+    <cron>
+        <url>/cron/daily-recommendation</url>
+        <description>Daily Recommendation check</description>
+        <schedule>every 24 hours</schedule>
+    </cron>
 </cronentries>

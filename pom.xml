@@ -101,7 +101,7 @@
       <id>local</id>
       <activation>
         <property>
-          <name>${__idea.mac.env.lock}</name>
+          <name>${idea_mac}</name>
         </property>
       </activation>
       <dependencies>
@@ -110,7 +110,6 @@
           <artifactId>struts2-config-browser-plugin</artifactId>
           <version>${struts2.version}</version>
         </dependency>
-
       </dependencies>
     </profile>
   </profiles>
