@@ -26,10 +26,10 @@ public class DailyRecommendationCron extends BaseAction {
         Queue queue = QueueFactory.getDefaultQueue();
 
         for (Bike bike : garage.list()) {
-            LOG.info("Creating daily recommendation check task for {} ({})", bike.getName(), bike.getId());
+            LOG.info("Creating daily recommendation check task for bikeId {}", bike.getId());
             queue.addAsync(TaskOptions.Builder
                     .withUrl("/tasks/daily-recommendation-check")
-                    .taskName(bike.getName().replaceAll(" ", "_") + "-" + bike.getId())
+                    .taskName("bikeId-" + bike.getId())
                     .param("bikeId", bike.getId())
             );
         }
