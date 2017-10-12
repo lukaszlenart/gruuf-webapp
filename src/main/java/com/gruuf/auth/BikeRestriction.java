@@ -17,4 +17,6 @@ public @interface BikeRestriction {
 
     boolean ignoreNullParam() default true;
 
+    Token[] allowedBy() default {};
+
 }

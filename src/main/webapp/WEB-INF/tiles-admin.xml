@@ -48,9 +48,15 @@
     <put-attribute name="title" value="Recommendations"/>
     <put-attribute name="body" value="/WEB-INF/tiles/admin/recommendations.jsp"/>
   </definition>
+
   <definition name="admin/recommendation-input" extends="logged-in">
     <put-attribute name="title" value="Recommendation form"/>
     <put-attribute name="body" value="/WEB-INF/tiles/admin/recommendation-input.jsp"/>
+  </definition>
+
+  <definition name="admin/bikes" extends="logged-in">
+    <put-attribute name="title" expression="I18N:bikes.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/admin/bikes.jsp"/>
   </definition>
 
 </tiles-definitions>

@@ -1,6 +1,7 @@
 package com.gruuf.web.interceptors;
 
 import com.gruuf.auth.BikeRestriction;
+import com.gruuf.auth.Token;
 import com.gruuf.model.Bike;
 import com.gruuf.model.User;
 import com.gruuf.services.Garage;
@@ -38,7 +39,7 @@ public class BikeRestrictionInterceptor extends AbstractInterceptor {
 
             if (parameter.isDefined() && parameter.getValue().length() > 0) {
                 Bike bike = garage.get(parameter.getValue());
-                if (garage.canView(bike, currentUser)) {
+                if (garage.canView(bike, currentUser) || hasRequiredToken(bikeRestriction.allowedBy(), currentUser)) {
                     if (action instanceof BikeAware) {
                         ((BikeAware) action).setBike(bike);
                     }
@@ -57,6 +58,10 @@ public class BikeRestrictionInterceptor extends AbstractInterceptor {
         }
 
         return invocation.invoke();
+    }
+
+    private boolean hasRequiredToken(Token[] allowed, User user) {
+        return allowed.length > 0 && user.hasAnyToken(allowed);
     }
 
     @Inject

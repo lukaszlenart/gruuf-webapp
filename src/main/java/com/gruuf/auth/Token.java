@@ -7,9 +7,9 @@ import java.util.Set;
 
 public enum Token {
 
-    USER, ADMIN;
+    USER, ADMIN, REPORT_READER;
 
     public static Set<Token> all() {
-        return Collections.unmodifiableSet(Sets.newHashSet(USER, ADMIN));
+        return Collections.unmodifiableSet(Sets.newHashSet(USER, ADMIN, REPORT_READER));
     }
 }

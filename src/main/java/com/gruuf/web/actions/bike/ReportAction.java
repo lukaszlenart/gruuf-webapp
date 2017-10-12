@@ -1,6 +1,7 @@
 package com.gruuf.web.actions.bike;
 
 import com.gruuf.auth.BikeRestriction;
+import com.gruuf.auth.Token;
 import com.gruuf.model.BikeDetails;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -9,7 +10,7 @@ import java.util.Date;
 
 import static com.opensymphony.xwork2.Action.INPUT;
 
-@BikeRestriction
+@BikeRestriction(allowedBy = {Token.REPORT_READER})
 @Result(name = INPUT, location = "bike/report")
 public class ReportAction extends BaseBikeAction {
 

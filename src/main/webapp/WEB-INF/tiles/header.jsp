@@ -33,6 +33,10 @@
               <s:a href="%{users}"><s:text name="users.title"/></s:a>
             </li>
             <li>
+              <s:url var="bikes" action="bikes" namespace="/admin"/>
+              <s:a href="%{bikes}"><s:text name="bikes.title"/></s:a>
+            </li>
+            <li>
               <s:url var="eventTypes" action="event-types" namespace="/admin"/>
               <s:a href="%{eventTypes}"><s:text name="eventTypes.title"/></s:a>
             </li>
