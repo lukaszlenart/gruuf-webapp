@@ -1,8 +1,7 @@
 ### TODO
-- [ ] podgląd raportu dla admina
-- [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] dodawanie załączników przy wpisach z historią
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
+- [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] strona z listą wprowadzonych zmian
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
@@ -46,6 +45,7 @@
 - [X] powiadomienia mailem na 7 dni przed Zaleceniem
 - [X] konwersja description na Markdowna
 - [X] generowanie raportów z wykonanych czynności
+- [X] podgląd raportu dla admina
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
