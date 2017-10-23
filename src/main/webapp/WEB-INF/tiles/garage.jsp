@@ -46,7 +46,7 @@
     <s:url var="edit" action="bike-form" namespace="/bike">
       <s:param name="bikeId" value="bike.id"/>
     </s:url>
-    <s:a value="%{edit}" class="btn btn-success"><s:text name="general.edit"/></s:a>
+    <s:a value="%{edit}" class="btn btn-primary"><s:text name="general.edit"/></s:a>
   </p>
 
   <table class="table table-striped">
