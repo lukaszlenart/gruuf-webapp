@@ -73,6 +73,9 @@ public class User {
     }
 
     public String getFullName() {
+        if (firstName == null && lastName == null) {
+            return email;
+        }
         return firstName + " " + lastName;
     }
 
