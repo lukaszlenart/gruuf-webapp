@@ -98,6 +98,21 @@ public class EventType {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EventType eventType = (EventType) o;
+
+        return id.equals(eventType.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
     public static EventTypeCreator create() {
         return new EventTypeCreator(GruufAuth.generateUUID());
     }
