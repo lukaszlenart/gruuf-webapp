@@ -27,7 +27,7 @@ public class DailyRecommendationCron extends BaseAction {
 
         for (Bike bike : garage.list()) {
             LOG.info("Creating daily recommendation check task for bikeId {}", bike.getId());
-            queue.addAsync(TaskOptions.Builder
+            queue.add(TaskOptions.Builder
                     .withUrl("/tasks/daily-recommendation-check")
                     .taskName("bikeId-" + bike.getId())
                     .param("bikeId", bike.getId())
