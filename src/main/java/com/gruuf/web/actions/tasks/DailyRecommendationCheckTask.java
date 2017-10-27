@@ -62,7 +62,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
             User owner = selectedBike.getOwner();
 
-            String subject = getText("recommendations.missingRecommendations");
+            String subject = getText("recommendations.missingRecommendations", new String[] { selectedBike.getName() });
             StringBuilder message = new StringBuilder(getText("recommendations.followingRecommendationsAreGoingToExpire") + ":\n\n");
 
             for (BikeRecommendation recommendation : missingRecommendations) {
