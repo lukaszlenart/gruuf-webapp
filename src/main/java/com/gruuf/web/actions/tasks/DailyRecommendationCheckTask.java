@@ -13,6 +13,8 @@ import com.gruuf.services.Recommendations;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.joda.time.DateTime;
@@ -32,6 +34,8 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 })
 public class DailyRecommendationCheckTask extends BaseAction {
 
+    private static final Logger LOG = LogManager.getLogger(DailyRecommendationCheckTask.class);
+
     private static final Integer MILEAGE_CHECK = 1000;
     private static final int DAYS_CHECK = 14;
     private static final Integer MTH_CHECK = 10;
@@ -45,12 +49,17 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
     public String execute() {
         if (selectedBike == null) {
+            LOG.warn("Select bike is null!");
             return ERROR;
         }
+
+        LOG.info("Performing daily recommendation check for {}", selectedBike);
 
         List<BikeRecommendation> missingRecommendations = listMissingRecommendations();
 
         if (missingRecommendations.size() > 0) {
+            LOG.info("Found missing recommendations");
+
             User owner = selectedBike.getOwner();
 
             String subject = getText("recommendations.missingRecommendations");
@@ -101,6 +110,10 @@ public class DailyRecommendationCheckTask extends BaseAction {
             for (BikeEvent event : bikeEvents) {
                 if (!event.getId().equals(bikeEvent.getId()) && bikeEvent.isMileage() && event.isMileage()) {
                     result = (bikeEvent.getMileage() - event.getMileage()) <= recommendation.getMileagePeriod() - MILEAGE_CHECK;
+
+                    LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
+                            result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
+
                     if (result) {
                         break;
                     }
@@ -116,6 +129,10 @@ public class DailyRecommendationCheckTask extends BaseAction {
                     LocalDate to = new DateTime(event.getRegisterDate()).toLocalDate().plusDays(DAYS_CHECK);
 
                     result = Period.fieldDifference(from, to).getMonths() < recommendation.getMonthPeriod();
+
+                    LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation date={}",
+                            result, bikeEvent.getRegisterDate(), event.getRegisterDate(), recommendation.getMonthPeriod());
+
                     if (result) {
                         break;
                     }
@@ -127,6 +144,10 @@ public class DailyRecommendationCheckTask extends BaseAction {
             for (BikeEvent event : bikeEvents) {
                 if (!event.getId().equals(bikeEvent.getId()) && bikeEvent.isMth() && event.isMth()) {
                     result = (bikeEvent.getMth() - event.getMth()) <= recommendation.getMthPeriod() - MTH_CHECK;
+
+                    LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
+                            result, bikeEvent.getMth(), event.getMth(), recommendation.getMthPeriod());
+
                     if (result) {
                         break;
                     }
