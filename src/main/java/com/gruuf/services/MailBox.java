@@ -9,7 +9,6 @@ import org.apache.struts2.StrutsConstants;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -24,8 +23,8 @@ public class MailBox {
 
     private static final Logger LOG = LogManager.getLogger(MailBox.class);
 
-    public static final String NOREPLY_GRUUF_COM = "noreply@gruuf-webapp.appspotmail.com";
-    //public static final String NOREPLY_GRUUF_COM = "noreply@gruuf.com";
+    //public static final String NOREPLY_GRUUF_COM = "noreply@gruuf-webapp.appspotmail.com";
+    public static final String NOREPLY_GRUUF_COM = "noreply@gruuf.com";
     public static final String GRUUF_APP = "Gruuf App";
 
     private UserStore userStore;
@@ -55,9 +54,9 @@ public class MailBox {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
-        Message msg = new MimeMessage(session);
+        MimeMessage msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(NOREPLY_GRUUF_COM, GRUUF_APP));
-        msg.setSubject("[Gruuf] " + subject);
+        msg.setSubject("[Gruuf] " + subject, "UTF-8");
         return msg;
     }
 
@@ -66,7 +65,7 @@ public class MailBox {
         for (Object param : bodyParams) {
             body.append("\n").append(String.valueOf(param));
         }
-        msg.setText(body.toString());
+        msg.setContent(body.toString(), "text/plain; charset=UTF-8");
 
         if (devMode) {
             LOG.info("\nSending mail:\n{}\n", buildMessageInfo(msg));
