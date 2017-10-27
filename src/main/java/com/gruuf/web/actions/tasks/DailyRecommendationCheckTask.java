@@ -69,12 +69,15 @@ public class DailyRecommendationCheckTask extends BaseAction {
                     .append(":\n\n");
 
             for (BikeRecommendation recommendation : missingRecommendations) {
-                String eventName = recommendation.getEventType().getNames().get(owner.getUserLocale());
-                body.append("- ### ").append(eventName).append(":\n\n");
-                if (recommendation.getDescription().getContent().trim().startsWith("-")) {
-                    body.append("  ").append(recommendation.getDescription().getContent()).append("\n\n");
-                } else {
-                    body.append("  - ").append(recommendation.getDescription().getContent()).append("\n\n");
+                if (recommendation.isNotify()) {
+                    String eventName = recommendation.getEventType().getNames().get(owner.getUserLocale());
+
+                    body.append("### ").append(eventName).append(":\n\n");
+                    if (recommendation.getDescription().getContent().trim().startsWith("-")) {
+                        body.append("  ").append(recommendation.getDescription().getContent()).append("\n\n");
+                    } else {
+                        body.append("  - ").append(recommendation.getDescription().getContent()).append("\n\n");
+                    }
                 }
             }
 
