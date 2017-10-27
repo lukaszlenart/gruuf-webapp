@@ -35,31 +35,37 @@ public class BikeHistory extends Reindexable<BikeEvent> {
     }
 
     public Long findCurrentMileage(Bike bike) {
-        BikeEvent bikeEvent = filter("bike =", bike)
+        Long mileage = null;
+
+        List<BikeEvent> bikeEvents = filter("bike =", bike)
                 .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
                 .order("-timestamp")
-                .limit(1)
-                .first()
-                .now();
+                .list();
 
-        if (bikeEvent == null) {
-            return null;
+        for (BikeEvent event : bikeEvents) {
+            if (mileage == null || mileage.compareTo(event.getMileage()) < 0) {
+                mileage = event.getMileage();
+            }
         }
-        return bikeEvent.getMileage();
+
+        return mileage;
     }
 
     public Long findCurrentMth(Bike bike) {
-        BikeEvent bikeEvent = filter("bike =", bike)
+        Long mth = null;
+
+        List<BikeEvent> bikeEvents = filter("bike =", bike)
                 .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
                 .order("-timestamp")
-                .limit(1)
-                .first()
-                .now();
+                .list();
 
-        if (bikeEvent == null) {
-            return null;
+        for (BikeEvent event : bikeEvents) {
+            if (mth == null || mth.compareTo(event.getMth()) < 0) {
+                mth = event.getMth();
+            }
         }
-        return bikeEvent.getMth();
+
+        return mth;
     }
 
 }
