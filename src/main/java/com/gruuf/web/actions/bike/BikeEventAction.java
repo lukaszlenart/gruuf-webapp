@@ -7,6 +7,7 @@ import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.util.TextParseUtil;
 import com.opensymphony.xwork2.validator.annotations.LongRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -112,6 +113,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return eventTypeIds;
     }
 
+    @RequiredStringValidator(key = "bikeEvent.eventTypeIsRequired")
     @StringLengthFieldValidator(minLength = "4", key = "bikeEvent.eventTypeIsRequired")
     public void setEventTypeIds(String eventTypeIds) {
         this.eventTypeIds = eventTypeIds;
@@ -121,6 +123,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return description;
     }
 
+    @RequiredStringValidator(key = "bikeEvent.descriptionTooShort")
     @StringLengthFieldValidator(minLength = "4", key = "bikeEvent.descriptionTooShort")
     public void setDescription(String description) {
         this.description = description;
@@ -157,10 +160,6 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return currentMileage;
     }
 
-    public void setCurrentMileage(Long currentMileage) {
-        this.currentMileage = currentMileage;
-    }
-
     public String getCurrentMileageHelp() {
         if (currentMileage == null) {
             return getText("bike.currentMileageNotDefined");
@@ -170,10 +169,6 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
 
     public Long getCurrentMth() {
         return currentMth;
-    }
-
-    public void setCurrentMth(Long currentMth) {
-        this.currentMth = currentMth;
     }
 
     public String getCurrentMthHelp() {
