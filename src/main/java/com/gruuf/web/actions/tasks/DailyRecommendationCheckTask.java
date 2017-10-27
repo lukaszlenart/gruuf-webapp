@@ -18,8 +18,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.Period;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +60,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
             User owner = selectedBike.getOwner();
 
-            String subject = getText("recommendations.missingRecommendations", new String[] { selectedBike.getName() });
+            String subject = getText("recommendations.missingRecommendations", new String[]{selectedBike.getName()});
             StringBuilder message = new StringBuilder(getText("recommendations.followingRecommendationsAreGoingToExpire") + ":\n\n");
 
             for (BikeRecommendation recommendation : missingRecommendations) {
@@ -125,10 +123,10 @@ public class DailyRecommendationCheckTask extends BaseAction {
             for (BikeEvent event : bikeEvents) {
                 if (!event.getId().equals(bikeEvent.getId())) {
 
-                    LocalDate from = new DateTime(bikeEvent.getRegisterDate()).toLocalDate();
-                    LocalDate to = new DateTime(event.getRegisterDate()).toLocalDate().plusDays(DAYS_CHECK);
+                    DateTime latestEvent = new DateTime(event.getRegisterDate());
+                    DateTime beforeToday = new DateTime().minusDays(DAYS_CHECK);
 
-                    result = Period.fieldDifference(from, to).getMonths() < recommendation.getMonthPeriod();
+                    result = beforeToday.isAfter(latestEvent);
 
                     LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation date={}",
                             result, bikeEvent.getRegisterDate(), event.getRegisterDate(), recommendation.getMonthPeriod());
