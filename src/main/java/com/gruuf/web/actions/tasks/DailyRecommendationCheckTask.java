@@ -1,6 +1,5 @@
 package com.gruuf.web.actions.tasks;
 
-import com.github.rjeschke.txtmark.Processor;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
@@ -11,6 +10,7 @@ import com.gruuf.services.Garage;
 import com.gruuf.services.MailBox;
 import com.gruuf.services.Recommendations;
 import com.gruuf.web.actions.BaseAction;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -60,17 +60,25 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
             User owner = selectedBike.getOwner();
 
+            // FIXME: implement LocaleProvider instead once fixed in Struts
+            ActionContext.getContext().setLocale(owner.getUserLocale().toLocale());
+
             String subject = getText("recommendations.missingRecommendations", new String[]{selectedBike.getName()});
-            StringBuilder message = new StringBuilder(getText("recommendations.followingRecommendationsAreGoingToExpire") + ":\n\n");
+            StringBuilder body = new StringBuilder("## ")
+                    .append(getText("recommendations.followingRecommendationsAreGoingToExpire"))
+                    .append(":\n\n");
 
             for (BikeRecommendation recommendation : missingRecommendations) {
                 String eventName = recommendation.getEventType().getNames().get(owner.getUserLocale());
-                String content = Processor.process(recommendation.getDescription().getContent());
-
-                message.append(eventName).append(":\n").append(content).append("\n\n");
+                body.append("- ### ").append(eventName).append(":\n\n");
+                if (recommendation.getDescription().getContent().trim().startsWith("-")) {
+                    body.append("  ").append(recommendation.getDescription().getContent()).append("\n\n");
+                } else {
+                    body.append("  - ").append(recommendation.getDescription().getContent()).append("\n\n");
+                }
             }
 
-            mailBox.notifyOwner(owner.getEmail(), owner.getFullName(), subject, message.toString());
+            mailBox.notifyOwner(owner.getEmail(), owner.getFullName(), subject, body.toString());
         }
 
         return SUCCESS;
@@ -104,29 +112,13 @@ public class DailyRecommendationCheckTask extends BaseAction {
     private boolean matchesPeriod(BikeEvent bikeEvent, BikeRecommendation recommendation, List<BikeEvent> bikeEvents) {
         boolean result = false;
 
-        if (recommendation.isMileagePeriod()) {
-            for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId()) && bikeEvent.isMileage() && event.isMileage()) {
-                    result = (bikeEvent.getMileage() - event.getMileage()) <= recommendation.getMileagePeriod() - MILEAGE_CHECK;
-
-                    LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
-                            result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
-
-                    if (result) {
-                        break;
-                    }
-                }
-            }
-        }
-
         if (recommendation.isMonthPeriod()) {
             for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId())) {
+                if (!event.getId().equals(bikeEvent.getId()) && event.getEventTypes().contains(recommendation.getEventType())) {
 
-                    DateTime latestEvent = new DateTime(event.getRegisterDate());
-                    DateTime beforeToday = new DateTime().minusDays(DAYS_CHECK);
+                    DateTime latestEvent = new DateTime(event.getRegisterDate()).plusDays(DAYS_CHECK);
 
-                    result = beforeToday.isAfter(latestEvent);
+                    result = latestEvent.isBeforeNow();
 
                     LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation date={}",
                             result, bikeEvent.getRegisterDate(), event.getRegisterDate(), recommendation.getMonthPeriod());
@@ -138,10 +130,25 @@ public class DailyRecommendationCheckTask extends BaseAction {
             }
         }
 
-        if (recommendation.isMthPeriod()) {
+        if (recommendation.isMileagePeriod() && bikeEvent.isMileage()) {
             for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId()) && bikeEvent.isMth() && event.isMth()) {
-                    result = (bikeEvent.getMth() - event.getMth()) <= recommendation.getMthPeriod() - MTH_CHECK;
+                if (!event.getId().equals(bikeEvent.getId()) && event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
+                    result = (history.findCurrentMileage(selectedBike) - bikeEvent.getMileage() + MILEAGE_CHECK) <= recommendation.getMileagePeriod();
+
+                    LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
+                            result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
+
+                    if (result) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (recommendation.isMthPeriod() && bikeEvent.isMth()) {
+            for (BikeEvent event : bikeEvents) {
+                if (!event.getId().equals(bikeEvent.getId()) && event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
+                    result = (history.findCurrentMth(selectedBike) - bikeEvent.getMth() + MTH_CHECK) <= recommendation.getMthPeriod();
 
                     LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
                             result, bikeEvent.getMth(), event.getMth(), recommendation.getMthPeriod());
@@ -159,6 +166,8 @@ public class DailyRecommendationCheckTask extends BaseAction {
     public void setBikeId(String bikeId) {
         if (StringUtils.isNotEmpty(bikeId)) {
             selectedBike = garage.get(bikeId);
+        } else {
+            LOG.error("bikeId cannot be null!");
         }
     }
 
