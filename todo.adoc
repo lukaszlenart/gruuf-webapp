@@ -1,5 +1,6 @@
 ### TODO
 - [ ] dodawanie załączników przy wpisach z historią
+- [ ] implementacj reCaptcha https://developers.google.com/recaptcha/intro
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
 - [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
