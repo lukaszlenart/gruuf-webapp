@@ -117,7 +117,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
         if (recommendation.isMonthPeriod()) {
             for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId()) && event.getEventTypes().contains(recommendation.getEventType())) {
+                if (event.getEventTypes().contains(recommendation.getEventType())) {
 
                     DateTime latestEvent = new DateTime(event.getRegisterDate()).plusDays(DAYS_CHECK);
 
@@ -135,8 +135,8 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
         if (recommendation.isMileagePeriod() && bikeEvent.isMileage()) {
             for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId()) && event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    result = (history.findCurrentMileage(selectedBike) - bikeEvent.getMileage() + MILEAGE_CHECK) <= recommendation.getMileagePeriod();
+                if (event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
+                    result = (history.findCurrentMileage(selectedBike) - event.getMileage() + MILEAGE_CHECK) <= recommendation.getMileagePeriod();
 
                     LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
                             result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
@@ -150,8 +150,8 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
         if (recommendation.isMthPeriod() && bikeEvent.isMth()) {
             for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId()) && event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    result = (history.findCurrentMth(selectedBike) - bikeEvent.getMth() + MTH_CHECK) <= recommendation.getMthPeriod();
+                if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
+                    result = (history.findCurrentMth(selectedBike) - event.getMth() + MTH_CHECK) <= recommendation.getMthPeriod();
 
                     LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
                             result, bikeEvent.getMth(), event.getMth(), recommendation.getMthPeriod());
