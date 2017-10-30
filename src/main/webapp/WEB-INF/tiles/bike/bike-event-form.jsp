@@ -39,7 +39,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <s:form action="register-bike-event" id="new-bike-event-form" method="POST" cssClass="form-horizontal">
+    <s:form action="register-bike-event" id="bike-event-form" method="POST" cssClass="form-horizontal">
       <s:hidden name="bikeId"/>
       <s:hidden name="bikeEventId"/>
       <s:hidden name="currentMileage"/>
@@ -103,7 +103,7 @@
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-9">
-          <s:submit cssClass="btn btn-primary" key="general.register"/>
+          <s:submit cssClass="btn btn-primary" key="general.save"/>
         </div>
       </div>
     </s:form>

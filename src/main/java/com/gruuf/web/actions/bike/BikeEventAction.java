@@ -21,7 +21,7 @@ import java.util.List;
 
 import static com.opensymphony.xwork2.Action.INPUT;
 
-@Result(name = INPUT, location = "bike/new-bike-event")
+@Result(name = INPUT, location = "bike/bike-event-form")
 @BikeRestriction
 public class BikeEventAction extends BaseBikeAction implements Validateable {
 
