@@ -119,12 +119,12 @@ public class DailyRecommendationCheckTask extends BaseAction {
             for (BikeEvent event : bikeEvents) {
                 if (event.getEventTypes().contains(recommendation.getEventType())) {
 
-                    DateTime latestEvent = new DateTime(event.getRegisterDate()).plusDays(DAYS_CHECK);
+                    DateTime latestEvent = new DateTime(event.getRegisterDate()).plusMonths(recommendation.getMonthPeriod()).minusDays(DAYS_CHECK);
 
-                    result = latestEvent.isBeforeNow();
+                    result = latestEvent.isAfterNow();
 
-                    LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation date={}",
-                            result, bikeEvent.getRegisterDate(), event.getRegisterDate(), recommendation.getMonthPeriod());
+                    LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation period={}",
+                            result, event.getRegisterDate(), latestEvent.toDate(), recommendation.getMonthPeriod());
 
                     if (result) {
                         break;
