@@ -68,7 +68,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return INPUT;
     }
 
-    @Action("register-bike-event")
+    @Action("update-bike-event")
     public String registerBikeEvent() {
         if (StringUtils.isEmpty(bikeEventId)) {
             LOG.debug("Registering new bike event for bike {}", getBikeId());

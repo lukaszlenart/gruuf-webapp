@@ -39,7 +39,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <s:form action="register-bike-event" id="bike-event-form" method="POST" cssClass="form-horizontal">
+    <s:form action="update-bike-event" id="bike-event-form" method="POST" cssClass="form-horizontal">
       <s:hidden name="bikeId"/>
       <s:hidden name="bikeEventId"/>
       <s:hidden name="currentMileage"/>
