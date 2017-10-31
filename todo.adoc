@@ -8,6 +8,14 @@
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
 - [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
 
+### Aplikacja mobilna
+- [ ] wersja light - działa tylko on-line (brak cachowania)
+  - [ ] logowanie
+  - [ ] podstawowe informacje o motocyklu
+  - [ ] historia
+  - [ ] dodawanie zdarzenia
+  - [ ] wyświetlanie zaleceń
+
 ### DONE
 - [X] tokeny i dostep do stron
 - [X] zarządzanie użytkownikami
