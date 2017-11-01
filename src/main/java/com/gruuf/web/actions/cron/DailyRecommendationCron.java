@@ -33,27 +33,32 @@ public class DailyRecommendationCron extends BaseAction {
         queue.purge();
 
         for (Bike bike : garage.list()) {
-            LOG.info("Creating daily recommendation check task for bikeId {}", bike.getId());
-            String taskName = "bikeId-" + bike.getId() + "-" + GruufAuth.generateUUID();
-            try {
-                TaskHandle handle = queue.add(TaskOptions.Builder
-                        .withUrl("/tasks/daily-recommendation-check")
-                        .taskName(taskName)
-                        .param("bikeId", bike.getId())
-                );
-                LOG.info("A new task was added to the queue: {}", handle);
-            } catch (TaskAlreadyExistsException e) {
-                LOG.error(new ParameterizedMessage("Task already exists {}, deleting it", taskName), e);
-                if (queue.deleteTask(taskName)) {
-                    LOG.info("Deleted task: {}", taskName);
-                } else {
-                    LOG.error("Cannot delete task: {}", taskName);
-                }
+            if(bike.getOwner().isNotify()) {
+                createTask(queue, bike);
             }
-
         }
 
         return SUCCESS;
+    }
+
+    private void createTask(Queue queue, Bike bike) {
+        LOG.info("Creating daily recommendation check task for bikeId {}", bike.getId());
+        String taskName = "bikeId-" + bike.getId() + "-" + GruufAuth.generateUUID();
+        try {
+            TaskHandle handle = queue.add(TaskOptions.Builder
+                    .withUrl("/tasks/daily-recommendation-check")
+                    .taskName(taskName)
+                    .param("bikeId", bike.getId())
+            );
+            LOG.info("A new task was added to the queue: {}", handle);
+        } catch (TaskAlreadyExistsException e) {
+            LOG.error(new ParameterizedMessage("Task already exists {}, deleting it", taskName), e);
+            if (queue.deleteTask(taskName)) {
+                LOG.info("Deleted task: {}", taskName);
+            } else {
+                LOG.error("Cannot delete task: {}", taskName);
+            }
+        }
     }
 
     @Inject
