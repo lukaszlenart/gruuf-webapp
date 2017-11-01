@@ -29,6 +29,7 @@ public class EditUserAction extends BaseAction {
     private String firstName;
     private String lastName;
     private UserLocale userLocale;
+    private boolean notify;
     private Set<Token> tokens;
 
     @SkipValidation
@@ -41,6 +42,7 @@ public class EditUserAction extends BaseAction {
         firstName = user.getFirstName();
         lastName = user.getLastName();
         userLocale = user.getUserLocale();
+        notify = user.isNotify();
         tokens = user.getTokens();
 
         return INPUT;
@@ -62,6 +64,7 @@ public class EditUserAction extends BaseAction {
                 .withFirstName(firstName)
                 .withLastName(lastName)
                 .withUserLocale(userLocale)
+                .withNotify(notify)
                 .build();
 
         LOG.debug("Storing updated user {}", updatedUser);
@@ -128,6 +131,14 @@ public class EditUserAction extends BaseAction {
 
     public void setUserLocale(UserLocale userLocale) {
         this.userLocale = userLocale;
+    }
+
+    public boolean isNotify() {
+        return notify;
+    }
+
+    public void setNotify(boolean notify) {
+        this.notify = notify;
     }
 
     public Set<Token> getAvailableTokens() {

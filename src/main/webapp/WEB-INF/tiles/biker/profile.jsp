@@ -32,6 +32,12 @@
                 labelCssClass="col-md-4"
                 elementCssClass="col-sm-1"/>
 
+      <s:set var="s2b_form_label_class" value="'col-sm-4'"/>
+      <s:set var="s2b_form_element_class" value="'col-sm-8'"/>
+      <s:checkbox name="notify"
+                  key="biker.notify"
+                  labelposition="inline"/>
+
       <s:password name="password1"
                   key="biker.password"
                   placeholder="%{getText('biker.password.placeholder')}"

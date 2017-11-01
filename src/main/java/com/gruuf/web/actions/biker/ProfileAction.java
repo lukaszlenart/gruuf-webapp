@@ -40,6 +40,7 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
         User.UserCreator user = User.clone(currentUser)
                 .withFirstName(firstName)
                 .withLastName(lastName)
+                .withNotify(notify)
                 .withUserLocale(userLocale);
 
         if (!currentUser.getEmail().equals(email)) {
@@ -88,12 +89,14 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
         firstName = currentUser.getFirstName();
         lastName = currentUser.getLastName();
         userLocale = currentUser.getUserLocale();
+        notify = currentUser.isNotify();
     }
 
     private String email;
     private String firstName;
     private String lastName;
     private UserLocale userLocale;
+    private boolean notify;
     private String password1;
     private String password2;
 
@@ -147,4 +150,11 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
         this.password2 = password2;
     }
 
+    public boolean isNotify() {
+        return notify;
+    }
+
+    public void setNotify(boolean notify) {
+        this.notify = notify;
+    }
 }

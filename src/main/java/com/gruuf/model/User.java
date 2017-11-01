@@ -26,6 +26,8 @@ public class User {
     private String firstName;
     private String lastName;
     private UserLocale userLocale;
+    private boolean notify;
+
     private Date timestamp;
 
     private User() {
@@ -68,6 +70,10 @@ public class User {
         return userLocale != null ? userLocale : UserLocale.EN;
     }
 
+    public boolean isNotify() {
+        return notify;
+    }
+
     public Date getTimestamp() {
         return timestamp;
     }
@@ -88,6 +94,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userLocale=" + userLocale +
+                ", notify=" + notify +
                 ", timestamp=" + timestamp +
                 '}';
     }
@@ -114,6 +121,7 @@ public class User {
             target = new User();
             target.id = id;
             target.userLocale = UserLocale.EN;
+            target.notify = true;
             target.timestamp = new Date();
         }
 
@@ -160,6 +168,11 @@ public class User {
 
         public UserCreator withUserLocale(UserLocale locale) {
             target.userLocale = locale;
+            return this;
+        }
+
+        public UserCreator withNotify(boolean notify) {
+            target.notify = notify;
             return this;
         }
 

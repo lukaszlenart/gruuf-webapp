@@ -31,6 +31,9 @@
                 label="User locale"
                 elementCssClass="col-sm-2"/>
 
+      <s:checkbox name="notify"
+                  label="Notify"/>
+
       <div class="form-group">
         <div class="col-sm-offset-3 col-md-9">
           <s:submit cssClass="btn btn-primary" key="Change" />
