@@ -3,6 +3,7 @@
 - [ ] implementacja reCaptcha https://developers.google.com/recaptcha/intro
 - [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
+- [ ] wyszukiwanie motocykla po VIN z opcją "przejęcia" historii
 - [ ] strona z listą wprowadzonych zmian
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory

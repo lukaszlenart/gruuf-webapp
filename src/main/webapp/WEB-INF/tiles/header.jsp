@@ -22,6 +22,10 @@
           <s:url var="addBike" action="bike-form" namespace="/bike"/>
           <s:a href="%{addBike}"><s:text name="bike.add"/></s:a>
         </li>
+        <li>
+          <s:url var="vinCheck" action="vin-check" namespace="/bike"/>
+          <s:a href="%{vinCheck}"><s:text name="bike.vinCheck"/></s:a>
+        </li>
         <s:if test="admin">
         <li role="presentation" class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
