@@ -8,6 +8,7 @@ import com.google.appengine.api.taskqueue.TaskOptions;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
 import com.gruuf.services.Garage;
+import com.gruuf.web.GruufAuth;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +34,7 @@ public class DailyRecommendationCron extends BaseAction {
 
         for (Bike bike : garage.list()) {
             LOG.info("Creating daily recommendation check task for bikeId {}", bike.getId());
-            String taskName = "bikeId-" + bike.getId();
+            String taskName = "bikeId-" + bike.getId() + "-" + GruufAuth.generateUUID();
             try {
                 TaskHandle handle = queue.add(TaskOptions.Builder
                         .withUrl("/tasks/daily-recommendation-check")
