@@ -44,8 +44,14 @@
     <th><s:text name="bikeEvent.eventType"/></th>
     <th><s:text name="bikeEvent.description"/></th>
     <th><s:text name="bikeEvent.eventDate"/></th>
-    <th><s:text name="bikeEvent.mileage"/></th>
-    <th><s:text name="bikeEvent.mth"/></th>
+    <th>
+      <s:text name="bikeEvent.mileage"/>
+      (<s:text name="general.current"/>)
+    </th>
+    <th>
+      <s:text name="bikeEvent.mth"/>
+      (<s:text name="general.current"/>)
+    </th>
     <th><s:text name="general.timestamp"/>
     <th><s:text name="general.actions"/>
   </tr>
@@ -64,11 +70,23 @@
       <td class="text-nowrap">
         <s:date name="registerDate" format="%{userDateFormat}"/>
       </td>
-      <td class="text-nowrap">
+      <td>
         <s:number name="mileage"/>
+        <s:if test="isCurrentMileage()">
+        <span class="badge" title="<s:text name='bikeEvent.currentMileage.title'/>">
+          <s:number name="getCurrentMileage()"/>
+          <i class="fa fa-repeat"></i>
+        </span>
+        </s:if>
       </td>
-      <td class="text-nowrap">
+      <td>
         <s:number name="mth"/>
+        <s:if test="isCurrentMth()">
+        <span class="badge" title="<s:text name='bikeEvent.currentMth.title'/>">
+          <s:number name="getCurrentMth()"/>
+          <i class="fa fa-repeat"></i>
+        </span>
+        </s:if>
       </td>
       <td class="text-nowrap">
         <s:date name="timestamp" format="%{userDateFormat}"/>

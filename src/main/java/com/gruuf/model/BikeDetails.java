@@ -26,21 +26,14 @@ public class BikeDetails {
         return this;
     }
 
-    public BikeDetails withHistory(UserLocale locale, List<BikeEvent> bikeEvents) {
+    public BikeDetails withHistory(UserLocale locale, List<BikeEvent> bikeEvents, Long currentMileage, Long currentMth) {
+        mileage = currentMileage;
+        mth = currentMth;
+
         events = new ArrayList<>();
         for (BikeEvent event : bikeEvents) {
-            events.add(new BikeEventDescriptor(locale, event));
+            events.add(new BikeEventDescriptor(locale, event, currentMileage, currentMth));
         }
-        return this;
-    }
-
-    public BikeDetails withMileage(Long mileage) {
-        this.mileage = mileage;
-        return this;
-    }
-
-    public BikeDetails withMth(Long mth) {
-        this.mth = mth;
         return this;
     }
 

@@ -54,7 +54,12 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
         List<BikeEvent> events = bikeHistory.listByBike(selectedBike);
         LOG.debug("Found Bike Events for bike {}: {}", selectedBike, events);
 
-        return BikeDetails.create(selectedBike).withUser(currentUser).withHistory(currentUser.getUserLocale(), events);
+        Long currentMileage = bikeHistory.findCurrentMileage(selectedBike);
+        Long currentMth = bikeHistory.findCurrentMth(selectedBike);
+
+        return BikeDetails.create(selectedBike)
+                .withUser(currentUser)
+                .withHistory(currentUser.getUserLocale(), events, currentMileage, currentMth);
     }
 
     @Override

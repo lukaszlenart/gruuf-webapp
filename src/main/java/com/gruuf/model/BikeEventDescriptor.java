@@ -1,19 +1,25 @@
 package com.gruuf.model;
 
-import com.github.rjeschke.txtmark.Processor;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class BikeEventDescriptor {
 
-    private UserLocale locale;
-    private BikeEvent bikeEvent;
+    private final UserLocale locale;
+    private final BikeEvent bikeEvent;
+    private final Long currentMileage;
+    private final Long currentMth;
 
-    public BikeEventDescriptor(UserLocale locale, BikeEvent bikeEvent) {
+    public BikeEventDescriptor(UserLocale locale, BikeEvent bikeEvent, Long currentMileage, Long currentMth) {
         this.locale = locale;
         this.bikeEvent = bikeEvent;
+        this.currentMileage = currentMileage;
+        this.currentMth = currentMth;
+    }
+
+    public BikeEventDescriptor(UserLocale locale, BikeEvent bikeEvent) {
+        this(locale, bikeEvent, null, null);
     }
 
     public String getId() {
@@ -48,8 +54,28 @@ public class BikeEventDescriptor {
         return bikeEvent.getMileage();
     }
 
-    public Long getMth() {
-        return bikeEvent.getMth();
+    public boolean isCurrentMileage() {
+        return bikeEvent.isMileage() && currentMileage != null && bikeEvent.getStatus() != BikeEventStatus.SYSTEM;
+    }
+
+    public Long getCurrentMileage() {
+        Long mileage = bikeEvent.getMileage();
+        if (isCurrentMileage()) {
+            return currentMileage - mileage;
+        }
+        return mileage;
+    }
+
+    public boolean isCurrentMth() {
+        return bikeEvent.isMth() && currentMth != null && bikeEvent.getStatus() != BikeEventStatus.SYSTEM;
+    }
+
+    public Long getCurrentMth() {
+        Long mth = bikeEvent.getMth();
+        if (isCurrentMth()) {
+            return currentMth - mth;
+        }
+        return mth;
     }
 
     public BikeEventStatus getStatus() {

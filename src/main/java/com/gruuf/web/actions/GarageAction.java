@@ -49,12 +49,13 @@ public class GarageAction extends BaseAction {
 
         for (Bike bike : bikes) {
             List<BikeEvent> events = bikeHistory.listRecentByBike(bike);
+            Long currentMileage = bikeHistory.findCurrentMileage(bike);
+            Long currentMth = bikeHistory.findCurrentMth(bike);
+
             bikeDetails.add(
                     BikeDetails.create(bike)
                             .withUser(currentUser)
-                            .withHistory(currentUser.getUserLocale(), events)
-                            .withMileage(bikeHistory.findCurrentMileage(bike))
-                            .withMth(bikeHistory.findCurrentMth(bike))
+                            .withHistory(currentUser.getUserLocale(), events, currentMileage, currentMth)
             );
         }
 
