@@ -6,8 +6,6 @@ import com.gruuf.model.BikeMetadata;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.User;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.Period;
 
 import java.util.List;
 
@@ -20,10 +18,15 @@ public class Recommendations extends Reindexable<BikeRecommendation> {
     public static boolean matchesPeriod(BikeEvent bikeEvent, BikeRecommendation recommendation, List<BikeEvent> bikeEvents) {
         boolean result = false;
 
-        if (recommendation.isMileagePeriod()) {
+        if (recommendation.isMonthPeriod()) {
             for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId()) && bikeEvent.isMileage() && event.isMileage()) {
-                    result = (bikeEvent.getMileage() - event.getMileage()) <= recommendation.getMileagePeriod();
+                if (!event.getId().equals(bikeEvent.getId())) {
+
+                    DateTime from = new DateTime(bikeEvent.getRegisterDate());
+                    DateTime to = from.plusMonths(recommendation.getMonthPeriod());
+
+                    result = to.isAfterNow();
+
                     if (result) {
                         break;
                     }
@@ -31,14 +34,10 @@ public class Recommendations extends Reindexable<BikeRecommendation> {
             }
         }
 
-        if (recommendation.isMonthPeriod()) {
+        if (recommendation.isMileagePeriod()) {
             for (BikeEvent event : bikeEvents) {
-                if (!event.getId().equals(bikeEvent.getId())) {
-
-                    LocalDate from = new DateTime(bikeEvent.getRegisterDate()).toLocalDate();
-                    LocalDate to = new DateTime(event.getRegisterDate()).toLocalDate();
-
-                    result = Period.fieldDifference(from, to).getMonths() < recommendation.getMonthPeriod();
+                if (!event.getId().equals(bikeEvent.getId()) && bikeEvent.isMileage() && event.isMileage()) {
+                    result = (bikeEvent.getMileage() - event.getMileage()) <= recommendation.getMileagePeriod();
                     if (result) {
                         break;
                     }
