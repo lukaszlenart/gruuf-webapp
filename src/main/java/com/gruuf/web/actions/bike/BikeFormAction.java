@@ -37,6 +37,8 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
             mth = bikeHistory.findCurrentMth(selectedBike);
             currentMileage = mileage;
             currentMth = mth;
+            showMileage = selectedBike.isShowMileage();
+            showMth = selectedBike.isShowMth();
         }
         return INPUT;
     }
@@ -51,6 +53,8 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                     .withBikeMetadataId(bikeMetadataId)
                     .withVIN(vin)
                     .withModelYear(modelYear)
+                    .withShowMileage(showMileage)
+                    .withShowMth(showMth)
                     .build();
 
             selectedBike = garage.put(bike);
@@ -61,6 +65,8 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                     .withBikeMetadataId(bikeMetadataId)
                     .withVIN(vin)
                     .withModelYear(modelYear)
+                    .withShowMileage(showMileage)
+                    .withShowMth(showMth)
                     .build();
 
             selectedBike = garage.put(bike);
@@ -150,6 +156,8 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
     private Long mth;
     private Long currentMileage;
     private Long currentMth;
+    private boolean showMileage;
+    private boolean showMth;
 
     public String getFriendlyName() {
         return friendlyName;
@@ -215,6 +223,22 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
 
     public void setCurrentMth(Long currentMth) {
         this.currentMth = currentMth;
+    }
+
+    public boolean isShowMileage() {
+        return showMileage;
+    }
+
+    public void setShowMileage(boolean showMileage) {
+        this.showMileage = showMileage;
+    }
+
+    public boolean isShowMth() {
+        return showMth;
+    }
+
+    public void setShowMth(boolean showMth) {
+        this.showMth = showMth;
     }
 
     public List<BikeMetadataOption> getBikeMetadata() {

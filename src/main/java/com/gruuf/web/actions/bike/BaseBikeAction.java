@@ -67,6 +67,10 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
         this.selectedBike = bike;
     }
 
+    public Bike getSelectedBike() {
+        return selectedBike;
+    }
+
     public String getBikeId() {
         if (selectedBike != null) {
             return selectedBike.getId();

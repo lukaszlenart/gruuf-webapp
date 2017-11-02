@@ -20,6 +20,9 @@ public class Bike {
     private String vin;
     private Integer modelYear;
 
+    private boolean showMileage = true;
+    private boolean showMth = true;
+
     private Ref<BikeMetadata> bikeMetadata;
 
     private Bike() {
@@ -56,6 +59,14 @@ public class Bike {
         return bikeMetadata.get();
     }
 
+    public boolean isShowMileage() {
+        return showMileage;
+    }
+
+    public boolean isShowMth() {
+        return showMth;
+    }
+
     @Override
     public String toString() {
         return "Bike{" +
@@ -64,6 +75,8 @@ public class Bike {
                 ", owner=" + owner +
                 ", vin='" + vin + '\'' +
                 ", modelYear=" + modelYear +
+                ", showMileage=" + showMileage +
+                ", showMth=" + showMth +
                 ", bikeMetadata=" + bikeMetadata +
                 '}';
     }
@@ -118,6 +131,16 @@ public class Bike {
             if (StringUtils.isNoneEmpty(bikeMetadataId)) {
                 target.bikeMetadata = Ref.create(Key.create(BikeMetadata.class, bikeMetadataId));
             }
+            return this;
+        }
+
+        public BikeBuilder withShowMileage(boolean showMileage) {
+            target.showMileage = showMileage;
+            return this;
+        }
+
+        public BikeBuilder withShowMth(boolean showMth) {
+            target.showMth = showMth;
             return this;
         }
 

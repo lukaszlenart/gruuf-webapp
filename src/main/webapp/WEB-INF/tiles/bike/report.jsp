@@ -15,8 +15,12 @@
       <th><s:text name="bikeEvent.eventType"/></th>
       <th><s:text name="bikeEvent.description"/></th>
       <th><s:text name="bikeEvent.eventDate"/></th>
+      <s:if test="selectedBike.showMileage">
       <th><s:text name="bikeEvent.mileage"/></th>
+      </s:if>
+      <s:if test="selectedBike.showMth">
       <th><s:text name="bikeEvent.mth"/></th>
+      </s:if>
       <th><s:text name="general.timestamp"/>
     </tr>
     </thead>
@@ -34,12 +38,16 @@
         <td class="text-nowrap">
           <s:date name="registerDate" format="%{userDateFormat}"/>
         </td>
+        <s:if test="selectedBike.showMileage">
         <td class="text-nowrap">
           <s:number name="mileage"/>
         </td>
+        </s:if>
+        <s:if test="selectedBike.showMth">
         <td class="text-nowrap">
           <s:number name="mth"/>
         </td>
+        </s:if>
         <td class="text-nowrap">
           <s:date name="timestamp" format="%{userDateFormat}"/>
         </td>

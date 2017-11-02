@@ -3,6 +3,7 @@ package com.gruuf.web.actions.bike;
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
+import com.opensymphony.xwork2.Preparable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -13,11 +14,12 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Result(name = INPUT, location = "bike/history")
 @BikeRestriction
-public class HistoryAction extends BaseBikeAction {
+public class HistoryAction extends BaseBikeAction implements Preparable {
 
     private static Logger LOG = LogManager.getLogger(HistoryAction.class);
 
     private String bikeEventId;
+    private BikeDetails bikeDetails;
 
     @SkipValidation
     public String execute() {
@@ -42,11 +44,15 @@ public class HistoryAction extends BaseBikeAction {
     }
 
     public BikeDetails getBikeDetails() {
-        return loadBikeDetails();
+        return bikeDetails;
     }
 
     public void setBikeEventId(String bikeEventId) {
         this.bikeEventId = bikeEventId;
     }
 
+    @Override
+    public void prepare() throws Exception {
+        bikeDetails = loadBikeDetails();
+    }
 }

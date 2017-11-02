@@ -61,6 +61,12 @@
                    cssClass="input-md"/>
       <s:hidden name="currentMileage"/>
 
+      <s:set var="s2b_form_label_class" value="'col-sm-2'"/>
+      <s:set var="s2b_form_element_class" value="'col-sm-8'"/>
+
+      <s:checkbox name="showMileage"
+                  key="bike.showMileage"/>
+
       <s:textfield name="mth"
                    key="bike.mth"
                    type="number"
@@ -69,6 +75,9 @@
                    elementCssClass="col-md-2"
                    cssClass="input-md"/>
       <s:hidden name="currentMth"/>
+
+      <s:checkbox name="showMth"
+                  key="bike.showMth"/>
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-9">
