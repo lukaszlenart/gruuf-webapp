@@ -4,15 +4,14 @@ import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeRecommendation;
-import com.gruuf.model.User;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.services.MailBox;
 import com.gruuf.services.Recommendations;
+import com.gruuf.services.UserStore;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.inject.Inject;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
@@ -38,66 +37,70 @@ public class DailyRecommendationCheckTask extends BaseAction {
     private static final int DAYS_CHECK = 14;
     private static final Integer MTH_CHECK = 10;
 
-    private Bike selectedBike;
-
+    private UserStore userStore;
     private Garage garage;
     private Recommendations recommendations;
     private BikeHistory history;
     private MailBox mailBox;
 
     public String execute() {
-        if (selectedBike == null) {
-            LOG.warn("Select bike is null!");
+        if (currentUser == null) {
+            LOG.warn("User is null!");
             return ERROR;
         }
 
-        LOG.info("Performing daily recommendation check for {}", selectedBike);
+        LOG.info("Performing daily recommendation check for {}", currentUser.getFullName());
 
-        List<BikeRecommendation> missingRecommendations = listMissingRecommendations();
+        StringBuilder body = null;
 
-        if (missingRecommendations.size() > 0) {
-            LOG.info("Found missing recommendations");
+        for (Bike bike : garage.findByOwner(currentUser)) {
+            List<BikeRecommendation> missingRecommendations = listMissingRecommendations(bike);
 
-            User owner = selectedBike.getOwner();
+            if (missingRecommendations.size() > 0) {
+                LOG.info("Found missing recommendations");
 
-            // FIXME: implement LocaleProvider instead once fixed in Struts
-            ActionContext.getContext().setLocale(owner.getUserLocale().toLocale());
+                // FIXME: implement LocaleProvider instead, once fixed in Struts
+                ActionContext.getContext().setLocale(currentUser.getUserLocale().toLocale());
 
-            String subject = getText("recommendations.missingRecommendations", new String[]{selectedBike.getName()});
-            StringBuilder body = new StringBuilder("## ")
-                    .append(getText("recommendations.followingRecommendationsAreGoingToExpire"))
-                    .append(":\n\n");
+                body = new StringBuilder("# ")
+                        .append(getText("recommendations.followingRecommendationsAreGoingToExpire")).append("\n\n")
+                        .append("## ").append(bike.getName()).append(":\n\n");
 
-            for (BikeRecommendation recommendation : missingRecommendations) {
-                if (recommendation.isNotify()) {
-                    String eventName = recommendation.getEventType().getNames().get(owner.getUserLocale());
+                for (BikeRecommendation recommendation : missingRecommendations) {
+                    if (recommendation.isNotify()) {
+                        String eventName = recommendation.getEventType().getNames().get(currentUser.getUserLocale());
 
-                    body.append("### ").append(eventName).append(":\n\n");
-                    if (recommendation.getDescription().getContent().trim().startsWith("-")) {
-                        body.append("  ").append(recommendation.getDescription().getContent()).append("\n\n");
-                    } else {
-                        body.append("  - ").append(recommendation.getDescription().getContent()).append("\n\n");
+                        body.append("### ").append(eventName).append(":\n\n");
+                        if (recommendation.getDescription().getContent().trim().startsWith("-")) {
+                            body.append("  ").append(recommendation.getDescription().getContent()).append("\n\n");
+                        } else {
+                            body.append("  - ").append(recommendation.getDescription().getContent()).append("\n\n");
+                        }
                     }
                 }
-            }
 
-            mailBox.notifyOwner(owner.getEmail(), owner.getFullName(), subject, body.toString());
+            }
+        }
+
+        if (body != null) {
+            String subject = getText("recommendations.missingRecommendations");
+            mailBox.notifyOwner(currentUser.getEmail(), currentUser.getFullName(), subject, body.toString());
         }
 
         return SUCCESS;
     }
 
-    private List<BikeRecommendation> listMissingRecommendations() {
+    private List<BikeRecommendation> listMissingRecommendations(Bike bike) {
 
-        List<BikeRecommendation> recommendations = this.recommendations.listFor(selectedBike.getBikeMetadata());
-        List<BikeEvent> bikeEvents = history.listByBike(selectedBike);
+        List<BikeRecommendation> recommendations = this.recommendations.listFor(bike.getBikeMetadata());
+        List<BikeEvent> bikeEvents = history.listByBike(bike);
 
         List<BikeRecommendation> missingRecommendations = new ArrayList<>();
         for (BikeRecommendation recommendation : recommendations) {
             boolean missingRecommendation = true;
             for (BikeEvent bikeEvent : bikeEvents) {
                 if (bikeEvent.getEventTypes().contains(recommendation.getEventType())) {
-                    if (matchesPeriod(bikeEvent, recommendation, bikeEvents)) {
+                    if (matchesPeriod(bike, bikeEvent, recommendation, bikeEvents)) {
                         missingRecommendation = false;
                         break;
                     }
@@ -112,7 +115,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
         return missingRecommendations;
     }
 
-    private boolean matchesPeriod(BikeEvent bikeEvent, BikeRecommendation recommendation, List<BikeEvent> bikeEvents) {
+    private boolean matchesPeriod(Bike bike, BikeEvent bikeEvent, BikeRecommendation recommendation, List<BikeEvent> bikeEvents) {
         boolean result = false;
 
         if (recommendation.isMonthPeriod()) {
@@ -136,7 +139,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMileagePeriod() && bikeEvent.isMileage()) {
             for (BikeEvent event : bikeEvents) {
                 if (event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    result = (history.findCurrentMileage(selectedBike) - event.getMileage() + MILEAGE_CHECK) <= recommendation.getMileagePeriod();
+                    result = (history.findCurrentMileage(bike) - event.getMileage() + MILEAGE_CHECK) <= recommendation.getMileagePeriod();
 
                     LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
                             result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
@@ -151,7 +154,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMthPeriod() && bikeEvent.isMth()) {
             for (BikeEvent event : bikeEvents) {
                 if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    result = (history.findCurrentMth(selectedBike) - event.getMth() + MTH_CHECK) <= recommendation.getMthPeriod();
+                    result = (history.findCurrentMth(bike) - event.getMth() + MTH_CHECK) <= recommendation.getMthPeriod();
 
                     LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
                             result, bikeEvent.getMth(), event.getMth(), recommendation.getMthPeriod());
@@ -164,14 +167,6 @@ public class DailyRecommendationCheckTask extends BaseAction {
         }
 
         return result;
-    }
-
-    public void setBikeId(String bikeId) {
-        if (StringUtils.isNotEmpty(bikeId)) {
-            selectedBike = garage.get(bikeId);
-        } else {
-            LOG.error("bikeId cannot be null!");
-        }
     }
 
     @Inject
@@ -192,5 +187,14 @@ public class DailyRecommendationCheckTask extends BaseAction {
     @Inject
     public void setMailBox(MailBox mailBox) {
         this.mailBox = mailBox;
+    }
+
+    @Inject
+    public void setUserStore(UserStore userStore) {
+        this.userStore = userStore;
+    }
+
+    public void setUserId(String userId) {
+        setUser(userStore.get(userId));
     }
 }
