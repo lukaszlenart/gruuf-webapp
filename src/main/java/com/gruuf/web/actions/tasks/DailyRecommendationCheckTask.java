@@ -58,12 +58,14 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
             if (missingRecommendations.size() > 0) {
                 LOG.info("Found missing recommendations");
+                if (body == null) {
+                    body = new StringBuilder("# ");
+                }
 
                 // FIXME: implement LocaleProvider instead, once fixed in Struts
                 ActionContext.getContext().setLocale(currentUser.getUserLocale().toLocale());
 
-                body = new StringBuilder("# ")
-                        .append(getText("recommendations.followingRecommendationsAreGoingToExpire")).append("\n\n")
+                body.append(getText("recommendations.followingRecommendationsAreGoingToExpire")).append("\n\n")
                         .append("## ").append(bike.getName()).append(":\n\n");
 
                 for (BikeRecommendation recommendation : missingRecommendations) {
