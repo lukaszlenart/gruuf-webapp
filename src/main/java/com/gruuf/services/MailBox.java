@@ -1,6 +1,8 @@
 package com.gruuf.services;
 
 import com.gruuf.model.User;
+import com.opensymphony.xwork2.TextProvider;
+import com.opensymphony.xwork2.TextProviderFactory;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +31,7 @@ public class MailBox {
 
     private UserStore userStore;
     private boolean devMode;
+    private TextProviderFactory textProviderFactory;
 
     public void notifyAdmin(String subject, String text, Object... bodyParams) {
         try {
@@ -62,9 +65,15 @@ public class MailBox {
 
     private void sendMessage(String text, Message msg, Object[] bodyParams) throws MessagingException, IOException {
         StringBuilder body = new StringBuilder(text);
+
         for (Object param : bodyParams) {
-            body.append("\n").append(String.valueOf(param));
+            body.append("\n").append(String.valueOf(param)).append("\n");
         }
+
+        TextProvider textProvider = textProviderFactory.createInstance(getClass());
+        body.append("\n").append(textProvider.getText("user.changeNotificationSettingsAt")).append("\n")
+                .append("https://gruuf.com/").append("\n");
+
         msg.setContent(body.toString(), "text/plain; charset=UTF-8");
 
         if (devMode) {
@@ -94,6 +103,11 @@ public class MailBox {
     @Inject
     public void setUserStore(UserStore userStore) {
         this.userStore = userStore;
+    }
+
+    @Inject
+    public void setTextProviderFactory(TextProviderFactory textProviderFactory) {
+        this.textProviderFactory = textProviderFactory;
     }
 
     @Inject(StrutsConstants.STRUTS_DEVMODE)
