@@ -45,15 +45,21 @@
     <th><s:text name="bikeEvent.description"/></th>
     <th><s:text name="bikeEvent.eventDate"/></th>
     <s:if test="bikeDetails.bike.showMileage">
-    <th>
-      <s:text name="bikeEvent.mileage"/>
-      (<s:text name="general.current"/>)
+    <th class="text-center">
+      <span class="clearfix"><s:text name="bikeEvent.mileage"/></span>
+      <span class="badge">
+        <s:text name="general.current"/>
+        <i class="fa fa-repeat"></i>
+      </span>
     </th>
     </s:if>
     <s:if test="bikeDetails.bike.showMth">
-    <th>
-      <s:text name="bikeEvent.mth"/>
-      (<s:text name="general.current"/>)
+    <th class="text-center">
+      <span class="clearfix"><s:text name="bikeEvent.mth"/></span>
+      <span class="badge">
+        <s:text name="general.current"/>
+        <i class="fa fa-repeat"></i>
+      </span>
     </th>
     </s:if>
     <th><s:text name="general.timestamp"/>
@@ -75,8 +81,8 @@
         <s:date name="registerDate" format="%{userDateFormat}"/>
       </td>
       <s:if test="bikeDetails.bike.showMileage">
-      <td>
-        <s:number name="mileage"/>
+      <td class="text-center">
+        <span class="clearfix"><s:number name="mileage"/></span>
         <s:if test="isCurrentMileage()">
         <span class="badge" title="<s:text name='bikeEvent.currentMileage.title'/>">
           <s:number name="getCurrentMileage()"/>
@@ -86,8 +92,8 @@
       </td>
       </s:if>
       <s:if test="bikeDetails.bike.showMth">
-      <td>
-        <s:number name="mth"/>
+      <td class="text-center">
+        <span class="clearfix"><s:number name="mth"/></span>
         <s:if test="isCurrentMth()">
         <span class="badge" title="<s:text name='bikeEvent.currentMth.title'/>">
           <s:number name="getCurrentMth()"/>
