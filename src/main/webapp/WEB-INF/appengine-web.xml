@@ -4,6 +4,7 @@
   <version>2</version>
   <sessions-enabled>true</sessions-enabled>
   <threadsafe>true</threadsafe>
+  <runtime>java8</runtime>
   <system-properties>
     <property name="log4j2.disable.jmx" value="true"/>
     <property name="OAUTH_GOOGLE_API_KEY" value="${env.OAUTH_GOOGLE_API_KEY}"/>
