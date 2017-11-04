@@ -2,7 +2,6 @@ package com.gruuf.web.actions.bike;
 
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeRecommendation;
-import com.gruuf.model.EventType;
 import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.model.RecommendationSource;
 import com.gruuf.services.EventTypes;
@@ -26,7 +25,7 @@ import static com.opensymphony.xwork2.Action.INPUT;
         @Result(name = RequestRecommendationFormAction.TO_INPUT,
                 location = "request-recommendation-form",
                 type = "redirectAction",
-                params = { "bikeId", "${bikeId}" }
+                params = {"bikeId", "${bikeId}"}
         ),
         @Result(name = INPUT, location = "bike/request-recommendation-input")
 })

@@ -8,23 +8,15 @@ import com.gruuf.model.UserLocale;
 import com.gruuf.services.EventTypes;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
-import com.opensymphony.xwork2.util.CreateIfNull;
-import com.opensymphony.xwork2.util.Element;
 import com.opensymphony.xwork2.util.Key;
-import com.opensymphony.xwork2.util.KeyProperty;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -103,7 +95,7 @@ public class EventTypeFormAction extends BaseAction {
         this.eventTypeId = eventTypeId;
     }
 
-    public Map<UserLocale, String > getNames() {
+    public Map<UserLocale, String> getNames() {
         return names;
     }
 
