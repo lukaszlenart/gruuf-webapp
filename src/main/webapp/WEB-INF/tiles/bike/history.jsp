@@ -43,7 +43,7 @@
   <tr>
     <th><s:text name="bikeEvent.eventType"/></th>
     <th><s:text name="bikeEvent.description"/></th>
-    <th><s:text name="bikeEvent.eventDate"/></th>
+    <th class="text-center"><s:text name="bikeEvent.eventDate"/></th>
     <s:if test="bikeDetails.bike.showMileage">
     <th class="text-center">
       <span class="clearfix"><s:text name="bikeEvent.mileage"/></span>
@@ -62,8 +62,7 @@
       </span>
     </th>
     </s:if>
-    <th><s:text name="general.timestamp"/>
-    <th><s:text name="general.actions"/>
+    <th class="text-center"><s:text name="general.actions"/>
   </tr>
   </thead>
   <tbody>
@@ -77,7 +76,7 @@
       <td>
         <s:property value="description" escapeHtml="false"/>
       </td>
-      <td class="text-nowrap">
+      <td class="text-nowrap text-center">
         <s:date name="registerDate" format="%{userDateFormat}"/>
       </td>
       <s:if test="bikeDetails.bike.showMileage">
@@ -102,10 +101,7 @@
         </s:if>
       </td>
       </s:if>
-      <td class="text-nowrap">
-        <s:date name="timestamp" format="%{userDateFormat}"/>
-      </td>
-      <td class="text-nowrap">
+      <td class="text-nowrap text-center">
         <s:if test="editable">
           <s:url var="editEvent" action="edit-bike-event" escapeAmp="false">
             <s:param name="bikeId" value="%{bikeId}"/>

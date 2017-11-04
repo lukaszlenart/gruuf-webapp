@@ -56,8 +56,8 @@
     <th><s:text name="recommendations.source"/></th>
     <th><s:text name="recommendations.period"/></th>
     <th><s:text name="recommendations.fulfilled"/></th>
-    <th><s:text name="recommendations.fulfillDate"/></th>
-    <th><s:text name="recommendations.fulfillMileage"/></th>
+    <th class="text-center"><s:text name="recommendations.fulfillDate"/></th>
+    <th class="text-center"><s:text name="recommendations.fulfillMileage"/></th>
   </tr>
   </thead>
   <tbody>
@@ -88,9 +88,15 @@
         </s:if>
       </td>
       <s:if test="fulfilled">
-      <td><s:property value="bikeEvent.description" escapeHtml="false"/></td>
-      <td class="text-nowrap"><s:date name="bikeEvent.registerDate" format="%{userDateFormat}"/></td>
-      <td class="text-nowrap"><s:number name="bikeEvent.mileage"/></td>
+      <td>
+        <s:property value="bikeEvent.description" escapeHtml="false"/>
+      </td>
+      <td class="text-nowrap text-center">
+        <s:date name="bikeEvent.registerDate" format="%{userDateFormat}"/>
+      </td>
+      <td class="text-nowrap text-center">
+        <s:number name="bikeEvent.mileage"/>
+      </td>
       </s:if>
       <s:if test="not fulfilled">
       <td colspan="3" class="missing alert alert-danger">

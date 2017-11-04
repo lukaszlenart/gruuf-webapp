@@ -54,7 +54,10 @@
     <s:url var="edit" action="bike-form" namespace="/bike">
       <s:param name="bikeId" value="bike.id"/>
     </s:url>
-    <s:a value="%{edit}" class="btn btn-primary"><s:text name="general.edit"/></s:a>
+    <s:a value="%{edit}" class="btn btn-primary">
+      <s:text name="general.edit"/>
+      <i class="glyphicon glyphicon-edit"></i>
+    </s:a>
   </p>
 
   <table class="table table-striped">
@@ -100,12 +103,14 @@
     </s:url>
     <s:a class="btn btn-primary" role="button" href="%{historyUrl}">
       <s:text name="general.viewDetails"/>
+      <i class="glyphicon glyphicon-th-list"></i>
     </s:a>
     <s:url var="reportUrl" action="report" namespace="/bike">
       <s:param name="bikeId" value="bike.id"/>
     </s:url>
     <s:a class="btn btn-info" role="button" href="%{reportUrl}" target="_blank">
       <s:text name="general.fullReport"/>
+      <i class="glyphicon glyphicon-print"></i>
     </s:a>
   </p>
 </s:iterator>
