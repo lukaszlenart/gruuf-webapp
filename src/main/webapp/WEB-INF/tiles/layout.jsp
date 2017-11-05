@@ -19,34 +19,39 @@
   <sj:head loadFromGoogle="true" locale="%{userLanguage}"/>
   <sb:head includeScripts="true" includeScriptsValidation="false" includeStyles="true"/>
 
-  <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.js"></script>
+  <script type="application/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.js"></script>
 
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.min.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.min.css">
 
 </head>
 <body>
-  <tiles:insertAttribute name="header"/>
 
-  <div class="container">
-    <div class="row">
+<tiles:insertAttribute name="header"/>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
       <div class="page-header">
         <h1><tiles:insertAttribute name="title"/></h1>
       </div>
     </div>
-    <div class="row">
-      <s:actionerror cssClass="col-md-12"/>
-      <s:actionmessage cssClass="col-md-12"/>
-    </div>
-
-    <tiles:insertAttribute name="body"/>
+  </div>
+  <div class="row">
+    <s:actionerror class="col-md-8 col-md-offset-2"/>
+    <s:actionmessage class="col-md-8 col-md-offset-2"/>
   </div>
 
-  <tiles:insertAttribute name="footer"/>
+  <tiles:insertAttribute name="body"/>
+</div>
 
-  <script type="application/javascript">
-    $('.dropdown-toggle').dropdown()
-  </script>
+<tiles:insertAttribute name="footer"/>
+
+<script type="application/javascript">
+  $('.dropdown-toggle').dropdown()
+</script>
 </body>
 </html>
