@@ -5,6 +5,7 @@ import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
+import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,23 +15,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 @InterceptorRef("defaultWithMessages")
-public class GarageAction extends BaseAction {
+public class GarageAction extends BaseAction implements Preparable {
 
     private static Logger LOG = LogManager.getLogger(GarageAction.class);
 
     private Garage garage;
     private BikeHistory bikeHistory;
 
+    private List<BikeDetails> bikesDetails;
+
     public String execute() throws Exception {
         return SUCCESS;
     }
 
+    @Override
+    public void prepare() throws Exception {
+        bikesDetails = loadBikeDetails();
+        LOG.debug("Found {} bikes assigned to the current user", bikesDetails.size());
+    }
+
     public List<BikeDetails> getBikeDetails() {
-        List<BikeDetails> bikes = loadBikeDetails();
+        return bikesDetails;
+    }
 
-        LOG.debug("Found following bikes {} for user {}", bikes, currentUser);
-
-        return bikes;
+    public boolean isShowShortcuts() {
+        return bikesDetails.size() > 2;
     }
 
     @Inject

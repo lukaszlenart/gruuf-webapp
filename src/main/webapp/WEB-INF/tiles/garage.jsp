@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
+<s:if test="showShortcuts">
 <ul class="nav nav-pills">
 <s:iterator value="bikeDetails" var="details">
   <li role="presentation">
@@ -11,6 +12,7 @@
   </li>
 </s:iterator>
 </ul>
+</s:if>
 
 <s:iterator value="bikeDetails" var="details">
   <div class="row">
