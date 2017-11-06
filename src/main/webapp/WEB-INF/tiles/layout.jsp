@@ -45,8 +45,10 @@
     </div>
   </div>
   <div class="row">
-    <s:actionerror class="col-md-8 col-md-offset-2"/>
-    <s:actionmessage class="col-md-8 col-md-offset-2"/>
+    <div class="col-md-8 col-md-offset-2">
+      <s:actionerror/>
+      <s:actionmessage/>
+    </div>
   </div>
 
   <tiles:insertAttribute name="body"/>
