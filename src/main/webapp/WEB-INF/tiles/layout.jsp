@@ -30,6 +30,10 @@
 </head>
 <body>
 
+<div class="loader">
+  <img src="${pageContext.request.contextPath}/img/wheel-spinner.gif">
+</div>
+
 <tiles:insertAttribute name="header"/>
 
 <div class="container">

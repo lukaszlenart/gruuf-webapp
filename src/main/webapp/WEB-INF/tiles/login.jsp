@@ -81,16 +81,21 @@
 <script>
 
   function disableButtons() {
+    $('body').addClass('loading');
     $('form button, form input[type=submit]').each(function() {
-      $(this).addClass("in-progress").attr("disabled", "disabled");
+      $(this).addClass('in-progress').attr('disabled', 'disabled');
+    })
+  }
+
+  function enableButtons() {
+    $('body.loading').removeClass('loading');
+    $('form button:disabled, form input[type=submit]:disabled').each(function() {
+      $(this).removeClass('in-progress').removeAttr('disabled');
     })
   }
 
   function signInGoogleCallback(authResult) {
     if (authResult['code']) {
-
-      disableButtons();
-
       // Send the code to the server
       $.post({
         dataType: 'json',
@@ -100,14 +105,13 @@
       }).done(function(result) {
         window.location = result.location;
       });
+    } else {
+      enableButtons();
     }
   }
 
   function signInFacebookCallback(response) {
     if (response.status === 'connected') {
-
-      disableButtons();
-
       // Send the code to the server
       $.post({
         dataType: 'json',
@@ -117,16 +121,22 @@
       }).done(function(result) {
         window.location = result.location;
       });
+    } else {
+      enableButtons();
     }
   }
 
   $('#google-signin').click(function() {
+    disableButtons();
+
     auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInGoogleCallback);
 
     return false;
   });
 
   $('#facebook-signin').click(function() {
+    disableButtons();
+
     FB.getLoginStatus(function(response) {
       signInFacebookCallback(response);
     }, {scope: 'public_profile,email'});
