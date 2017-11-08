@@ -1,5 +1,7 @@
 package com.gruuf.model;
 
+import java.util.Objects;
+
 public class BikeDescriptor {
 
     private Bike bike;
@@ -26,8 +28,11 @@ public class BikeDescriptor {
 
     public String getProducerAndMake() {
         BikeMetadata metadata = bike.getBikeMetadata();
-        return String.format("%s %s (%d - %d)",
-                metadata.getManufacturer(), metadata.getModel(),
-                metadata.getProductionStartYear(), metadata.getProductionEndYear());
+        return String.format("%s %s (%d - %s)",
+                metadata.getManufacturer(),
+                metadata.getModel(),
+                metadata.getProductionStartYear(),
+                Objects.toString(metadata.getProductionEndYear(), "")
+        );
     }
 }
