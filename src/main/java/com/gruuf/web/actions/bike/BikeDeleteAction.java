@@ -38,5 +38,4 @@ public class BikeDeleteAction extends BaseBikeAction {
         return GruufActions.GARAGE;
     }
 
-
 }

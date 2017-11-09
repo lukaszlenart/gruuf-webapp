@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-offset-1">
     <s:form action="profile-submit" method="POST" theme="bootstrap" cssClass="form-horizontal">
       <s:textfield name="email"
                    key="biker.email.address"
@@ -52,10 +52,25 @@
                   elementCssClass="col-md-4"/>
 
       <div class="form-group">
-        <div class="col-sm-offset-7">
-          <s:submit cssClass="btn btn-primary" key="general.save" />
+        <div class="col-md-8">
+          <s:submit cssClass="btn btn-primary pull-right" key="general.save" />
         </div>
       </div>
+
+      <hr class="col-md-8 col-md-offset-2 alert-danger"/>
+
+      <div class="form-group">
+        <div class="col-md-8 col-md-offset-2 text-center">
+          <h3>
+            <s:text name="user.deleteMyAccount">delete my account</s:text>
+          </h3>
+          <s:url var="deleteUrl" action="delete"/>
+          <s:a href="%{deleteUrl}" cssClass="btn btn-danger">
+            <s:text name="general.delete">delete</s:text>
+          </s:a>
+        </div>
+      </div>
+
     </s:form>
   </div>
 </div>
