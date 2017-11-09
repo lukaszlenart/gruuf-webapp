@@ -64,12 +64,20 @@
             </tbody>
           </table>
 
-          <s:url var="edit" action="bike-form" namespace="/bike">
+          <s:url var="editUrl" action="bike-form" namespace="/bike">
             <s:param name="bikeId" value="bike.id"/>
           </s:url>
-          <s:a value="%{edit}" class="btn btn-primary">
+          <s:a value="%{editUrl}" class="btn btn-primary">
             <s:text name="general.edit"/>
             <i class="glyphicon glyphicon-edit"></i>
+          </s:a>
+
+          <s:url var="deleteUrl" action="bike-delete" namespace="/bike">
+            <s:param name="bikeId" value="bike.id"/>
+          </s:url>
+          <s:a value="%{deleteUrl}" class="btn btn-danger pull-right">
+            <s:text name="general.delete"/>
+            <i class="glyphicon glyphicon-trash"></i>
           </s:a>
         </div>
 

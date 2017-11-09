@@ -54,4 +54,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/vin-check-input.jsp"/>
   </definition>
 
+  <definition name="bike/bike-delete" extends="logged-in">
+    <put-attribute name="title" expression="I18N:bike.delete"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-delete.jsp"/>
+  </definition>
+
 </tiles-definitions>

@@ -26,6 +26,12 @@ public class BikeHistory extends Reindexable<BikeEvent> {
                 .list();
     }
 
+    public List<BikeEvent> listAllByBike(Bike bike) {
+        return filter("bike =", bike)
+                .order("-registerDate")
+                .list();
+    }
+
     public List<BikeEvent> listRecentByBike(Bike bike) {
         return filter("bike =", bike)
                 .limit(4)
