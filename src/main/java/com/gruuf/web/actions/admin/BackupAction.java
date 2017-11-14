@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.json.DefaultJSONWriter;
 import org.apache.struts2.json.JSONWriter;
 
 import java.io.ByteArrayInputStream;
@@ -42,7 +43,7 @@ public class BackupAction extends BaseAction {
     private ByteArrayInputStream backupFile;
 
     public String execute() throws Exception {
-        JSONWriter writer = new JSONWriter();
+        JSONWriter writer = new DefaultJSONWriter();
         writer.setDateFormatter("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         String users = writer.write(userStore.list());
