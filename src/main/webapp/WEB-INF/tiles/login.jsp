@@ -33,46 +33,46 @@
 <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <s:form action="login-submit" method="POST" cssClass="form-horizontal" focusElement="login-submit_email">
+  <div class="col-md-4 col-md-offset-4">
+    <s:form action="login-submit" method="POST" class="form-vertical" focusElement="login-submit_email">
       <s:textfield name="email"
                    placeholder="%{getText('user.email.placeholder')}"
-                   label="E-mail"
+                   key="user.login"
                    cssClass="input-md"/>
 
       <s:password name="password"
                   placeholder="%{getText('user.password.placeholder')}"
                   key="user.password"/>
 
-      <div class="form-group">
-        <div class="col-sm-offset-3 col-md-12">
-          <s:submit cssClass="btn btn-primary" key="user.login"/>
-
-          <s:text name="general.or">or</s:text>
-
-          <button id="google-signin" class="btn btn-default google"
-                  title="<s:text name='user.signinWithGoogle'/>">
-            <i class="fa fa-google" aria-hidden="true"></i>
-            <s:text name="user.signinWithGoogle"/>
-          </button>
-
-          <s:text name="general.or">or</s:text>
-
-          <button id="facebook-signin" class="btn btn-default facebook"
-                  title="<s:text name='user.signinWithFacebook'/>">
-            <i class="fa fa-facebook" aria-hidden="true"></i>
-            <s:text name="user.signinWithFacebook"/>
-          </button>
-        </div>
+      <div class="form-group clearfix center-block">
+        <s:submit cssClass="btn btn-primary" key="user.login"/>
+        <s:a class="btn pull-right" action="reset-password">
+          <s:text name="user.resetPassword">reset password</s:text>
+        </s:a>
+      </div>
+      <div class="form-group center-block">
+        <hr/>
       </div>
       <div class="form-group">
-        <div class="col-sm-offset-3 col-md-9">
-          <button id="demo-login" class="btn btn-default facebook"
-                  title="<s:text name='user.signinWithDemoUser'/>">
-            <i class="fa fa-user-secret" aria-hidden="true"></i>
-            <s:text name="user.signinWithDemoUser"/>
-          </button>
-        </div>
+        <button id="google-signin" class="btn btn-default google btn-block"
+                title="<s:text name='user.signinWithGoogle'/>">
+          <i class="fa fa-google" aria-hidden="true"></i>
+          <s:text name="user.signinWithGoogle"/>
+        </button>
+      </div>
+      <div class="form-group">
+        <button id="facebook-signin" class="btn btn-default facebook btn-block"
+                title="<s:text name='user.signinWithFacebook'/>">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+          <s:text name="user.signinWithFacebook"/>
+        </button>
+      </div>
+      <div class="form-group">
+        <button id="demo-login" class="btn btn-default btn-block"
+                title="<s:text name='user.signinWithDemoUser'/>">
+          <i class="fa fa-user-secret" aria-hidden="true"></i>
+          <s:text name="user.signinWithDemoUser"/>
+        </button>
       </div>
     </s:form>
   </div>

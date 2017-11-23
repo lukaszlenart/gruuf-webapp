@@ -53,6 +53,16 @@ public class MailBox {
         }
     }
 
+    public void notifyUser(User user, String subject, String body) {
+        try {
+            Message msg = prepareMessage(subject);
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), user.getFullName()));
+            sendMessage(body, msg);
+        } catch (Exception e) {
+            LOG.error(new ParameterizedMessage("Cannot notify user {} about '{}'", user.getFullName(), subject), e);
+        }
+    }
+
     private Message prepareMessage(String subject) throws MessagingException, UnsupportedEncodingException {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
@@ -61,6 +71,10 @@ public class MailBox {
         msg.setFrom(new InternetAddress(NOREPLY_GRUUF_COM, GRUUF_APP));
         msg.setSubject("[Gruuf] " + subject, "UTF-8");
         return msg;
+    }
+
+    private void sendMessage(String text, Message msg) throws MessagingException, IOException {
+        sendMessage(text, msg, new Object[]{});
     }
 
     private void sendMessage(String text, Message msg, Object[] bodyParams) throws MessagingException, IOException {

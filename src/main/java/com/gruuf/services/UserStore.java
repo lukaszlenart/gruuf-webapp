@@ -3,6 +3,8 @@ package com.gruuf.services;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.web.GruufAuth;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,5 +35,14 @@ public class UserStore extends Storable<User> {
             return user;
         }
         return null;
+    }
+
+    public User resetPassword(String email) {
+        User user = findUniqueBy("email", email);
+        if (user != null) {
+            user = User.clone(user).withPassword(GruufAuth.randomString()).build();
+            user = put(user);
+        }
+        return user;
     }
 }
