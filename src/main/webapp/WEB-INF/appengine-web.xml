@@ -8,7 +8,8 @@
   <url-stream-handler>urlfetch</url-stream-handler>
   <system-properties>
     <property name="log4j2.disable.jmx" value="true"/>
-    <property name="OAUTH_GOOGLE_API_KEY" value="${env.OAUTH_GOOGLE_API_KEY}"/>
-    <property name="OAUTH_GOOGLE_API_SECRET" value="${env.OAUTH_GOOGLE_API_SECRET}"/>
+    <property name="GRUUF_OAUTH_GOOGLE_API_KEY" value="${env.GRUUF_OAUTH_GOOGLE_API_KEY}"/>
+    <property name="GRUUF_OAUTH_GOOGLE_API_SECRET" value="${env.GRUUF_OAUTH_GOOGLE_API_SECRET}"/>
+    <property name="GRUUF_RECAPTCHA_SECRET" value="${env.GRUUF_RECAPTCHA_SECRET}"/>
   </system-properties>
 </appengine-web-app>
