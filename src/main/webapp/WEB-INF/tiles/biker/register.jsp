@@ -24,7 +24,13 @@
                   elementCssClass="col-md-4"/>
 
       <div class="form-group">
-        <div class="col-sm-offset-7">
+        <div class="col-md-offset-4 col-md-4">
+          <div class="pull-right g-recaptcha" data-sitekey="6LfBfjwUAAAAAHDTbMZFHqDO0g-Q-18UkFJzGmP6"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-offset-7">
           <s:submit cssClass="btn btn-primary" key="general.register" />
         </div>
       </div>

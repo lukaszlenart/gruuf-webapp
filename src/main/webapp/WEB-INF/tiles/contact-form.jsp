@@ -13,6 +13,14 @@
                         cols="40"
                         rows="8"/>
 
+            <s:if test="not loggedIn">
+            <div class="form-group">
+                <div class="col-md-8 col-sm-offset-3">
+                    <div class="g-recaptcha" data-sitekey="6LfBfjwUAAAAAHDTbMZFHqDO0g-Q-18UkFJzGmP6"></div>
+                </div>
+            </div>
+            </s:if>
+
             <div class="form-group">
                 <div class="col-md-8 col-sm-offset-3">
                     <s:submit cssClass="btn btn-primary" key="general.submit"/>

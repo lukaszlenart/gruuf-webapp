@@ -90,13 +90,13 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
 
         locatableProperties.setProperty(
                 GruufConstants.OAUTH_GOOGLE_API_KEY,
-                substitutor.substitute("${OAUTH_GOOGLE_API_KEY}"),
+                substitutor.substitute("${env.GRUUF_OAUTH_GOOGLE_API_KEY}"),
                 LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         locatableProperties.setProperty(
                 GruufConstants.OAUTH_GOOGLE_API_SECRET,
-                substitutor.substitute("${OAUTH_GOOGLE_API_SECRET}"),
+                substitutor.substitute("${env.GRUUF_OAUTH_GOOGLE_API_SECRET}"),
                 LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 

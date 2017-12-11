@@ -25,6 +25,7 @@
       <interceptor name="secure" class="com.gruuf.web.interceptors.SecureInterceptor"/>
       <interceptor name="restriction" class="com.gruuf.web.interceptors.BikeRestrictionInterceptor"/>
       <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+      <interceptor name="reCaptcha" class="com.gruuf.struts2.gae.recaptcha.ReCaptchaInterceptor"/>
 
       <interceptor-stack name="gruufDefaultDev">
         <interceptor-ref name="exception">
@@ -87,6 +88,11 @@
         <interceptor-ref name="store">
           <param name="operationMode">AUTOMATIC</param>
         </interceptor-ref>
+      </interceptor-stack>
+
+      <interceptor-stack name="reCaptchaStack">
+        <interceptor-ref name="gruufDefaultDev"/>
+        <interceptor-ref name="reCaptcha"/>
       </interceptor-stack>
     </interceptors>
 

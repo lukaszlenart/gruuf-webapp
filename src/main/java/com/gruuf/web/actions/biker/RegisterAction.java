@@ -1,6 +1,7 @@
 package com.gruuf.web.actions.biker;
 
 import com.gruuf.auth.Anonymous;
+import com.gruuf.struts2.gae.recaptcha.ReCaptchaAware;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseLoginAction;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
@@ -14,7 +15,9 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Anonymous
 @Result(name = INPUT, location = "biker/register")
-public class RegisterAction extends BaseLoginAction {
+public class RegisterAction extends BaseLoginAction implements ReCaptchaAware {
+
+    private boolean reCaptchavalid;
 
     @SkipValidation
     public String execute() {
@@ -34,6 +37,10 @@ public class RegisterAction extends BaseLoginAction {
 
         if (userStore.findBy("email", email.trim()).size() > 0) {
             addFieldError("email", getText("biker.emailAddressAlreadyRegistered"));
+        }
+
+        if (!reCaptchavalid) {
+            addActionError(getText("general.wrongReCaptcha"));
         }
     }
 
@@ -71,4 +78,13 @@ public class RegisterAction extends BaseLoginAction {
         this.password2 = password2;
     }
 
+    @Override
+    public void setReCaptchaResult(boolean valid) {
+        this.reCaptchavalid = valid;
+    }
+
+    @Override
+    public boolean isReCaptchaEnabled() {
+        return true;
+    }
 }

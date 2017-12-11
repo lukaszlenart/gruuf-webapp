@@ -2,11 +2,13 @@ package com.gruuf.web.actions;
 
 import com.gruuf.auth.Anonymous;
 import com.gruuf.services.MailBox;
+import com.gruuf.struts2.gae.recaptcha.ReCaptchaAware;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
@@ -14,9 +16,11 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Anonymous
 @Result(name = INPUT, location = "contact")
-public class ContactAction extends BaseAction {
+@InterceptorRef("reCaptchaStack")
+public class ContactAction extends BaseAction implements ReCaptchaAware {
 
     private MailBox mailBox;
+    private boolean reCaptchaValid;
 
     @SkipValidation
     public String execute() {
@@ -27,9 +31,13 @@ public class ContactAction extends BaseAction {
     }
 
     @Action("contact-submit")
-    public String submit() {
-        mailBox.notifyAdmin("Contact from: " + email, message, "email: " + email);
-        addActionMessage(getText("contact.messageHasBeenSent"));
+    public String submit() throws Exception {
+        if (isLoggedIn() || reCaptchaValid) {
+            mailBox.notifyAdmin("Contact from: " + email, message, "email: " + email);
+            addActionMessage(getText("contact.messageHasBeenSent"));
+        } else {
+            addActionError(getText("general.wrongReCaptcha"));
+        }
 
         return INPUT;
     }
@@ -61,4 +69,15 @@ public class ContactAction extends BaseAction {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public void setReCaptchaResult(boolean valid) {
+        this.reCaptchaValid = valid;
+    }
+
+    @Override
+    public boolean isReCaptchaEnabled() {
+        return !isLoggedIn();
+    }
+
 }
