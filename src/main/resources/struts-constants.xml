@@ -30,6 +30,6 @@
   <constant name="struts.convention.default.parent.package" value="gruufDefault"/>
   <constant name="struts.convention.action.suffix" value="Action,Endpoint,Cron,Task"/>
 
-  <constant name="struts.gae.reCaptchaSecret" value="${env.GRUUF_RECAPTCHA_SECRET}"/>
+  <constant name="struts.gae.reCaptchaSecret" value="${GRUUF_RECAPTCHA_SECRET}"/>
 
 </struts>
