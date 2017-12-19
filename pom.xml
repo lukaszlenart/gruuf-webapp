@@ -17,6 +17,9 @@
     <google.appengine.version>1.9.59</google.appengine.version>
     <gruuf.oauth.facebookAppId>${env.GRUUF_OAUTH_FACEBOOK_APP_ID}</gruuf.oauth.facebookAppId>
     <gruuf.oauth.facebookAppSecret>${env.GRUUF_OAUTH_FACEBOOK_APP_SECRET}</gruuf.oauth.facebookAppSecret>
+
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <scm>
@@ -55,8 +58,6 @@
         <version>3.7.0</version>
         <configuration>
           <encoding>UTF-8</encoding>
-          <source>1.8</source>
-          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -81,16 +82,16 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>com.google.appengine</groupId>
+        <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>${google.appengine.version}</version>
+        <version>1.3.1</version>
         <configuration>
+          <project>gruuf-webapp</project>
+          <version>3</version>
           <enableJarClasses>false</enableJarClasses>
-          <port>8080</port>
-          <address>0.0.0.0</address>
-          <jvmFlags>
-            <jvmFlag>-Ddatastore.backing_store=${project.basedir}/local_db.bin</jvmFlag>
-          </jvmFlags>
+          <devserver.datastorePath>${project.basedir}/local_db.bin</devserver.datastorePath>
+          <devserver.port>8080</devserver.port>
+          <stage.enableJarClasses>true</stage.enableJarClasses>
         </configuration>
       </plugin>
     </plugins>
