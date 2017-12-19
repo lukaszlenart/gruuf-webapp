@@ -7,6 +7,7 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.gruuf.model.Attachment;
 import com.gruuf.model.Bike;
+import com.gruuf.model.BikeEvent;
 import com.gruuf.model.User;
 import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.inject.Inject;
@@ -22,6 +23,8 @@ public class AttachmentsStorage extends Reindexable<Attachment> {
 
     private String bucketName;
     private Storage storage;
+
+    private Garage garage;
 
     public AttachmentsStorage() {
         super(Attachment.class);
@@ -39,6 +42,11 @@ public class AttachmentsStorage extends Reindexable<Attachment> {
         this.bucketName = bucketName;
     }
 
+    @Inject
+    public void setGarage(Garage garage) {
+        this.garage = garage;
+    }
+
     public List<Attachment> findByBike(Bike bike) {
         return filter("bike", bike)
                 .order("timestamp")
@@ -46,9 +54,49 @@ public class AttachmentsStorage extends Reindexable<Attachment> {
     }
 
     public Attachment storeAttachment(User currentUser, Bike bike,  UploadedFile file, String fileName, String contentType) {
+        String uniqueName = generateUniqueName(bike, fileName);
+
+        Blob blob = storeFile(file, contentType, uniqueName);
+
+        Attachment attachment = Attachment
+                .create(currentUser)
+                .withBike(bike)
+                .withFileName(fileName)
+                .withUniqueName(uniqueName)
+                .withBlob(blob).build();
+
+        return updateSizeAndPut(bike, blob, attachment);
+    }
+
+    public Attachment storeAttachment(BikeEvent bikeEvent, Bike bike, UploadedFile file, String fileName, String contentType) {
+        String uniqueName = generateUniqueName(bike, fileName);
+
+        Blob blob = storeFile(file, contentType, uniqueName);
+
+        Attachment attachment = Attachment
+                .create(bikeEvent)
+                .withBike(bike)
+                .withFileName(fileName)
+                .withUniqueName(uniqueName)
+                .withBlob(blob)
+                .build();
+
+        return updateSizeAndPut(bike, blob, attachment);
+    }
+
+    private Attachment updateSizeAndPut(Bike bike, Blob blob, Attachment attachment) {
+        garage.updateSpaceUsedBy(bike, blob.getSize());
+
+        return put(attachment);
+    }
+
+    private String generateUniqueName(Bike bike, String fileName) {
         String uniqueName = bike.getId() + "/" + GruufAuth.generateUUID() + fileName.substring(fileName.lastIndexOf("."));
         LOG.debug("Unique file name [{}]", uniqueName);
+        return uniqueName;
+    }
 
+    private Blob storeFile(UploadedFile file, String contentType, String uniqueName) {
         BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, uniqueName)
                 .setContentType(contentType)
                 .build();
@@ -57,18 +105,16 @@ public class AttachmentsStorage extends Reindexable<Attachment> {
         Blob blob = storage.create(blobInfo, (byte[]) content, Storage.BlobTargetOption.predefinedAcl(Storage.PredefinedAcl.PUBLIC_READ));
 
         LOG.debug("Stored object: {}", blob);
-
-        Attachment attachment = Attachment.create(currentUser, bike, fileName, uniqueName, blob).build();
-
-        return put(attachment);
+        return blob;
     }
 
-    public long countSpaceByBike(Bike bike) {
-        long sum = 0;
-        for (Attachment attachment : findBy("bike", bike)) {
-            sum = sum + attachment.getSize();
+    public long spaceUsedBy(Bike bike) {
+        long spaceUsed = 0;
+        Bike actual = garage.get(bike.getId());
+        if (actual.getSpaceUsed() != null) {
+            spaceUsed = actual.getSpaceUsed();
         }
-        return sum;
+        return spaceUsed;
     }
 
     public boolean delete(Attachment attachment) {

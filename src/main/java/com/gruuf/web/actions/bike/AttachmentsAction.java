@@ -89,7 +89,7 @@ public class AttachmentsAction extends BaseBikeAction implements Preparable {
 
     @Override
     public void prepare() throws Exception {
-        long usedSpace = storage.countSpaceByBike(selectedBike);
+        long usedSpace = storage.spaceUsedBy(selectedBike);
         spaceLeft = totalAllowedSpace - usedSpace;
     }
 

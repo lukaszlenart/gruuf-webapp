@@ -31,4 +31,10 @@ public class Garage extends Reindexable<Bike> {
         LOG.debug("Checking if user {} can view bike {}", byUser, bike);
         return bike.getOwner().getId().equals(byUser.getId());
     }
+
+    public Bike updateSpaceUsedBy(Bike bike, Long size) {
+        Bike actual = get(bike.getId());
+        Bike updated = Bike.clone(actual).addSpaceUsed(size).build();
+        return put(updated);
+    }
 }

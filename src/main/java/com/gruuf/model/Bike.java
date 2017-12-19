@@ -25,11 +25,9 @@ public class Bike {
 
     private Ref<BikeMetadata> bikeMetadata;
 
-    private Bike() {
-    }
+    private Long spaceUsed;
 
-    public Bike(User owner) {
-        this.owner = Ref.create(owner);
+    private Bike() {
     }
 
     public String getId() {
@@ -67,6 +65,10 @@ public class Bike {
         return showMth;
     }
 
+    public Long getSpaceUsed() {
+        return spaceUsed;
+    }
+
     @Override
     public String toString() {
         return "Bike{" +
@@ -78,6 +80,7 @@ public class Bike {
                 ", showMileage=" + showMileage +
                 ", showMth=" + showMth +
                 ", bikeMetadata=" + bikeMetadata +
+                ", spaceUsed=" + spaceUsed +
                 '}';
     }
 
@@ -101,15 +104,22 @@ public class Bike {
         private final Bike target;
 
         public BikeBuilder(User owner) {
-            target = new Bike(owner);
+            target = new Bike();
             target.id = GruufAuth.generateUUID();
+            target.owner = Ref.create(owner);
         }
 
         public BikeBuilder(Bike bike) {
-            target = new Bike(bike.getOwner());
+            target = new Bike();
+            target.owner = bike.owner;
             target.id = bike.id;
             target.name = bike.name;
             target.vin = bike.vin;
+            target.modelYear = bike.modelYear;
+            target.bikeMetadata = bike.bikeMetadata;
+            target.showMileage = bike.showMileage;
+            target.showMth = bike.showMth;
+            target.spaceUsed = bike.spaceUsed;
         }
 
         public BikeBuilder withFriendlyName(String friendlyName) {
@@ -141,6 +151,15 @@ public class Bike {
 
         public BikeBuilder withShowMth(boolean showMth) {
             target.showMth = showMth;
+            return this;
+        }
+
+        public BikeBuilder addSpaceUsed(Long space) {
+            if (target.spaceUsed == null) {
+                target.spaceUsed = space;
+            } else {
+                target.spaceUsed = target.spaceUsed + space;
+            }
             return this;
         }
 

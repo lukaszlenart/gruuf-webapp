@@ -17,6 +17,8 @@ public class Attachment {
     private Ref<User> owner;
     @Index
     private Ref<Bike> bike;
+    @Index
+    private Ref<BikeEvent> bikeEvent;
 
     private String bucketName;
     private String uniqueName;
@@ -37,6 +39,10 @@ public class Attachment {
 
     public Ref<User> getOwner() {
         return owner;
+    }
+
+    public Ref<BikeEvent> getBikeEvent() {
+        return bikeEvent;
     }
 
     public Ref<Bike> getBike() {
@@ -73,6 +79,7 @@ public class Attachment {
                 "id='" + id + '\'' +
                 ", owner=" + owner +
                 ", bike=" + bike +
+                ", bikeEvent=" + bikeEvent +
                 ", bucketName='" + bucketName + '\'' +
                 ", uniqueName='" + uniqueName + '\'' +
                 ", originalFileName='" + originalFileName + '\'' +
@@ -82,31 +89,59 @@ public class Attachment {
                 '}';
     }
 
-    public static AttachmentBuilder create(User owner, Bike bike, String fileName, String uniqueName, Blob blob) {
-        return new AttachmentBuilder(owner, bike, fileName, uniqueName, blob);
+    public static AttachmentBuilder create(User owner) {
+        return new AttachmentBuilder(owner);
+    }
+
+    public static AttachmentBuilder create(BikeEvent bikeEvent) {
+        return new AttachmentBuilder(bikeEvent);
     }
 
     public static class AttachmentBuilder {
 
         private Attachment target;
 
-        AttachmentBuilder(User owner, Bike bike, String fileName, String uniqueName, Blob blob) {
+        AttachmentBuilder(User owner) {
             target = new Attachment();
 
             target.id = GruufAuth.generateUUID();
             target.owner = Ref.create(owner);
-            target.bike = Ref.create(bike);
-            target.bucketName = blob.getBucket();
-
-            target.originalFileName = fileName;
-            target.uniqueName = uniqueName;
             target.timestamp = new Date();
+        }
+
+        public AttachmentBuilder(BikeEvent bikeEvent) {
+            target = new Attachment();
+
+            target.id = GruufAuth.generateUUID();
+            target.bikeEvent = Ref.create(bikeEvent);
+            target.timestamp = new Date();
+        }
+
+        public AttachmentBuilder withBike(Bike bike) {
+            target.bike = Ref.create(bike);
+            return this;
+        }
+
+        public AttachmentBuilder withFileName(String fileName) {
+            target.originalFileName = fileName;
+            return this;
+        }
+
+        public AttachmentBuilder withUniqueName(String uniqueName) {
+            target.uniqueName = uniqueName;
+            return this;
+        }
+
+        public AttachmentBuilder withBlob(Blob blob) {
+            target.bucketName = blob.getBucket();
             target.size = blob.getSize();
             target.contentType = blob.getContentType();
+            return this;
         }
 
         public Attachment build() {
             return target;
         }
+
     }
 }
