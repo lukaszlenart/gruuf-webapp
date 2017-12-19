@@ -3,7 +3,6 @@ package com.gruuf.web;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.security.provider.MD5;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
