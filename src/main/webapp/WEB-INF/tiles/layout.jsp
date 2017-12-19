@@ -12,6 +12,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta property="og:url" content="https://gruuf.com"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="GruufApp"/>
+  <meta property="og:description" content="Collect information about your motorbike and be up to date with periodic maintenance"/>
+  <meta property="og:image" content="https://gruuf.com/img/wheel-spinner.gif"/>
+
   <title>
     <tiles:insertAttribute name="title" ignore="true"/>
   </title>
