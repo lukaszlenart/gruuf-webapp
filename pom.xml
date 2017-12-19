@@ -91,6 +91,7 @@
           <enableJarClasses>false</enableJarClasses>
           <devserver.datastorePath>${project.basedir}/local_db.bin</devserver.datastorePath>
           <devserver.port>8080</devserver.port>
+          <devserver.host>0.0.0.0</devserver.host>
           <stage.enableJarClasses>true</stage.enableJarClasses>
         </configuration>
       </plugin>
