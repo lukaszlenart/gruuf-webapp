@@ -31,15 +31,19 @@ public class ContactAction extends BaseAction implements ReCaptchaAware {
     }
 
     @Action("contact-submit")
-    public String submit() throws Exception {
+    public String contactSubmit() throws Exception {
         if (isLoggedIn() || reCaptchaValid) {
             mailBox.notifyAdmin("Contact from: " + email, message, "email: " + email);
             addActionMessage(getText("contact.messageHasBeenSent"));
-        } else {
-            addActionError(getText("general.wrongReCaptcha"));
         }
 
         return INPUT;
+    }
+
+    public void validateContactSubmit() {
+        if (!isLoggedIn() && !reCaptchaValid) {
+            addActionError(getText("general.wrongReCaptcha"));
+        }
     }
 
     @Inject
