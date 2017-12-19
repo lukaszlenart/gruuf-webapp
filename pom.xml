@@ -89,10 +89,12 @@
           <project>gruuf-webapp</project>
           <version>3</version>
           <enableJarClasses>false</enableJarClasses>
-          <devserver.datastorePath>${project.basedir}/local_db.bin</devserver.datastorePath>
           <devserver.port>8080</devserver.port>
           <devserver.host>0.0.0.0</devserver.host>
           <stage.enableJarClasses>true</stage.enableJarClasses>
+          <devserver.jvmFlags>
+            <devserver.jvmFlag>-Ddatastore.backing_store=${project.basedir}/local_db.bin</devserver.jvmFlag>
+          </devserver.jvmFlags>
         </configuration>
       </plugin>
     </plugins>
