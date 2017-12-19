@@ -1,6 +1,7 @@
 package com.gruuf.web.actions.biker;
 
 import com.gruuf.auth.Anonymous;
+import com.gruuf.model.User;
 import com.gruuf.struts2.gae.recaptcha.ReCaptchaAware;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseLoginAction;
@@ -8,6 +9,7 @@ import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
@@ -15,9 +17,10 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Anonymous
 @Result(name = INPUT, location = "biker/register")
+@InterceptorRef("reCaptchaStack")
 public class RegisterAction extends BaseLoginAction implements ReCaptchaAware {
 
-    private boolean reCaptchavalid;
+    private boolean reCaptchaValid;
 
     @SkipValidation
     public String execute() {
@@ -26,7 +29,10 @@ public class RegisterAction extends BaseLoginAction implements ReCaptchaAware {
 
     @Action("register-submit")
     public String registerSubmit() {
-        registerAndLogin(email, password1);
+        User newUser = registerAndLogin(email, password1);
+        if (newUser != null) {
+            addActionMessage(getText("biker.newBikeHasBeenRegistered"));
+        }
         return GruufActions.GARAGE;
     }
 
@@ -39,7 +45,7 @@ public class RegisterAction extends BaseLoginAction implements ReCaptchaAware {
             addFieldError("email", getText("biker.emailAddressAlreadyRegistered"));
         }
 
-        if (!reCaptchavalid) {
+        if (!reCaptchaValid) {
             addActionError(getText("general.wrongReCaptcha"));
         }
     }
@@ -80,7 +86,7 @@ public class RegisterAction extends BaseLoginAction implements ReCaptchaAware {
 
     @Override
     public void setReCaptchaResult(boolean valid) {
-        this.reCaptchavalid = valid;
+        this.reCaptchaValid = valid;
     }
 
     @Override
