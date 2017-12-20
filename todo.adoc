@@ -1,9 +1,8 @@
 ### TODO
 - [ ] dodawanie załączników przy wpisach z historią
-- [ ] implementacja reCaptcha https://developers.google.com/recaptcha/intro
+- [ ] landing page about
 - [ ] zgłaszanie tłumaczenia przez użytkownika
 - [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
-- [ ] wyszukiwanie motocykla po VIN z opcją "przejęcia" historii
 - [ ] strona z listą wprowadzonych zmian
 - [ ] dodawanie obrazka motocykla przy definiowaniu metadata
 - [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
@@ -57,6 +56,8 @@
 - [X] konwersja description na Markdowna
 - [X] generowanie raportów z wykonanych czynności
 - [X] podgląd raportu dla admina
+- [X] implementacja reCaptcha https://developers.google.com/recaptcha/intro
+- [X] wyszukiwanie motocykla po VIN z opcją "przejęcia" historii
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
