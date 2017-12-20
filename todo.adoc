@@ -1,63 +1,63 @@
 ### TODO
-- [ ] dodawanie załączników przy wpisach z historią
-- [ ] landing page about
-- [ ] zgłaszanie tłumaczenia przez użytkownika
-- [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
-- [ ] strona z listą wprowadzonych zmian
-- [ ] dodawanie obrazka motocykla przy definiowaniu metadata
-- [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
-- [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
+* [ ] dodawanie załączników przy wpisach z historią
+* [ ] landing page about
+* [ ] zgłaszanie tłumaczenia przez użytkownika
+* [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
+* [ ] strona z listą wprowadzonych zmian
+* [ ] dodawanie obrazka motocykla przy definiowaniu metadata
+* [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
+* [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
 
 ### Aplikacja mobilna
-- [ ] wersja light - działa tylko on-line (brak cachowania)
-  - [ ] logowanie
-  - [ ] podstawowe informacje o motocyklu
-  - [ ] historia
-  - [ ] dodawanie zdarzenia
-  - [ ] wyświetlanie zaleceń
+* [ ] wersja light - działa tylko on-line (brak cachowania)
+  * [ ] logowanie
+  * [ ] podstawowe informacje o motocyklu
+  * [ ] historia
+  * [ ] dodawanie zdarzenia
+  * [ ] wyświetlanie zaleceń
 
 ### DONE
-- [x] tokeny i dostep do stron
-- [x] zarządzanie użytkownikami
-  - [x] resetowanie hasła
-  - [x] przypisywanie tokenów
-- [x] kontrola czy dany user ma dostęp do danego motocykla
-- [x] kontrola czy dany user może edytować danego usera, czy @Token wystarcza
-- [x] dodwanie EventType
-- [x] dodawanie BikeEvent
-- [x] export danych celem backupowania
-- [x] I18N (polski)
-- [x] walidacja po VIN celem unikniecia duplikatow
-- [x] zdarzenie można oznaczyć jako usunięte ale nie jest usuwane z bazy
-- [x] cert ssl
-- [x] dodać autora zdarzenia
-- [x] aktulizacja przebiegu
-- [x] dodanie formularza kontaktowego
-- [x] definiowanie triggerów dla poszczególnych EventType
-- [x] logowanie Google
-- [x] powiadomienie o nowym użytkwoniku
-- [x] użytownik musi mieć możliwość zmiany swoich danych
-- [x] zdarzenia generowane przez system nie mogą być usuwane (Status.SYSTEM)
-- [x] Markdown support
-- [x] możliwość dodawania zdjęć / załączeników limit 20MB
-- [x] logowanie Google
-- [x] strona GruufApp na Facebooku
-- [x] konto Twitter
-- [x] możliwość definiowania producenta/modelu/roku produkcji
-- [x] wyświetlanie wersji serwisu
-- [x] logowanie Facebook
-- [x] dodanie wsparcia dla motogodzin
-- [x] zgłaszanie typów eventów przez użytkownika
-- [x] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
-- [x] tłumaczenie EventType
-- [x] definiowanie globalnych Zaleceń niezależnie od motocykla
-- [x] używanie Markdowna w Description w Zaleceniach
-- [x] powiadomienia mailem na 7 dni przed Zaleceniem
-- [x] konwersja description na Markdowna
-- [x] generowanie raportów z wykonanych czynności
-- [x] podgląd raportu dla admina
-- [x] implementacja reCaptcha https://developers.google.com/recaptcha/intro
-- [x] wyszukiwanie motocykla po VIN z opcją "przejęcia" historii
+* [x] tokeny i dostep do stron
+* [x] zarządzanie użytkownikami
+  * [x] resetowanie hasła
+  * [x] przypisywanie tokenów
+* [x] kontrola czy dany user ma dostęp do danego motocykla
+* [x] kontrola czy dany user może edytować danego usera, czy @Token wystarcza
+* [x] dodwanie EventType
+* [x] dodawanie BikeEvent
+* [x] export danych celem backupowania
+* [x] I18N (polski)
+* [x] walidacja po VIN celem unikniecia duplikatow
+* [x] zdarzenie można oznaczyć jako usunięte ale nie jest usuwane z bazy
+* [x] cert ssl
+* [x] dodać autora zdarzenia
+* [x] aktulizacja przebiegu
+* [x] dodanie formularza kontaktowego
+* [x] definiowanie triggerów dla poszczególnych EventType
+* [x] logowanie Google
+* [x] powiadomienie o nowym użytkwoniku
+* [x] użytownik musi mieć możliwość zmiany swoich danych
+* [x] zdarzenia generowane przez system nie mogą być usuwane (Status.SYSTEM)
+* [x] Markdown support
+* [x] możliwość dodawania zdjęć / załączeników limit 20MB
+* [x] logowanie Google
+* [x] strona GruufApp na Facebooku
+* [x] konto Twitter
+* [x] możliwość definiowania producenta/modelu/roku produkcji
+* [x] wyświetlanie wersji serwisu
+* [x] logowanie Facebook
+* [x] dodanie wsparcia dla motogodzin
+* [x] zgłaszanie typów eventów przez użytkownika
+* [x] poprawne matchowanie Zaleceń i Zdarzeń aby uniknąć duplikacji zaleceń
+* [x] tłumaczenie EventType
+* [x] definiowanie globalnych Zaleceń niezależnie od motocykla
+* [x] używanie Markdowna w Description w Zaleceniach
+* [x] powiadomienia mailem na 7 dni przed Zaleceniem
+* [x] konwersja description na Markdowna
+* [x] generowanie raportów z wykonanych czynności
+* [x] podgląd raportu dla admina
+* [x] implementacja reCaptcha https://developers.google.com/recaptcha/intro
+* [x] wyszukiwanie motocykla po VIN z opcją "przejęcia" historii
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
@@ -69,5 +69,5 @@
 
 
 ### Usprawnienia
-- [x] https://www.startssl.com/
-- [x] http://selectize.github.io/selectize.js/
+* [x] https://www.startssl.com/
+* [x] http://selectize.github.io/selectize.js/
