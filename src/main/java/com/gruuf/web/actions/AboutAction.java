@@ -20,7 +20,6 @@ public class AboutAction extends BaseAction implements ServletResponseAware {
 
     private static final Logger LOG = LogManager.getLogger(AboutAction.class);
 
-    private boolean devMode;
     private String hostUrl;
     private HttpServletResponse response;
 
@@ -37,7 +36,6 @@ public class AboutAction extends BaseAction implements ServletResponseAware {
     private Cookie createCookie() {
         Cookie cookie = new Cookie(GruufConstants.FIRST_TIME_COOKIE, Boolean.FALSE.toString());
         cookie.setMaxAge(Integer.MAX_VALUE);
-        cookie.setSecure(!devMode);
         cookie.setPath("/");
         int begin = hostUrl.lastIndexOf("://") + 3;
         int end = hostUrl.substring(begin).lastIndexOf(':');
@@ -56,8 +54,4 @@ public class AboutAction extends BaseAction implements ServletResponseAware {
         this.hostUrl = hostUrl;
     }
 
-    @Inject(StrutsConstants.STRUTS_DEVMODE)
-    public void setDevMode(String devMode) {
-        this.devMode = Boolean.parseBoolean(devMode);
-    }
 }
