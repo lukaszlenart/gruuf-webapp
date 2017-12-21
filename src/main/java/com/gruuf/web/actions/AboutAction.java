@@ -39,7 +39,7 @@ public class AboutAction extends BaseAction implements ServletResponseAware {
         cookie.setPath("/");
         int begin = hostUrl.lastIndexOf("://") + 3;
         int end = hostUrl.substring(begin).lastIndexOf(':');
-        String domain = hostUrl.substring(begin, end == -1 ? hostUrl.length() - 1 : end);
+        String domain = hostUrl.substring(begin, end == -1 ? hostUrl.length() : end);
         LOG.debug("Cookie domain: {}", domain);
         cookie.setDomain(domain);
         return cookie;
