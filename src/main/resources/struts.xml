@@ -23,6 +23,7 @@
       <interceptor name="user" class="com.gruuf.web.interceptors.UserInterceptor"/>
       <interceptor name="auth" class="com.gruuf.web.interceptors.AuthInterceptor"/>
       <interceptor name="secure" class="com.gruuf.web.interceptors.SecureInterceptor"/>
+      <interceptor name="about" class="com.gruuf.web.interceptors.AboutInterceptor"/>
       <interceptor name="restriction" class="com.gruuf.web.interceptors.BikeRestrictionInterceptor"/>
       <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
       <interceptor name="reCaptcha" class="com.gruuf.struts2.gae.recaptcha.ReCaptchaInterceptor"/>
@@ -34,6 +35,7 @@
           <param name="logLevel">error</param>
         </interceptor-ref>
         <interceptor-ref name="secure"/>
+        <interceptor-ref name="about"/>
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
         <interceptor-ref name="user"/>
@@ -112,6 +114,10 @@
       </result>
       <result name="garage" type="redirectAction">
         <param name="actionName">garage</param>
+        <param name="namespace">/</param>
+      </result>
+      <result name="about" type="redirectAction">
+        <param name="actionName">about</param>
         <param name="namespace">/</param>
       </result>
       <result name="error">error</result>
