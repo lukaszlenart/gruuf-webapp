@@ -1,6 +1,5 @@
 ### TODO
 * [ ] dodawanie załączników przy wpisach z historią
-* [ ] landing page about
 * [ ] zgłaszanie tłumaczenia przez użytkownika
 * [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
 * [ ] strona z listą wprowadzonych zmian
@@ -58,6 +57,7 @@
 * [x] podgląd raportu dla admina
 * [x] implementacja reCaptcha https://developers.google.com/recaptcha/intro
 * [x] wyszukiwanie motocykla po VIN z opcją "przejęcia" historii
+* [x] landing page about
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu

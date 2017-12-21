@@ -52,7 +52,16 @@
     <put-attribute name="body" value="/WEB-INF/tiles/error.jsp"/>
   </definition>
 
-  <definition name="about" extends="not-logged-in">
+  <definition name="about" template="/WEB-INF/tiles/about-layout.jsp">
+    <put-attribute name="title" expression="I18N:about.title"/>
+  </definition>
+
+  <definition name="about.logged-in" extends="logged-in">
+    <put-attribute name="title" expression="I18N:about.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/about.jsp"/>
+  </definition>
+
+  <definition name="about.not-logged-in" extends="not-logged-in">
     <put-attribute name="title" expression="I18N:about.title"/>
     <put-attribute name="body" value="/WEB-INF/tiles/about.jsp"/>
   </definition>
