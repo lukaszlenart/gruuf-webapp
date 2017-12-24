@@ -16,6 +16,10 @@ public class AboutInterceptor extends AbstractInterceptor {
             return invocation.invoke();
         }
 
+        if ("bot".equalsIgnoreCase(invocation.getProxy().getActionName())) {
+            return invocation.invoke();
+        }
+
         Cookie[] cookies = ServletActionContext.getRequest().getCookies();
 
         if (cookies != null) {

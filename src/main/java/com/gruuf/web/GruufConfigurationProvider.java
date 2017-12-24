@@ -100,6 +100,24 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
                 LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
+        locatableProperties.setProperty(
+                GruufConstants.FACEBOOK_PAGE_ACCESS_TOKEN,
+                substitutor.substitute("${GRUUF_FACEBOOK_PAGE_ACCESS_TOKEN}"),
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
+        locatableProperties.setProperty(
+                GruufConstants.FACEBOOK_APP_SECRET,
+                substitutor.substitute("${GRUUF_FACEBOOK_APP_SECRET}"),
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
+        locatableProperties.setProperty(
+                GruufConstants.FACEBOOK_VERIFY_TOKEN,
+                substitutor.substitute("${GRUUF_FACEBOOK_VERIFY_TOKEN}"),
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
         containerBuilder.factory(UserStore.class, new Factory<UserStore>() {
             @Override
             public UserStore create(Context context) throws Exception {

@@ -13,4 +13,8 @@ public class GruufConstants {
 
     public static final String FIRST_TIME_COOKIE = "__gruuf_first_time";
 
+    public static final String FACEBOOK_PAGE_ACCESS_TOKEN = "gruuf.facebook.pageAccessToken";
+    public static final String FACEBOOK_APP_SECRET = "gruuf.facebook.appSecret";
+    public static final String FACEBOOK_VERIFY_TOKEN = "gruuf.facebook.verifyToken";
+
 }

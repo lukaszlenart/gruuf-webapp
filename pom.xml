@@ -273,6 +273,12 @@
     </dependency>
 
     <dependency>
+      <groupId>com.github.messenger4j</groupId>
+      <artifactId>messenger4j</artifactId>
+      <version>1.0.0-M2</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.gruuf</groupId>
       <artifactId>struts2-gae-plugin</artifactId>
       <version>1.2</version>
