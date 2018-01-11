@@ -43,11 +43,12 @@ public class FacebookLoginAction extends BaseLoginAction {
 
             facebook4j.User facebookMe = facebook.getMe(new Reading().fields("email", "first_name", "last_name"));
 
+            String facebookId = facebookMe.getId();
             String emailAddress = facebookMe.getEmail();
             String lastName = facebookMe.getLastName();
             String firstName = facebookMe.getFirstName();
 
-            LOG.debug("Got {} {} with emails {}", firstName, lastName, emailAddress);
+            LOG.debug("Got {} {} {} with emails {}", facebookId, firstName, lastName, emailAddress);
 
             User user = registerAndLogin(Collections.singletonList(emailAddress), null, firstName, lastName);
 
