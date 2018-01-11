@@ -11,8 +11,5 @@
     <property name="GRUUF_OAUTH_GOOGLE_API_KEY" value="${env.GRUUF_OAUTH_GOOGLE_API_KEY}"/>
     <property name="GRUUF_OAUTH_GOOGLE_API_SECRET" value="${env.GRUUF_OAUTH_GOOGLE_API_SECRET}"/>
     <property name="GRUUF_RECAPTCHA_SECRET" value="${env.GRUUF_RECAPTCHA_SECRET}"/>
-    <property name="GRUUF_FACEBOOK_PAGE_ACCESS_TOKEN" value="${env.GRUUF_FACEBOOK_PAGE_ACCESS_TOKEN}"/>
-    <property name="GRUUF_FACEBOOK_APP_SECRET" value="${env.GRUUF_FACEBOOK_APP_SECRET}"/>
-    <property name="GRUUF_FACEBOOK_VERIFY_TOKEN" value="${env.GRUUF_FACEBOOK_VERIFY_TOKEN}"/>
   </system-properties>
 </appengine-web-app>
