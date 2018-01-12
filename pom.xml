@@ -273,12 +273,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.messenger4j</groupId>
-      <artifactId>messenger4j</artifactId>
-      <version>1.0.0-M2</version>
-    </dependency>
-
-    <dependency>
       <groupId>com.gruuf</groupId>
       <artifactId>struts2-gae-plugin</artifactId>
       <version>1.2</version>
@@ -288,6 +282,17 @@
       <groupId>com.github.rjeschke</groupId>
       <artifactId>txtmark</artifactId>
       <version>0.13</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.taglibs</groupId>
+      <artifactId>taglibs-standard-spec</artifactId>
+      <version>1.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.taglibs</groupId>
+      <artifactId>taglibs-standard-impl</artifactId>
+      <version>1.2.5</version>
     </dependency>
 
   </dependencies>
