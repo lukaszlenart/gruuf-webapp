@@ -50,7 +50,7 @@ public class FacebookLoginAction extends BaseLoginAction {
 
             LOG.debug("Got {} {} {} with emails {}", facebookId, firstName, lastName, emailAddress);
 
-            User user = registerAndLogin(Collections.singletonList(emailAddress), null, firstName, lastName);
+            User user = registerAndLogin(Collections.singletonList(emailAddress), null, firstName, lastName, facebookId);
 
             if (user != null) {
                 markSessionAsLoggedIn(user);

@@ -27,6 +27,8 @@ public class User {
     private String lastName;
     private UserLocale userLocale;
     private boolean notify;
+    @Index
+    private String facebookId;
 
     private Date timestamp;
 
@@ -74,6 +76,10 @@ public class User {
         return notify;
     }
 
+    public String getFacebookId() {
+        return facebookId;
+    }
+
     public Date getTimestamp() {
         return timestamp;
     }
@@ -110,7 +116,8 @@ public class User {
                 .withFirstName(user.getFirstName())
                 .withLastName(user.getLastName())
                 .withUserLocale(user.getUserLocale())
-                .withTokens(user.getTokens());
+                .withTokens(user.getTokens())
+                .withFacebookId(user.getFacebookId());
     }
 
     public static class UserCreator {
@@ -173,6 +180,11 @@ public class User {
 
         public UserCreator withNotify(boolean notify) {
             target.notify = notify;
+            return this;
+        }
+
+        public UserCreator withFacebookId(String facebookId) {
+            target.facebookId = facebookId;
             return this;
         }
 

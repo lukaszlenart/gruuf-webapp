@@ -75,7 +75,7 @@ public class GoogleLoginAction extends BaseLoginAction {
 
             LOG.debug("Got {} {} with emails {}", firstName, lastName, emailAddress);
 
-            User user = registerAndLogin(Collections.singletonList(emailAddress), null, firstName, lastName);
+            User user = registerAndLogin(Collections.singletonList(emailAddress), null, firstName, lastName, null);
 
             if (user != null) {
                 markSessionAsLoggedIn(user);

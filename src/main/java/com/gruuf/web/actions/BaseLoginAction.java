@@ -7,6 +7,7 @@ import com.gruuf.services.MailBox;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.interceptor.I18nInterceptor;
@@ -38,30 +39,31 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
     }
 
     protected User registerAndLogin(String emailAddress, String password) {
-        return registerAndLogin(Collections.singletonList(emailAddress), password, null, null);
+        return registerAndLogin(Collections.singletonList(emailAddress), password, null, null, null);
     }
 
-    protected User registerAndLogin(List<String> emailAddresses, String password, String firstName, String lastName) {
+    protected User registerAndLogin(List<String> emailAddresses, String password, String firstName, String lastName, String facebookId) {
         User user = finsExistingUser(emailAddresses);
 
         if (user != null) {
-            user = updateUser(user, firstName, lastName);
+            user = updateUser(user, firstName, lastName, facebookId);
         }
 
         if (user == null && emailAddresses.size() > 0) {
             String email = emailAddresses.get(0);
-            user = createNewUser(email, password, firstName, lastName);
+            user = createNewUser(email, password, firstName, lastName, facebookId);
         }
         return user;
     }
 
-    private User createNewUser(String email, String password, String firstName, String lastName) {
+    private User createNewUser(String email, String password, String firstName, String lastName, String facebookId) {
 
         User.UserCreator newUser = User.create()
                 .withEmail(email.trim())
                 .withPassword(password)
                 .withFirstName(firstName)
                 .withLastName(lastName)
+                .withFacebookId(facebookId)
                 .withToken(Token.USER);
 
         if (UserLocale.isValidLocale(browserLocale)) {
@@ -78,15 +80,17 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
         return user;
     }
 
-    private User updateUser(User user, String firstName, String lastName) {
+    private User updateUser(User user, String firstName, String lastName, String facebookId) {
+        User.UserCreator clone = User.clone(user);
+
         if (user.getFirstName() == null || user.getLastName() == null) {
-            user = User.clone(user)
-                    .withFirstName(firstName)
-                    .withLastName(lastName)
-                    .build();
-            user = userStore.put(user);
+             clone = clone.withFirstName(firstName).withLastName(lastName);
         }
-        return user;
+        if (StringUtils.isNoneEmpty(facebookId)) {
+            clone = clone.withFacebookId(facebookId);
+        }
+
+        return userStore.put(clone.build());
     }
 
     private User finsExistingUser(List<String> emailAddresses) {
