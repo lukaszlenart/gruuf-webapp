@@ -16,7 +16,7 @@ public class AboutInterceptor extends AbstractInterceptor {
             return invocation.invoke();
         }
 
-        if ("bot".equalsIgnoreCase(invocation.getProxy().getActionName())) {
+        if (invocation.getProxy().getNamespace().startsWith("/api")) {
             return invocation.invoke();
         }
 

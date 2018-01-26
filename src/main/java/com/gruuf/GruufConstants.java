@@ -11,6 +11,8 @@ public class GruufConstants {
     public static final String OAUTH_GOOGLE_API_KEY = "gruuf.oauth.googleApiKey";
     public static final String OAUTH_GOOGLE_API_SECRET = "gruuf.oauth.googleApiSecret";
 
+    public static final String FACEBOOK_VERIFY_TOKEN = "gruuf.facebook.verifyToken";
+
     public static final String FIRST_TIME_COOKIE = "__gruuf_first_time";
 
 }
