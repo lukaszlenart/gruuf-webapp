@@ -54,6 +54,10 @@ public class BikeEventDescriptor {
         return bikeEvent.getMileage();
     }
 
+    public Long getMth() {
+        return bikeEvent.getMth();
+    }
+
     public boolean isCurrentMileage() {
         return bikeEvent.isMileage() && currentMileage != null && bikeEvent.getStatus() != BikeEventStatus.SYSTEM;
     }
