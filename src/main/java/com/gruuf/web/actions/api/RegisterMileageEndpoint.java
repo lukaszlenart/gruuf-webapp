@@ -1,6 +1,5 @@
 package com.gruuf.web.actions.api;
 
-import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.gruuf.GruufConstants;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
@@ -16,6 +15,7 @@ import org.apache.struts2.StrutsConstants;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
+import org.joda.time.DateTime;
 
 import java.util.Collections;
 import java.util.List;
