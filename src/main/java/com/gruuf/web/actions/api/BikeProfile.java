@@ -7,6 +7,7 @@ import java.util.List;
 
 public class BikeProfile {
 
+    private final String id;
     private final String name;
     private final BikeMetadataProfile metadata;
     private final String vin;
@@ -14,11 +15,16 @@ public class BikeProfile {
     private final Long mth;
 
     public BikeProfile(Bike bike, Long mileage, Long mth) {
+        this.id = bike.getId();
         this.name = bike.getName();
         this.metadata = new BikeMetadataProfile(bike.getBikeMetadata());
         this.vin = bike.getVin();
         this.mileage = mileage;
         this.mth = mth;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
