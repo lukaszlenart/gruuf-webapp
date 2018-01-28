@@ -28,14 +28,12 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
         @InterceptorRef("json")
 })
 @Anonymous
-public class UserProfileEndpoint extends BaseAction {
+public class UserProfileEndpoint extends BaseEndpoint {
 
     private static final Logger LOG = LogManager.getLogger(UserProfileEndpoint.class);
 
     @Inject
     private Garage garage;
-    @Inject
-    private BikeHistory history;
     @Inject
     private UserStore userStore;
     @Inject(GruufConstants.FACEBOOK_VERIFY_TOKEN)
@@ -58,7 +56,7 @@ public class UserProfileEndpoint extends BaseAction {
                 List<Bike> bikes = garage.findByOwner(user);
                 List<BikeProfile> bikeProfiles = bikes.stream().map(this::createBikeProfile).collect(Collectors.toList());
 
-                response = UserProfileResponse.ok(profile, bikeProfiles);
+                response = UserProfileResponse.success(profile, bikeProfiles);
             }
         } else {
             LOG.warn("Wrong token {}", verifyToken);
@@ -66,22 +64,6 @@ public class UserProfileEndpoint extends BaseAction {
         }
 
         return SUCCESS;
-    }
-
-    private BikeProfile createBikeProfile(Bike bike) {
-        // List<BikeEvent> events = history.listRecentByBike(bike);
-
-        Long mileage = null;
-        if (bike.isShowMileage()) {
-            mileage = history.findCurrentMileage(bike);
-        }
-
-        Long mth = null;
-        if (bike.isShowMth()) {
-            mth = history.findCurrentMth(bike);
-        }
-
-        return new BikeProfile(bike, mileage, mth);
     }
 
     private boolean verifyToken() {
@@ -98,47 +80,6 @@ public class UserProfileEndpoint extends BaseAction {
 
     public UserProfileResponse getResponse() {
         return response;
-    }
-
-    public static class UserProfileResponse {
-        private final UserProfile profile;
-        private final List<BikeProfile> bikes;
-
-        private String status;
-
-        private UserProfileResponse() {
-            profile = null;
-            bikes = Collections.emptyList();
-        }
-
-        private UserProfileResponse(UserProfile profile, List<BikeProfile> bikes) {
-            this.profile = profile;
-            this.bikes = bikes;
-        }
-
-        public UserProfile getProfile() {
-            return profile;
-        }
-
-        public List<BikeProfile> getBikes() {
-            return bikes;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public static UserProfileResponse ok(UserProfile profile, List<BikeProfile> bikes) {
-            UserProfileResponse result = new UserProfileResponse(profile, bikes);
-            result.status = "success";
-            return result;
-        }
-
-        public static UserProfileResponse failed() {
-            UserProfileResponse result = new UserProfileResponse();
-            result.status = "failed";
-            return result;
-        }
     }
 
 }

@@ -1,7 +1,7 @@
 package com.gruuf.model;
 
 public enum BikeEventStatus {
-    NEW(true), SYSTEM(false), DELETED(false);
+    NEW(true), SYSTEM(false), DELETED(false), TEMPORARY(true);
 
     BikeEventStatus(boolean deletable) {
         this.deletable = deletable;

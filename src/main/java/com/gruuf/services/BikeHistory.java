@@ -21,7 +21,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
 
     public List<BikeEvent> listByBike(Bike bike) {
         return filter("bike =", bike)
-                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
+                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM, BikeEventStatus.TEMPORARY))
                 .order("-registerDate")
                 .list();
     }

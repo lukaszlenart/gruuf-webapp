@@ -75,8 +75,12 @@ body.loading > .loader > img {
   min-width: 340px;
 }
 
-.deletable, .editable {
+.deletable, .editable, .approveable {
   width: 16px;
   overflow: hidden;
   padding: 0 2px;
+}
+
+.label {
+  float: right;
 }

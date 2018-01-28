@@ -86,12 +86,28 @@ public class BikeEventDescriptor {
         return bikeEvent.getAuthor();
     }
 
+    public boolean isShowCurrentMileage() {
+        return isCurrentMileage() && !isTemporary() && !isSystem();
+    }
+
+    public boolean isShowCurrentMth() {
+        return isCurrentMth() && ! isTemporary();
+    }
+
+    public boolean isSystem() {
+        return bikeEvent.isSystem();
+    }
+
     public boolean isDeletable() {
         return bikeEvent.isDeletable();
     }
 
+    public boolean isTemporary() {
+        return bikeEvent.isTemporary();
+    }
+
     public boolean isEditable() {
-        return bikeEvent.isEditable();
+        return bikeEvent.isEditable() && !isSystem() && !isTemporary();
     }
 
 }

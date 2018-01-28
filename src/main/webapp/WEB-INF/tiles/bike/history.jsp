@@ -72,6 +72,12 @@
         <s:iterator value="eventTypes" var="eventType" status="stats">
           <s:property value="name"/><s:if test="%{not #stats.last}">,</s:if>
         </s:iterator>
+        <s:if test="temporary">
+          <span class="label label-warning"><s:text name="general.temporary">Temporary</s:text></span>
+        </s:if>
+        <s:if test="system">
+          <span class="label label-danger"><s:text name="general.system">System</s:text></span>
+        </s:if>
       </td>
       <td>
         <s:property value="description" escapeHtml="false"/>
@@ -82,7 +88,7 @@
       <s:if test="bikeDetails.bike.showMileage">
       <td class="text-center">
         <span class="clearfix"><s:number name="mileage"/></span>
-        <s:if test="isCurrentMileage()">
+        <s:if test="showCurrentMileage">
         <span class="badge" title="<s:text name='bikeEvent.currentMileage.title'/>">
           <s:number name="getCurrentMileage()"/>
           <i class="fa fa-repeat"></i>
@@ -93,7 +99,7 @@
       <s:if test="bikeDetails.bike.showMth">
       <td class="text-center">
         <span class="clearfix"><s:number name="mth"/></span>
-        <s:if test="isCurrentMth()">
+        <s:if test="showCurrentMth">
         <span class="badge" title="<s:text name='bikeEvent.currentMth.title'/>">
           <s:number name="getCurrentMth()"/>
           <i class="fa fa-repeat"></i>
@@ -111,11 +117,19 @@
         </s:if>
 
         <s:if test="deletable">
-        <s:url var="deleteEvent" action="delete-bike-event" escapeAmp="false">
-          <s:param name="bikeId" value="%{bikeId}"/>
-          <s:param name="bikeEventId" value="id"/>
-        </s:url>
-        <s:a value="%{deleteEvent}" cssClass="deletable glyphicon glyphicon-trash" title="%{getText('general.delete')}"><s:text name="general.delete"/></s:a>
+          <s:url var="deleteEvent" action="delete-bike-event" escapeAmp="false">
+            <s:param name="bikeId" value="%{bikeId}"/>
+            <s:param name="bikeEventId" value="id"/>
+          </s:url>
+          <s:a value="%{deleteEvent}" cssClass="deletable glyphicon glyphicon-trash" title="%{getText('general.delete')}"><s:text name="general.delete"/></s:a>
+        </s:if>
+
+        <s:if test="temporary">
+          <s:url var="approveEvent" action="approve-bike-event" escapeAmp="false">
+            <s:param name="bikeId" value="%{bikeId}"/>
+            <s:param name="bikeEventId" value="id"/>
+          </s:url>
+          <s:a value="%{approveEvent}" cssClass="approveable glyphicon glyphicon-ok" title="%{getText('general.approve')}"><s:text name="general.approve"/></s:a>
         </s:if>
       </td>
     </tr>

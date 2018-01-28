@@ -107,20 +107,20 @@ public class BikeEvent {
         return status.isDeletable();
     }
 
-    @Override
-    public String toString() {
-        return "BikeEvent{" +
-                "id='" + id + '\'' +
-                ", bike=" + bike +
-                ", eventTypeIds=" + eventTypeIds +
-                ", timestamp=" + timestamp +
-                ", description='" + description + '\'' +
-                ", registerDate=" + registerDate +
-                ", mileage=" + mileage +
-                ", mth=" + mth +
-                ", status=" + status +
-                ", registeredBy=" + registeredBy +
-                '}';
+    public boolean isTemporary() {
+        return status == BikeEventStatus.TEMPORARY;
+    }
+
+    public BikeEvent markAsNew() {
+        this.status = BikeEventStatus.NEW;
+        this.timestamp = new Date();
+        return this;
+    }
+
+    public BikeEvent markAsSystem() {
+        this.status = BikeEventStatus.SYSTEM;
+        this.timestamp = new Date();
+        return this;
     }
 
     public BikeEvent markAsDeleted() {
@@ -150,6 +150,26 @@ public class BikeEvent {
 
     public boolean isMileage() {
         return mileage != null;
+    }
+
+    public boolean isSystem() {
+        return status == BikeEventStatus.SYSTEM;
+    }
+
+    @Override
+    public String toString() {
+        return "BikeEvent{" +
+                "id='" + id + '\'' +
+                ", bike=" + bike +
+                ", eventTypeIds=" + eventTypeIds +
+                ", timestamp=" + timestamp +
+                ", description='" + description + '\'' +
+                ", registerDate=" + registerDate +
+                ", mileage=" + mileage +
+                ", mth=" + mth +
+                ", status=" + status +
+                ", registeredBy=" + registeredBy +
+                '}';
     }
 
     public static class BikeEventBuilder {
@@ -203,6 +223,11 @@ public class BikeEvent {
 
         public BikeEventBuilder markAsSystem() {
             target.status = BikeEventStatus.SYSTEM;
+            return this;
+        }
+
+        public BikeEventBuilder markAsTemporary() {
+            target.status = BikeEventStatus.TEMPORARY;
             return this;
         }
 
