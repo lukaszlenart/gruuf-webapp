@@ -49,7 +49,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
                 .list();
 
         for (BikeEvent event : bikeEvents) {
-            if (mileage == null || mileage.compareTo(event.getMileage()) < 0) {
+            if (mileage == null || (event.getMileage() != null && mileage.compareTo(event.getMileage()) < 0)) {
                 mileage = event.getMileage();
             }
         }
@@ -66,7 +66,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
                 .list();
 
         for (BikeEvent event : bikeEvents) {
-            if (mth == null || mth.compareTo(event.getMth()) < 0) {
+            if (mth == null || (event.getMth() != null && mth.compareTo(event.getMth()) < 0)) {
                 mth = event.getMth();
             }
         }
