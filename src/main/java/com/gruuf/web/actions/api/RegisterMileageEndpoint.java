@@ -5,13 +5,10 @@ import com.gruuf.GruufConstants;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
-import com.gruuf.model.EventType;
 import com.gruuf.model.User;
-import com.gruuf.services.BikeHistory;
 import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
 import com.gruuf.services.UserStore;
-import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,19 +65,26 @@ public class RegisterMileageEndpoint extends BaseEndpoint {
                 UserProfile profile = new UserProfile(user);
 
                 Bike bike = garage.get(payload.bikeId);
-                if (bike == null ) {
+                if (bike == null) {
                     LOG.warn("No Facebook ID: {}", asid);
                     response = UserProfileResponse.failed();
                 } else {
-                    BikeEvent bikeEvent = BikeEvent.create(bike, user)
-                            .withMileage(payload.mileage)
-                            .withMth(payload.mth)
-                            .withEventTypeId(Collections.singleton(eventTypes.getMileageEventType().getId()))
+                    BikeEvent.BikeEventBuilder bikeEvent = BikeEvent.create(bike, user)
                             .withDescription(getText("bike.systemMileageUpdate"))
                             .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
-                            .markAsTemporary()
-                            .build();
-                    history.put(bikeEvent);
+                            .markAsTemporary();
+
+                    if (payload.isMth()) {
+                        bikeEvent = bikeEvent
+                                .withEventTypeId(Collections.singleton(eventTypes.getMthEventType().getId()))
+                                .withMth(payload.mileage);
+                    } else {
+                        bikeEvent = bikeEvent
+                                .withEventTypeId(Collections.singleton(eventTypes.getMileageEventType().getId()))
+                                .withMileage(payload.mileage);
+                    }
+
+                    history.put(bikeEvent.build());
                 }
 
                 List<Bike> bikes = garage.findByOwner(user);
@@ -115,31 +119,23 @@ public class RegisterMileageEndpoint extends BaseEndpoint {
 
     public static class RegisterMileagePayload {
         private String bikeId;
-        private Long mth;
         private Long mileage;
-
-        public String getBikeId() {
-            return bikeId;
-        }
+        private String mileageType;
 
         public void setBikeId(String bikeId) {
             this.bikeId = bikeId;
         }
 
-        public Long getMth() {
-            return mth;
-        }
-
-        public void setMth(Long mth) {
-            this.mth = mth;
-        }
-
-        public Long getMileage() {
-            return mileage;
-        }
-
         public void setMileage(Long mileage) {
             this.mileage = mileage;
+        }
+
+        public void setMileageType(String mileageType) {
+            this.mileageType = mileageType;
+        }
+
+        public boolean isMth() {
+            return "mth".equalsIgnoreCase(mileageType);
         }
     }
 }
