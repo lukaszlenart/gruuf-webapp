@@ -9,7 +9,6 @@ import com.gruuf.model.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class EventTypes extends Reindexable<EventType> {
@@ -68,14 +67,11 @@ public class EventTypes extends Reindexable<EventType> {
     }
 
     private void sort(List<EventTypeDescriptor> approved) {
-        Collections.sort(approved, new Comparator<EventTypeDescriptor>() {
-            @Override
-            public int compare(EventTypeDescriptor o1, EventTypeDescriptor o2) {
-                if (o1.getName() == null) {
-                    return 0;
-                }
-                return o1.getName().compareTo(o2.getName());
+        Collections.sort(approved, (desc1, desc2) -> {
+            if (desc1.getName() == null) {
+                return 0;
             }
+            return desc1.getName().compareTo(desc2.getName());
         });
     }
 
