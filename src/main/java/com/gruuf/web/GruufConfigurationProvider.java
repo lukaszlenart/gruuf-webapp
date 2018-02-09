@@ -108,57 +108,97 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
 
         containerBuilder.factory(UserStore.class, new Factory<UserStore>() {
             @Override
-            public UserStore create(Context context) throws Exception {
+            public UserStore create(Context context) {
                 return new UserStore(User.class);
+            }
+
+            @Override
+            public Class<? extends UserStore> type() {
+                return UserStore.class;
             }
         }, Scope.SINGLETON);
 
         containerBuilder.factory(BikeHistory.class, new Factory<BikeHistory>() {
             @Override
-            public BikeHistory create(Context context) throws Exception {
+            public BikeHistory create(Context context) {
                 return new BikeHistory(BikeEvent.class);
+            }
+
+            @Override
+            public Class<? extends BikeHistory> type() {
+                return BikeHistory.class;
             }
         }, Scope.SINGLETON);
 
         containerBuilder.factory(Garage.class, new Factory<Garage>() {
             @Override
-            public Garage create(Context context) throws Exception {
+            public Garage create(Context context) {
                 return new Garage(Bike.class);
+            }
+
+            @Override
+            public Class<? extends Garage> type() {
+                return Garage.class;
             }
         }, Scope.SINGLETON);
 
         containerBuilder.factory(MailBox.class, new Factory<MailBox>() {
             @Override
-            public MailBox create(Context context) throws Exception {
+            public MailBox create(Context context) {
                 return context.getContainer().inject(MailBox.class);
+            }
+
+            @Override
+            public Class<? extends MailBox> type() {
+                return MailBox.class;
             }
         }, Scope.SINGLETON);
 
         containerBuilder.factory(EventTypes.class, new Factory<EventTypes>() {
             @Override
-            public EventTypes create(Context context) throws Exception {
+            public EventTypes create(Context context) {
                 return new EventTypes();
+            }
+
+            @Override
+            public Class<? extends EventTypes> type() {
+                return EventTypes.class;
             }
         }, Scope.SINGLETON);
 
         containerBuilder.factory(AttachmentsStorage.class, new Factory<AttachmentsStorage>() {
             @Override
-            public AttachmentsStorage create(Context context) throws Exception {
+            public AttachmentsStorage create(Context context) {
                 return context.getContainer().inject(AttachmentsStorage.class);
+            }
+
+            @Override
+            public Class<? extends AttachmentsStorage> type() {
+                return AttachmentsStorage.class;
             }
         }, Scope.SINGLETON);
 
         containerBuilder.factory(BikeMetadataStore.class, new Factory<BikeMetadataStore>() {
             @Override
-            public BikeMetadataStore create(Context context) throws Exception {
+            public BikeMetadataStore create(Context context) {
                 return context.getContainer().inject(BikeMetadataStore.class);
+            }
+
+            @Override
+            public Class<? extends BikeMetadataStore> type() {
+                return BikeMetadataStore.class;
             }
         }, Scope.SINGLETON);
 
         containerBuilder.factory(Recommendations.class, new Factory<Recommendations>() {
             @Override
-            public Recommendations create(Context context) throws Exception {
+            public Recommendations create(Context context) {
                 return context.getContainer().inject(Recommendations.class);
+            }
+
+            @Override
+            public Class<? extends Recommendations> type() {
+                return Recommendations.class;
             }
         }, Scope.SINGLETON);
     }
