@@ -38,11 +38,22 @@
 
     <div class="panel panel-danger">
       <div class="panel-heading">
-        <s:text name="about.pracing">praising</s:text>
+        <s:text name="about.pricing">pricing</s:text>
       </div>
       <div class="panel-body"><s:text name="about.noteAboutPraising">
         the system is free of charge forever but some options can be extra paid in the feature
       </s:text></div>
+    </div>
+
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <s:text name="privacyPolicy.title">privacy policy</s:text>
+      </div>
+      <div class="panel-body">
+        <s:text name="privacyPolicy.pleaseReadOur">please read our</s:text>
+        <s:url var="privacyPolicy" action="privacy-policy"/>
+        <s:a href="%{privacyPolicy}"><s:text name="privacyPolicy.privacyPolicy"/></s:a>
+      </div>
     </div>
   </div>
 </div>

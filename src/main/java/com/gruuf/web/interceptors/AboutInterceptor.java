@@ -16,6 +16,10 @@ public class AboutInterceptor extends AbstractInterceptor {
             return invocation.invoke();
         }
 
+        if ("privacy-policy".equalsIgnoreCase(invocation.getProxy().getActionName())) {
+            return invocation.invoke();
+        }
+
         if (invocation.getProxy().getNamespace().startsWith("/api")) {
             return invocation.invoke();
         }

@@ -28,6 +28,10 @@
           <s:url var="about" action="about"/>
           <s:a href="%{about}"><s:text name="about.title"/></s:a>
         </li>
+        <li>
+          <s:url var="privacyPolicy" action="privacy-policy"/>
+          <s:a href="%{privacyPolicy}"><s:text name="privacyPolicy.title"/></s:a>
+        </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

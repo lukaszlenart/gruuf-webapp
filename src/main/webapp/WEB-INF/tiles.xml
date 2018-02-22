@@ -66,4 +66,18 @@
     <put-attribute name="body" value="/WEB-INF/tiles/about.jsp"/>
   </definition>
 
+  <definition name="privacy-policy" template="/WEB-INF/tiles/privacy-policy-layout.jsp">
+    <put-attribute name="title" expression="I18N:privacyPolicy.title"/>
+  </definition>
+
+  <definition name="privacy-policy.logged-in" extends="logged-in">
+    <put-attribute name="title" expression="I18N:privacyPolicy.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/privacy-policy.html"/>
+  </definition>
+
+  <definition name="privacy-policy.not-logged-in" extends="not-logged-in">
+    <put-attribute name="title" expression="I18N:privacyPolicy.title"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/privacy-policy.html"/>
+  </definition>
+
 </tiles-definitions>
