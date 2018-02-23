@@ -26,6 +26,11 @@
                       label="Auth tokens"
                       labelposition="inline"/>
 
+      <s:checkboxlist list="availablePolicies"
+                      name="acceptedPolicies"
+                      label="Accepted policies"
+                      labelposition="inline"/>
+
       <s:select list="availableUserLocales"
                 name="userLocale"
                 label="User locale"

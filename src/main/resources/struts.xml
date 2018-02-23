@@ -27,6 +27,7 @@
       <interceptor name="restriction" class="com.gruuf.web.interceptors.BikeRestrictionInterceptor"/>
       <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
       <interceptor name="reCaptcha" class="com.gruuf.struts2.gae.recaptcha.ReCaptchaInterceptor"/>
+      <interceptor name="policy" class="com.gruuf.web.interceptors.PolicyInterceptor"/>
 
       <interceptor-stack name="gruufDefaultDev">
         <interceptor-ref name="exception">
@@ -40,6 +41,7 @@
         <interceptor-ref name="auth"/>
         <interceptor-ref name="user"/>
         <interceptor-ref name="restriction"/>
+        <interceptor-ref name="policy"/>
         <interceptor-ref name="alias"/>
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>
@@ -61,6 +63,7 @@
         <interceptor-ref name="auth"/>
         <interceptor-ref name="user"/>
         <interceptor-ref name="restriction"/>
+        <interceptor-ref name="policy"/>
         <interceptor-ref name="alias"/>
         <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>
@@ -118,6 +121,10 @@
       </result>
       <result name="about" type="redirectAction">
         <param name="actionName">about</param>
+        <param name="namespace">/</param>
+      </result>
+      <result name="privacy-policy" type="redirectAction">
+        <param name="actionName">privacy-policy</param>
         <param name="namespace">/</param>
       </result>
       <result name="error">error</result>

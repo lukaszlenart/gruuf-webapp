@@ -8,6 +8,7 @@
     <th><s:text name="biker.email.address"/></th>
     <th><s:text name="biker.fullName"/></th>
     <th><s:text name="biker.tokens"/></th>
+    <th><s:text name="biker.acceptedPolicies"/></th>
     <th><s:text name="biker.language"/></th>
     <th><s:text name="biker.notify"/></th>
     <th><s:text name="general.timestamp"/></th>
@@ -20,6 +21,7 @@
       <td><s:property value="email"/></td>
       <td><s:property value="fullName"/></td>
       <td><s:property value="tokens"/></td>
+      <td><s:property value="acceptedPolicies"/></td>
       <td><s:property value="userLocale"/></td>
       <td><s:property value="notify"/></td>
       <td><s:date name="timestamp" format="%{userDateFormat}"/></td>

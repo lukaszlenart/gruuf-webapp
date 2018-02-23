@@ -72,12 +72,12 @@
 
   <definition name="privacy-policy.logged-in" extends="logged-in">
     <put-attribute name="title" expression="I18N:privacyPolicy.title"/>
-    <put-attribute name="body" value="/WEB-INF/tiles/privacy-policy.html"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/privacy-policy.jsp"/>
   </definition>
 
   <definition name="privacy-policy.not-logged-in" extends="not-logged-in">
     <put-attribute name="title" expression="I18N:privacyPolicy.title"/>
-    <put-attribute name="body" value="/WEB-INF/tiles/privacy-policy.html"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/privacy-policy.jsp"/>
   </definition>
 
 </tiles-definitions>

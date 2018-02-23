@@ -32,6 +32,8 @@ public class User {
 
     private Date timestamp;
 
+    private Set<PolicyType> acceptedPolicies;
+
     private User() {
     }
 
@@ -84,6 +86,10 @@ public class User {
         return timestamp;
     }
 
+    public Set<PolicyType> getAcceptedPolicies() {
+        return acceptedPolicies;
+    }
+
     public String getFullName() {
         if (firstName == null && lastName == null) {
             return email;
@@ -101,7 +107,9 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", userLocale=" + userLocale +
                 ", notify=" + notify +
+                ", facebookId='" + facebookId + '\'' +
                 ", timestamp=" + timestamp +
+                ", acceptedPolicies=" + acceptedPolicies +
                 '}';
     }
 
@@ -117,7 +125,12 @@ public class User {
                 .withLastName(user.getLastName())
                 .withUserLocale(user.getUserLocale())
                 .withTokens(user.getTokens())
+                .withAcceptedPolicies(user.getAcceptedPolicies())
                 .withFacebookId(user.getFacebookId());
+    }
+
+    public boolean isPrivacyPolicyAccepted() {
+        return acceptedPolicies != null && acceptedPolicies.contains(PolicyType.PRIVACY_POLICY);
     }
 
     public static class UserCreator {
@@ -185,6 +198,11 @@ public class User {
 
         public UserCreator withFacebookId(String facebookId) {
             target.facebookId = facebookId;
+            return this;
+        }
+
+        public UserCreator withAcceptedPolicies(Set<PolicyType> acceptedPolicies) {
+            target.acceptedPolicies = acceptedPolicies;
             return this;
         }
 

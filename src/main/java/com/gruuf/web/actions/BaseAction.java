@@ -17,6 +17,7 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
 
     public static final String JSON = "json";
     public static final String TO_INPUT = "to-input";
+    public static final String PRIVACY_POLICY = "privacy-policy";
 
     protected User currentUser;
 

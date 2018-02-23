@@ -2,6 +2,7 @@ package com.gruuf.web.actions.admin;
 
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
+import com.gruuf.model.PolicyType;
 import com.gruuf.model.User;
 import com.gruuf.model.UserLocale;
 import com.gruuf.services.UserStore;
@@ -31,6 +32,7 @@ public class EditUserAction extends BaseAction {
     private UserLocale userLocale;
     private boolean notify;
     private Set<Token> tokens;
+    private Set<PolicyType> acceptedPolicies;
 
     @SkipValidation
     public String execute() {
@@ -44,6 +46,7 @@ public class EditUserAction extends BaseAction {
         userLocale = user.getUserLocale();
         notify = user.isNotify();
         tokens = user.getTokens();
+        acceptedPolicies = user.getAcceptedPolicies();
 
         return INPUT;
     }
@@ -65,6 +68,7 @@ public class EditUserAction extends BaseAction {
                 .withLastName(lastName)
                 .withUserLocale(userLocale)
                 .withNotify(notify)
+                .withAcceptedPolicies(acceptedPolicies)
                 .build();
 
         LOG.debug("Storing updated user {}", updatedUser);
@@ -80,6 +84,8 @@ public class EditUserAction extends BaseAction {
 
             userStore.put(updatedUser);
         }
+
+        System.out.println(updatedUser);
 
         return "to-users";
     }
@@ -125,6 +131,14 @@ public class EditUserAction extends BaseAction {
         this.tokens = tokens;
     }
 
+    public void setAcceptedPolicies(Set<PolicyType> acceptedPolicies) {
+        this.acceptedPolicies = acceptedPolicies;
+    }
+
+    public Set<PolicyType> getAcceptedPolicies() {
+        return acceptedPolicies;
+    }
+
     public UserLocale getUserLocale() {
         return userLocale;
     }
@@ -143,6 +157,10 @@ public class EditUserAction extends BaseAction {
 
     public Set<Token> getAvailableTokens() {
         return Token.all();
+    }
+
+    public Set<PolicyType> getAvailablePolicies() {
+        return PolicyType.all();
     }
 
     public Set<UserLocale> getAvailableUserLocales() {

@@ -16,6 +16,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 
     private static Logger LOG = LogManager.getLogger(AuthInterceptor.class);
 
+    @Inject
     private UserStore userStore;
 
     @Override
@@ -50,8 +51,4 @@ public class AuthInterceptor extends AbstractInterceptor {
         return tokens == null || user.hasAnyToken(tokens.value());
     }
 
-    @Inject
-    public void setUserStore(UserStore userStore) {
-        this.userStore = userStore;
-    }
 }

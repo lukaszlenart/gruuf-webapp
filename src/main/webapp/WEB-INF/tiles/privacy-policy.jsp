@@ -1,4 +1,11 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
 <p>Effective date: February 20, 2018</p>
+
+<s:if test="loggedIn && not accepted">
+<p class="alert alert-danger">Please scroll to the bottom and accept the policy!</p>
+</s:if>
 
 <p>Uslugi IT Lukasz Lenart ("us", "we", or "our") operates the https://gruuf.com/ website (the "Service").</p>
 
@@ -202,3 +209,12 @@
   <li>By email: info@gruuf.com</li>
   <li>By visiting this page on our website: https://gruuf.com/contact</li>
 </ul>
+
+<s:if test="loggedIn && not accepted">
+  <div class="row">
+    <p class="center-block">
+      <s:url var="approve" action="approve-policy"/>
+      <s:a class="btn btn-success center-block" value="%{approve}"><s:text name="general.approve"/></s:a>
+    </p>
+  </div>
+</s:if>
