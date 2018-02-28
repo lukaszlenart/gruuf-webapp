@@ -49,4 +49,8 @@ public class BikeRecommendationDescriptor {
     public Integer getMthPeriod() {
         return recommendation.getMthPeriod();
     }
+
+    public Country getCountry() {
+        return recommendation.getCountry();
+    }
 }

@@ -3,6 +3,7 @@ package com.gruuf.web.actions.admin;
 import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.BikeRecommendation;
+import com.gruuf.model.Country;
 import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.model.RecommendationSource;
 import com.gruuf.services.EventTypes;
@@ -51,6 +52,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
     private Integer mileagePeriod = 10000;
     private Boolean mthReview = false;
     private Integer mthPeriod = 40;
+    private Country country;
 
     @SkipValidation
     public String execute() {
@@ -76,6 +78,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
             if (mthReview) {
                 mthPeriod = recommendation.getMthPeriod();
             }
+            country = recommendation.getCountry();
         }
         return INPUT;
     }
@@ -104,6 +107,7 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
                 .withMileagePeriod(mileageReview, mileagePeriod)
                 .withMthPeriod(mthReview, mthPeriod)
                 .withRequestedByIfNull(currentUser)
+                .withCountry(country)
                 .build();
 
         recommendations.put(recommendation);
@@ -143,6 +147,10 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
 
     public RecommendationSource[] getAllSources() {
         return RecommendationSource.values();
+    }
+
+    public Country[] getAllCountries() {
+        return Country.values();
     }
 
     public String getBikeMetadataId() {
@@ -239,5 +247,13 @@ public class RecommendationFormAction extends BaseBikeMetadataAction {
 
     public void setNotify(boolean notify) {
         this.notify = notify;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }

@@ -45,6 +45,7 @@
     <th>Mileage period</th>
     <th>Mth period</th>
     <th>Monthly period</th>
+    <th>Country</th>
     <th>Approved</th>
     <th>Requested by</th>
     <th>Actions</th>
@@ -62,6 +63,7 @@
       <td><s:number name="mileagePeriod"/></td>
       <td><s:number name="mthPeriod"/></td>
       <td><s:number name="monthPeriod"/></td>
+      <td><s:property value="country"/></td>
       <td>
         <s:if test="not approved">
           <s:url var="approveRecommendation" action="approve-recommendation">

@@ -25,6 +25,7 @@ public class BikeRecommendation {
     private Integer mileagePeriod = null;
     private Integer monthPeriod = null;
     private Integer mthPeriod = null;
+    private Country country = null;
 
     @Index
     private boolean approved = false;
@@ -136,6 +137,10 @@ public class BikeRecommendation {
         return mthPeriod != null;
     }
 
+    public Country getCountry() {
+        return country;
+    }
+
     public static class BikeRecommendationBuilder {
         private BikeRecommendation target;
 
@@ -214,15 +219,20 @@ public class BikeRecommendation {
             return this;
         }
 
-        public BikeRecommendation build() {
-            return target;
-        }
-
         public BikeRecommendationBuilder withRequestedByIfNull(User user) {
             if (target.requestedBy == null) {
                 target.requestedBy = Ref.create(user);
             }
             return this;
+        }
+
+        public BikeRecommendationBuilder withCountry(Country country) {
+            target.country = country;
+            return this;
+        }
+
+        public BikeRecommendation build() {
+            return target;
         }
     }
 }

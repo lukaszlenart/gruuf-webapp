@@ -2,6 +2,7 @@ package com.gruuf.web.actions.bike;
 
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeRecommendation;
+import com.gruuf.model.Country;
 import com.gruuf.model.EventTypeDescriptor;
 import com.gruuf.model.RecommendationSource;
 import com.gruuf.services.EventTypes;
@@ -37,8 +38,11 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
 
     private static Logger LOG = LogManager.getLogger(RequestRecommendationFormAction.class);
 
+    @Inject
     private Recommendations recommendations;
+    @Inject
     private EventTypes eventTypes;
+    @Inject
     private MailBox mailBox;
 
     private String eventTypeId;
@@ -49,6 +53,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
     private Integer monthPeriod = 12;
     private Boolean mileageReview = false;
     private Integer mileagePeriod = 10000;
+    private Country country;
 
     @SkipValidation
     public String execute() {
@@ -69,6 +74,7 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
                 .withMonthPeriod(monthlyReview, monthPeriod)
                 .withMileagePeriod(mileageReview, mileagePeriod)
                 .withRequestedBy(currentUser)
+                .withCountry(country)
                 .build();
 
         recommendation = recommendations.put(recommendation);
@@ -84,23 +90,12 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
         return eventTypes.listApproved(currentUser);
     }
 
-    @Inject
-    public void setRecommendations(Recommendations recommendations) {
-        this.recommendations = recommendations;
-    }
-
-    @Inject
-    public void setEventTypes(EventTypes eventTypes) {
-        this.eventTypes = eventTypes;
-    }
-
-    @Inject
-    public void setMailBox(MailBox mailBox) {
-        this.mailBox = mailBox;
-    }
-
     public RecommendationSource[] getAllSources() {
         return RecommendationSource.values();
+    }
+
+    public Country[] getAllCountries() {
+        return Country.values();
     }
 
     public BikeMetadataOption getBikeMetadata() {
@@ -169,5 +164,13 @@ public class RequestRecommendationFormAction extends BaseBikeMetadataAction {
 
     public void setNotify(boolean notify) {
         this.notify = notify;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }

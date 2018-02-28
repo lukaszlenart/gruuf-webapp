@@ -78,6 +78,15 @@
                    labelCssClass="col-md-2"
                    elementCssClass="col-md-1"/>
 
+      <s:select name="country"
+                list="allCountries"
+                listValueKey="key"
+                label="Country"
+                emptyOption="true"
+                labelCssClass="col-md-2"
+                elementCssClass="col-md-2"
+                cssClass="form-control"/>
+
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-9">
           <s:submit cssClass="btn btn-primary" key="Save" />
