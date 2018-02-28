@@ -1,4 +1,5 @@
 ### TODO
+* [ ] dodanie zaleceń per kraj gdzie motocykl jest zarejestrowany
 * [ ] dodawanie załączników przy wpisach z historią
 * [ ] zgłaszanie tłumaczenia przez użytkownika
 * [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
