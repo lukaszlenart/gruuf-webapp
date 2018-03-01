@@ -5,9 +5,11 @@ import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeMetadata;
+import com.gruuf.model.Country;
 import com.gruuf.web.GruufActions;
 import com.gruuf.web.actions.BaseBikeMetadataAction;
 import com.opensymphony.xwork2.Validateable;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +35,10 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
             bikeMetadataId = selectedBike.getBikeMetadataId();
             vin = selectedBike.getVin();
             modelYear = selectedBike.getModelYear();
+            registrationCountry = selectedBike.getRegistrationCountry();
+            if (registrationCountry == null) {
+                registrationCountry = Country.fromLocale(currentUser.getUserLocale());
+            }
             mileage = bikeHistory.findCurrentMileage(selectedBike);
             mth = bikeHistory.findCurrentMth(selectedBike);
             currentMileage = mileage;
@@ -55,6 +61,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                     .withModelYear(modelYear)
                     .withShowMileage(showMileage)
                     .withShowMth(showMth)
+                    .withRegistrationCountry(registrationCountry)
                     .build();
 
             selectedBike = garage.put(bike);
@@ -67,6 +74,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                     .withModelYear(modelYear)
                     .withShowMileage(showMileage)
                     .withShowMth(showMth)
+                    .withRegistrationCountry(registrationCountry)
                     .build();
 
             selectedBike = garage.put(bike);
@@ -152,6 +160,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
     private String bikeMetadataId;
     private String vin;
     private Integer modelYear;
+    private Country registrationCountry;
     private Long mileage;
     private Long mth;
     private Long currentMileage;
@@ -199,6 +208,19 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
 
     public void setMileage(Long mileage) {
         this.mileage = mileage;
+    }
+
+    public Country getRegistrationCountry() {
+        return registrationCountry;
+    }
+
+    @RequiredFieldValidator(key = "bike.registrationCountryIsRequired")
+    public void setRegistrationCountry(Country registrationCountry) {
+        this.registrationCountry = registrationCountry;
+    }
+
+    public Country[] getAllCountries() {
+        return Country.values();
     }
 
     public Long getCurrentMileage() {

@@ -19,6 +19,7 @@ public class Bike {
     @Index
     private String vin;
     private Integer modelYear;
+    private Country registrationCountry;
 
     private boolean showMileage = true;
     private boolean showMth = true;
@@ -50,6 +51,10 @@ public class Bike {
         return modelYear;
     }
 
+    public Country getRegistrationCountry() {
+        return registrationCountry;
+    }
+
     public BikeMetadata getBikeMetadata() {
         if (bikeMetadata == null) {
             return null;
@@ -74,13 +79,6 @@ public class Bike {
         return "Bike{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", owner=" + owner +
-                ", vin='" + vin + '\'' +
-                ", modelYear=" + modelYear +
-                ", showMileage=" + showMileage +
-                ", showMth=" + showMth +
-                ", bikeMetadata=" + bikeMetadata +
-                ", spaceUsed=" + spaceUsed +
                 '}';
     }
 
@@ -116,6 +114,7 @@ public class Bike {
             target.name = bike.name;
             target.vin = bike.vin;
             target.modelYear = bike.modelYear;
+            target.registrationCountry = bike.registrationCountry;
             target.bikeMetadata = bike.bikeMetadata;
             target.showMileage = bike.showMileage;
             target.showMth = bike.showMth;
@@ -160,6 +159,11 @@ public class Bike {
             } else {
                 target.spaceUsed = target.spaceUsed + space;
             }
+            return this;
+        }
+
+        public BikeBuilder withRegistrationCountry(Country country) {
+            target.registrationCountry = country;
             return this;
         }
 

@@ -63,7 +63,7 @@
       <td><s:number name="mileagePeriod"/></td>
       <td><s:number name="mthPeriod"/></td>
       <td><s:number name="monthPeriod"/></td>
-      <td><s:property value="country"/></td>
+      <td><s:text name="%{country.key}"/></td>
       <td>
         <s:if test="not approved">
           <s:url var="approveRecommendation" action="approve-recommendation">

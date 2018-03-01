@@ -52,6 +52,15 @@
                    cssClass="input-md"
                    inputAppendIcon="log-out"/>
 
+      <s:select name="registrationCountry"
+                list="allCountries"
+                listValueKey="key"
+                key="bike.registrationCountry"
+                emptyOption="true"
+                labelCssClass="col-md-2"
+                elementCssClass="col-md-2"
+                cssClass="form-control"/>
+
       <s:textfield name="mileage"
                    key="bike.mileageInKm"
                    type="number"

@@ -9,7 +9,8 @@ import java.util.Set;
 public enum UserLocale {
 
     EN(Constants.EN_DATE_FORMAT, Constants.EN_DATE_PICKER_FORMAT, Locale.ENGLISH),
-    PL(Constants.PL_DATE_FORMAT, Constants.PL_DATE_PICKER_FORMAT, new Locale("pl", "PL"));
+    PL(Constants.PL_DATE_FORMAT, Constants.PL_DATE_PICKER_FORMAT, new Locale("pl", "PL")),
+    DE(Constants.DE_DATE_FORMAT, Constants.DE_DATE_PICKER_FORMAT, new Locale("de", "DE"));
 
     private String dateFormat;
     private String datePickerFormat;
@@ -65,5 +66,8 @@ public enum UserLocale {
 
         public static final String PL_DATE_FORMAT = "yyyy-MM-dd";
         public static final String PL_DATE_PICKER_FORMAT = "yy-mm-dd";
+
+        public static final String DE_DATE_FORMAT = "yyyy-MM-dd";
+        public static final String DE_DATE_PICKER_FORMAT = "yy-mm-dd";
     }
 }
