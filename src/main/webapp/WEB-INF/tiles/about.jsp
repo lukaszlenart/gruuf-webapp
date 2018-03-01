@@ -41,7 +41,7 @@
         <s:text name="about.pricing">pricing</s:text>
       </div>
       <div class="panel-body"><s:text name="about.noteAboutPraising">
-        the system is free of charge forever but some options can be extra paid in the feature
+        the system is free of charge for now but this can change in the feature
       </s:text></div>
     </div>
 
