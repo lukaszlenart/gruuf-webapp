@@ -16,7 +16,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
     @Override
     protected boolean shouldReindex() {
         // change to true when migrating data
-        return true;
+        return false;
     }
 
     public List<BikeEvent> listByBike(Bike bike) {

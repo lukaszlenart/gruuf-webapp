@@ -64,7 +64,7 @@ public class Recommendations extends Reindexable<BikeRecommendation> {
     @Override
     protected boolean shouldReindex() {
         // change to true when migrating data
-        return true;
+        return false;
     }
 
     public List<BikeRecommendation> listApprovedByBike(User currentUser, Bike bike) {
