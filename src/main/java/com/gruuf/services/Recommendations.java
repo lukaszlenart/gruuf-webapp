@@ -1,12 +1,14 @@
 package com.gruuf.services;
 
 import com.googlecode.objectify.Ref;
+import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeMetadata;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.User;
 import org.joda.time.DateTime;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Recommendations extends Reindexable<BikeRecommendation> {
@@ -62,13 +64,23 @@ public class Recommendations extends Reindexable<BikeRecommendation> {
     @Override
     protected boolean shouldReindex() {
         // change to true when migrating data
-        return false;
+        return true;
     }
 
-    public List<BikeRecommendation> listApprovedByBikeMetadata(User currentUser, BikeMetadata bikeMetadata) {
-        List<BikeRecommendation> approvedForAll = filter("bikeMetadataId =", null).filter("approved =", Boolean.TRUE).list();
-        List<BikeRecommendation> approved = filter("bikeMetadataId =", bikeMetadata).filter("approved =", Boolean.TRUE).list();
-        List<BikeRecommendation> unapproved = filter("bikeMetadataId =", bikeMetadata).filter("approved =", Boolean.FALSE).list();
+    public List<BikeRecommendation> listApprovedByBike(User currentUser, Bike bike) {
+        List<BikeRecommendation> approvedForAll;
+        if (bike.getRegistrationCountry() == null) {
+            approvedForAll = filter("bikeMetadataId =", null)
+                    .filter("approved =", Boolean.TRUE)
+                    .list();
+        } else {
+            approvedForAll = filter("bikeMetadataId =", null)
+                    .filter("country = ", bike.getRegistrationCountry())
+                    .filter("approved =", Boolean.TRUE)
+                    .list();
+        }
+        List<BikeRecommendation> approved = filter("bikeMetadataId =", bike.getBikeMetadata()).filter("approved =", Boolean.TRUE).list();
+        List<BikeRecommendation> unapproved = filter("bikeMetadataId =", bike.getBikeMetadata()).filter("approved =", Boolean.FALSE).list();
 
         approved.addAll(approvedForAll);
 

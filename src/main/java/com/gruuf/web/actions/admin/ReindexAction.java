@@ -15,51 +15,24 @@ import org.apache.struts2.convention.annotation.Result;
 @Result(location = "/", type = "redirect")
 public class ReindexAction extends BaseAction {
 
+    @Inject
     private BikeHistory bikeHistory;
+    @Inject
     private Garage garage;
+    @Inject
     private EventTypes eventTypes;
+    @Inject
     private Recommendations recommendations;
+    @Inject
     private AttachmentsStorage attachmentsStorage;
 
     public String execute() {
-        if (garage != null) {
-            garage.reindex();
-        }
-        if (bikeHistory != null) {
-            bikeHistory.reindex();
-        }
-        if (eventTypes != null) {
-            eventTypes.reindex();
-        }
+        garage.reindex();
+        bikeHistory.reindex();
+        eventTypes.reindex();
         recommendations.reindex();
         attachmentsStorage.reindex();
 
         return SUCCESS;
-    }
-
-
-    @Inject
-    public void setBikeHistory(BikeHistory bikeHistory) {
-        this.bikeHistory = bikeHistory;
-    }
-
-    @Inject
-    public void setGarage(Garage garage) {
-        this.garage = garage;
-    }
-
-    @Inject
-    public void setEventTypes(EventTypes eventTypes) {
-        this.eventTypes = eventTypes;
-    }
-
-    @Inject
-    public void setRecommendations(Recommendations recommendations) {
-        this.recommendations = recommendations;
-    }
-
-    @Inject
-    public void setAttachmentsStorage(AttachmentsStorage attachmentsStorage) {
-        this.attachmentsStorage = attachmentsStorage;
     }
 }

@@ -25,6 +25,7 @@ public class BikeRecommendation {
     private Integer mileagePeriod = null;
     private Integer monthPeriod = null;
     private Integer mthPeriod = null;
+    @Index
     private Country country = null;
 
     @Index

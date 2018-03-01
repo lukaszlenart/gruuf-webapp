@@ -18,25 +18,17 @@ public class RecommendationsAction extends BaseBikeAction {
 
     private static final Logger LOG = LogManager.getLogger(RecommendationsAction.class);
 
+    @Inject
     private Recommendations recommendations;
+    @Inject 
     private BikeHistory history;
 
-    public String execute() throws Exception {
+    public String execute() {
         return SUCCESS;
     }
 
-    @Inject
-    public void setRecommendations(Recommendations recommendations) {
-        this.recommendations = recommendations;
-    }
-
-    @Inject
-    public void setHistory(BikeHistory history) {
-        this.history = history;
-    }
-
     public List<RecommendationDescriptor> getBikeRecommendations() {
-        List<BikeRecommendation> recommendations = this.recommendations.listApprovedByBikeMetadata(currentUser, selectedBike.getBikeMetadata());
+        List<BikeRecommendation> recommendations = this.recommendations.listApprovedByBike(currentUser, selectedBike);
         List<BikeEvent> bikeEvents = history.listByBike(selectedBike);
 
         LOG.debug("Recommendations: {}", recommendations);
