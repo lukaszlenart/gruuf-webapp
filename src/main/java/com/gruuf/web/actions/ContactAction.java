@@ -31,7 +31,7 @@ public class ContactAction extends BaseAction implements ReCaptchaAware {
     }
 
     @Action("contact-submit")
-    public String contactSubmit() throws Exception {
+    public String contactSubmit() {
         if (isLoggedIn() || reCaptchaValid) {
             mailBox.notifyAdmin("Contact from: " + email, message, "email: " + email);
             addActionMessage(getText("contact.messageHasBeenSent"));
