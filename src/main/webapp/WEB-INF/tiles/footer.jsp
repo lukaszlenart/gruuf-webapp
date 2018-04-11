@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<footer class="footer">
+<footer class="footer hidden-print">
   <div class="container">
     <div class="text-muted text-center">
       <div id="fb-root"></div>
