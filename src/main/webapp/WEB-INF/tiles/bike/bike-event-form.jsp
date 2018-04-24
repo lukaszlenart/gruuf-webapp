@@ -82,7 +82,7 @@
                      cssClass="form-control"
                      showOn="focus"
                      inputAppendIcon="calendar"/>
-
+      <s:if test="selectedBike.showMileage">
       <s:textfield name="mileage"
                    type="number"
                    key="bike.mileageInKm"
@@ -91,7 +91,9 @@
                    elementCssClass="col-md-3"
                    cssClass="input-md"
                    helpText="%{getCurrentMileageHelp()}"/>
+      </s:if>
 
+      <s:if test="selectedBike.showMth">
       <s:textfield name="mth"
                    type="number"
                    key="bike.mth"
@@ -100,6 +102,7 @@
                    elementCssClass="col-md-3"
                    cssClass="input-md"
                    helpText="%{currentMthHelp}"/>
+      </s:if>
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-9">
