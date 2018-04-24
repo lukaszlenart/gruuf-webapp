@@ -39,6 +39,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
             if (registrationCountry == null) {
                 registrationCountry = Country.fromLocale(currentUser.getUserLocale());
             }
+            registrationPlate = selectedBike.getRegistrationPlate();
             mileage = bikeHistory.findCurrentMileage(selectedBike);
             mth = bikeHistory.findCurrentMth(selectedBike);
             currentMileage = mileage;
@@ -62,6 +63,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                     .withShowMileage(showMileage)
                     .withShowMth(showMth)
                     .withRegistrationCountry(registrationCountry)
+                    .withRegistrationPlate(registrationPlate)
                     .build();
 
             selectedBike = garage.put(bike);
@@ -75,6 +77,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
                     .withShowMileage(showMileage)
                     .withShowMth(showMth)
                     .withRegistrationCountry(registrationCountry)
+                    .withRegistrationPlate(registrationPlate)
                     .build();
 
             selectedBike = garage.put(bike);
@@ -161,6 +164,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
     private String vin;
     private Integer modelYear;
     private Country registrationCountry;
+    private String registrationPlate;
     private Long mileage;
     private Long mth;
     private Long currentMileage;
@@ -217,6 +221,14 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
     @RequiredFieldValidator(key = "bike.registrationCountryIsRequired")
     public void setRegistrationCountry(Country registrationCountry) {
         this.registrationCountry = registrationCountry;
+    }
+
+    public String getRegistrationPlate() {
+        return registrationPlate;
+    }
+
+    public void setRegistrationPlate(String registrationPlate) {
+        this.registrationPlate = registrationPlate;
     }
 
     public Country[] getAllCountries() {

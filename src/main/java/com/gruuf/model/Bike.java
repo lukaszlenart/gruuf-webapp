@@ -20,6 +20,7 @@ public class Bike {
     private String vin;
     private Integer modelYear;
     private Country registrationCountry;
+    private String registrationPlate;
 
     private boolean showMileage = true;
     private boolean showMth = true;
@@ -98,6 +99,10 @@ public class Bike {
         }
     }
 
+    public String getRegistrationPlate() {
+        return registrationPlate;
+    }
+
     public static class BikeBuilder {
         private final Bike target;
 
@@ -115,6 +120,7 @@ public class Bike {
             target.vin = bike.vin;
             target.modelYear = bike.modelYear;
             target.registrationCountry = bike.registrationCountry;
+            target.registrationPlate = bike.registrationPlate;
             target.bikeMetadata = bike.bikeMetadata;
             target.showMileage = bike.showMileage;
             target.showMth = bike.showMth;
@@ -164,6 +170,11 @@ public class Bike {
 
         public BikeBuilder withRegistrationCountry(Country country) {
             target.registrationCountry = country;
+            return this;
+        }
+
+        public BikeBuilder withRegistrationPlate(String registrationPlate) {
+            target.registrationPlate = registrationPlate;
             return this;
         }
 

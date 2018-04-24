@@ -59,7 +59,7 @@
               <s:if test="bike.showMth">
                 <td><s:number name="mth"/></td>
               </s:if>
-              <td><s:property value="registrationPlate"/></td>
+              <td><s:property value="bike.registrationPlate"/></td>
             </tr>
             </tbody>
           </table>

@@ -61,6 +61,13 @@
                 elementCssClass="col-md-2"
                 cssClass="form-control"/>
 
+      <s:textfield name="registrationPlate"
+                   key="bike.registrationPlate"
+                   placeholder="%{getText('bike.registrationPlate.placeholder')}"
+                   labelCssClass="col-md-2"
+                   elementCssClass="col-md-2"
+                   cssClass="input-md" />
+
       <s:textfield name="mileage"
                    key="bike.mileageInKm"
                    type="number"
