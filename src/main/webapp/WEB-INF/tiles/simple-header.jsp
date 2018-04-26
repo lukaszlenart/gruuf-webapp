@@ -15,7 +15,11 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li>
-          <s:url var="registerBiker" action="register" namespace="/biker" />
+          <s:url var="login" action="login"/>
+          <s:a href="%{login}"><s:text name="user.login"/></s:a>
+        </li>
+        <li>
+          <s:url var="registerBiker" action="register" namespace="/biker"/>
           <s:a href="%{registerBiker}"><s:text name="general.register"/></s:a>
         </li>
       </ul>
