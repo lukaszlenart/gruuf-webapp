@@ -1,5 +1,4 @@
 ### TODO
-* [ ] dodanie zaleceń per kraj gdzie motocykl jest zarejestrowany
 * [ ] dodawanie załączników przy wpisach z historią
 * [ ] zgłaszanie tłumaczenia przez użytkownika
 * [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
@@ -7,6 +6,11 @@
 * [ ] dodawanie obrazka motocykla przy definiowaniu metadata
 * [ ] wykrywanie że Store jest read-only - CapabilitiesServiceFactory
 * [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
+
+### Bot via Messenger
+* [ ] - możliwość listowania motocykli
+* [ ] - rejestrowanie przebiegu per morocykl
+* [ ] - dodawanie wykonanych czynności oraz przebiegu per motocykl
 
 ### Aplikacja mobilna
 * [ ] wersja light - działa tylko on-line (brak cachowania)
@@ -59,6 +63,7 @@
 * [x] implementacja reCaptcha https://developers.google.com/recaptcha/intro
 * [x] wyszukiwanie motocykla po VIN z opcją "przejęcia" historii
 * [x] landing page about
+* [x] dodanie zaleceń per kraj gdzie motocykl jest zarejestrowany
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
