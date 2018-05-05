@@ -1,7 +1,7 @@
 package com.gruuf.web.actions.api;
 
 import com.gruuf.GruufConstants;
-import com.gruuf.auth.Anonymous;
+import com.gruuf.auth.Bot;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.User;
@@ -29,7 +29,7 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
         @InterceptorRef("gruufDefaultDev"),
         @InterceptorRef("json")
 })
-@Anonymous
+@Bot
 public class RegisterMileageEndpoint extends BaseEndpoint {
 
     private static final Logger LOG = LogManager.getLogger(RegisterMileageEndpoint.class);
@@ -70,18 +70,19 @@ public class RegisterMileageEndpoint extends BaseEndpoint {
                     response = UserProfileResponse.failed();
                 } else {
                     BikeEvent.BikeEventBuilder bikeEvent = BikeEvent.create(bike, user)
-                            .withDescription(getText("bike.systemMileageUpdate"))
                             .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
                             .markAsTemporary();
 
                     if (payload.isMth()) {
                         bikeEvent = bikeEvent
-                                .withEventTypeId(Collections.singleton(eventTypes.getMthEventType().getId()))
-                                .withMth(payload.mileage);
+                            .withDescription(getText("bike.systemMthUpdate"))
+                            .withEventTypeId(Collections.singleton(eventTypes.getMthEventType().getId()))
+                            .withMth(payload.mileage);
                     } else {
                         bikeEvent = bikeEvent
-                                .withEventTypeId(Collections.singleton(eventTypes.getMileageEventType().getId()))
-                                .withMileage(payload.mileage);
+                            .withDescription(getText("bike.systemMileageUpdate"))
+                            .withEventTypeId(Collections.singleton(eventTypes.getMileageEventType().getId()))
+                            .withMileage(payload.mileage);
                     }
 
                     history.put(bikeEvent.build());
