@@ -3,3 +3,4 @@
 target
 .java-version
 local_db.bin
+.mvn/wrapper/*.jar
