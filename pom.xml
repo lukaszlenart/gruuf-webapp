@@ -88,7 +88,7 @@
         <configuration>
           <project>gruuf-webapp</project>
           <version>3</version>
-          <enableJarClasses>true</enableJarClasses>
+          <enableJarClasses>false</enableJarClasses>
           <devserver.port>8080</devserver.port>
           <devserver.host>0.0.0.0</devserver.host>
           <stage.enableJarClasses>true</stage.enableJarClasses>
@@ -293,6 +293,13 @@
       <groupId>org.apache.taglibs</groupId>
       <artifactId>taglibs-standard-impl</artifactId>
       <version>1.2.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.20</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>

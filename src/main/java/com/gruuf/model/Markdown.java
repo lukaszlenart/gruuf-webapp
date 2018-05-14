@@ -8,7 +8,7 @@ public class Markdown {
         return new Markdown(string);
     }
 
-    Markdown() {
+    private Markdown() {
     }
 
     Markdown(String content) {

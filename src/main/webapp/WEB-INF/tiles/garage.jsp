@@ -72,6 +72,14 @@
             <i class="glyphicon glyphicon-edit"></i>
           </s:a>
 
+          <s:url var="parametersUrl" action="bike-parameters" namespace="/bike">
+            <s:param name="bikeMetadataId" value="bike.bikeMetadataId"/>
+          </s:url>
+          <s:a value="%{parametersUrl}" class="btn btn-primary">
+            <s:text name="general.parameters"/>
+            <i class="glyphicon glyphicon-barcode"></i>
+          </s:a>
+
           <s:url var="deleteUrl" action="bike-delete" namespace="/bike">
             <s:param name="bikeId" value="bike.id"/>
           </s:url>

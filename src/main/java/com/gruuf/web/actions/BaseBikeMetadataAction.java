@@ -20,10 +20,11 @@ abstract public class BaseBikeMetadataAction extends BaseBikeAction {
 
     private static final Logger LOG = LogManager.getLogger(BaseBikeMetadataAction.class);
 
+    @Inject
     protected BikeMetadataStore bikeMetadataStore;
 
     @Action("bike-metadata-json")
-    public String execute() {
+    public String bikeMetadataJson() {
         return JSON;
     }
 
@@ -37,11 +38,6 @@ abstract public class BaseBikeMetadataAction extends BaseBikeAction {
             result.add(new BikeMetadataOption(metaDatum));
         }
         return result;
-    }
-
-    @Inject
-    public void setBikeMetadataStore(BikeMetadataStore bikeMetadataStore) {
-        this.bikeMetadataStore = bikeMetadataStore;
     }
 
 }

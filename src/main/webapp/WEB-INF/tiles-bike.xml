@@ -59,4 +59,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-delete.jsp"/>
   </definition>
 
+  <definition name="bike/bike-parameters" extends="logged-in">
+    <put-attribute name="title" expression="I18N:general.parameters"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-parameters.jsp"/>
+  </definition>
+
 </tiles-definitions>
