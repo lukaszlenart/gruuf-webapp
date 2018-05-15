@@ -19,4 +19,9 @@ public class BikeParameterDescriptor {
     public String getPartNumber() {
         return bikeParameter.getPartNumber();
     }
+
+    public String getApprovedKey() {
+        return "boolean." + bikeParameter.isApproved();
+    }
+
 }

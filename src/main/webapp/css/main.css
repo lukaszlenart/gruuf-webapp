@@ -84,3 +84,7 @@ body.loading > .loader > img {
 .label {
   float: right;
 }
+
+.form-inline .inline-input {
+  display: inline-block;
+}
