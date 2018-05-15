@@ -47,6 +47,7 @@
         <interceptor-ref name="i18n"/>
         <interceptor-ref name="params"/>
         <interceptor-ref name="prepare"/>
+        <interceptor-ref name="params"/>
         <interceptor-ref name="conversionError"/>
         <interceptor-ref name="validation">
           <param name="excludeMethods">input,back,cancel,browse</param>
@@ -72,6 +73,7 @@
         </interceptor-ref>
         <interceptor-ref name="params"/>
         <interceptor-ref name="prepare"/>
+        <interceptor-ref name="params"/>
         <interceptor-ref name="conversionError"/>
         <interceptor-ref name="validation">
           <param name="excludeMethods">input,back,cancel,browse</param>
