@@ -17,7 +17,7 @@ public class BikeDetails {
         return new BikeDetails(bike);
     }
 
-    public BikeDetails(Bike bike) {
+    private BikeDetails(Bike bike) {
         this.bike = bike;
     }
 
@@ -37,8 +37,8 @@ public class BikeDetails {
         return this;
     }
 
-    public Bike getBike() {
-        return bike;
+    public BikeDescriptor getBike() {
+        return new BikeDescriptor(bike);
     }
 
     public BikeMetadataOption getMetadata() {

@@ -4,11 +4,21 @@
 <%@ taglib prefix="c" uri="/struts-tags" %>
 
 <div class="row">
-  <p class="center-block">
-    <button class="btn btn-success hidden-print" onclick="window.print(); return false;"><s:text name="general.print"/></button>
-    <span><s:text name="report.reportDate"/>: <s:date name="reportDate" format="%{userDateFormat}"/></span>
-  </p>
+  <h4 class="center-block">
+    <s:property value="bikeDetails.bike.producerAndMake"/> - <s:property value="bikeDetails.bike.modelYear"/>
+  </h4>
+</div>
 
+<div class="row">
+  <div class="center-block">
+    <span><s:text name="report.reportDate"/>: <s:date name="reportDate" format="%{userDateFormat}"/></span>
+    <button class="btn btn-success hidden-print pull-right" onclick="window.print(); return false;">
+      <s:text name="general.print"/>
+    </button>
+  </div>
+</div>
+
+<div class="row">
   <table class="table table-striped">
     <thead>
     <tr>
@@ -16,10 +26,10 @@
       <th><s:text name="bikeEvent.description"/></th>
       <th><s:text name="bikeEvent.eventDate"/></th>
       <s:if test="selectedBike.showMileage">
-      <th><s:text name="bikeEvent.mileage"/></th>
+        <th><s:text name="bikeEvent.mileage"/></th>
       </s:if>
       <s:if test="selectedBike.showMth">
-      <th><s:text name="bikeEvent.mth"/></th>
+        <th><s:text name="bikeEvent.mth"/></th>
       </s:if>
       <th><s:text name="general.timestamp"/>
     </tr>
@@ -39,14 +49,14 @@
           <s:date name="registerDate" format="%{userDateFormat}"/>
         </td>
         <s:if test="selectedBike.showMileage">
-        <td class="text-nowrap">
-          <s:number name="mileage"/>
-        </td>
+          <td class="text-nowrap">
+            <s:number name="mileage"/>
+          </td>
         </s:if>
         <s:if test="selectedBike.showMth">
-        <td class="text-nowrap">
-          <s:number name="mth"/>
-        </td>
+          <td class="text-nowrap">
+            <s:number name="mth"/>
+          </td>
         </s:if>
         <td class="text-nowrap">
           <s:date name="timestamp" format="%{userDateFormat}"/>

@@ -3,11 +3,9 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <div class="row">
-  <div class="col-md-12">
-    <h3>
-      <s:property value="bikeMetadata.fullName"/>
-    </h3>
-  </div>
+  <h3>
+    <s:property value="bikeMetadata.fullName"/>
+  </h3>
 </div>
 
 <div class="row">
@@ -37,7 +35,8 @@
 
 <hr/>
 
-<table class="table table-striped">
+<div class="row">
+  <table class="table table-striped">
   <thead class="header-inverse">
   <tr>
     <th>Description</th>
@@ -57,6 +56,7 @@
   </s:iterator>
   </tbody>
 </table>
+</div>
 
 <script type="application/javascript">
 

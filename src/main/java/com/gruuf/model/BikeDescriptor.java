@@ -8,6 +8,13 @@ public class BikeDescriptor {
         this.bike = bike;
     }
 
+    public String getId() {
+        return bike.getId();
+    }
+    public String getBikeMetadataId() {
+        return bike.getBikeMetadataId();
+    }
+
     public String getName() {
         return bike.getName();
     }
