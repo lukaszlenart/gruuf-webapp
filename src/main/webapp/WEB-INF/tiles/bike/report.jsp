@@ -7,6 +7,14 @@
   <h4 class="center-block">
     <s:property value="bikeDetails.bike.producerAndMake"/> - <s:property value="bikeDetails.bike.modelYear"/>
   </h4>
+  <h5>
+    <s:if test="bikeDetails.bike.showMileage">
+      <s:text name="bike.mileageInKm"/>: <s:number name="bikeDetails.mileage"/>
+    </s:if>
+    <s:if test="bikeDetails.bike.showMth">
+      <s:text name="bike.mth"/>: <s:number name="bikeDetails.mth"/>
+    </s:if>
+  </h5>
 </div>
 
 <div class="row">

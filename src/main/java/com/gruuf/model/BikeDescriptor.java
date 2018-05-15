@@ -35,4 +35,13 @@ public class BikeDescriptor {
         BikeMetadata metadata = bike.getBikeMetadata();
         return new BikeMetadataDescriptor(metadata).getFullName();
     }
+
+    public boolean isShowMileage() {
+        return bike.isShowMileage();
+    }
+
+    public boolean isShowMth() {
+        return bike.isShowMth();
+    }
+
 }
