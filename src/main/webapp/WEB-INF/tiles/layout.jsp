@@ -20,7 +20,7 @@
   <meta property="og:image" content="https://gruuf.com/img/wheel-spinner.gif"/>
 
   <title>
-    <tiles:insertAttribute name="title" ignore="true"/>
+    <tiles:insertAttribute name="titleName" ignore="true"/>
   </title>
 
   <sj:head loadFromGoogle="true" locale="%{userLanguage}"/>
@@ -47,7 +47,7 @@
 <div class="container">
   <div class="row">
     <div class="page-header">
-      <h1><tiles:insertAttribute name="title"/></h1>
+      <tiles:insertAttribute name="title"/>
     </div>
   </div>
   <div class="row">

@@ -5,12 +5,12 @@
 <tiles-definitions>
 
   <definition name="biker/register" extends="not-logged-in">
-    <put-attribute name="title" expression="I18N:biker.register.title"/>
+    <put-attribute name="titleName" expression="I18N:biker.register.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/biker/register.jsp"/>
   </definition>
 
   <definition name="biker/profile" extends="logged-in">
-    <put-attribute name="title" expression="I18N:biker.profile.title"/>
+    <put-attribute name="titleName" expression="I18N:biker.profile.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/biker/profile.jsp"/>
   </definition>
 

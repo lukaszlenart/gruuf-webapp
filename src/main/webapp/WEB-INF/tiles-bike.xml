@@ -5,62 +5,66 @@
 <tiles-definitions>
 
   <definition name="bike/bike-form" extends="logged-in">
-    <put-attribute name="title" expression="S2:bikeFormTitle"/>
+    <put-attribute name="titleName" expression="S2:bikeFormTitle" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-form.jsp"/>
   </definition>
 
   <definition name="bike/history" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="titleName" expression="I18N:bike.bikeDetails" cascade="true"/>
+    <put-attribute name="title" value="/WEB-INF/tiles/bike/history-title.jsp"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/history.jsp"/>
   </definition>
 
   <definition name="bike/report" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="titleName" expression="I18N:bike.bikeDetails" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/report.jsp"/>
   </definition>
 
   <definition name="bike/recommendations" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="titleName" expression="I18N:bike.bikeDetails" cascade="true"/>
+    <put-attribute name="title" value="/WEB-INF/tiles/bike/history-title.jsp"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/recommendations.jsp"/>
   </definition>
 
   <definition name="bike/bike-event-form" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="titleName" expression="I18N:bike.bikeDetails" cascade="true"/>
+    <put-attribute name="title" value="/WEB-INF/tiles/bike/history-title.jsp"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-event-form.jsp"/>
   </definition>
 
   <definition name="bike/attachments" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bike.bikeDetails"/>
+    <put-attribute name="titleName" expression="I18N:bike.bikeDetails" cascade="true"/>
+    <put-attribute name="title" value="/WEB-INF/tiles/bike/history-title.jsp"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/attachments.jsp"/>
   </definition>
 
   <definition name="bike/request-bike-metadata-input" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bikeMetadata.requestNew"/>
+    <put-attribute name="titleName" expression="I18N:bikeMetadata.requestNew" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/request-bike-metadata-input.jsp"/>
   </definition>
 
   <definition name="bike/request-recommendation-input" extends="logged-in">
-    <put-attribute name="title" expression="I18N:recommendations.requestNew"/>
+    <put-attribute name="titleName" expression="I18N:recommendations.requestNew" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/request-recommendation-input.jsp"/>
   </definition>
 
   <definition name="bike/request-event-type-input" extends="logged-in">
-    <put-attribute name="title" expression="I18N:eventType.requestNew"/>
+    <put-attribute name="titleName" expression="I18N:eventType.requestNew" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/request-event-type-input.jsp"/>
   </definition>
 
   <definition name="bike/vin-check-input" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bike.vinCheck"/>
+    <put-attribute name="titleName" expression="I18N:bike.vinCheck" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/vin-check-input.jsp"/>
   </definition>
 
   <definition name="bike/bike-delete" extends="logged-in">
-    <put-attribute name="title" expression="I18N:bike.delete"/>
+    <put-attribute name="titleName" expression="I18N:bike.delete" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-delete.jsp"/>
   </definition>
 
   <definition name="bike/bike-parameters" extends="logged-in">
-    <put-attribute name="title" expression="I18N:general.parameters"/>
+    <put-attribute name="titleName" expression="I18N:general.parameters" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-parameters.jsp"/>
   </definition>
 

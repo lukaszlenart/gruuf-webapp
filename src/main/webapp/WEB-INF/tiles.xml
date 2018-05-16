@@ -5,78 +5,78 @@
 <tiles-definitions>
 
   <definition name="logged-in" template="/WEB-INF/tiles/layout.jsp">
-    <put-attribute name="title" value="Template"/>
+    <put-attribute name="title" value="/WEB-INF/tiles/title.jsp"/>
     <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
     <put-attribute name="body" value="/WEB-INF/tiles/body.jsp"/>
     <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
   </definition>
 
   <definition name="not-logged-in" template="/WEB-INF/tiles/layout.jsp">
-    <put-attribute name="title" value="Template"/>
+    <put-attribute name="title" value="/WEB-INF/tiles/title.jsp"/>
     <put-attribute name="header" value="/WEB-INF/tiles/simple-header.jsp"/>
     <put-attribute name="body" value="/WEB-INF/tiles/body.jsp"/>
     <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
   </definition>
 
   <definition name="garage" extends="logged-in">
-    <put-attribute name="title" expression="I18N:garage.title"/>
+    <put-attribute name="titleName" expression="I18N:garage.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/garage.jsp"/>
   </definition>
 
   <definition name="login" extends="not-logged-in">
-    <put-attribute name="title" expression="I18N:login.title"/>
+    <put-attribute name="titleName" expression="I18N:login.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/login.jsp"/>
   </definition>
 
   <definition name="reset-input" extends="not-logged-in">
-    <put-attribute name="title" expression="I18N:reset.title"/>
+    <put-attribute name="titleName" expression="I18N:reset.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/reset-input.jsp"/>
   </definition>
 
   <definition name="contact" template="/WEB-INF/tiles/contact.jsp">
-    <put-attribute name="title" expression="I18N:contact.title"/>
+    <put-attribute name="titleName" expression="I18N:contact.title" cascade="true"/>
   </definition>
 
   <definition name="contact.logged-in" extends="logged-in">
-    <put-attribute name="title" expression="I18N:contact.title"/>
+    <put-attribute name="titleName" expression="I18N:contact.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/contact-form.jsp"/>
   </definition>
 
   <definition name="contact.not-logged-in" extends="not-logged-in">
-    <put-attribute name="title" expression="I18N:contact.title"/>
+    <put-attribute name="titleName" expression="I18N:contact.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/contact-form.jsp"/>
   </definition>
 
   <definition name="error" extends="not-logged-in">
-    <put-attribute name="title" expression="I18N:error.title"/>
+    <put-attribute name="titleName" expression="I18N:error.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/error.jsp"/>
   </definition>
 
   <definition name="about" template="/WEB-INF/tiles/about-layout.jsp">
-    <put-attribute name="title" expression="I18N:about.title"/>
+    <put-attribute name="titleName" expression="I18N:about.title" cascade="true"/>
   </definition>
 
   <definition name="about.logged-in" extends="logged-in">
-    <put-attribute name="title" expression="I18N:about.title"/>
+    <put-attribute name="titleName" expression="I18N:about.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/about.jsp"/>
   </definition>
 
   <definition name="about.not-logged-in" extends="not-logged-in">
-    <put-attribute name="title" expression="I18N:about.title"/>
+    <put-attribute name="titleName" expression="I18N:about.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/about.jsp"/>
   </definition>
 
   <definition name="privacy-policy" template="/WEB-INF/tiles/privacy-policy-layout.jsp">
-    <put-attribute name="title" expression="I18N:privacyPolicy.title"/>
+    <put-attribute name="titleName" expression="I18N:privacyPolicy.title" cascade="true"/>
   </definition>
 
   <definition name="privacy-policy.logged-in" extends="logged-in">
-    <put-attribute name="title" expression="I18N:privacyPolicy.title"/>
+    <put-attribute name="titleName" expression="I18N:privacyPolicy.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/privacy-policy.jsp"/>
   </definition>
 
   <definition name="privacy-policy.not-logged-in" extends="not-logged-in">
-    <put-attribute name="title" expression="I18N:privacyPolicy.title"/>
+    <put-attribute name="titleName" expression="I18N:privacyPolicy.title" cascade="true"/>
     <put-attribute name="body" value="/WEB-INF/tiles/privacy-policy.jsp"/>
   </definition>
 
