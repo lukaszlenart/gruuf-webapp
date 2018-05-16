@@ -37,29 +37,29 @@
             <thead>
             <tr>
               <th><s:text name="bike.vin"/></th>
-              <th><s:text name="bike.modelYear"/></th>
+              <th class="text-center"><s:text name="bike.modelYear"/></th>
               <th><s:text name="bike.metadata"/></th>
               <s:if test="bike.showMileage">
-                <th><s:text name="bike.mileageInKm"/></th>
+                <th class="text-center"><s:text name="bike.mileageInKm"/></th>
               </s:if>
               <s:if test="bike.showMth">
-                <th><s:text name="bike.mth"/></th>
+                <th class="text-center"><s:text name="bike.mth"/></th>
               </s:if>
-              <th><s:text name="bike.registrationPlate"/></th>
+              <th class="text-center"><s:text name="bike.registrationPlate"/></th>
             </tr>
             </thead>
             <tbody>
             <tr>
               <td><s:property value="bike.vin"/></td>
-              <td><s:property value="bike.modelYear"/></td>
+              <td class="text-center"><s:property value="bike.modelYear"/></td>
               <td><s:property value="metadata.name"/></td>
               <s:if test="bike.showMileage">
-                <td><s:number name="mileage"/></td>
+                <td class="text-center"><s:number name="mileage"/></td>
               </s:if>
               <s:if test="bike.showMth">
-                <td><s:number name="mth"/></td>
+                <td class="text-center"><s:number name="mth"/></td>
               </s:if>
-              <td><s:property value="bike.registrationPlate"/></td>
+              <td class="text-center"><s:property value="bike.registrationPlate"/></td>
             </tr>
             </tbody>
           </table>
@@ -95,14 +95,13 @@
             <tr>
               <th><s:text name="bikeEvent.eventType"/></th>
               <th><s:text name="bikeEvent.description"/></th>
-              <th><s:text name="bikeEvent.eventDate"/></th>
+              <th class="text-center"><s:text name="bikeEvent.eventDate"/></th>
               <s:if test="bike.showMileage">
                 <th><s:text name="bikeEvent.mileage"/></th>
               </s:if>
               <s:if test="bike.showMth">
                 <th><s:text name="bikeEvent.mth"/></th>
               </s:if>
-              <th><s:text name="general.timestamp"/>
             </tr>
             </thead>
             <tbody>
@@ -114,14 +113,13 @@
                   </s:iterator>
                 </td>
                 <td><s:property value="description" escapeHtml="false"/></td>
-                <td class="text-nowrap"><s:date name="registerDate" format="%{userDateFormat}"/></td>
+                <td class="text-nowrap text-center"><s:date name="registerDate" format="%{userDateFormat}"/></td>
                 <s:if test="bike.showMileage">
-                  <td class="text-nowrap"><s:number name="mileage"/></td>
+                  <td class="text-nowrap text-center"><s:number name="mileage"/></td>
                 </s:if>
                 <s:if test="bike.showMth">
-                  <td class="text-nowrap"><s:number name="mth"/></td>
+                  <td class="text-nowrap text-center"><s:number name="mth"/></td>
                 </s:if>
-                <td class="text-nowrap"><s:date name="timestamp" format="%{userDateFormat}"/></td>
               </tr>
             </s:iterator>
             </tbody>

@@ -32,14 +32,14 @@
     <tr>
       <th><s:text name="bikeEvent.eventType"/></th>
       <th><s:text name="bikeEvent.description"/></th>
-      <th><s:text name="bikeEvent.eventDate"/></th>
+      <th class="text-center"><s:text name="bikeEvent.eventDate"/></th>
       <s:if test="selectedBike.showMileage">
-        <th><s:text name="bikeEvent.mileage"/></th>
+        <th class="text-center"><s:text name="bikeEvent.mileage"/></th>
       </s:if>
       <s:if test="selectedBike.showMth">
-        <th><s:text name="bikeEvent.mth"/></th>
+        <th class="text-center"><s:text name="bikeEvent.mth"/></th>
       </s:if>
-      <th><s:text name="general.timestamp"/>
+      <th class="text-center"><s:text name="general.timestamp"/>
     </tr>
     </thead>
     <tbody>
@@ -47,26 +47,26 @@
       <tr>
         <td class="text-nowrap">
           <s:iterator value="eventTypes" var="eventType" status="stats">
-            <s:property value="name"/><s:if test="%{not #stats.last}">,</s:if>
+            <s:property value="name"/><s:if test="%{not #stats.last}">,<br/></s:if>
           </s:iterator>
         </td>
         <td>
           <s:property value="description" escapeHtml="false"/>
         </td>
-        <td class="text-nowrap">
+        <td class="text-nowrap text-center">
           <s:date name="registerDate" format="%{userDateFormat}"/>
         </td>
         <s:if test="selectedBike.showMileage">
-          <td class="text-nowrap">
+          <td class="text-nowrap text-center">
             <s:number name="mileage"/>
           </td>
         </s:if>
         <s:if test="selectedBike.showMth">
-          <td class="text-nowrap">
+          <td class="text-nowrap text-center">
             <s:number name="mth"/>
           </td>
         </s:if>
-        <td class="text-nowrap">
+        <td class="text-nowrap text-center">
           <s:date name="timestamp" format="%{userDateFormat}"/>
         </td>
       </tr>

@@ -70,7 +70,7 @@
     <tr>
       <td class="text-nowrap">
         <s:iterator value="eventTypes" var="eventType" status="stats">
-          <s:property value="name"/><s:if test="%{not #stats.last}">,</s:if>
+          <s:property value="name"/><s:if test="%{not #stats.last}">,<br/></s:if>
         </s:iterator>
         <s:if test="temporary">
           <span class="label label-warning"><s:text name="general.temporary">Temporary</s:text></span>
