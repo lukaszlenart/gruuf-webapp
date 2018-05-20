@@ -26,8 +26,13 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 
 @Anonymous
 @Results({
-        @Result(name = SUCCESS, type = "httpheader", params = {"status", "200"}),
-        @Result(name = ERROR, type = "httpheader", params = {"status", "401"})
+    @Result(name = SUCCESS, type = "httpheader", params = {
+        "status", "201",
+        "headers.Cache-Control", "no-cache, no-store, must-revalidate",
+        "headers.Pragma", "no-cache",
+        "headers.Expires", "0"
+    }),
+    @Result(name = ERROR, type = "httpheader", params = {"status", "401"})
 })
 public class DailyRecommendationCheckTask extends BaseAction {
 
@@ -37,10 +42,15 @@ public class DailyRecommendationCheckTask extends BaseAction {
     private static final int DAYS_CHECK = 14;
     private static final Integer MTH_CHECK = 10;
 
+    @Inject
     private UserStore userStore;
+    @Inject
     private Garage garage;
+    @Inject
     private Recommendations recommendations;
+    @Inject
     private BikeHistory history;
+    @Inject
     private MailBox mailBox;
 
     public String execute() {
@@ -66,7 +76,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
                 ActionContext.getContext().setLocale(currentUser.getUserLocale().toLocale());
 
                 body.append(getText("recommendations.followingRecommendationsAreGoingToExpire")).append("\n\n")
-                        .append("## ").append(bike.getName()).append(":\n\n");
+                    .append("## ").append(bike.getName()).append(":\n\n");
 
                 for (BikeRecommendation recommendation : missingRecommendations) {
                     if (recommendation.isNotify()) {
@@ -129,7 +139,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
                     result = latestEvent.isAfterNow();
 
                     LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation period={}",
-                            result, event.getRegisterDate(), latestEvent.toDate(), recommendation.getMonthPeriod());
+                        result, event.getRegisterDate(), latestEvent.toDate(), recommendation.getMonthPeriod());
 
                     if (result) {
                         break;
@@ -144,7 +154,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
                     result = (history.findCurrentMileage(bike) - event.getMileage() + MILEAGE_CHECK) <= recommendation.getMileagePeriod();
 
                     LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
-                            result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
+                        result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
 
                     if (result) {
                         break;
@@ -159,7 +169,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
                     result = (history.findCurrentMth(bike) - event.getMth() + MTH_CHECK) <= recommendation.getMthPeriod();
 
                     LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
-                            result, bikeEvent.getMth(), event.getMth(), recommendation.getMthPeriod());
+                        result, bikeEvent.getMth(), event.getMth(), recommendation.getMthPeriod());
 
                     if (result) {
                         break;
@@ -169,31 +179,6 @@ public class DailyRecommendationCheckTask extends BaseAction {
         }
 
         return result;
-    }
-
-    @Inject
-    public void setGarage(Garage garage) {
-        this.garage = garage;
-    }
-
-    @Inject
-    public void setRecommendations(Recommendations recommendations) {
-        this.recommendations = recommendations;
-    }
-
-    @Inject
-    public void setHistory(BikeHistory history) {
-        this.history = history;
-    }
-
-    @Inject
-    public void setMailBox(MailBox mailBox) {
-        this.mailBox = mailBox;
-    }
-
-    @Inject
-    public void setUserStore(UserStore userStore) {
-        this.userStore = userStore;
     }
 
     public void setUserId(String userId) {

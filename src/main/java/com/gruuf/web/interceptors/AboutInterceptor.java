@@ -24,6 +24,14 @@ public class AboutInterceptor extends AbstractInterceptor {
             return invocation.invoke();
         }
 
+        if (invocation.getProxy().getNamespace().startsWith("/cron")) {
+            return invocation.invoke();
+        }
+
+        if (invocation.getProxy().getNamespace().startsWith("/tasks")) {
+            return invocation.invoke();
+        }
+
         Cookie[] cookies = ServletActionContext.getRequest().getCookies();
 
         if (cookies != null) {
