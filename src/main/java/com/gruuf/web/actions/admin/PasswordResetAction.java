@@ -38,8 +38,8 @@ public class PasswordResetAction extends BaseAction {
 
         LOG.debug("Updating user {} with new password {}", userId, newPassword1);
 
-        User updatedUser = User.clone(user).withPassword(newPassword1).build();
-        userStore.put(updatedUser);
+        User updatedUser = User.clone(user).build();
+        userStore.resetPassword(updatedUser, newPassword1);
         addActionMessage("Password updated successfully!");
         return GlobalResult.GARAGE;
     }

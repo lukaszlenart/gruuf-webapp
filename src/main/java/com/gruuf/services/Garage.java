@@ -11,8 +11,8 @@ public class Garage extends Reindexable<Bike> {
 
     private static Logger LOG = LogManager.getLogger(Garage.class);
 
-    public Garage(Class<Bike> type) {
-        super(type);
+    public Garage() {
+        super(Bike.class);
     }
 
     @Override

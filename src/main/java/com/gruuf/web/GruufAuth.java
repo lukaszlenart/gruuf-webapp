@@ -1,8 +1,6 @@
 package com.gruuf.web;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -10,8 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class GruufAuth {
-
-    private static Logger LOG = LogManager.getLogger(GruufAuth.class);
 
     public static final SecureRandom RANDOM = new SecureRandom();
 
@@ -38,11 +34,6 @@ public class GruufAuth {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static boolean isPasswordValid(String actual, String expected) {
-        LOG.debug("Expected password {} and actual password {}", actual, expected);
-        return expected.equals(actual);
     }
 
 }

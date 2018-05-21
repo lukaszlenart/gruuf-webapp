@@ -5,12 +5,21 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.gruuf.auth.Token;
 import com.gruuf.web.GruufAuth;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@ToString(exclude = {"password", "passwordHash"})
+@EqualsAndHashCode(of = {"email"})
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
 
     public static final String EMAIL = "email";
@@ -19,7 +28,8 @@ public class User {
     private String id;
     @Index
     private String email;
-    private String password;
+    private transient String password;
+    private String passwordHash;
     @Index
     private Set<Token> tokens;
 
@@ -34,25 +44,6 @@ public class User {
 
     private Set<PolicyType> acceptedPolicies;
 
-    private User() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Set<Token> getTokens() {
-        return tokens;
-    }
-
     public boolean hasAnyToken(Token[] tokens) {
         for (Token token : tokens) {
             if (this.tokens.contains(token)) {
@@ -62,32 +53,8 @@ public class User {
         return false;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
     public UserLocale getUserLocale() {
         return userLocale != null ? userLocale : UserLocale.EN;
-    }
-
-    public boolean isNotify() {
-        return notify;
-    }
-
-    public String getFacebookId() {
-        return facebookId;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public Set<PolicyType> getAcceptedPolicies() {
-        return acceptedPolicies;
     }
 
     public String getFullName() {
@@ -97,20 +64,9 @@ public class User {
         return firstName + " " + lastName;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-            "id='" + id + '\'' +
-            ", email='" + email + '\'' +
-            ", tokens=" + tokens +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", userLocale=" + userLocale +
-            ", notify=" + notify +
-            ", facebookId='" + facebookId + '\'' +
-            ", timestamp=" + timestamp +
-            ", acceptedPolicies=" + acceptedPolicies +
-            '}';
+    public User withPasswordHash(String hash) {
+        this.passwordHash = hash;
+        return this;
     }
 
     public static UserCreator create() {
@@ -120,7 +76,7 @@ public class User {
     public static UserCreator clone(User user) {
         return new UserCreator(user.getId())
             .withEmail(user.getEmail())
-            .withPassword(user.getPassword())
+            .withPasswordHash(user.getPasswordHash())
             .withFirstName(user.getFirstName())
             .withLastName(user.getLastName())
             .withUserLocale(user.getUserLocale())
@@ -131,6 +87,11 @@ public class User {
 
     public boolean isPrivacyPolicyAccepted() {
         return acceptedPolicies != null && acceptedPolicies.contains(PolicyType.PRIVACY_POLICY);
+    }
+
+    public User withPassword(String password) {
+        this.password = password;
+        return this;
     }
 
     public static class UserCreator {
@@ -150,8 +111,8 @@ public class User {
             return this;
         }
 
-        public UserCreator withPassword(String password) {
-            target.password = password;
+        public UserCreator withPasswordHash(String passwordHash) {
+            target.passwordHash = passwordHash;
             return this;
         }
 
@@ -210,13 +171,9 @@ public class User {
             return this;
         }
 
-        public UserCreator withNewPassword() {
-            target.password = GruufAuth.randomString();
-            return this;
-        }
-
         public User build() {
             return target;
         }
+
     }
 }

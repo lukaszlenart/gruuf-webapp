@@ -1,23 +1,26 @@
 package com.gruuf.services;
 
+import com.gruuf.GruufConstants;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.web.GruufAuth;
-import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.opensymphony.xwork2.inject.Inject;
 
 import java.util.Collections;
 import java.util.List;
 
 public class UserStore extends Storable<User> {
 
-    public UserStore(Class<User> type) {
-        super(type);
+    @Inject(GruufConstants.SECURITY_SALT)
+    private String applicationSalt;
+
+    public UserStore() {
+        super(User.class);
     }
 
     public int countAdmins() {
         return filter("tokens in", Collections.singletonList(Token.ADMIN))
-                .count();
+            .count();
     }
 
     public List<User> list() {
@@ -26,12 +29,14 @@ public class UserStore extends Storable<User> {
 
     public List<User> listAdmins() {
         return filter("tokens in", Collections.singletonList(Token.ADMIN))
-                .list();
+            .list();
     }
 
     public User login(String username, String password) {
         User user = findUniqueBy("email", username.trim().toLowerCase());
-        if (user != null && GruufAuth.isPasswordValid(password, user.getPassword())) {
+        String passwordHash = GruufAuth.hash(password, applicationSalt);
+
+        if (user != null && passwordHash.equals(user.getPasswordHash())) {
             return user;
         }
         return null;
@@ -46,11 +51,20 @@ public class UserStore extends Storable<User> {
     }
 
     public User resetPassword(User user) {
-        user = User.clone(user).withNewPassword().build();
-        return put(user);
+        String newPassword = GruufAuth.randomString();
+        return resetPassword(user, newPassword);
+    }
+
+    public User resetPassword(User user, String password) {
+        String passwordHash = GruufAuth.hash(password, applicationSalt);
+        user = User.clone(user).build().withPasswordHash(passwordHash);
+        user = put(user);
+        user = user.withPassword(password);
+        return user;
     }
 
     public User findByEmail(String emailAddress) {
         return findUniqueBy("email", emailAddress);
     }
+
 }

@@ -116,10 +116,16 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
             LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
+        locatableProperties.setProperty(
+            GruufConstants.SECURITY_SALT,
+            substitutor.substitute("${GRUUF_SECURITY_SALT}"),
+            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+        );
+
         containerBuilder.factory(UserStore.class, new Factory<UserStore>() {
             @Override
             public UserStore create(Context context) {
-                return new UserStore(User.class);
+                return context.getContainer().inject(UserStore.class);
             }
 
             @Override
@@ -131,7 +137,7 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
         containerBuilder.factory(BikeHistory.class, new Factory<BikeHistory>() {
             @Override
             public BikeHistory create(Context context) {
-                return new BikeHistory(BikeEvent.class);
+                return context.getContainer().inject(BikeHistory.class);
             }
 
             @Override
@@ -143,7 +149,7 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
         containerBuilder.factory(Garage.class, new Factory<Garage>() {
             @Override
             public Garage create(Context context) {
-                return new Garage(Bike.class);
+                return context.getContainer().inject(Garage.class);
             }
 
             @Override
@@ -167,7 +173,7 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
         containerBuilder.factory(EventTypes.class, new Factory<EventTypes>() {
             @Override
             public EventTypes create(Context context) {
-                return new EventTypes();
+                return context.getContainer().inject(EventTypes.class);
             }
 
             @Override

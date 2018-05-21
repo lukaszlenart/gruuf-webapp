@@ -49,9 +49,8 @@ public class AcceptAction extends BaseBikeAction {
                 if (newUser == null) {
                     newUser = User.create()
                         .withEmail(bikeTransfer.getEmailAddress())
-                        .withNewPassword()
                         .build();
-                    newUser = userStore.put(newUser);
+                    newUser = userStore.resetPassword(newUser);
                     sendNewPassword(newUser);
                 }
 

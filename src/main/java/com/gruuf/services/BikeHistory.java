@@ -9,8 +9,8 @@ import java.util.List;
 
 public class BikeHistory extends Reindexable<BikeEvent> {
 
-    public BikeHistory(Class<BikeEvent> type) {
-        super(type);
+    public BikeHistory() {
+        super(BikeEvent.class);
     }
 
     @Override
@@ -21,32 +21,32 @@ public class BikeHistory extends Reindexable<BikeEvent> {
 
     public List<BikeEvent> listByBike(Bike bike) {
         return filter("bike =", bike)
-                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM, BikeEventStatus.TEMPORARY))
-                .order("-registerDate")
-                .list();
+            .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM, BikeEventStatus.TEMPORARY))
+            .order("-registerDate")
+            .list();
     }
 
     public List<BikeEvent> listAllByBike(Bike bike) {
         return filter("bike =", bike)
-                .order("-registerDate")
-                .list();
+            .order("-registerDate")
+            .list();
     }
 
     public List<BikeEvent> listRecentByBike(Bike bike) {
         return filter("bike =", bike)
-                .limit(4)
-                .filter("status =", BikeEventStatus.NEW)
-                .order("-registerDate")
-                .list();
+            .limit(4)
+            .filter("status =", BikeEventStatus.NEW)
+            .order("-registerDate")
+            .list();
     }
 
     public Long findCurrentMileage(Bike bike) {
         Long mileage = null;
 
         List<BikeEvent> bikeEvents = filter("bike =", bike)
-                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
-                .order("-timestamp")
-                .list();
+            .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
+            .order("-timestamp")
+            .list();
 
         for (BikeEvent event : bikeEvents) {
             if (mileage == null || (event.getMileage() != null && mileage.compareTo(event.getMileage()) < 0)) {
@@ -61,9 +61,9 @@ public class BikeHistory extends Reindexable<BikeEvent> {
         Long mth = null;
 
         List<BikeEvent> bikeEvents = filter("bike =", bike)
-                .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
-                .order("-timestamp")
-                .list();
+            .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
+            .order("-timestamp")
+            .list();
 
         for (BikeEvent event : bikeEvents) {
             if (mth == null || (event.getMth() != null && mth.compareTo(event.getMth()) < 0)) {

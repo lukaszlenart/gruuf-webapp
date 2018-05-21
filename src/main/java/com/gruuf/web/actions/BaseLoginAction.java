@@ -3,7 +3,6 @@ package com.gruuf.web.actions;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.model.UserLocale;
-import com.gruuf.services.MailBox;
 import com.gruuf.services.UserStore;
 import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.inject.Inject;
@@ -60,7 +59,6 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
 
         User.UserCreator newUser = User.create()
             .withEmail(email.trim())
-            .withPassword(password)
             .withFirstName(firstName)
             .withLastName(lastName)
             .withFacebookId(facebookId)
@@ -74,7 +72,13 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
             newUser = newUser.withToken(Token.ADMIN);
         }
 
-        User user = userStore.put(newUser.build());
+        User user;
+        if (StringUtils.isBlank(password)) {
+            user = userStore.put(newUser.build());
+        } else {
+            user = userStore.resetPassword(newUser.build(), password);
+        }
+
         mailBox.notifyAdmin("New biker", "New biker has been registered!", user);
 
         return user;

@@ -1,10 +1,13 @@
 package com.gruuf.web.actions.biker;
 
+import com.gruuf.GruufConstants;
 import com.gruuf.model.User;
 import com.gruuf.model.UserLocale;
+import com.gruuf.web.GruufAuth;
 import com.gruuf.web.actions.BaseLoginAction;
 import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.Validateable;
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.commons.lang3.StringUtils;
@@ -20,8 +23,8 @@ import static com.gruuf.web.actions.biker.ProfileAction.REDIRECT_TO_FORM;
 import static com.opensymphony.xwork2.Action.INPUT;
 
 @Results({
-        @Result(name = INPUT, location = "biker/profile"),
-        @Result(name = REDIRECT_TO_FORM, type = "redirectAction", location = "profile")
+    @Result(name = INPUT, location = "biker/profile"),
+    @Result(name = REDIRECT_TO_FORM, type = "redirectAction", location = "profile")
 })
 @InterceptorRef("defaultWithMessages")
 public class ProfileAction extends BaseLoginAction implements Preparable, Validateable {
@@ -29,6 +32,9 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
     private static final Logger LOG = LogManager.getLogger(ProfileAction.class);
 
     public static final String REDIRECT_TO_FORM = "redirect-to-form";
+
+    @Inject(GruufConstants.SECURITY_SALT)
+    private String applicationSalt;
 
     @SkipValidation
     public String execute() {
@@ -38,10 +44,10 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
     @Action("profile-submit")
     public String profileSubmit() {
         User.UserCreator user = User.clone(currentUser)
-                .withFirstName(firstName)
-                .withLastName(lastName)
-                .withNotify(notify)
-                .withUserLocale(userLocale);
+            .withFirstName(firstName)
+            .withLastName(lastName)
+            .withNotify(notify)
+            .withUserLocale(userLocale);
 
         if (!currentUser.getEmail().equals(email)) {
             LOG.debug("New email has been defined: {}", email);
@@ -49,13 +55,14 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
             user = user.withEmail(email);
         }
 
-        if (StringUtils.isNotBlank(password1) && !currentUser.getPassword().equals(password1)) {
+        if (StringUtils.isNotBlank(password1)) {
             LOG.debug("New password has been defined");
             addActionMessage(getText("biker.newPasswordHasBeenSet"));
-            user = user.withPassword(password1);
+            currentUser = userStore.resetPassword(user.build(), password1);
+        } else {
+            currentUser = userStore.put(user.build());
         }
 
-        currentUser = userStore.put(user.build());
         markSessionAsLoggedIn(currentUser);
 
         LOG.debug("User profiles has been updated {}", currentUser);
@@ -79,12 +86,15 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
     }
 
     public boolean isPasswordDifferent() {
-        return (StringUtils.isNotBlank(password1) && !currentUser.getPassword().equals(password1))
-                || (StringUtils.isNotBlank(password2) && !currentUser.getPassword().equals(password2));
+        String passwordHash1 = password1 == null ? null : GruufAuth.hash(password1, applicationSalt);
+        String passwordHash2 = password2 == null ? null : GruufAuth.hash(password2, applicationSalt);
+
+        return (StringUtils.isNotBlank(password1) && !currentUser.getPasswordHash().equals(passwordHash1))
+            || (StringUtils.isNotBlank(password2) && !currentUser.getPasswordHash().equals(passwordHash2));
     }
 
     @Override
-    public void prepare() throws Exception {
+    public void prepare() {
         email = currentUser.getEmail();
         firstName = currentUser.getFirstName();
         lastName = currentUser.getLastName();
