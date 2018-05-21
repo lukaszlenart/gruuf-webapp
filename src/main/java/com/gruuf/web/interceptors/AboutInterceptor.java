@@ -12,23 +12,7 @@ public class AboutInterceptor extends AbstractInterceptor {
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
-        if ("about".equalsIgnoreCase(invocation.getProxy().getActionName())) {
-            return invocation.invoke();
-        }
-
-        if ("privacy-policy".equalsIgnoreCase(invocation.getProxy().getActionName())) {
-            return invocation.invoke();
-        }
-
-        if (invocation.getProxy().getNamespace().startsWith("/api")) {
-            return invocation.invoke();
-        }
-
-        if (invocation.getProxy().getNamespace().startsWith("/cron")) {
-            return invocation.invoke();
-        }
-
-        if (invocation.getProxy().getNamespace().startsWith("/tasks")) {
+        if (isIgnoredAction(invocation) || isIgnoredNamespace(invocation)) {
             return invocation.invoke();
         }
 
@@ -43,6 +27,21 @@ public class AboutInterceptor extends AbstractInterceptor {
         }
 
         return GruufActions.ABOUT;
+    }
+
+    private boolean isIgnoredNamespace(ActionInvocation invocation) {
+        String namespace = invocation.getProxy().getNamespace();
+
+        return namespace.startsWith("/api")
+            || namespace.startsWith("/cron")
+            || namespace.startsWith("/tasks");
+    }
+
+    private boolean isIgnoredAction(ActionInvocation invocation) {
+        String actionName = invocation.getProxy().getActionName();
+
+        return "about".equalsIgnoreCase(actionName)
+            || "privacy-policy".equalsIgnoreCase(actionName);
     }
 
 }
