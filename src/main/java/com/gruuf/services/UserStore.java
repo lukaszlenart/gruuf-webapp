@@ -40,9 +40,17 @@ public class UserStore extends Storable<User> {
     public User resetPassword(String email) {
         User user = findUniqueBy("email", email);
         if (user != null) {
-            user = User.clone(user).withPassword(GruufAuth.randomString()).build();
-            user = put(user);
+            user = resetPassword(user);
         }
         return user;
+    }
+
+    public User resetPassword(User user) {
+        user = User.clone(user).withNewPassword().build();
+        return put(user);
+    }
+
+    public User findByEmail(String emailAddress) {
+        return findUniqueBy("email", emailAddress);
     }
 }

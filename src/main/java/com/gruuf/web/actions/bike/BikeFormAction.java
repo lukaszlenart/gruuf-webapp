@@ -6,7 +6,7 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeMetadata;
 import com.gruuf.model.Country;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import com.gruuf.web.actions.BaseBikeMetadataAction;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
@@ -91,7 +91,7 @@ public class BikeFormAction extends BaseBikeMetadataAction implements Validateab
             LOG.debug("Updating mth {} for bike {}", mth, selectedBike);
             updateMth(selectedBike);
         }
-        return GruufActions.GARAGE;
+        return GlobalResult.GARAGE;
     }
 
     private boolean hasMileageChanged() {

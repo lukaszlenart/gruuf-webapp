@@ -4,7 +4,7 @@ import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -41,7 +41,7 @@ public class PasswordResetAction extends BaseAction {
         User updatedUser = User.clone(user).withPassword(newPassword1).build();
         userStore.put(updatedUser);
         addActionMessage("Password updated successfully!");
-        return GruufActions.GARAGE;
+        return GlobalResult.GARAGE;
     }
 
     public void validateUpdatePassword() {

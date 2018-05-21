@@ -8,7 +8,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.gruuf.GruufConstants;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -39,14 +39,14 @@ public class GoogleLoginAction extends BaseLoginAction {
     private String hostUrl;
 
     private String code;
-    private String redirect = GruufActions.LOGIN;
+    private String redirect = GlobalResult.LOGIN;
 
     @Action("google-login")
     public Object googleLogin() throws Exception {
 
         if (StringUtils.isEmpty(code)) {
             LOG.warn("Google auth code is empty, redirecting back to login page");
-            redirect = GruufActions.LOGIN;
+            redirect = GlobalResult.LOGIN;
         }
 
         GoogleTokenResponse response =
@@ -64,7 +64,7 @@ public class GoogleLoginAction extends BaseLoginAction {
             LOG.error("Got error when tried authorise user using Google OAuth: {}", response);
             addActionError(getText("user.cannotLoginWithGoogleAccount"));
 
-            redirect = GruufActions.LOGIN;
+            redirect = GlobalResult.LOGIN;
         } else {
             LOG.debug("Got proper response from Google, trying to fetch user's data");
             GoogleIdToken idToken = response.parseIdToken();
@@ -80,11 +80,11 @@ public class GoogleLoginAction extends BaseLoginAction {
             if (user != null) {
                 markSessionAsLoggedIn(user);
                 addActionMessage(getText("user.loggedInWithGoogleAccount", new String[]{user.getFullName(), user.getEmail()}));
-                redirect = GruufActions.GARAGE;
+                redirect = GlobalResult.GARAGE;
             } else {
                 LOG.debug("User is null, cannot login!");
                 addActionError(getText("user.cannotLoginWithGoogleAccount"));
-                redirect = GruufActions.LOGIN;
+                redirect = GlobalResult.LOGIN;
             }
         }
 

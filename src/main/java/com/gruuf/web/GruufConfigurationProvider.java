@@ -4,11 +4,13 @@ import com.google.appengine.api.utils.SystemProperty;
 import com.gruuf.GruufConstants;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.BikeTransfer;
 import com.gruuf.model.User;
 import com.gruuf.services.AttachmentsStorage;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.BikeMetadataStore;
 import com.gruuf.services.BikeParameters;
+import com.gruuf.services.BikeTransfers;
 import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
 import com.gruuf.services.MailBox;
@@ -219,6 +221,18 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
             @Override
             public Class<? extends BikeParameters> type() {
                 return BikeParameters.class;
+            }
+        }, Scope.SINGLETON);
+
+        containerBuilder.factory(BikeTransfers.class, new Factory<BikeTransfers>() {
+            @Override
+            public BikeTransfers create(Context context) {
+                return context.getContainer().inject(BikeTransfers.class);
+            }
+
+            @Override
+            public Class<? extends BikeTransfers> type() {
+                return BikeTransfers.class;
             }
         }, Scope.SINGLETON);
     }

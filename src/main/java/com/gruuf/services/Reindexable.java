@@ -19,9 +19,13 @@ public abstract class Reindexable<E> extends Storable<E> {
 
             List<E> entities = list();
             for (E entity : entities) {
-                put(entity);
+                put(modify(entity));
             }
         }
+    }
+
+    protected E modify(E old) {
+        return old;
     }
 
     protected abstract boolean shouldReindex();

@@ -100,17 +100,17 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", tokens=" + tokens +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", userLocale=" + userLocale +
-                ", notify=" + notify +
-                ", facebookId='" + facebookId + '\'' +
-                ", timestamp=" + timestamp +
-                ", acceptedPolicies=" + acceptedPolicies +
-                '}';
+            "id='" + id + '\'' +
+            ", email='" + email + '\'' +
+            ", tokens=" + tokens +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", userLocale=" + userLocale +
+            ", notify=" + notify +
+            ", facebookId='" + facebookId + '\'' +
+            ", timestamp=" + timestamp +
+            ", acceptedPolicies=" + acceptedPolicies +
+            '}';
     }
 
     public static UserCreator create() {
@@ -119,14 +119,14 @@ public class User {
 
     public static UserCreator clone(User user) {
         return new UserCreator(user.getId())
-                .withEmail(user.getEmail())
-                .withPassword(user.getPassword())
-                .withFirstName(user.getFirstName())
-                .withLastName(user.getLastName())
-                .withUserLocale(user.getUserLocale())
-                .withTokens(user.getTokens())
-                .withAcceptedPolicies(user.getAcceptedPolicies())
-                .withFacebookId(user.getFacebookId());
+            .withEmail(user.getEmail())
+            .withPassword(user.getPassword())
+            .withFirstName(user.getFirstName())
+            .withLastName(user.getLastName())
+            .withUserLocale(user.getUserLocale())
+            .withTokens(user.getTokens())
+            .withAcceptedPolicies(user.getAcceptedPolicies())
+            .withFacebookId(user.getFacebookId());
     }
 
     public boolean isPrivacyPolicyAccepted() {
@@ -159,7 +159,9 @@ public class User {
             if (target.tokens == null) {
                 target.tokens = new HashSet<>();
             }
-            target.tokens.add(token);
+            if (token != null) {
+                target.tokens.add(token);
+            }
             return this;
         }
 
@@ -167,7 +169,9 @@ public class User {
             if (target.tokens == null) {
                 target.tokens = new HashSet<>();
             }
-            target.tokens.addAll(tokens);
+            if (tokens != null) {
+                target.tokens.addAll(tokens);
+            }
             return this;
         }
 
@@ -203,6 +207,11 @@ public class User {
 
         public UserCreator withAcceptedPolicies(Set<PolicyType> acceptedPolicies) {
             target.acceptedPolicies = acceptedPolicies;
+            return this;
+        }
+
+        public UserCreator withNewPassword() {
+            target.password = GruufAuth.randomString();
             return this;
         }
 

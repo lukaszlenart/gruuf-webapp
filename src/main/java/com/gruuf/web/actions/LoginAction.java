@@ -2,7 +2,7 @@ package com.gruuf.web.actions;
 
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.struts2.convention.annotation.Action;
@@ -30,10 +30,10 @@ public class LoginAction extends BaseLoginAction {
         User user = userStore.login(email, password);
         if (user != null) {
             markSessionAsLoggedIn(user);
-            return GruufActions.GARAGE;
+            return GlobalResult.GARAGE;
         } else {
             addActionError("Cannot login!");
-            return GruufActions.LOGIN;
+            return GlobalResult.LOGIN;
         }
     }
 
@@ -41,7 +41,7 @@ public class LoginAction extends BaseLoginAction {
     @SkipValidation
     public String logout() {
         session.put(GruufAuth.AUTH_TOKEN, null);
-        return GruufActions.LOGIN;
+        return GlobalResult.LOGIN;
     }
 
     public String getEmail() {

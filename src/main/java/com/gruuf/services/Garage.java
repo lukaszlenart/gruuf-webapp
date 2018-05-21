@@ -18,7 +18,12 @@ public class Garage extends Reindexable<Bike> {
     @Override
     protected boolean shouldReindex() {
         // change to true when migrating data
-        return false;
+        return true;
+    }
+
+    @Override
+    protected Bike modify(Bike old) {
+        return old.markAsTransferDone();
     }
 
     public List<Bike> findByOwner(User user) {

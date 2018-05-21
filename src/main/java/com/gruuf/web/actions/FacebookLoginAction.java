@@ -2,7 +2,7 @@ package com.gruuf.web.actions;
 
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import facebook4j.Facebook;
 import facebook4j.FacebookFactory;
 import facebook4j.Reading;
@@ -30,14 +30,14 @@ public class FacebookLoginAction extends BaseLoginAction {
     private static final Logger LOG = LogManager.getLogger(FacebookLoginAction.class);
 
     private String accessToken;
-    private String redirect = GruufActions.LOGIN;
+    private String redirect = GlobalResult.LOGIN;
 
     @Action("facebook-login")
     public Object facebookLogin() throws Exception {
 
         if (StringUtils.isEmpty(accessToken)) {
             LOG.warn("Facebook accessToken is empty, redirecting back to login page");
-            redirect = GruufActions.LOGIN;
+            redirect = GlobalResult.LOGIN;
         } else {
             Facebook facebook = new FacebookFactory().getInstance(new AccessToken(accessToken, null));
 
@@ -55,11 +55,11 @@ public class FacebookLoginAction extends BaseLoginAction {
             if (user != null) {
                 markSessionAsLoggedIn(user);
                 addActionMessage(getText("user.loggedInWithFacebookAccount", new String[]{user.getFullName(), user.getEmail()}));
-                redirect = GruufActions.GARAGE;
+                redirect = GlobalResult.GARAGE;
             } else {
                 LOG.debug("User is null, cannot login!");
                 addActionError(getText("user.cannotLoginWithFacebookAccount"));
-                redirect = GruufActions.LOGIN;
+                redirect = GlobalResult.LOGIN;
             }
         }
 

@@ -24,12 +24,8 @@ public class GarageAction extends BaseAction implements Preparable {
 
     private List<BikeDetails> bikesDetails;
 
-    public String execute() throws Exception {
-        return SUCCESS;
-    }
-
     @Override
-    public void prepare() throws Exception {
+    public void prepare() {
         bikesDetails = loadBikeDetails();
         LOG.debug("Found {} bikes assigned to the current user", bikesDetails.size());
     }
@@ -62,9 +58,9 @@ public class GarageAction extends BaseAction implements Preparable {
             Long currentMth = bikeHistory.findCurrentMth(bike);
 
             bikeDetails.add(
-                    BikeDetails.create(bike)
-                            .withUser(currentUser)
-                            .withHistory(currentUser.getUserLocale(), events, currentMileage, currentMth)
+                BikeDetails.create(bike)
+                    .withUser(currentUser)
+                    .withHistory(currentUser.getUserLocale(), events, currentMileage, currentMth)
             );
         }
 

@@ -24,8 +24,8 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
 
     private static final Logger LOG = LogManager.getLogger(BaseLoginAction.class);
 
+    @Inject
     protected UserStore userStore;
-    protected MailBox mailBox;
 
     protected Map<String, Object> session;
     protected Locale browserLocale;
@@ -59,12 +59,12 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
     private User createNewUser(String email, String password, String firstName, String lastName, String facebookId) {
 
         User.UserCreator newUser = User.create()
-                .withEmail(email.trim())
-                .withPassword(password)
-                .withFirstName(firstName)
-                .withLastName(lastName)
-                .withFacebookId(facebookId)
-                .withToken(Token.USER);
+            .withEmail(email.trim())
+            .withPassword(password)
+            .withFirstName(firstName)
+            .withLastName(lastName)
+            .withFacebookId(facebookId)
+            .withToken(Token.USER);
 
         if (UserLocale.isValidLocale(browserLocale)) {
             newUser = newUser.withUserLocale(UserLocale.fromLocale(browserLocale));
@@ -84,7 +84,7 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
         User.UserCreator clone = User.clone(user);
 
         if (user.getFirstName() == null || user.getLastName() == null) {
-             clone = clone.withFirstName(firstName).withLastName(lastName);
+            clone = clone.withFirstName(firstName).withLastName(lastName);
         }
         if (StringUtils.isNoneEmpty(facebookId)) {
             clone = clone.withFacebookId(facebookId);
@@ -104,16 +104,6 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
             }
         }
         return user;
-    }
-
-    @Inject
-    public void setUserStore(UserStore userStore) {
-        this.userStore = userStore;
-    }
-
-    @Inject
-    public void setMailBox(MailBox mailBox) {
-        this.mailBox = mailBox;
     }
 
     @Override

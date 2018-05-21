@@ -4,6 +4,7 @@ import com.gruuf.auth.Anonymous;
 import com.gruuf.model.PolicyType;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
+import com.gruuf.web.GlobalResult;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
@@ -40,7 +41,7 @@ public class PrivacyPolicyAction extends BaseAction {
             addActionMessage(getText("user.thankYouForAcceptingPolicy"));
         }
 
-        return PRIVACY_POLICY;
+        return GlobalResult.PRIVACY_POLICY;
     }
 
     public boolean isAccepted() {

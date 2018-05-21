@@ -4,8 +4,10 @@ import com.gruuf.GruufVersion;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.model.UserLocale;
+import com.gruuf.services.MailBox;
 import com.gruuf.web.interceptors.CurrentUserAware;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +19,9 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
 
     public static final String JSON = "json";
     public static final String TO_INPUT = "to-input";
-    public static final String PRIVACY_POLICY = "privacy-policy";
+
+    @Inject
+    protected MailBox mailBox;
 
     protected User currentUser;
 
@@ -27,7 +31,9 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     }
 
     public boolean isAdmin() {
-        return currentUser != null && currentUser.getTokens().contains(Token.ADMIN);
+        return currentUser != null
+            && currentUser.getTokens() != null
+            && currentUser.getTokens().contains(Token.ADMIN);
     }
 
     public boolean isLoggedIn() {
@@ -64,5 +70,14 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
 
     public Set<UserLocale> getAvailableUserLocales() {
         return UserLocale.all();
+    }
+
+    protected void sendNewPassword(User user) {
+        if (user != null) {
+            String subject = getText("user.passwordReset");
+            String body = getText("user.yourNewPasswordIs") + " " + user.getPassword() + "\n";
+            mailBox.notifyUser(user, subject, body);
+            addActionMessage(getText("user.passwordHasBeenChanged"));
+        }
     }
 }

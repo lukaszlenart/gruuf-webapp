@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.util.AnnotationUtils;
 import com.gruuf.auth.Anonymous;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +42,7 @@ public class LoginInterceptor extends AbstractInterceptor {
             LOG.debug("User is logged in, allowing to access action {}", invocation.getProxy().getActionName());
             return invocation.invoke();
         }
-        return GruufActions.LOGIN;
+        return GlobalResult.LOGIN;
     }
 
     private boolean isAllowedAction(Object action) {

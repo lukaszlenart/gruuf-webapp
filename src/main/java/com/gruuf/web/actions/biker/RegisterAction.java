@@ -3,7 +3,7 @@ package com.gruuf.web.actions.biker;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.User;
 import com.gruuf.struts2.gae.recaptcha.ReCaptchaAware;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import com.gruuf.web.actions.BaseLoginAction;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -33,7 +33,7 @@ public class RegisterAction extends BaseLoginAction implements ReCaptchaAware {
         if (newUser != null) {
             addActionMessage(getText("biker.newBikeHasBeenRegistered"));
         }
-        return GruufActions.GARAGE;
+        return GlobalResult.GARAGE;
     }
 
     public void validateRegisterSubmit() {

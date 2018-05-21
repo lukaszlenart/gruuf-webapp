@@ -25,24 +25,12 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
 
     protected Bike selectedBike;
 
+    @Inject
     protected Garage garage;
+    @Inject
     protected BikeHistory bikeHistory;
+    @Inject
     protected EventTypes eventTypes;
-
-    @Inject
-    public void setGarage(Garage garage) {
-        this.garage = garage;
-    }
-
-    @Inject
-    public void setBikeHistory(BikeHistory bikeHistory) {
-        this.bikeHistory = bikeHistory;
-    }
-
-    @Inject
-    public void setEventTypes(EventTypes eventTypes) {
-        this.eventTypes = eventTypes;
-    }
 
     public String getBikeName() {
         if (selectedBike != null) {
@@ -59,8 +47,8 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
         Long currentMth = bikeHistory.findCurrentMth(selectedBike);
 
         return BikeDetails.create(selectedBike)
-                .withUser(currentUser)
-                .withHistory(currentUser.getUserLocale(), events, currentMileage, currentMth);
+            .withUser(currentUser)
+            .withHistory(currentUser.getUserLocale(), events, currentMileage, currentMth);
     }
 
     @Override

@@ -64,13 +64,15 @@
             </tbody>
           </table>
 
-          <s:url var="editUrl" action="bike-form" namespace="/bike">
-            <s:param name="bikeId" value="bike.id"/>
-          </s:url>
-          <s:a value="%{editUrl}" class="btn btn-primary">
-            <s:text name="general.edit"/>
-            <i class="glyphicon glyphicon-edit"></i>
-          </s:a>
+          <s:if test="bike.editable">
+            <s:url var="editUrl" action="bike-form" namespace="/bike">
+              <s:param name="bikeId" value="bike.id"/>
+            </s:url>
+            <s:a value="%{editUrl}" class="btn btn-primary">
+              <s:text name="general.edit"/>
+              <i class="glyphicon glyphicon-edit"></i>
+            </s:a>
+          </s:if>
 
           <s:url var="parametersUrl" action="bike-parameters" namespace="/bike">
             <s:param name="bikeMetadataId" value="bike.bikeMetadataId"/>
@@ -80,66 +82,78 @@
             <i class="glyphicon glyphicon-barcode"></i>
           </s:a>
 
-          <s:url var="deleteUrl" action="bike-delete" namespace="/bike">
-            <s:param name="bikeId" value="bike.id"/>
-          </s:url>
-          <s:a value="%{deleteUrl}" class="btn btn-danger pull-right">
-            <s:text name="general.delete"/>
-            <i class="glyphicon glyphicon-trash"></i>
-          </s:a>
+          <s:if test="bike.editable">
+            <s:url var="transferUrl" action="start" namespace="/transfer">
+              <s:param name="bikeId" value="bike.Id"/>
+            </s:url>
+            <s:a value="%{transferUrl}" class="btn btn-primary">
+              <s:text name="general.transfer"/>
+              <i class="glyphicon glyphicon-user"></i>
+            </s:a>
+
+            <s:url var="deleteUrl" action="bike-delete" namespace="/bike">
+              <s:param name="bikeId" value="bike.id"/>
+            </s:url>
+            <s:a value="%{deleteUrl}" class="btn btn-danger pull-right">
+              <s:text name="general.delete"/>
+              <i class="glyphicon glyphicon-trash"></i>
+            </s:a>
+          </s:if>
         </div>
 
-        <div class="panel-body">
-          <table class="table table-striped">
-            <thead>
-            <tr>
-              <th><s:text name="bikeEvent.eventType"/></th>
-              <th><s:text name="bikeEvent.description"/></th>
-              <th class="text-center"><s:text name="bikeEvent.eventDate"/></th>
-              <s:if test="bike.showMileage">
-                <th><s:text name="bikeEvent.mileage"/></th>
-              </s:if>
-              <s:if test="bike.showMth">
-                <th><s:text name="bikeEvent.mth"/></th>
-              </s:if>
-            </tr>
-            </thead>
-            <tbody>
-            <s:iterator value="events" var="event">
+        <s:if test="bike.editable">
+          <div class="panel-body">
+            <table class="table table-striped">
+              <thead>
               <tr>
-                <td class="text-nowrap">
-                  <s:iterator value="eventTypes" var="eventType" status="stats">
-                    <s:property value="name"/><s:if test="%{not #stats.last}">,<br/></s:if>
-                  </s:iterator>
-                </td>
-                <td><s:property value="description" escapeHtml="false"/></td>
-                <td class="text-nowrap text-center"><s:date name="registerDate" format="%{userDateFormat}"/></td>
+                <th><s:text name="bikeEvent.eventType"/></th>
+                <th><s:text name="bikeEvent.description"/></th>
+                <th class="text-center"><s:text name="bikeEvent.eventDate"/></th>
                 <s:if test="bike.showMileage">
-                  <td class="text-nowrap text-center"><s:number name="mileage"/></td>
+                  <th><s:text name="bikeEvent.mileage"/></th>
                 </s:if>
                 <s:if test="bike.showMth">
-                  <td class="text-nowrap text-center"><s:number name="mth"/></td>
+                  <th><s:text name="bikeEvent.mth"/></th>
                 </s:if>
               </tr>
-            </s:iterator>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+              <s:iterator value="events" var="event">
+                <tr>
+                  <td class="text-nowrap">
+                    <s:iterator value="eventTypes" var="eventType" status="stats">
+                      <s:property value="name"/><s:if test="%{not #stats.last}">,<br/></s:if>
+                    </s:iterator>
+                  </td>
+                  <td><s:property value="description" escapeHtml="false"/></td>
+                  <td class="text-nowrap text-center"><s:date name="registerDate" format="%{userDateFormat}"/></td>
+                  <s:if test="bike.showMileage">
+                    <td class="text-nowrap text-center"><s:number name="mileage"/></td>
+                  </s:if>
+                  <s:if test="bike.showMth">
+                    <td class="text-nowrap text-center"><s:number name="mth"/></td>
+                  </s:if>
+                </tr>
+              </s:iterator>
+              </tbody>
+            </table>
 
-          <s:url var="historyUrl" action="history" namespace="/bike">
-            <s:param name="bikeId" value="bike.id"/>
-          </s:url>
-          <s:a class="btn btn-primary" role="button" href="%{historyUrl}">
-            <s:text name="general.viewDetails"/>
-            <i class="glyphicon glyphicon-th-list"></i>
-          </s:a>
-          <s:url var="reportUrl" action="report" namespace="/bike">
-            <s:param name="bikeId" value="bike.id"/>
-          </s:url>
-          <s:a class="btn btn-info" role="button" href="%{reportUrl}" target="_blank">
-            <s:text name="general.fullReport"/>
-            <i class="glyphicon glyphicon-print"></i>
-          </s:a>
-        </div>
+            <s:url var="historyUrl" action="history" namespace="/bike">
+              <s:param name="bikeId" value="bike.id"/>
+            </s:url>
+            <s:a class="btn btn-primary" role="button" href="%{historyUrl}">
+              <s:text name="general.viewDetails"/>
+              <i class="glyphicon glyphicon-th-list"></i>
+            </s:a>
+            <s:url var="reportUrl" action="report" namespace="/bike">
+              <s:param name="bikeId" value="bike.id"/>
+            </s:url>
+            <s:a class="btn btn-info" role="button" href="%{reportUrl}" target="_blank">
+              <s:text name="general.fullReport"/>
+              <i class="glyphicon glyphicon-print"></i>
+            </s:a>
+          </div>
+        </s:if>
 
       </div>
     </div>

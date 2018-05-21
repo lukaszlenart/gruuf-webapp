@@ -8,7 +8,7 @@ import com.opensymphony.xwork2.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class BaseEndpoint extends BaseAction {
+abstract class BaseEndpoint extends BaseAction {
 
     @Inject
     protected BikeHistory history;

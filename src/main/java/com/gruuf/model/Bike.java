@@ -29,6 +29,8 @@ public class Bike {
 
     private Long spaceUsed;
 
+    private BikeStatus status = BikeStatus.NORMAL;
+
     private Bike() {
     }
 
@@ -75,12 +77,16 @@ public class Bike {
         return spaceUsed;
     }
 
+    public BikeStatus getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return "Bike{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            '}';
     }
 
     public static BikeBuilder create(User owner) {
@@ -101,6 +107,22 @@ public class Bike {
 
     public String getRegistrationPlate() {
         return registrationPlate;
+    }
+
+    public Bike markAsUnderTransfer() {
+        this.status = BikeStatus.TRANSFERRING;
+        return this;
+    }
+
+    public Bike markAsTransferDone() {
+        this.status = BikeStatus.NORMAL;
+        return this;
+    }
+
+    public Bike transferTo(User user) {
+        this.owner = Ref.create(user);
+        this.status = BikeStatus.NORMAL;
+        return this;
     }
 
     public static class BikeBuilder {

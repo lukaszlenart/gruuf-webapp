@@ -25,7 +25,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gruuf.web.GruufActions.GARAGE;
+import static com.gruuf.web.GlobalResult.GARAGE;
 import static com.opensymphony.xwork2.Action.INPUT;
 
 @Results({

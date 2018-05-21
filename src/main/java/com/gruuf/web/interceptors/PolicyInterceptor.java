@@ -2,8 +2,8 @@ package com.gruuf.web.interceptors;
 
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
+import com.gruuf.web.GlobalResult;
 import com.gruuf.web.GruufAuth;
-import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
@@ -31,7 +31,7 @@ public class PolicyInterceptor extends AbstractInterceptor {
 
         if (currentUser != null && !currentUser.isPrivacyPolicyAccepted()) {
             LOG.warn("Current user did not accept the Privacy Policy yet!");
-            return BaseAction.PRIVACY_POLICY;
+            return GlobalResult.PRIVACY_POLICY;
         }
 
         return invocation.invoke();

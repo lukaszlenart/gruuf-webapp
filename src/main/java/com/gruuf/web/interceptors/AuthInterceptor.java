@@ -3,7 +3,7 @@ package com.gruuf.web.interceptors;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.User;
 import com.gruuf.services.UserStore;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import com.gruuf.web.GruufAuth;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.inject.Inject;
@@ -31,7 +31,7 @@ public class AuthInterceptor extends AbstractInterceptor {
                 return invocation.invoke();
             } else {
                 LOG.debug("User {} is not allowed to see {}", currentUser, invocation.getAction());
-                return GruufActions.GARAGE;
+                return GlobalResult.GARAGE;
             }
         }
     }

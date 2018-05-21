@@ -1,7 +1,7 @@
 package com.gruuf.web.interceptors;
 
 import com.gruuf.GruufConstants;
-import com.gruuf.web.GruufActions;
+import com.gruuf.web.GlobalResult;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import org.apache.struts2.ServletActionContext;
@@ -26,7 +26,7 @@ public class AboutInterceptor extends AbstractInterceptor {
             }
         }
 
-        return GruufActions.ABOUT;
+        return GlobalResult.ABOUT;
     }
 
     private boolean isIgnoredNamespace(ActionInvocation invocation) {
@@ -39,9 +39,11 @@ public class AboutInterceptor extends AbstractInterceptor {
 
     private boolean isIgnoredAction(ActionInvocation invocation) {
         String actionName = invocation.getProxy().getActionName();
+        String namespace = invocation.getProxy().getNamespace();
 
         return "about".equalsIgnoreCase(actionName)
-            || "privacy-policy".equalsIgnoreCase(actionName);
+            || "privacy-policy".equalsIgnoreCase(actionName)
+            || ("accept".equalsIgnoreCase(actionName) && namespace.startsWith("/transfer"));
     }
 
 }

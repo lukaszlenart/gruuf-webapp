@@ -44,4 +44,8 @@ public class BikeDescriptor {
         return bike.isShowMth();
     }
 
+    public boolean isEditable() {
+        return bike.getStatus() == BikeStatus.NORMAL;
+    }
+
 }
