@@ -86,11 +86,17 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
     }
 
     public boolean isPasswordDifferent() {
+        String passwordHash = currentUser.getPasswordHash();
+
+        if (passwordHash == null) {
+            return true;
+        }
+
         String passwordHash1 = password1 == null ? null : GruufAuth.hash(password1, applicationSalt);
         String passwordHash2 = password2 == null ? null : GruufAuth.hash(password2, applicationSalt);
 
-        return (StringUtils.isNotBlank(password1) && !currentUser.getPasswordHash().equals(passwordHash1))
-            || (StringUtils.isNotBlank(password2) && !currentUser.getPasswordHash().equals(passwordHash2));
+        return (StringUtils.isNotBlank(password1) && !passwordHash.equals(passwordHash1))
+            || (StringUtils.isNotBlank(password2) && !passwordHash.equals(passwordHash2));
     }
 
     @Override
