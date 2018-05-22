@@ -34,8 +34,11 @@ public class GoogleLoginAction extends BaseLoginAction {
 
     private static final Logger LOG = LogManager.getLogger(GoogleLoginAction.class);
 
+    @Inject(GruufConstants.OAUTH_GOOGLE_API_KEY)
     private String googleApiKey;
+    @Inject(GruufConstants.OAUTH_GOOGLE_API_SECRET)
     private String googleApiSecret;
+    @Inject(GruufConstants.HOST_URL)
     private String hostUrl;
 
     private String code;
@@ -89,21 +92,6 @@ public class GoogleLoginAction extends BaseLoginAction {
         }
 
         return SUCCESS;
-    }
-
-    @Inject(GruufConstants.OAUTH_GOOGLE_API_KEY)
-    public void setGoogleApiKey(String googleApiKey) {
-        this.googleApiKey = googleApiKey;
-    }
-
-    @Inject(GruufConstants.OAUTH_GOOGLE_API_SECRET)
-    public void setGoogleApiSecret(String googleApiSecret) {
-        this.googleApiSecret = googleApiSecret;
-    }
-
-    @Inject(GruufConstants.HOST_URL)
-    public void setHostUrl(String hostUrl) {
-        this.hostUrl = hostUrl;
     }
 
     public void setCode(String code) {

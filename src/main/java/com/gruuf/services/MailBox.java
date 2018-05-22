@@ -1,5 +1,6 @@
 package com.gruuf.services;
 
+import com.gruuf.GruufConstants;
 import com.gruuf.model.User;
 import com.opensymphony.xwork2.TextProvider;
 import com.opensymphony.xwork2.TextProviderFactory;
@@ -29,9 +30,14 @@ public class MailBox {
     //public static final String NOREPLY_GRUUF_COM = "noreply@gruuf.com";
     public static final String GRUUF_APP = "Gruuf App";
 
+    @Inject
     private UserStore userStore;
-    private boolean devMode;
+    @Inject
     private TextProviderFactory textProviderFactory;
+    @Inject(GruufConstants.HOST_URL)
+    private String hostUrl;
+
+    private boolean devMode;
 
     public void notifyAdmin(String subject, String text, Object... bodyParams) {
         try {
@@ -86,7 +92,7 @@ public class MailBox {
 
         TextProvider textProvider = textProviderFactory.createInstance(getClass());
         body.append("\n").append(textProvider.getText("user.changeNotificationSettingsAt")).append("\n")
-                .append("https://gruuf.com/").append("\n");
+                .append(hostUrl).append("\n");
 
         msg.setContent(body.toString(), "text/plain; charset=UTF-8");
 
@@ -112,16 +118,6 @@ public class MailBox {
                 LOG.error(new ParameterizedMessage("Cannot create e-mail address for {}", admin), e);
             }
         }
-    }
-
-    @Inject
-    public void setUserStore(UserStore userStore) {
-        this.userStore = userStore;
-    }
-
-    @Inject
-    public void setTextProviderFactory(TextProviderFactory textProviderFactory) {
-        this.textProviderFactory = textProviderFactory;
     }
 
     @Inject(StrutsConstants.STRUTS_DEVMODE)

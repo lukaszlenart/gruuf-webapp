@@ -1,5 +1,6 @@
 package com.gruuf.web.actions.transfer;
 
+import com.gruuf.GruufConstants;
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeMetadataDescriptor;
@@ -39,6 +40,8 @@ public class TransferAction extends BaseBikeAction {
     private MailBox mailBox;
     @Inject
     private BikeTransfers bikeTransfers;
+    @Inject(GruufConstants.HOST_URL)
+    private String hostUrl;
 
     private String emailAddress;
 
@@ -66,7 +69,7 @@ public class TransferAction extends BaseBikeAction {
             BikeTransfer bikeTransfer = bikeTransfers.register(bike, emailAddress);
 
             String bikeFullName = new BikeMetadataDescriptor(selectedBike.getBikeMetadata()).getFullName();
-            String acceptanceLink = "https://gruuf.com/transfer/accept?token=" + bikeTransfer.getId();
+            String acceptanceLink = hostUrl + "/transfer/accept?token=" + bikeTransfer.getId();
 
             String message = "Please accept bike transfer:\n" + bikeFullName + "\n\n" + acceptanceLink;
 
