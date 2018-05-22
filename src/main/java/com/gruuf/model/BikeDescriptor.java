@@ -1,5 +1,8 @@
 package com.gruuf.model;
 
+import lombok.ToString;
+
+@ToString
 public class BikeDescriptor {
 
     private Bike bike;
@@ -11,6 +14,7 @@ public class BikeDescriptor {
     public String getId() {
         return bike.getId();
     }
+
     public String getBikeMetadataId() {
         return bike.getBikeMetadataId();
     }

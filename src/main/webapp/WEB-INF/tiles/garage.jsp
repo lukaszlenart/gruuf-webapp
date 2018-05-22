@@ -22,6 +22,60 @@
   </div>
 </s:if>
 
+<s:iterator value="bikeTransfers" var="transfer" status="status">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h2><s:property value="bike.name"/></h2>
+        </div>
+
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th><s:text name="bike.vin"/></th>
+              <th class="text-center"><s:text name="bike.modelYear"/></th>
+              <th><s:text name="bike.metadata"/></th>
+              <s:if test="bike.showMileage">
+                <th class="text-center"><s:text name="bike.mileageInKm"/></th>
+              </s:if>
+              <s:if test="bike.showMth">
+                <th class="text-center"><s:text name="bike.mth"/></th>
+              </s:if>
+              <th class="text-center"><s:text name="bike.registrationPlate"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><s:property value="bike.vin"/></td>
+              <td class="text-center"><s:property value="bike.modelYear"/></td>
+              <td><s:property value="metadata.name"/></td>
+              <s:if test="bike.showMileage">
+                <td class="text-center"><s:number name="mileage"/></td>
+              </s:if>
+              <s:if test="bike.showMth">
+                <td class="text-center"><s:number name="mth"/></td>
+              </s:if>
+              <td class="text-center"><s:property value="bike.registrationPlate"/></td>
+            </tr>
+            </tbody>
+          </table>
+
+          <s:url var="acceptUrl" action="accept" namespace="/transfer">
+            <s:param name="token" value="id"/>
+          </s:url>
+          <s:a value="%{acceptUrl}" class="btn btn-primary">
+            <s:text name="general.accept"/>
+            <i class="glyphicon glyphicon-ok"></i>
+          </s:a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</s:iterator>
+
 <s:iterator value="bikeDetails" var="details" status="status">
   <div class="row">
     <div class="col-md-12">
