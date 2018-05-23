@@ -15,5 +15,4 @@ public class GruufConstants {
 
     public static final String FIRST_TIME_COOKIE = "__gruuf_first_time";
 
-    public static final String SECURITY_SALT = "gruuf.security.salt";
 }

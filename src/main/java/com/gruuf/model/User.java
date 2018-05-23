@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -58,7 +59,7 @@ public class User {
     }
 
     public String getFullName() {
-        if (firstName == null && lastName == null) {
+        if (StringUtils.isBlank(firstName) && StringUtils.isBlank(lastName)) {
             return email;
         }
         return firstName + " " + lastName;

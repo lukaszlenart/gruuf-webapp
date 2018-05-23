@@ -1,13 +1,16 @@
 package com.gruuf.web;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class GruufAuth {
+
+    private static final Logger LOG = LogManager.getLogger(GruufAuth.class);
 
     public static final SecureRandom RANDOM = new SecureRandom();
 
@@ -21,18 +24,16 @@ public class GruufAuth {
         return RandomStringUtils.randomAlphanumeric(12);
     }
 
-    public static String hash(String value, String salt) {
+    public static String hash(String value) {
+        return BCrypt.hashpw(value, BCrypt.gensalt());
+    }
+
+    public static boolean verifyHash(String password, String hash) {
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(salt.getBytes());
-            byte[] bytes = md.digest(value.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte aByte : bytes) {
-                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            return BCrypt.checkpw(password, hash);
+        } catch (Throwable t) {
+            LOG.warn("Wrong hash!", t);
+            return false;
         }
     }
 

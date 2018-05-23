@@ -1,13 +1,11 @@
 package com.gruuf.web.actions.biker;
 
-import com.gruuf.GruufConstants;
 import com.gruuf.model.User;
 import com.gruuf.model.UserLocale;
 import com.gruuf.web.GruufAuth;
 import com.gruuf.web.actions.BaseLoginAction;
 import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.Validateable;
-import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import org.apache.commons.lang3.StringUtils;
@@ -32,9 +30,6 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
     private static final Logger LOG = LogManager.getLogger(ProfileAction.class);
 
     public static final String REDIRECT_TO_FORM = "redirect-to-form";
-
-    @Inject(GruufConstants.SECURITY_SALT)
-    private String applicationSalt;
 
     @SkipValidation
     public String execute() {
@@ -92,8 +87,8 @@ public class ProfileAction extends BaseLoginAction implements Preparable, Valida
             return true;
         }
 
-        String passwordHash1 = password1 == null ? null : GruufAuth.hash(password1, applicationSalt);
-        String passwordHash2 = password2 == null ? null : GruufAuth.hash(password2, applicationSalt);
+        String passwordHash1 = password1 == null ? null : GruufAuth.hash(password1);
+        String passwordHash2 = password2 == null ? null : GruufAuth.hash(password2);
 
         return (StringUtils.isNotBlank(password1) && !passwordHash.equals(passwordHash1))
             || (StringUtils.isNotBlank(password2) && !passwordHash.equals(passwordHash2));

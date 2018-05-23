@@ -1,18 +1,13 @@
 package com.gruuf.services;
 
-import com.gruuf.GruufConstants;
 import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.web.GruufAuth;
-import com.opensymphony.xwork2.inject.Inject;
 
 import java.util.Collections;
 import java.util.List;
 
 public class UserStore extends Storable<User> {
-
-    @Inject(GruufConstants.SECURITY_SALT)
-    private String applicationSalt;
 
     public UserStore() {
         super(User.class);
@@ -34,9 +29,8 @@ public class UserStore extends Storable<User> {
 
     public User login(String username, String password) {
         User user = findUniqueBy("email", username.trim().toLowerCase());
-        String passwordHash = GruufAuth.hash(password, applicationSalt);
 
-        if (user != null && passwordHash.equals(user.getPasswordHash())) {
+        if (user != null && GruufAuth.verifyHash(password, user.getPasswordHash())) {
             return user;
         }
         return null;
@@ -56,7 +50,7 @@ public class UserStore extends Storable<User> {
     }
 
     public User resetPassword(User user, String password) {
-        String passwordHash = GruufAuth.hash(password, applicationSalt);
+        String passwordHash = GruufAuth.hash(password);
         user = User.clone(user).build().withPasswordHash(passwordHash);
         user = put(user);
         user = user.withPassword(password);

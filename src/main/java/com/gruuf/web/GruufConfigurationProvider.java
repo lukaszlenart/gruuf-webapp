@@ -2,10 +2,6 @@ package com.gruuf.web;
 
 import com.google.appengine.api.utils.SystemProperty;
 import com.gruuf.GruufConstants;
-import com.gruuf.model.Bike;
-import com.gruuf.model.BikeEvent;
-import com.gruuf.model.BikeTransfer;
-import com.gruuf.model.User;
 import com.gruuf.services.AttachmentsStorage;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.BikeMetadataStore;
@@ -113,12 +109,6 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
         locatableProperties.setProperty(
             GruufConstants.FACEBOOK_VERIFY_TOKEN,
             substitutor.substitute("${GRUUF_FACEBOOK_VERIFY_TOKEN}"),
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
-        );
-
-        locatableProperties.setProperty(
-            GruufConstants.SECURITY_SALT,
-            substitutor.substitute("${GRUUF_SECURITY_SALT}"),
             LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
