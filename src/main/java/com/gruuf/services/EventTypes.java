@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class EventTypes extends Reindexable<EventType> {
 
@@ -29,6 +30,10 @@ public class EventTypes extends Reindexable<EventType> {
 
     public EventType getMthEventType() {
         return findUniqueBy("status =", EventTypeStatus.MTH);
+    }
+
+    public EventType getTransferEventType() {
+        return findUniqueBy("status =", EventTypeStatus.TRANSFER);
     }
 
     public List<EventTypeDescriptor> listApproved(User currentUser) {
@@ -74,5 +79,4 @@ public class EventTypes extends Reindexable<EventType> {
             return desc1.getName().compareTo(desc2.getName());
         });
     }
-
 }

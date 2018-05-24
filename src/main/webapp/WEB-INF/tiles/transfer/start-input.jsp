@@ -17,7 +17,7 @@
 
 <div class="row">
   <div class="col-md-12 col-md-offset-2">
-    <s:form action="prepare" method="POST" class="form-horizontal">
+    <s:form action="prepare" method="POST" class="form-horizontal" focusElement="prepare_emailAddress">
       <s:hidden name="bikeId"/>
 
       <s:textfield name="emailAddress"
