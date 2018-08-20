@@ -5,8 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.UUID;
 
 public class GruufAuth {
 
@@ -17,7 +17,7 @@ public class GruufAuth {
     public static final String AUTH_TOKEN = generateUUID();
 
     public static String generateUUID() {
-        return new BigInteger(165, RANDOM).toString(36).toUpperCase();
+        return UUID.randomUUID().toString();
     }
 
     public static String randomString() {
