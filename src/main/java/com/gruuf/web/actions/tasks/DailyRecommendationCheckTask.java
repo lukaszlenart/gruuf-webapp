@@ -4,6 +4,7 @@ import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeRecommendation;
+import com.gruuf.model.BikeStatus;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.services.MailBox;
@@ -20,6 +21,7 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
@@ -63,7 +65,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
         StringBuilder body = null;
 
-        for (Bike bike : garage.findByOwner(currentUser)) {
+        for (Bike bike : listBikes()) {
             List<BikeRecommendation> missingRecommendations = listMissingRecommendations(bike);
 
             if (missingRecommendations.size() > 0) {
@@ -100,6 +102,14 @@ public class DailyRecommendationCheckTask extends BaseAction {
         }
 
         return SUCCESS;
+    }
+
+    private List<Bike> listBikes() {
+        return garage
+            .findByOwner(currentUser)
+            .stream()
+            .filter(bike -> bike.getStatus() == BikeStatus.NORMAL)
+            .collect(Collectors.toList());
     }
 
     private List<BikeRecommendation> listMissingRecommendations(Bike bike) {
