@@ -3,6 +3,7 @@ package com.gruuf.web.actions.api;
 import com.gruuf.GruufConstants;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
+import com.gruuf.model.BikeStatus;
 import com.gruuf.model.User;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
@@ -54,7 +55,10 @@ public class UserProfileEndpoint extends BaseEndpoint {
                 UserProfile profile = new UserProfile(user);
 
                 List<Bike> bikes = garage.findByOwner(user);
-                List<BikeProfile> bikeProfiles = bikes.stream().map(this::createBikeProfile).collect(Collectors.toList());
+                List<BikeProfile> bikeProfiles = bikes.stream()
+                    .filter(Bike::isNormalStatus)
+                    .map(this::createBikeProfile)
+                    .collect(Collectors.toList());
 
                 response = UserProfileResponse.success(profile, bikeProfiles);
             }

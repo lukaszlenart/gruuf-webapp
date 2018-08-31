@@ -125,6 +125,10 @@ public class Bike {
         return this;
     }
 
+    public boolean isNormalStatus() {
+        return status == BikeStatus.NORMAL;
+    }
+
     public static class BikeBuilder {
         private final Bike target;
 
