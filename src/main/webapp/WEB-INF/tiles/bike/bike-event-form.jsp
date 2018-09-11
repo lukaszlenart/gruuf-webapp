@@ -82,6 +82,17 @@
                      cssClass="form-control"
                      showOn="focus"
                      inputAppendIcon="calendar"/>
+
+      <sj:textfield name="cost"
+                    type="number"
+                    key="bike.cost"
+                    placeholder="%{getText('bike.cost.placeholder')}"
+                    parentTheme="bootstrap"
+                    labelCssClass="col-md-2"
+                    elementCssClass="col-md-2"
+                    cssClass="form-control"
+                    inputAppendIcon="usd"/>
+
       <s:if test="selectedBike.showMileage">
       <s:textfield name="mileage"
                    type="number"

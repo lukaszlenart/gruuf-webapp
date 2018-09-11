@@ -38,7 +38,12 @@ public class BikeDetails {
     }
 
     public BikeDescriptor getBike() {
-        return new BikeDescriptor(bike);
+        Double totalCosts = events.stream()
+            .filter(event -> event.getCost() != null)
+            .map(BikeEventDescriptor::getCost)
+            .reduce((cost, acc) -> acc + cost)
+            .orElse(0.0);
+        return new BikeDescriptor(bike, totalCosts);
     }
 
     public BikeMetadataOption getMetadata() {

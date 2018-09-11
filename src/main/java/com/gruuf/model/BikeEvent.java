@@ -30,6 +30,7 @@ public class BikeEvent {
     @Index
     private Date timestamp;
     private Markdown description;
+    private Double cost;
     @Index
     private Date registerDate;
     private Long mileage;
@@ -81,6 +82,10 @@ public class BikeEvent {
 
     public Markdown getDescription() {
         return description;
+    }
+
+    public Double getCost() {
+        return cost;
     }
 
     public Date getRegisterDate() {
@@ -136,14 +141,6 @@ public class BikeEvent {
         return timestamp.after(nowMinusSevenDays.getTime());
     }
 
-    public static BikeEventBuilder create(Bike bike, User registeredBy) {
-        return new BikeEventBuilder(bike, registeredBy);
-    }
-
-    public static BikeEventBuilder create(BikeEvent oldBikeEvent) {
-        return new BikeEventBuilder(oldBikeEvent);
-    }
-
     public boolean isMth() {
         return mth != null;
     }
@@ -172,6 +169,14 @@ public class BikeEvent {
                 '}';
     }
 
+    public static BikeEventBuilder create(Bike bike, User registeredBy) {
+        return new BikeEventBuilder(bike, registeredBy);
+    }
+
+    public static BikeEventBuilder create(BikeEvent oldBikeEvent) {
+        return new BikeEventBuilder(oldBikeEvent);
+    }
+
     public static class BikeEventBuilder {
 
         private final BikeEvent target;
@@ -184,7 +189,7 @@ public class BikeEvent {
             target.registeredBy = Ref.create(registeredBy);
         }
 
-        public BikeEventBuilder(BikeEvent old) {
+        private BikeEventBuilder(BikeEvent old) {
             target = new BikeEvent();
             target.id = old.id;
             target.bike = old.bike;
@@ -228,6 +233,11 @@ public class BikeEvent {
 
         public BikeEventBuilder markAsTemporary() {
             target.status = BikeEventStatus.TEMPORARY;
+            return this;
+        }
+
+        public BikeEventBuilder withCost(Double cost) {
+            target.cost = cost;
             return this;
         }
 

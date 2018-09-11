@@ -6,9 +6,15 @@ import lombok.ToString;
 public class BikeDescriptor {
 
     private Bike bike;
+    private Double totalCosts;
 
     public BikeDescriptor(Bike bike) {
+        this(bike, null);
+    }
+
+    public BikeDescriptor(Bike bike, Double totalCosts) {
         this.bike = bike;
+        this.totalCosts = totalCosts;
     }
 
     public String getId() {
@@ -50,6 +56,10 @@ public class BikeDescriptor {
 
     public boolean isEditable() {
         return bike.getStatus() == BikeStatus.NORMAL;
+    }
+
+    public Double getTotalCosts() {
+        return totalCosts;
     }
 
 }

@@ -5,6 +5,7 @@ import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventTypeDescriptor;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.util.TextParseUtil;
+import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.LongRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -32,6 +33,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     private String eventTypeIds;
     private String description;
     private Date registerDate;
+    private Double cost;
     private Long mileage;
     private Long mth;
     private Long currentMileage;
@@ -77,6 +79,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
                     .withEventTypeId(TextParseUtil.commaDelimitedStringToSet(eventTypeIds))
                     .withDescription(description)
                     .withRegisterDate(registerDate)
+                    .withCost(cost)
                     .withMileage(mileage)
                     .withMth(mth)
                     .build();
@@ -90,6 +93,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
                         .withEventTypeId(TextParseUtil.commaDelimitedStringToSet(eventTypeIds))
                         .withDescription(description)
                         .withRegisterDate(registerDate)
+                        .withCost(cost)
                         .withMileage(mileage)
                         .withMth(mth)
                         .build();
@@ -136,6 +140,15 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     @RequiredFieldValidator(key = "bikeEvent.registerDateIsRequired")
     public void setRegisterDate(Date registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    @DoubleRangeFieldValidator(minExclusive = "0")
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 
     public Long getMileage() {

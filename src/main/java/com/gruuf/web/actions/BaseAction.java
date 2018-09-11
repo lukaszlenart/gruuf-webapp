@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Currency;
 import java.util.Set;
 
 public class BaseAction extends ActionSupport implements CurrentUserAware {
@@ -66,6 +67,10 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
             return UserLocale.EN;
         }
         return currentUser.getUserLocale();
+    }
+
+    public String getUserCurrency() {
+        return Currency.getInstance(getCurrentUserLocale().toLocale()).getCurrencyCode();
     }
 
     public Set<UserLocale> getAvailableUserLocales() {

@@ -114,4 +114,8 @@ public class BikeEventDescriptor {
         return bikeEvent.isEditable() && !isSystem() && !isTemporary();
     }
 
+    public Double getCost() {
+        return bikeEvent.getCost();
+    }
+
 }

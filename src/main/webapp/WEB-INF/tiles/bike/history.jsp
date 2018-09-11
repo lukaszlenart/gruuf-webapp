@@ -62,7 +62,8 @@
       </span>
     </th>
     </s:if>
-    <th class="text-center"><s:text name="general.actions"/>
+    <th class="text-center"><s:text name="bikeEvent.cost"/></th>
+    <th class="text-center"><s:text name="general.actions"/></th>
   </tr>
   </thead>
   <tbody>
@@ -107,6 +108,9 @@
         </s:if>
       </td>
       </s:if>
+      <td class="text-center">
+        <span class="clearfix"><s:number name="cost" type="currency" currency="%{userCurrency}"/></span>
+      </td>
       <td class="text-nowrap text-center">
         <s:if test="editable">
           <s:url var="editEvent" action="edit-bike-event" escapeAmp="false">

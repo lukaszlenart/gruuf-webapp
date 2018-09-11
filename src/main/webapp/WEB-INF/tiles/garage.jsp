@@ -100,6 +100,7 @@
                 <th class="text-center"><s:text name="bike.mth"/></th>
               </s:if>
               <th class="text-center"><s:text name="bike.registrationPlate"/></th>
+              <th class="text-center"><s:text name="bike.totalCosts"/></th>
             </tr>
             </thead>
             <tbody>
@@ -114,6 +115,7 @@
                 <td class="text-center"><s:number name="mth"/></td>
               </s:if>
               <td class="text-center"><s:property value="bike.registrationPlate"/></td>
+              <td class="text-center"><s:number name="bike.totalCosts" currency="%{userCurrency}" type="currency"/></td>
             </tr>
             </tbody>
           </table>
