@@ -4,6 +4,7 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDescriptor;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.SearchPeriod;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
@@ -14,7 +15,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Result(name = BaseBikeAction.TO_SHOW_BIKE, location = "history", type = "redirectAction", params = {"bikeId", "${bikeId}"})
 public abstract class BaseBikeAction extends BaseAction implements BikeAware {
@@ -39,8 +43,20 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
         return "";
     }
 
-    protected BikeDetails loadBikeDetails() {
-        List<BikeEvent> events = bikeHistory.listByBike(selectedBike);
+    protected BikeDetails loadBikeDetails(SearchPeriod period) {
+        Date date = Date.from(period.getDate().atZone(ZoneId.systemDefault()).toInstant());
+
+        List<BikeEvent> events = bikeHistory
+            .listByBike(selectedBike).stream()
+            .filter(event -> {
+                if (period == SearchPeriod.ALL) {
+                    return true;
+                } else {
+                    return event.getRegisterDate().after(date);
+                }
+            })
+            .collect(Collectors.toList());
+
         LOG.debug("Found Bike Events for bike {}: {}", selectedBike, events);
 
         Long currentMileage = bikeHistory.findCurrentMileage(selectedBike);

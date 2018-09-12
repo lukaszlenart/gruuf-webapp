@@ -4,12 +4,16 @@ import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventType;
+import com.gruuf.model.SearchPeriod;
 import com.opensymphony.xwork2.Preparable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.validation.SkipValidation;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static com.opensymphony.xwork2.Action.INPUT;
 
@@ -21,6 +25,7 @@ public class HistoryAction extends BaseBikeAction implements Preparable {
 
     private String bikeEventId;
     private BikeDetails bikeDetails;
+    private SearchPeriod filter = SearchPeriod.ALL;
 
     @SkipValidation
     public String execute() {
@@ -84,6 +89,18 @@ public class HistoryAction extends BaseBikeAction implements Preparable {
 
     @Override
     public void prepare() throws Exception {
-        bikeDetails = loadBikeDetails();
+        bikeDetails = loadBikeDetails(filter);
+    }
+
+    public List<SearchPeriod> getSearchOptions() {
+        return Arrays.asList(SearchPeriod.values());
+    }
+
+    public SearchPeriod getFilter() {
+        return filter;
+    }
+
+    public void setFilter(SearchPeriod filter) {
+        this.filter = filter;
     }
 }

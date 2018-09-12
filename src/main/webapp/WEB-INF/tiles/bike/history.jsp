@@ -38,6 +38,28 @@
   </ul>
 </nav>
 
+<div class="row">
+  <div class="col-md-6">
+    <s:select name="filter"
+              key="general.show"
+              labelSeparator=":"
+              labelCssClass="col-md-2"
+              elementCssClass="col-md-6"
+              list="searchOptions"
+              listValueKey="key"
+              onchange="reloadPage()"
+    />
+  </div>
+  <div class="col-md-2 col-md-offset-4">
+    <h4>
+      <s:text name="general.totalCosts">Total costs:</s:text>:
+      <span class="label label-primary">
+        <s:number name="bikeDetails.bike.totalCosts" type="currency" currency="%{userCurrency}"/>
+      </span>
+    </h4>
+  </div>
+</div>
+
 <table class="table table-striped">
   <thead>
   <tr>
@@ -140,3 +162,20 @@
   </s:iterator>
   </tbody>
 </table>
+
+<script type="application/javascript">
+  function reloadPage() {
+    var $element = $('#filter > :selected');
+    var queryParams = window.location.search;
+
+    var newUrl = undefined;
+
+    if (queryParams.indexOf('filter') < 0) {
+      newUrl = window.location.pathname + queryParams + '&filter=' + $element.val();
+    } else {
+      newUrl = window.location.pathname + '?bikeId=<s:property value="bikeId"/>&filter=' + $element.val();
+    }
+
+    window.location = newUrl;
+  }
+</script>
