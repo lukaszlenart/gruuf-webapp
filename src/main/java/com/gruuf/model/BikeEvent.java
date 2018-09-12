@@ -19,7 +19,7 @@ import java.util.Set;
 @Entity
 public class BikeEvent {
 
-    private static final int EDIT_PERIOD = -7;
+    private static final int EDIT_PERIOD = -30;
 
     @Id
     private String id;
