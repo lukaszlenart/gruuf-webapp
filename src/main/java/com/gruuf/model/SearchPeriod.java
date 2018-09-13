@@ -5,7 +5,7 @@ import java.time.Month;
 
 public enum SearchPeriod {
 
-    ALL(null), THREE_MONTHS(3L), SIX_MONTHS(6L);
+    ALL(null), THREE_MONTHS(3L), SIX_MONTHS(6L), TWELVE_MONTHS(12L);
 
     private LocalDateTime date;
 
