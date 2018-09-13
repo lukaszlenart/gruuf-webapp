@@ -88,3 +88,7 @@ body.loading > .loader > img {
 .form-inline .inline-input {
   display: inline-block;
 }
+
+.missing > .alert {
+  margin-bottom: 0;
+}
