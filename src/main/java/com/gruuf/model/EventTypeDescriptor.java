@@ -1,6 +1,7 @@
 package com.gruuf.model;
 
 import com.googlecode.objectify.Ref;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 import java.util.Map;
@@ -26,7 +27,11 @@ public class EventTypeDescriptor {
         if (eventType.getNames() == null) {
             return "";
         }
-        return eventType.getNames().get(locale);
+        String desc = eventType.getNames().get(locale);
+        if (StringUtils.isEmpty(desc)) {
+            desc = eventType.getNames().get(UserLocale.EN);
+        }
+        return desc;
     }
 
     public EventTypeStatus getStatus() {

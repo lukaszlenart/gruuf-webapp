@@ -3,7 +3,7 @@ package com.gruuf.model;
 // https://countrycode.org/
 public enum Country {
 
-    POL(UserLocale.PL), GBR(UserLocale.EN), DEU(UserLocale.DE);
+    POL(UserLocale.PL), GBR(UserLocale.UK), DEU(UserLocale.DE), USA(UserLocale.EN);
 
     private UserLocale userLocale;
 

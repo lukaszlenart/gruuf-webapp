@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Currency;
+import java.util.Locale;
 import java.util.Set;
 
 public class BaseAction extends ActionSupport implements CurrentUserAware {
@@ -70,7 +71,11 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     }
 
     public String getUserCurrency() {
-        return Currency.getInstance(getCurrentUserLocale().toLocale()).getCurrencyCode();
+        Locale locale = getCurrentUserLocale().toLocale();
+        if (locale.getCountry() == null) {
+            return "???";
+        }
+        return Currency.getInstance(locale).getCurrencyCode();
     }
 
     public Set<UserLocale> getAvailableUserLocales() {
