@@ -73,7 +73,7 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     public String getUserCurrency() {
         Locale locale = getCurrentUserLocale().toLocale();
         if (locale.getCountry() == null) {
-            return "???";
+            return Currency.getInstance(Locale.US).getCurrencyCode();
         }
         return Currency.getInstance(locale).getCurrencyCode();
     }
