@@ -28,7 +28,7 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     protected User currentUser;
 
     @Override
-    public void setUser(User currentUser) {
+    public void withUser(User currentUser) {
         this.currentUser = currentUser;
     }
 

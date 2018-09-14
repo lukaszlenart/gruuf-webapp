@@ -192,6 +192,6 @@ public class DailyRecommendationCheckTask extends BaseAction {
     }
 
     public void setUserId(String userId) {
-        setUser(userStore.get(userId));
+        withUser(userStore.get(userId));
     }
 }

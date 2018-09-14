@@ -23,11 +23,11 @@ public class UserInterceptor extends AbstractInterceptor {
             String authToken = (String) invocation.getInvocationContext().getSession().get(GruufAuth.AUTH_TOKEN);
             if (authToken == null) {
                 LOG.debug("AuthToken is null, assuming not-logged-in");
-                ((CurrentUserAware) invocation.getAction()).setUser(null);
+                ((CurrentUserAware) invocation.getAction()).withUser(null);
             } else {
                 LOG.debug("AuthToken is {}, fetching user from store", authToken);
                 User currentUser = userStore.get(authToken);
-                ((CurrentUserAware) invocation.getAction()).setUser(currentUser);
+                ((CurrentUserAware) invocation.getAction()).withUser(currentUser);
             }
         }
 
