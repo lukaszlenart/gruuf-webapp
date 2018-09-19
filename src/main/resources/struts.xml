@@ -39,11 +39,11 @@
         <interceptor-ref name="about"/>
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
+      <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="user"/>
         <interceptor-ref name="restriction"/>
         <interceptor-ref name="policy"/>
         <interceptor-ref name="alias"/>
-        <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>
         <interceptor-ref name="params"/>
         <interceptor-ref name="prepare"/>
@@ -62,11 +62,11 @@
         <interceptor-ref name="secure"/>
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
+        <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="user"/>
         <interceptor-ref name="restriction"/>
         <interceptor-ref name="policy"/>
         <interceptor-ref name="alias"/>
-        <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="i18n"/>
         <interceptor-ref name="fileUpload">
           <param name="maximumSize">2097152</param>

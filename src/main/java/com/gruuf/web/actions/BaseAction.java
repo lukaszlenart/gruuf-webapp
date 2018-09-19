@@ -10,12 +10,15 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.struts2.interceptor.I18nInterceptor;
+import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
-public class BaseAction extends ActionSupport implements CurrentUserAware {
+public class BaseAction extends ActionSupport implements CurrentUserAware, SessionAware {
 
     private static final Logger LOG = LogManager.getLogger(BaseAction.class);
 
@@ -26,10 +29,33 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     protected MailBox mailBox;
 
     protected User currentUser;
+    protected UserLocale currentUserLocale = UserLocale.EN;
+    protected Currency userCurrency = Currency.getInstance(Locale.US);
+
+    protected Map<String, Object> session;
 
     @Override
     public void withUser(User currentUser) {
         this.currentUser = currentUser;
+
+        if (currentUser == null) {
+            this.currentUserLocale = UserLocale.EN;
+        } else {
+            this.currentUserLocale = currentUser.getUserLocale();
+            this.userCurrency = Currency.getInstance(currentUserLocale.toLocale());
+        }
+
+        switchLocale(this.currentUserLocale);
+    }
+
+    protected void switchLocale(UserLocale userLocale){
+        LOG.debug("Sets user's Locale to {}", userLocale);
+        session.put(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, userLocale.toLocale());
+    }
+
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 
     public boolean isAdmin() {
@@ -64,18 +90,11 @@ public class BaseAction extends ActionSupport implements CurrentUserAware {
     }
 
     public UserLocale getCurrentUserLocale() {
-        if (currentUser == null) {
-            return UserLocale.EN;
-        }
-        return currentUser.getUserLocale();
+        return currentUserLocale;
     }
 
     public String getUserCurrency() {
-        Locale locale = getCurrentUserLocale().toLocale();
-        if (locale.getCountry() == null) {
-            return Currency.getInstance(Locale.US).getCurrencyCode();
-        }
-        return Currency.getInstance(locale).getCurrencyCode();
+        return userCurrency.getCurrencyCode();
     }
 
     public Set<UserLocale> getAvailableUserLocales() {

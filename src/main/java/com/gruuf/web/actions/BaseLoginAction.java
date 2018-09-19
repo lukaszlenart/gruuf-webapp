@@ -9,9 +9,7 @@ import com.opensymphony.xwork2.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.struts2.interceptor.I18nInterceptor;
 import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.SessionAware;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -19,22 +17,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public abstract class BaseLoginAction extends BaseAction implements SessionAware, ServletRequestAware {
+public abstract class BaseLoginAction extends BaseAction implements ServletRequestAware {
 
     private static final Logger LOG = LogManager.getLogger(BaseLoginAction.class);
 
     @Inject
     protected UserStore userStore;
 
-    protected Map<String, Object> session;
     protected Locale browserLocale;
 
     protected void markSessionAsLoggedIn(User user) {
         LOG.debug("Logged in user {}", user);
         session.put(GruufAuth.AUTH_TOKEN, user.getId());
 
-        LOG.debug("Sets user's Locale to {}", user.getUserLocale());
-        session.put(I18nInterceptor.DEFAULT_SESSION_ATTRIBUTE, user.getUserLocale().toLocale());
+        switchLocale(user.getUserLocale());
     }
 
     protected User registerAndLogin(String emailAddress, String password) {
@@ -42,7 +38,7 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
     }
 
     protected User registerAndLogin(List<String> emailAddresses, String password, String firstName, String lastName, String facebookId) {
-        User user = finsExistingUser(emailAddresses);
+        User user = findExistingUser(emailAddresses);
 
         if (user != null) {
             user = updateUser(user, firstName, lastName, facebookId);
@@ -97,7 +93,7 @@ public abstract class BaseLoginAction extends BaseAction implements SessionAware
         return userStore.put(clone.build());
     }
 
-    private User finsExistingUser(List<String> emailAddresses) {
+    private User findExistingUser(List<String> emailAddresses) {
         User user = null;
 
         for (String email : emailAddresses) {
