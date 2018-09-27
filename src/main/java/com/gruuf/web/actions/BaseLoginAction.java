@@ -96,13 +96,16 @@ public abstract class BaseLoginAction extends BaseAction implements ServletReque
     private User findExistingUser(List<String> emailAddresses) {
         User user = null;
 
-        for (String email : emailAddresses) {
-            user = userStore.findUniqueBy("email", email.trim());
-            if (user != null) {
-                LOG.debug("Found matching existing user with email {}", email);
-                break;
+        if (emailAddresses != null) {
+            for (String email : emailAddresses) {
+                user = userStore.findUniqueBy("email", email.trim());
+                if (user != null) {
+                    LOG.debug("Found matching existing user with email {}", email);
+                    break;
+                }
             }
         }
+
         return user;
     }
 

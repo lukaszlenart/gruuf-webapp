@@ -48,9 +48,12 @@ public class FacebookLoginAction extends BaseLoginAction {
             String lastName = facebookMe.getLastName();
             String firstName = facebookMe.getFirstName();
 
-            LOG.debug("Got {} {} {} with emails {}", facebookId, firstName, lastName, emailAddress);
+            LOG.debug("Got {} {} {} with email {}, details: {}", facebookId, firstName, lastName, emailAddress, facebookMe);
 
-            User user = registerAndLogin(Collections.singletonList(emailAddress), null, firstName, lastName, facebookId);
+            User user = null;
+            if (emailAddress != null) {
+                user = registerAndLogin(Collections.singletonList(emailAddress), null, firstName, lastName, facebookId);
+            }
 
             if (user != null) {
                 markSessionAsLoggedIn(user);
