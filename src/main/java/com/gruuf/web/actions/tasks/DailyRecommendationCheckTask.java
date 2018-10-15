@@ -5,6 +5,7 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.BikeStatus;
+import com.gruuf.model.MissingRecommendation;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.services.MailBox;
@@ -66,7 +67,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
         StringBuilder body = null;
 
         for (Bike bike : listBikes()) {
-            List<BikeRecommendation> missingRecommendations = listMissingRecommendations(bike);
+            List<MissingRecommendation> missingRecommendations = listMissingRecommendations(bike);
 
             if (missingRecommendations.size() > 0) {
                 LOG.info("Found missing recommendations");
@@ -80,13 +81,21 @@ public class DailyRecommendationCheckTask extends BaseAction {
                 body.append(getText("recommendations.followingRecommendationsAreGoingToExpire")).append("\n\n")
                     .append("## ").append(bike.getName()).append(":\n\n");
 
-                for (BikeRecommendation recommendation : missingRecommendations) {
+                for (MissingRecommendation recommendation : missingRecommendations) {
                     if (recommendation.isNotify()) {
                         String eventName = recommendation.getEventType().getNames().get(currentUser.getUserLocale());
 
                         body.append("### ").append(eventName).append(":\n\n");
                         if (recommendation.getDescription().getContent().trim().startsWith("-")) {
-                            body.append("  ").append(recommendation.getDescription().getContent()).append("\n\n");
+                            body.append("  ").append(recommendation.getDescription().getContent());
+                            if (recommendation.isDateExpiration()) {
+                                body.append(getText("recommendations.dateExpiration")).append(" ").append(recommendation.getExpirationDate().toString(getUserDateFormat(), getCurrentUserLocale().toLocale()));
+                            } else if(recommendation.isMileageExpiration()) {
+                                body.append(getText("recommendations.mileageExpiration")).append(" ").append(recommendation.getExpirationMileage());
+                            } else if(recommendation.isMthExpiration()) {
+                                body.append(getText("recommendations.mthExpiration")).append(" ").append(recommendation.getExpirationMth());
+                            }
+                            body.append("\n\n");
                         } else {
                             body.append("  - ").append(recommendation.getDescription().getContent()).append("\n\n");
                         }
@@ -112,17 +121,19 @@ public class DailyRecommendationCheckTask extends BaseAction {
             .collect(Collectors.toList());
     }
 
-    private List<BikeRecommendation> listMissingRecommendations(Bike bike) {
+    private List<MissingRecommendation> listMissingRecommendations(Bike bike) {
 
         List<BikeRecommendation> recommendations = this.recommendations.listFor(bike.getBikeMetadata());
         List<BikeEvent> bikeEvents = history.listByBike(bike);
 
-        List<BikeRecommendation> missingRecommendations = new ArrayList<>();
+        List<MissingRecommendation> missingRecommendations = new ArrayList<>();
         for (BikeRecommendation recommendation : recommendations) {
             boolean missingRecommendation = true;
+            PeriodResult result = null;
             for (BikeEvent bikeEvent : bikeEvents) {
                 if (bikeEvent.getEventTypes().contains(recommendation.getEventType())) {
-                    if (matchesPeriod(bike, bikeEvent, recommendation, bikeEvents)) {
+                    result = matchesPeriod(bike, bikeEvent, recommendation, bikeEvents);
+                    if (result.matches()) {
                         missingRecommendation = false;
                         break;
                     }
@@ -130,15 +141,15 @@ public class DailyRecommendationCheckTask extends BaseAction {
             }
 
             if (missingRecommendation) {
-                missingRecommendations.add(recommendation);
+                missingRecommendations.add(MissingRecommendation.of(recommendation, result));
             }
         }
 
         return missingRecommendations;
     }
 
-    private boolean matchesPeriod(Bike bike, BikeEvent bikeEvent, BikeRecommendation recommendation, List<BikeEvent> bikeEvents) {
-        boolean result = false;
+    private PeriodResult matchesPeriod(Bike bike, BikeEvent bikeEvent, BikeRecommendation recommendation, List<BikeEvent> bikeEvents) {
+        PeriodResult result = PeriodResult.noMatch();
 
         if (recommendation.isMonthPeriod()) {
             for (BikeEvent event : bikeEvents) {
@@ -146,12 +157,12 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
                     DateTime latestEvent = new DateTime(event.getRegisterDate()).plusMonths(recommendation.getMonthPeriod()).minusDays(DAYS_CHECK);
 
-                    result = latestEvent.isAfterNow();
+                    result = result.withResult(latestEvent.isAfterNow()).withExpiresDate(latestEvent);
 
                     LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation period={}",
                         result, event.getRegisterDate(), latestEvent.toDate(), recommendation.getMonthPeriod());
 
-                    if (result) {
+                    if (result.matches()) {
                         break;
                     }
                 }
@@ -161,12 +172,13 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMileagePeriod() && bikeEvent.isMileage()) {
             for (BikeEvent event : bikeEvents) {
                 if (event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    result = (history.findCurrentMileage(bike) - event.getMileage() + MILEAGE_CHECK) <= recommendation.getMileagePeriod();
+                    long mileage = history.findCurrentMileage(bike) - event.getMileage() + MILEAGE_CHECK;
+                    result = result.withResult(mileage <= recommendation.getMileagePeriod()).withMileage(mileage);
 
                     LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
                         result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
 
-                    if (result) {
+                    if (result.matches()) {
                         break;
                     }
                 }
@@ -176,12 +188,13 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMthPeriod() && bikeEvent.isMth()) {
             for (BikeEvent event : bikeEvents) {
                 if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    result = (history.findCurrentMth(bike) - event.getMth() + MTH_CHECK) <= recommendation.getMthPeriod();
+                    long expiresMth = history.findCurrentMth(bike) - event.getMth() + MTH_CHECK;
+                    result = result.withResult(expiresMth <= recommendation.getMthPeriod()).withMth(expiresMth);
 
                     LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
                         result, bikeEvent.getMth(), event.getMth(), recommendation.getMthPeriod());
 
-                    if (result) {
+                    if (result.matches()) {
                         break;
                     }
                 }
@@ -193,5 +206,56 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
     public void setUserId(String userId) {
         withUser(userStore.get(userId));
+    }
+
+    public static class PeriodResult {
+        private boolean match;
+        private DateTime expirationDate;
+        private Long expirationMileage;
+        private Long expirationMth;
+
+        public static PeriodResult noMatch() {
+            return new PeriodResult(false);
+        }
+
+        public PeriodResult(boolean match) {
+            this.match = match;
+        }
+
+        public PeriodResult withResult(boolean matches) {
+            this.match = matches;
+            return this;
+        }
+
+        public PeriodResult withExpiresDate(DateTime expiresDate) {
+            this.expirationDate = expiresDate;
+            return this;
+        }
+
+        public PeriodResult withMileage(Long expiresMileage) {
+            this.expirationMileage = expiresMileage;
+            return this;
+        }
+
+        public PeriodResult withMth(Long expiresMth) {
+            this.expirationMth = expiresMth;
+            return this;
+        }
+
+        public boolean matches() {
+            return match;
+        }
+
+        public DateTime getExpirationDate() {
+            return expirationDate;
+        }
+
+        public Long getExpirationMileage() {
+            return expirationMileage;
+        }
+
+        public Long getExpirationMth() {
+            return expirationMth;
+        }
     }
 }
