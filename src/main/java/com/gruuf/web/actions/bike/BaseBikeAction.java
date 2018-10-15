@@ -1,10 +1,12 @@
 package com.gruuf.web.actions.bike;
 
+import com.gruuf.GruufConstants;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDescriptor;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.SearchPeriod;
+import com.gruuf.services.AttachmentsStorage;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
@@ -35,6 +37,13 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
     protected BikeHistory bikeHistory;
     @Inject
     protected EventTypes eventTypes;
+    @Inject
+    protected AttachmentsStorage storage;
+    @Inject(GruufConstants.STORAGE_ROOT_URL)
+    protected String storageRootUrl;
+
+    protected Long totalAllowedSpace;
+    protected Long spaceLeft;
 
     public String getBikeName() {
         if (selectedBike != null) {
@@ -89,5 +98,23 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
         } else {
             return getText("bike.editBike");
         }
+    }
+
+    @Inject(GruufConstants.STORAGE_TOTAL_ALLOWED_SPACE)
+    public void injectTotalAllowedSpace(String totalAllowedSpace) {
+        this.totalAllowedSpace = Long.parseLong(totalAllowedSpace);
+    }
+
+    protected void calculateUsedSpace() {
+        long usedSpace = storage.spaceUsedBy(selectedBike);
+        spaceLeft = totalAllowedSpace - usedSpace;
+    }
+
+    public long getSpaceLeft() {
+        return spaceLeft / 1024;
+    }
+
+    public boolean isSpaceAvailable() {
+        return spaceLeft <= totalAllowedSpace;
     }
 }

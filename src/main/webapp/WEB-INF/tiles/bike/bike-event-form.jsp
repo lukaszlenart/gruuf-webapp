@@ -40,93 +40,108 @@
 </div>
 
 <div class="row">
-  <div class="panel panel-primary">
-    <div class="panel-body">
-      <div class="col-md-12">
-        <s:form action="update-bike-event" id="bike-event-form" method="POST" cssClass="form-horizontal">
-          <s:hidden name="bikeId"/>
-          <s:hidden name="bikeEventId"/>
-          <s:hidden name="currentMileage"/>
+  <s:form action="update-bike-event" enctype="multipart/form-data" id="bike-event-form" method="POST" cssClass="form-horizontal">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <s:hidden name="bikeId"/>
+        <s:hidden name="bikeEventId"/>
+        <s:hidden name="currentMileage"/>
 
-          <div class="row">
-            <div class="col-md-6">
-              <s:textfield id="event-types"
-                           name="eventTypeIds"
-                           key="bike.eventTypes"
-                           placeholder="%{getText('bike.eventTypes.placeholder')}"
-                           tooltip="%{getText('bike.eventTypes.tooltip')}"
-                           labelCssClass="col-md-4"
-                           elementCssClass="col-md-8"
-                           cssClass="input-md"/>
-            </div>
-            <div class="col-md-2">
-              <s:a class="media-middle center-block new-request" action="request-event-type" target="_blank">
-                <s:text name="general.requestNew"/>
-                <span class="glyphicon glyphicon-new-window"></span>
-              </s:a>
-            </div>
+        <div class="row">
+          <div class="col-md-6">
+            <s:textfield id="event-types"
+                         name="eventTypeIds"
+                         key="bike.eventTypes"
+                         placeholder="%{getText('bike.eventTypes.placeholder')}"
+                         tooltip="%{getText('bike.eventTypes.tooltip')}"
+                         labelCssClass="col-md-4"
+                         elementCssClass="col-md-8"
+                         cssClass="input-md"/>
           </div>
+          <div class="col-md-2">
+            <s:a class="media-middle center-block new-request" action="request-event-type" target="_blank">
+              <s:text name="general.requestNew"/>
+              <span class="glyphicon glyphicon-new-window"></span>
+            </s:a>
+          </div>
+        </div>
 
-          <s:textarea name="description"
-                      key="bikeEvent.description"
-                      placeholder="%{getText('bikeEvent.description.placeholder')}"
-                      rows="6"
-                      tooltip="%{getText('bikeEvent.description.tooltip')}"
-                      labelCssClass="col-md-2"
-                      elementCssClass="col-md-6"/>
+        <s:textarea name="description"
+                    key="bikeEvent.description"
+                    placeholder="%{getText('bikeEvent.description.placeholder')}"
+                    rows="6"
+                    tooltip="%{getText('bikeEvent.description.tooltip')}"
+                    labelCssClass="col-md-2"
+                    elementCssClass="col-md-6"/>
 
-          <sj:datepicker name="registerDate"
-                         type="date"
-                         key="bike.date"
-                         displayFormat="%{userDatePickerFormat}"
-                         placeholder="%{getText('bike.date.placeholder')}"
-                         parentTheme="bootstrap"
-                         labelCssClass="col-md-2"
-                         elementCssClass="col-md-3"
-                         cssClass="form-control"
-                         showOn="focus"
-                         inputAppendIcon="calendar"/>
-
-          <s:textfield name="cost"
-                       type="number"
-                       key="bike.cost"
-                       placeholder="%{getText('bike.cost.placeholder')}"
+        <sj:datepicker name="registerDate"
+                       type="date"
+                       key="bike.date"
+                       displayFormat="%{userDatePickerFormat}"
+                       placeholder="%{getText('bike.date.placeholder')}"
+                       parentTheme="bootstrap"
                        labelCssClass="col-md-2"
-                       elementCssClass="col-md-2"
+                       elementCssClass="col-md-3"
                        cssClass="form-control"
-                       inputAppend="%{userCurrency}"/>
+                       showOn="focus"
+                       inputAppendIcon="calendar"/>
 
-          <s:if test="selectedBike.showMileage">
-            <s:textfield name="mileage"
-                         type="number"
-                         key="bike.mileageInKm"
-                         placeholder="%{getText('bike.mileageInKm.placeholder')}"
-                         labelCssClass="col-md-2"
-                         elementCssClass="col-md-3"
-                         cssClass="input-md"
-                         helpText="%{getCurrentMileageHelp()}"/>
-          </s:if>
+        <s:textfield name="cost"
+                     type="number"
+                     key="bike.cost"
+                     placeholder="%{getText('bike.cost.placeholder')}"
+                     labelCssClass="col-md-2"
+                     elementCssClass="col-md-2"
+                     cssClass="form-control"
+                     inputAppend="%{userCurrency}"/>
 
-          <s:if test="selectedBike.showMth">
-            <s:textfield name="mth"
-                         type="number"
-                         key="bike.mth"
-                         placeholder="%{getText('bike.mth.placeholder')}"
-                         labelCssClass="col-md-2"
-                         elementCssClass="col-md-3"
-                         cssClass="input-md"
-                         helpText="%{currentMthHelp}"/>
-          </s:if>
+        <s:if test="selectedBike.showMileage">
+          <s:textfield name="mileage"
+                       type="number"
+                       key="bike.mileageInKm"
+                       placeholder="%{getText('bike.mileageInKm.placeholder')}"
+                       labelCssClass="col-md-2"
+                       elementCssClass="col-md-3"
+                       cssClass="input-md"
+                       helpText="%{currentMileageHelp}"/>
+        </s:if>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-md-9">
-              <s:submit cssClass="btn btn-primary" key="general.save"/>
-            </div>
+        <s:if test="selectedBike.showMth">
+          <s:textfield name="mth"
+                       type="number"
+                       key="bike.mth"
+                       placeholder="%{getText('bike.mth.placeholder')}"
+                       labelCssClass="col-md-2"
+                       elementCssClass="col-md-3"
+                       cssClass="input-md"
+                       helpText="%{currentMthHelp}"/>
+        </s:if>
+
+        <s:if test="spaceAvailable">
+          <s:file name="attachment"
+                  key="bikeEvent.attachment"
+                  labelCssClass="col-md-2"
+                  elementCssClass="col-md-3"
+                  cssClass="input-md"
+                  multiple="multiple"
+                  helpText="%{spaceLeftHelp}"
+          />
+        </s:if>
+        <s:if test="not spaceAvailable">
+          <div class="col-md-offset-2">
+            <span class="help-block"><s:text name="bikeEvent.noSpaceLeft"/></span>
           </div>
-        </s:form>
+        </s:if>
+      </div>
+      <div class="panel-footer">
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-md-9">
+            <s:submit cssClass="btn btn-primary" key="general.save"/>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </s:form>
 </div>
 
 <script type="application/javascript">

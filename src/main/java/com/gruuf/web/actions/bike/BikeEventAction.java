@@ -3,6 +3,7 @@ package com.gruuf.web.actions.bike;
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.EventTypeDescriptor;
+import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.Validateable;
 import com.opensymphony.xwork2.util.TextParseUtil;
 import com.opensymphony.xwork2.validator.annotations.DoubleRangeFieldValidator;
@@ -14,9 +15,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.dispatcher.multipart.UploadedFile;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +29,8 @@ import static com.opensymphony.xwork2.Action.INPUT;
 
 @Result(name = INPUT, location = "bike/bike-event-form")
 @BikeRestriction
-public class BikeEventAction extends BaseBikeAction implements Validateable {
+@InterceptorRef("defaultUploadWithMessages")
+public class BikeEventAction extends BaseBikeAction implements Validateable, Preparable {
 
     private static final Logger LOG = LogManager.getLogger(BikeEventAction.class);
 
@@ -38,6 +44,10 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
     private Long mth;
     private Long currentMileage;
     private Long currentMth;
+
+    private List<UploadedFile> attachment = new ArrayList<>();
+    private List<String> attachmentFileName = new ArrayList<>();
+    private List<String> attachmentContentType = new ArrayList<>();
 
     @SkipValidation
     @Action("new-bike-event")
@@ -85,7 +95,9 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
                     .build();
 
             LOG.debug("Storing new Bike Event {}", bikeEvent);
-            bikeHistory.put(bikeEvent);
+            bikeEvent = bikeHistory.put(bikeEvent);
+
+            storeAttachments(bikeEvent);
         } else {
             BikeEvent oldBikeEvent = bikeHistory.get(bikeEventId);
             if (oldBikeEvent.isEditable()) {
@@ -99,7 +111,9 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
                         .build();
 
                 LOG.debug("Storing new Bike Event {}", bikeEvent);
-                bikeHistory.put(bikeEvent);
+                bikeEvent = bikeHistory.put(bikeEvent);
+
+                storeAttachments(bikeEvent);
             } else {
                 LOG.debug("Bike event [{}] is not editable!", bikeEventId);
             }
@@ -107,6 +121,20 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
 
         LOG.debug("Returning to show bike {}", getBikeId());
         return TO_SHOW_BIKE;
+    }
+
+    private void storeAttachments(BikeEvent bikeEvent) {
+        LOG.debug("Storing attachments: {}", attachment);
+        int index = 0;
+        for (UploadedFile file : attachment) {
+            storage.storeAttachment(bikeEvent, selectedBike, file, attachmentFileName.get(index), attachmentContentType.get(index));
+            index++;
+        }
+    }
+
+    @Override
+    public void prepare() throws Exception {
+        calculateUsedSpace();
     }
 
     public List<EventTypeDescriptor> getEventTypesList() {
@@ -191,11 +219,40 @@ public class BikeEventAction extends BaseBikeAction implements Validateable {
         return getText("bike.currentMthIs");
     }
 
+    public String getSpaceLeftHelp() {
+        String spaceLeft = NumberFormat.getNumberInstance(currentUserLocale.toLocale()).format(getSpaceLeft());
+        return String.format(currentUserLocale.toLocale(), "%s: %s %s", getText("bikeEvent.spaceLeft"), spaceLeft, getText("bikeEvent.kiloBytes"));
+    }
+
     public String getBikeEventId() {
         return bikeEventId;
     }
 
     public void setBikeEventId(String bikeEventId) {
         this.bikeEventId = bikeEventId;
+    }
+
+    public List<UploadedFile> getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(List<UploadedFile> attachment) {
+        this.attachment = attachment;
+    }
+
+    public List<String> getAttachmentFileName() {
+        return attachmentFileName;
+    }
+
+    public void setAttachmentFileName(List<String> attachmentFileName) {
+        this.attachmentFileName = attachmentFileName;
+    }
+
+    public List<String> getAttachmentContentType() {
+        return attachmentContentType;
+    }
+
+    public void setAttachmentContentType(List<String> attachmentContentType) {
+        this.attachmentContentType = attachmentContentType;
     }
 }
