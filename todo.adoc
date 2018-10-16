@@ -1,5 +1,7 @@
 ### TODO
-* [ ] dodawanie załączników przy wpisach z historią
+* [ ] pokazywanie linków do załączników w historii
+* [ ] lista warsztatów motocyklowych
+* [ ] kalendarz szkoleń i wydarzeń motocyklowych
 * [ ] zgłaszanie tłumaczenia przez użytkownika
 * [ ] wyszukiwanie anonimowe po VIN czy motocykl jest już w bazie
 * [ ] strona z listą wprowadzonych zmian
@@ -64,6 +66,7 @@
 * [x] wyszukiwanie motocykla po VIN z opcją "przejęcia" historii
 * [x] landing page about
 * [x] dodanie zaleceń per kraj gdzie motocykl jest zarejestrowany
+* [X] dodawanie załączników przy wpisach z historią
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
