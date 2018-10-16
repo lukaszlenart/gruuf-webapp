@@ -20,6 +20,8 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.joda.time.DateTime;
 
+import javax.swing.text.NumberFormatter;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,9 +43,9 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
     private static final Logger LOG = LogManager.getLogger(DailyRecommendationCheckTask.class);
 
-    private static final Integer MILEAGE_CHECK = 1000;
     private static final int DAYS_CHECK = 14;
-    private static final Integer MTH_CHECK = 10;
+    private static final long MILEAGE_CHECK = 1000L;
+    private static final long MTH_CHECK = 10L;
 
     @Inject
     private UserStore userStore;
@@ -85,23 +87,26 @@ public class DailyRecommendationCheckTask extends BaseAction {
                     if (recommendation.isNotify()) {
                         String eventName = recommendation.getEventType().getNames().get(currentUser.getUserLocale());
 
+                        LOG.debug(
+                            "Missing recommendation {} result: {}={}/{}={}/{}={}",
+                            recommendation.getDescription(),
+                            recommendation.isDateExpiration(),
+                            recommendation.getExpirationDate(),
+                            recommendation.isMileageExpiration(),
+                            recommendation.getExpirationMileage(),
+                            recommendation.isMthExpiration(),
+                            recommendation.getExpirationMth()
+                        );
                         body.append("### ").append(eventName).append(":\n\n");
                         if (recommendation.getDescription().getContent().trim().startsWith("-")) {
-                            body.append("  ").append(recommendation.getDescription().getContent());
-                            if (recommendation.isDateExpiration()) {
-                                body.append(getText("recommendations.dateExpiration")).append(" ").append(recommendation.getExpirationDate().toString(getUserDateFormat(), getCurrentUserLocale().toLocale()));
-                            } else if(recommendation.isMileageExpiration()) {
-                                body.append(getText("recommendations.mileageExpiration")).append(" ").append(recommendation.getExpirationMileage());
-                            } else if(recommendation.isMthExpiration()) {
-                                body.append(getText("recommendations.mthExpiration")).append(" ").append(recommendation.getExpirationMth());
-                            }
-                            body.append("\n\n");
+                            body.append("  ");
+                            body = appendMissingRecommendation(body, recommendation);
                         } else {
-                            body.append("  - ").append(recommendation.getDescription().getContent()).append("\n\n");
+                            body.append("  - ");
+                            body = appendMissingRecommendation(body, recommendation);
                         }
                     }
                 }
-
             }
         }
 
@@ -111,6 +116,32 @@ public class DailyRecommendationCheckTask extends BaseAction {
         }
 
         return SUCCESS;
+    }
+
+    private StringBuilder appendMissingRecommendation(StringBuilder body, MissingRecommendation recommendation) {
+        body.append(recommendation.getDescription().getContent());
+        if (recommendation.isDateExpiration()) {
+            body
+                .append("; ")
+                .append(getText("recommendations.expireDate"))
+                .append(": ")
+                .append(recommendation.getExpirationDate().toString(getUserDateFormat(), getCurrentUserLocale().toLocale()));
+        } else if(recommendation.isMileageExpiration()) {
+            body
+                .append("; ")
+                .append(getText("recommendations.expireMileage"))
+                .append(": ")
+                .append(NumberFormat.getNumberInstance(getCurrentUserLocale().toLocale()).format(recommendation.getExpirationMileage()))
+                .append(" ").append(getText("general.km"));
+        } else if(recommendation.isMthExpiration()) {
+            body
+                .append("; ")
+                .append(getText("recommendations.expireMth"))
+                .append(": ")
+                .append(NumberFormat.getNumberInstance(getCurrentUserLocale().toLocale()).format(recommendation.getExpirationMth()))
+                .append(" ").append(getText("general.mth"));
+        }
+        return body.append("\n\n");
     }
 
     private List<Bike> listBikes() {
@@ -172,8 +203,8 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMileagePeriod() && bikeEvent.isMileage()) {
             for (BikeEvent event : bikeEvents) {
                 if (event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    long mileage = history.findCurrentMileage(bike) - event.getMileage() + MILEAGE_CHECK;
-                    result = result.withResult(mileage <= recommendation.getMileagePeriod()).withMileage(mileage);
+                    Long expiresMileage = history.findCurrentMileage(bike) - event.getMileage() + MILEAGE_CHECK;
+                    result = result.withResult(expiresMileage <= recommendation.getMileagePeriod()).withMileage(expiresMileage);
 
                     LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
                         result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
@@ -188,7 +219,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMthPeriod() && bikeEvent.isMth()) {
             for (BikeEvent event : bikeEvents) {
                 if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    long expiresMth = history.findCurrentMth(bike) - event.getMth() + MTH_CHECK;
+                    Long expiresMth = history.findCurrentMth(bike) - event.getMth() + MTH_CHECK;
                     result = result.withResult(expiresMth <= recommendation.getMthPeriod()).withMth(expiresMth);
 
                     LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
@@ -256,6 +287,16 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
         public Long getExpirationMth() {
             return expirationMth;
+        }
+
+        @Override
+        public String toString() {
+            return "PeriodResult{" +
+                "match=" + match +
+                ", expirationDate=" + expirationDate +
+                ", expirationMileage=" + expirationMileage +
+                ", expirationMth=" + expirationMth +
+                '}';
         }
     }
 }

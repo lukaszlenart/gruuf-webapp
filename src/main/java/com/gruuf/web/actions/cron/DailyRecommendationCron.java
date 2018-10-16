@@ -27,7 +27,9 @@ public class DailyRecommendationCron extends BaseAction {
 
     private static final Logger LOG = LogManager.getLogger(DailyRecommendationCron.class);
 
+    @Inject
     private UserStore userStore;
+    @Inject
     private Garage garage;
 
     public String execute() {
@@ -65,15 +67,5 @@ public class DailyRecommendationCron extends BaseAction {
                 LOG.error("Cannot delete task: {}", taskName);
             }
         }
-    }
-
-    @Inject
-    public void setUserStore(UserStore userStore) {
-        this.userStore = userStore;
-    }
-
-    @Inject
-    public void setGarage(Garage garage) {
-        this.garage = garage;
     }
 }
