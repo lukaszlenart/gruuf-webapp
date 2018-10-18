@@ -20,7 +20,6 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.joda.time.DateTime;
 
-import javax.swing.text.NumberFormatter;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -171,7 +170,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
                 }
             }
 
-            if (missingRecommendation) {
+            if (missingRecommendation && result != null) {
                 missingRecommendations.add(MissingRecommendation.of(recommendation, result));
             }
         }
