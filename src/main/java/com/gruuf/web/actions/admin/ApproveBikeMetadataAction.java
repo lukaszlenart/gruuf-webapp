@@ -4,13 +4,10 @@ import com.gruuf.auth.Token;
 import com.gruuf.auth.Tokens;
 import com.gruuf.model.BikeMetadata;
 import com.gruuf.web.actions.BaseBikeMetadataAction;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
-
-import java.util.List;
 
 @Tokens(Token.ADMIN)
 @Result(name = ApproveBikeMetadataAction.TO_BIKE_METADATA, location = "bike-metadata", type = "redirectAction")

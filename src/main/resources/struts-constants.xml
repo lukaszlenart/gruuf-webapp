@@ -1,35 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
-	"http://struts.apache.org/dtds/struts-2.5.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 
-  <constant name="struts.excludedClasses"
-            value="com.opensymphony.xwork2.ActionContext" />
+    <constant name="struts.configuration.xml.reload" value="false"/>
+    <constant name="struts.multipart.maxSize" value="20971520"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.ui.theme" value="bootstrap"/>
+    <constant name="struts.action.extension" value=""/>
+    <constant name="struts.action.excludePattern" value="/_ah/.*,/favicon\.ico,/\.well-known/.*"/>
+    <constant name="struts.convention.action.packages" value="com.gruuf.web.actions"/>
+    <constant name="struts.convention.default.parent.package" value="gruufDefault"/>
+    <constant name="struts.convention.action.suffix" value="Action,Endpoint,Cron,Task"/>
 
-  <constant name="struts.excludedPackageNames"
-            value="
-                java.lang.,
-                ognl.,
-                javax,
-                freemarker.core.,
-                freemarker.template.,
-                freemarker.ext.rhino.,
-                freemarker.ext.beans.,
-                sun.reflect.,
-                javassist.
-                com.opensymphony.xwork2.ognl.
-                com.opensymphony.xwork2.inject." />
-
-  <constant name="struts.multipart.maxSize" value="20971520"/>
-  <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
-  <constant name="struts.ui.theme" value="bootstrap"/>
-  <constant name="struts.action.extension" value=""/>
-  <constant name="struts.action.excludePattern" value="/_ah/.*,/favicon\.ico,/\.well-known/.*"/>
-  <constant name="struts.convention.action.packages" value="com.gruuf.web.actions"/>
-  <constant name="struts.convention.default.parent.package" value="gruufDefault"/>
-  <constant name="struts.convention.action.suffix" value="Action,Endpoint,Cron,Task"/>
-
-  <constant name="struts.gae.reCaptchaSecret" value="${GRUUF_RECAPTCHA_SECRET}"/>
+    <constant name="struts.gae.reCaptchaSecret" value="${GRUUF_RECAPTCHA_SECRET}"/>
 
 </struts>

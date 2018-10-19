@@ -1,18 +1,15 @@
 package com.gruuf.web;
 
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.security.SecureRandom;
 import java.util.UUID;
 
 public class GruufAuth {
 
     private static final Logger LOG = LogManager.getLogger(GruufAuth.class);
-
-    public static final SecureRandom RANDOM = new SecureRandom();
 
     public static final String AUTH_TOKEN = generateUUID();
 
