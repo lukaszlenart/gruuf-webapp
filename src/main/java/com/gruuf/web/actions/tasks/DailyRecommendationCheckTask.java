@@ -5,6 +5,7 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.BikeStatus;
+import com.gruuf.model.EventType;
 import com.gruuf.model.MissingRecommendation;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
@@ -154,15 +155,18 @@ public class DailyRecommendationCheckTask extends BaseAction {
     private List<MissingRecommendation> listMissingRecommendations(Bike bike) {
 
         List<BikeRecommendation> recommendations = this.recommendations.listFor(bike.getBikeMetadata());
-        List<BikeEvent> bikeEvents = history.listByBike(bike);
+        List<BikeEvent> bikeEvents = history.listByBike(bike).stream().filter(BikeEvent::isNew).collect(Collectors.toList());
+        List<EventType> processedTypes = new ArrayList<>();
 
         List<MissingRecommendation> missingRecommendations = new ArrayList<>();
         for (BikeRecommendation recommendation : recommendations) {
             boolean missingRecommendation = true;
             PeriodResult result = null;
             for (BikeEvent bikeEvent : bikeEvents) {
-                if (bikeEvent.getEventTypes().contains(recommendation.getEventType())) {
-                    result = matchesPeriod(bike, bikeEvent, recommendation, bikeEvents);
+                boolean alreadyProceeded = processedTypes.contains(recommendation.getEventType());
+                processedTypes.add(recommendation.getEventType());
+                if (!alreadyProceeded && bikeEvent.getEventTypes().contains(recommendation.getEventType())) {
+                    result = matchesPeriod(bike, bikeEvent, recommendation);
                     if (result.matches()) {
                         missingRecommendation = false;
                         break;
@@ -178,64 +182,58 @@ public class DailyRecommendationCheckTask extends BaseAction {
         return missingRecommendations;
     }
 
-    private PeriodResult matchesPeriod(Bike bike, BikeEvent bikeEvent, BikeRecommendation recommendation, List<BikeEvent> bikeEvents) {
+    private PeriodResult matchesPeriod(Bike bike, BikeEvent event, BikeRecommendation recommendation) {
         PeriodResult result = PeriodResult.noMatch();
 
         if (recommendation.isMonthPeriod()) {
-            for (BikeEvent event : bikeEvents) {
-                if (event.getEventTypes().contains(recommendation.getEventType())) {
+            if (event.getEventTypes().contains(recommendation.getEventType())) {
 
-                    DateTime expireDate = new DateTime(event.getRegisterDate()).plusMonths(recommendation.getMonthPeriod());
-                    DateTime latestEvent = expireDate.minusDays(DAYS_CHECK);
+                DateTime expireDate = new DateTime(event.getRegisterDate()).plusMonths(recommendation.getMonthPeriod());
+                DateTime latestEvent = expireDate.minusDays(DAYS_CHECK);
 
-                    result = result
-                        .withResult(latestEvent.isAfterNow())
-                        .withExpiresDate(expireDate);
+                result = result
+                    .withResult(latestEvent.isAfterNow())
+                    .withExpiresDate(expireDate);
 
-                    LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation period={}",
-                        result, event.getRegisterDate(), latestEvent.toDate(), recommendation.getMonthPeriod());
+                LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation period={}",
+                    result, event.getRegisterDate(), latestEvent.toDate(), recommendation.getMonthPeriod());
 
-                    if (result.matches()) {
-                        break;
-                    }
+                if (result.matches()) {
+                    return result;
                 }
             }
         }
 
-        if (recommendation.isMileagePeriod() && bikeEvent.isMileage()) {
-            for (BikeEvent event : bikeEvents) {
-                if (event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    Long currentMileage = history.findCurrentMileage(bike);
-                    Long expiresMileage = currentMileage - event.getMileage() + MILEAGE_CHECK;
-                    result = result
-                        .withResult(expiresMileage <= recommendation.getMileagePeriod())
-                        .withMileage(event.getMileage() - currentMileage + recommendation.getMileagePeriod());
+        if (recommendation.isMileagePeriod() && event.isMileage()) {
+            if (event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
+                Long currentMileage = history.findCurrentMileage(bike);
+                Long expiresMileage = currentMileage - event.getMileage() + MILEAGE_CHECK;
+                result = result
+                    .withResult(expiresMileage <= recommendation.getMileagePeriod())
+                    .withMileage(event.getMileage() - currentMileage + recommendation.getMileagePeriod());
 
-                    LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
-                        result, bikeEvent.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
+                LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
+                    result, event.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
 
-                    if (result.matches()) {
-                        break;
-                    }
+                if (result.matches()) {
+                    return result;
                 }
             }
         }
 
-        if (recommendation.isMthPeriod() && bikeEvent.isMth()) {
-            for (BikeEvent event : bikeEvents) {
-                if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
-                    Long currentMth = history.findCurrentMth(bike);
-                    Long expiresMth = currentMth - event.getMth() + MTH_CHECK;
-                    result = result
-                        .withResult(expiresMth <= recommendation.getMthPeriod())
-                        .withMth(event.getMth() - currentMth + recommendation.getMthPeriod());
+        if (recommendation.isMthPeriod() && event.isMth()) {
+            if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
+                Long currentMth = history.findCurrentMth(bike);
+                Long expiresMth = currentMth - event.getMth() + MTH_CHECK;
+                result = result
+                    .withResult(expiresMth <= recommendation.getMthPeriod())
+                    .withMth(event.getMth() - currentMth + recommendation.getMthPeriod());
 
-                    LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
-                        result, bikeEvent.getMth(), event.getMth(), recommendation.getMthPeriod());
+                LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
+                    result, event.getMth(), event.getMth(), recommendation.getMthPeriod());
 
-                    if (result.matches()) {
-                        break;
-                    }
+                if (result.matches()) {
+                    return result;
                 }
             }
         }

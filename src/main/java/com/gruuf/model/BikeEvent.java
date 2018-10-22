@@ -149,6 +149,10 @@ public class BikeEvent {
         return mileage != null;
     }
 
+    public boolean isNew() {
+        return status == BikeEventStatus.NEW;
+    }
+
     public boolean isSystem() {
         return status == BikeEventStatus.SYSTEM;
     }
