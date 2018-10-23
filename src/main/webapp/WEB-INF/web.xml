@@ -40,6 +40,10 @@
       <param-name>configProviders</param-name>
       <param-value>com.gruuf.web.GruufConfigurationProvider</param-value>
     </init-param>
+      <init-param>
+          <param-name>freemarker.incompatible_improvements</param-name>
+          <param-value>2.3.28</param-value>
+      </init-param>
   </filter>
 
   <filter-mapping>
