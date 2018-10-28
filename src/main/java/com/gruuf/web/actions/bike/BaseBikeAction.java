@@ -5,6 +5,7 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDescriptor;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.BikeEventStatus;
 import com.gruuf.model.SearchPeriod;
 import com.gruuf.services.AttachmentsStorage;
 import com.gruuf.services.BikeHistory;
@@ -56,7 +57,7 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
         Date date = Date.from(period.getDate().atZone(ZoneId.systemDefault()).toInstant());
 
         List<BikeEvent> events = bikeHistory
-            .listByBike(selectedBike).stream()
+            .listByBike(selectedBike, BikeEventStatus.NEW).stream()
             .filter(event -> {
                 if (period == SearchPeriod.ALL) {
                     return true;

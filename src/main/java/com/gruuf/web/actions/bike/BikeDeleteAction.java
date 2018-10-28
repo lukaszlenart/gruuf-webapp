@@ -2,6 +2,7 @@ package com.gruuf.web.actions.bike;
 
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.BikeEventStatus;
 import com.gruuf.web.GlobalResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +26,7 @@ public class BikeDeleteAction extends BaseBikeAction {
 
     @Action("bike-delete-confirm")
     public String deleteConfirm() {
-        List<BikeEvent> bikeEvents = bikeHistory.listByBike(selectedBike);
+        List<BikeEvent> bikeEvents = bikeHistory.listByBike(selectedBike, BikeEventStatus.values());
 
         LOG.info("Deleting all historical events");
         for (BikeEvent bikeEvent : bikeEvents) {

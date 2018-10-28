@@ -2,6 +2,7 @@ package com.gruuf.web.actions.bike;
 
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.BikeEventStatus;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.RecommendationDescriptor;
 import com.gruuf.services.BikeHistory;
@@ -29,7 +30,7 @@ public class RecommendationsAction extends BaseBikeAction {
 
     public List<RecommendationDescriptor> getBikeRecommendations() {
         List<BikeRecommendation> recommendations = this.recommendations.listApprovedByBike(currentUser, selectedBike);
-        List<BikeEvent> bikeEvents = history.listByBike(selectedBike);
+        List<BikeEvent> bikeEvents = history.listByBike(selectedBike, BikeEventStatus.NEW);
 
         LOG.debug("Recommendations: {}", recommendations);
         LOG.debug("Bike events: {}", bikeEvents);

@@ -3,6 +3,7 @@ package com.gruuf.web.actions.tasks;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.BikeEventStatus;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.BikeStatus;
 import com.gruuf.model.EventType;
@@ -156,7 +157,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
     private List<MissingRecommendation> listMissingRecommendations(Bike bike) {
 
         List<BikeRecommendation> recommendations = this.recommendations.listApprovedByBike(User.EMPTY, bike);
-        List<BikeEvent> bikeEvents = history.listByBike(bike).stream().filter(BikeEvent::isNew).collect(Collectors.toList());
+        List<BikeEvent> bikeEvents = history.listByBike(bike, BikeEventStatus.NEW);
         List<EventType> processedTypes = new ArrayList<>();
 
         List<MissingRecommendation> missingRecommendations = new ArrayList<>();
