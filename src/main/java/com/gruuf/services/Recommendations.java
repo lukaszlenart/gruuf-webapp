@@ -80,13 +80,14 @@ public class Recommendations extends Reindexable<BikeRecommendation> {
                     .list();
         }
         List<BikeRecommendation> approved = filter("bikeMetadataId =", bike.getBikeMetadata()).filter("approved =", Boolean.TRUE).list();
-        List<BikeRecommendation> unapproved = filter("bikeMetadataId =", bike.getBikeMetadata()).filter("approved =", Boolean.FALSE).list();
-
         approved.addAll(approvedForAll);
 
-        for (BikeRecommendation recommendation : unapproved) {
-            if (recommendation.getRequestedBy().equivalent(Ref.create(currentUser))) {
-                approved.add(recommendation);
+        if (currentUser != User.EMPTY) {
+            List<BikeRecommendation> unapproved = filter("bikeMetadataId =", bike.getBikeMetadata()).filter("approved =", Boolean.FALSE).list();
+            for (BikeRecommendation recommendation : unapproved) {
+                if (recommendation.getRequestedBy().equivalent(Ref.create(currentUser))) {
+                    approved.add(recommendation);
+                }
             }
         }
 

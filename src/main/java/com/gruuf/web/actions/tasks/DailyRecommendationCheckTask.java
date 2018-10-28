@@ -7,6 +7,7 @@ import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.BikeStatus;
 import com.gruuf.model.EventType;
 import com.gruuf.model.MissingRecommendation;
+import com.gruuf.model.User;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.services.MailBox;
@@ -154,7 +155,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
     private List<MissingRecommendation> listMissingRecommendations(Bike bike) {
 
-        List<BikeRecommendation> recommendations = this.recommendations.listFor(bike.getBikeMetadata());
+        List<BikeRecommendation> recommendations = this.recommendations.listApprovedByBike(User.EMPTY, bike);
         List<BikeEvent> bikeEvents = history.listByBike(bike).stream().filter(BikeEvent::isNew).collect(Collectors.toList());
         List<EventType> processedTypes = new ArrayList<>();
 
@@ -192,7 +193,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
                 DateTime to = from.plusMonths(recommendation.getMonthPeriod());
 
                 result = result
-                    .withResult(to.minusDays(DAYS_CHECK).isBeforeNow())
+                    .withResult(to.minusDays(DAYS_CHECK).isBeforeNow() && to.isAfter(from))
                     .withExpiresDate(to);
 
                 LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation period={}",

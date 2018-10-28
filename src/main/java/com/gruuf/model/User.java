@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,6 +25,7 @@ import java.util.Set;
 public class User {
 
     public static final String EMAIL = "email";
+    public static final User EMPTY = new User();
 
     @Id
     private String id;
@@ -70,6 +72,15 @@ public class User {
         return this;
     }
 
+    public boolean isPrivacyPolicyAccepted() {
+        return acceptedPolicies != null && acceptedPolicies.contains(PolicyType.PRIVACY_POLICY);
+    }
+
+    public User withPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
     public static UserCreator create() {
         return new UserCreator(GruufAuth.generateUUID());
     }
@@ -84,15 +95,6 @@ public class User {
             .withTokens(user.getTokens())
             .withAcceptedPolicies(user.getAcceptedPolicies())
             .withFacebookId(user.getFacebookId());
-    }
-
-    public boolean isPrivacyPolicyAccepted() {
-        return acceptedPolicies != null && acceptedPolicies.contains(PolicyType.PRIVACY_POLICY);
-    }
-
-    public User withPassword(String password) {
-        this.password = password;
-        return this;
     }
 
     public static class UserCreator {
