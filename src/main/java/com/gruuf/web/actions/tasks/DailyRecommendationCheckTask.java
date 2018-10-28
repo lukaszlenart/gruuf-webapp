@@ -188,15 +188,15 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMonthPeriod()) {
             if (event.getEventTypes().contains(recommendation.getEventType())) {
 
-                DateTime expireDate = new DateTime(event.getRegisterDate()).plusMonths(recommendation.getMonthPeriod());
-                DateTime latestEvent = expireDate.minusDays(DAYS_CHECK);
+                DateTime from = new DateTime(event.getRegisterDate());
+                DateTime to = from.plusMonths(recommendation.getMonthPeriod());
 
                 result = result
-                    .withResult(latestEvent.isAfterNow())
-                    .withExpiresDate(expireDate);
+                    .withResult(to.minusDays(DAYS_CHECK).isAfterNow())
+                    .withExpiresDate(to);
 
                 LOG.info("Month period check: {} for data: bike event date={}, event date={}, recommendation period={}",
-                    result, event.getRegisterDate(), latestEvent.toDate(), recommendation.getMonthPeriod());
+                    result, event.getRegisterDate(), to.toDate(), recommendation.getMonthPeriod());
 
                 if (result.matches()) {
                     return result;
