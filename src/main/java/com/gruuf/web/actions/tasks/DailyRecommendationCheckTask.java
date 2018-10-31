@@ -162,21 +162,21 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
         List<MissingRecommendation> missingRecommendations = new ArrayList<>();
         for (BikeRecommendation recommendation : recommendations) {
-            boolean missingRecommendation = true;
+            boolean missingRecommendation = false;
             PeriodResult result = null;
             for (BikeEvent bikeEvent : bikeEvents) {
                 boolean alreadyProceeded = processedTypes.contains(recommendation.getEventType());
                 if (!alreadyProceeded && bikeEvent.getEventTypes().contains(recommendation.getEventType())) {
                     result = matchesPeriod(bike, bikeEvent, recommendation);
                     if (result.matches()) {
-                        missingRecommendation = false;
+                        missingRecommendation = true;
                         break;
                     }
                 }
             }
             processedTypes.add(recommendation.getEventType());
 
-            if (missingRecommendation && result != null) {
+            if (missingRecommendation) {
                 missingRecommendations.add(MissingRecommendation.of(recommendation, result));
             }
         }
@@ -190,15 +190,15 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMonthPeriod()) {
             if (event.getEventTypes().contains(recommendation.getEventType())) {
 
-                DateTime from = new DateTime(event.getRegisterDate());
-                DateTime to = from.plusMonths(recommendation.getMonthPeriod());
+                DateTime eventDate = new DateTime(event.getRegisterDate());
+                DateTime expiresDate = eventDate.plusMonths(recommendation.getMonthPeriod());
 
                 result = result
-                    .withResult(to.minusDays(DAYS_CHECK).isBeforeNow())
-                    .withExpiresDate(to);
+                    .withResult(expiresDate.minusDays(DAYS_CHECK).isBeforeNow())
+                    .withExpiresDate(expiresDate);
 
                 LOG.info("Month period check: {} for data: bike event date={}, expires date={}, recommendation period={}",
-                    result, event.getRegisterDate(), to.toDate(), recommendation.getMonthPeriod());
+                    result, eventDate.toDate(), expiresDate.toDate(), recommendation.getMonthPeriod());
 
                 if (result.matches()) {
                     return result;
