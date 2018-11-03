@@ -70,6 +70,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable, Pre
                 registerDate = bikeEvent.getRegisterDate();
                 mileage = bikeEvent.getMileage();
                 mth = bikeEvent.getMth();
+                cost = bikeEvent.getCost();
             } else {
                 LOG.debug("Bike event [{}] is not editable!", bikeEventId);
             }
