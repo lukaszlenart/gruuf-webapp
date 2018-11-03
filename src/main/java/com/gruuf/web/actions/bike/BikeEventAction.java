@@ -125,7 +125,7 @@ public class BikeEventAction extends BaseBikeAction implements Validateable, Pre
     }
 
     private void storeAttachments(BikeEvent bikeEvent) {
-        if (attachment != null && attachment.size() > 0) {
+        if (attachment != null && attachment.size() > 0 && StringUtils.isNoneEmpty(attachment.get(0).getName())) {
             LOG.debug("Storing attachments: {}", attachment);
             int index = 0;
             for (UploadedFile file : attachment) {
