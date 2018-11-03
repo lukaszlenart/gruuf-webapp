@@ -189,7 +189,6 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
         if (recommendation.isMonthPeriod()) {
             if (event.getEventTypes().contains(recommendation.getEventType())) {
-
                 DateTime eventDate = new DateTime(event.getRegisterDate());
                 DateTime expiresDate = eventDate.plusMonths(recommendation.getMonthPeriod());
 
@@ -210,6 +209,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
             if (event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
                 Long currentMileage = history.findCurrentMileage(bike);
                 Long expiresMileage = currentMileage - event.getMileage() + MILEAGE_CHECK;
+
                 result = result
                     .withResult(expiresMileage <= recommendation.getMileagePeriod())
                     .withMileage(event.getMileage() - currentMileage + recommendation.getMileagePeriod());
@@ -227,6 +227,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
             if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
                 Long currentMth = history.findCurrentMth(bike);
                 Long expiresMth = currentMth - event.getMth() + MTH_CHECK;
+
                 result = result
                     .withResult(expiresMth <= recommendation.getMthPeriod())
                     .withMth(event.getMth() - currentMth + recommendation.getMthPeriod());

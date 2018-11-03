@@ -53,11 +53,25 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
         return "";
     }
 
-    protected BikeDetails loadBikeDetails(SearchPeriod period) {
+    protected BikeDetails loadAllValidBikeDetails() {
+        return loadBikeDetails(
+            SearchPeriod.ALL,
+            BikeEventStatus.NEW, BikeEventStatus.SYSTEM
+        );
+    }
+
+    protected BikeDetails loadUserBikeDetails(SearchPeriod searchPeriod) {
+        return loadBikeDetails(
+            searchPeriod,
+            BikeEventStatus.NEW, BikeEventStatus.SYSTEM, BikeEventStatus.TEMPORARY
+        );
+    }
+
+    private BikeDetails loadBikeDetails(SearchPeriod period, BikeEventStatus... statuses) {
         Date date = Date.from(period.getDate().atZone(ZoneId.systemDefault()).toInstant());
 
         List<BikeEvent> events = bikeHistory
-            .listByBike(selectedBike, BikeEventStatus.NEW).stream()
+            .listByBike(selectedBike, statuses).stream()
             .filter(event -> {
                 if (period == SearchPeriod.ALL) {
                     return true;

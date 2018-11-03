@@ -3,6 +3,7 @@ package com.gruuf.web.actions.bike;
 import com.gruuf.auth.BikeRestriction;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.BikeEventStatus;
 import com.gruuf.model.EventType;
 import com.gruuf.model.SearchPeriod;
 import com.opensymphony.xwork2.Preparable;
@@ -89,7 +90,7 @@ public class HistoryAction extends BaseBikeAction implements Preparable {
 
     @Override
     public void prepare() throws Exception {
-        bikeDetails = loadBikeDetails(filter);
+        bikeDetails = loadUserBikeDetails(filter);
     }
 
     public List<SearchPeriod> getSearchOptions() {
