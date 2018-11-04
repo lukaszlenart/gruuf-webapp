@@ -8,7 +8,6 @@ import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.User;
 import org.joda.time.DateTime;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Recommendations extends Reindexable<BikeRecommendation> {
