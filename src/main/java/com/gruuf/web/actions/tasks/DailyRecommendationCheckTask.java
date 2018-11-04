@@ -206,13 +206,13 @@ public class DailyRecommendationCheckTask extends BaseAction {
         }
 
         if (recommendation.isMileagePeriod() && event.isMileage()) {
-            if (event.isMileage() && event.getEventTypes().contains(recommendation.getEventType())) {
+            if (event.getEventTypes().contains(recommendation.getEventType())) {
                 Long currentMileage = history.findCurrentMileage(bike);
-                Long expiresMileage = currentMileage - event.getMileage() + MILEAGE_CHECK;
+                long expiresMileage = event.getMileage() + recommendation.getMileagePeriod();
 
                 result = result
-                    .withResult(expiresMileage <= recommendation.getMileagePeriod())
-                    .withMileage(event.getMileage() - currentMileage + recommendation.getMileagePeriod());
+                    .withResult(expiresMileage - MILEAGE_CHECK <= currentMileage)
+                    .withMileage(expiresMileage);
 
                 LOG.info("Mileage period check: {} for data: bike mileage={}, event mileage={}, recommendation mileage={}",
                     result, event.getMileage(), event.getMileage(), recommendation.getMileagePeriod());
@@ -226,11 +226,11 @@ public class DailyRecommendationCheckTask extends BaseAction {
         if (recommendation.isMthPeriod() && event.isMth()) {
             if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
                 Long currentMth = history.findCurrentMth(bike);
-                Long expiresMth = currentMth - event.getMth() + MTH_CHECK;
+                long expiresMth = event.getMth() + recommendation.getMthPeriod();
 
                 result = result
-                    .withResult(expiresMth <= recommendation.getMthPeriod())
-                    .withMth(event.getMth() - currentMth + recommendation.getMthPeriod());
+                    .withResult(expiresMth - MTH_CHECK <= currentMth)
+                    .withMth(expiresMth);
 
                 LOG.info("Mth period check: {} for data: bike mth={}, event mth={}, recommendation mth={}",
                     result, event.getMth(), event.getMth(), recommendation.getMthPeriod());
