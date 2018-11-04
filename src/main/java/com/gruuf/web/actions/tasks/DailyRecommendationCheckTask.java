@@ -167,6 +167,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
             for (BikeEvent bikeEvent : bikeEvents) {
                 boolean alreadyProceeded = processedTypes.contains(recommendation.getEventType());
                 if (!alreadyProceeded && bikeEvent.getEventTypes().contains(recommendation.getEventType())) {
+                    processedTypes.add(recommendation.getEventType());
                     result = matchesPeriod(bike, bikeEvent, recommendation);
                     if (result.matches()) {
                         missingRecommendation = true;
@@ -174,7 +175,6 @@ public class DailyRecommendationCheckTask extends BaseAction {
                     }
                 }
             }
-            processedTypes.add(recommendation.getEventType());
 
             if (missingRecommendation) {
                 missingRecommendations.add(MissingRecommendation.of(recommendation, result));
