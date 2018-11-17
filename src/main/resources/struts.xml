@@ -8,16 +8,29 @@
 
   <bean type="com.opensymphony.xwork2.UnknownHandler" name="tiles-convention" class="com.gruuf.web.TilesUnknownHandler"/>
 
-  <package name="gruufDefault" extends="struts-default">
+  <package name="gruufDefault">
 
     <result-types>
       <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" default="true" />
+      <result-type name="redirect" class="org.apache.struts2.result.ServletRedirectResult"/>
       <result-type name="redirectAction" class="org.apache.struts2.result.ServletActionRedirectResult"/>
       <result-type name="jsonRedirect" class="org.apache.struts2.json.JSONActionRedirectResult"/>
       <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+      <result-type name="stream" class="org.apache.struts2.result.StreamResult"/>
+      <result-type name="httpHeader" class="org.apache.struts2.result.HttpHeaderResult"/>
     </result-types>
 
     <interceptors>
+      <interceptor name="exception" class="com.opensymphony.xwork2.interceptor.ExceptionMappingInterceptor"/>
+      <interceptor name="servletConfig" class="org.apache.struts2.interceptor.ServletConfigInterceptor"/>
+      <interceptor name="i18n" class="org.apache.struts2.interceptor.I18nInterceptor"/>
+      <interceptor name="params" class="com.opensymphony.xwork2.interceptor.ParametersInterceptor"/>
+      <interceptor name="prepare" class="com.opensymphony.xwork2.interceptor.PrepareInterceptor"/>
+      <interceptor name="conversionError" class="org.apache.struts2.interceptor.StrutsConversionErrorInterceptor"/>
+      <interceptor name="validation" class="org.apache.struts2.interceptor.validation.AnnotationValidationInterceptor"/>
+      <interceptor name="workflow" class="com.opensymphony.xwork2.interceptor.DefaultWorkflowInterceptor"/>
+      <interceptor name="fileUpload" class="org.apache.struts2.interceptor.FileUploadInterceptor"/>
+      <interceptor name="store" class="org.apache.struts2.interceptor.MessageStoreInterceptor" />
 
       <interceptor name="login" class="com.gruuf.web.interceptors.LoginInterceptor"/>
       <interceptor name="user" class="com.gruuf.web.interceptors.UserInterceptor"/>
@@ -39,11 +52,10 @@
         <interceptor-ref name="about"/>
         <interceptor-ref name="login"/>
         <interceptor-ref name="auth"/>
-      <interceptor-ref name="servletConfig"/>
+        <interceptor-ref name="servletConfig"/>
         <interceptor-ref name="user"/>
         <interceptor-ref name="restriction"/>
         <interceptor-ref name="policy"/>
-        <interceptor-ref name="alias"/>
         <interceptor-ref name="i18n"/>
         <interceptor-ref name="params"/>
         <interceptor-ref name="prepare"/>
@@ -66,7 +78,6 @@
         <interceptor-ref name="user"/>
         <interceptor-ref name="restriction"/>
         <interceptor-ref name="policy"/>
-        <interceptor-ref name="alias"/>
         <interceptor-ref name="i18n"/>
         <interceptor-ref name="fileUpload">
           <param name="maximumSize">2097152</param>

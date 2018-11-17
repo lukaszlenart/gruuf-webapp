@@ -33,13 +33,13 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 
 @Anonymous
 @Results({
-    @Result(name = SUCCESS, type = "httpheader", params = {
+    @Result(name = SUCCESS, type = "httpHeader", params = {
         "status", "201",
         "headers.Cache-Control", "no-cache, no-store, must-revalidate",
         "headers.Pragma", "no-cache",
         "headers.Expires", "0"
     }),
-    @Result(name = ERROR, type = "httpheader", params = {"status", "401"})
+    @Result(name = ERROR, type = "httpHeader", params = {"status", "401"})
 })
 public class DailyRecommendationCheckTask extends BaseAction {
 

@@ -22,7 +22,7 @@ import java.util.List;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 
 @Anonymous
-@Result(name = SUCCESS, type = "httpheader", params = {"status", "200"})
+@Result(name = SUCCESS, type = "httpHeader", params = {"status", "200"})
 public class DailyRecommendationCron extends BaseAction {
 
     private static final Logger LOG = LogManager.getLogger(DailyRecommendationCron.class);
