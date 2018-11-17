@@ -1,5 +1,7 @@
 package com.gruuf.model;
 
+import com.googlecode.objectify.Ref;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,10 @@ public class BikeEventDescriptor {
 
     public String getId() {
         return bikeEvent.getId();
+    }
+
+    public Ref<BikeEvent> getRef() {
+        return Ref.create(bikeEvent);
     }
 
     public Bike getBike() {

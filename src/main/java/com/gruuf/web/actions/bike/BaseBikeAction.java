@@ -4,44 +4,26 @@ import com.gruuf.GruufConstants;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDescriptor;
 import com.gruuf.model.BikeDetails;
-import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeEventStatus;
 import com.gruuf.model.SearchPeriod;
-import com.gruuf.services.AttachmentsStorage;
-import com.gruuf.services.BikeHistory;
 import com.gruuf.services.EventTypes;
 import com.gruuf.services.Garage;
 import com.gruuf.web.actions.BaseAction;
 import com.gruuf.web.interceptors.BikeAware;
 import com.opensymphony.xwork2.inject.Inject;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
-
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Result(name = BaseBikeAction.TO_SHOW_BIKE, location = "history", type = "redirectAction", params = {"bikeId", "${bikeId}"})
 public abstract class BaseBikeAction extends BaseAction implements BikeAware {
 
     public static final String TO_SHOW_BIKE = "to-show-bike";
 
-    private static final Logger LOG = LogManager.getLogger(BaseBikeAction.class);
-
     protected Bike selectedBike;
 
     @Inject
     protected Garage garage;
     @Inject
-    protected BikeHistory bikeHistory;
-    @Inject
     protected EventTypes eventTypes;
-    @Inject
-    protected AttachmentsStorage storage;
-    @Inject(GruufConstants.STORAGE_ROOT_URL)
-    protected String storageRootUrl;
 
     protected Long totalAllowedSpace;
     protected Long spaceLeft;
@@ -68,27 +50,7 @@ public abstract class BaseBikeAction extends BaseAction implements BikeAware {
     }
 
     private BikeDetails loadBikeDetails(SearchPeriod period, BikeEventStatus... statuses) {
-        Date date = Date.from(period.getDate().atZone(ZoneId.systemDefault()).toInstant());
-
-        List<BikeEvent> events = bikeHistory
-            .listByBike(selectedBike, statuses).stream()
-            .filter(event -> {
-                if (period == SearchPeriod.ALL) {
-                    return true;
-                } else {
-                    return event.getRegisterDate().after(date);
-                }
-            })
-            .collect(Collectors.toList());
-
-        LOG.debug("Found Bike Events for bike {}: {}", selectedBike, events);
-
-        Long currentMileage = bikeHistory.findCurrentMileage(selectedBike);
-        Long currentMth = bikeHistory.findCurrentMth(selectedBike);
-
-        return BikeDetails.create(selectedBike)
-            .withUser(currentUser)
-            .withHistory(currentUser.getUserLocale(), events, currentMileage, currentMth);
+        return loadBikeDetails(selectedBike, period, statuses);
     }
 
     @Override

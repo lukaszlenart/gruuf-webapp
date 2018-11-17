@@ -164,6 +164,18 @@
               <s:a value="%{approveEvent}" cssClass="approveable glyphicon glyphicon-ok" title="%{getText('general.approve')}"><s:text
                   name="general.approve"/></s:a>
             </s:if>
+
+            <s:if test="%{bikeDetails.hasAttachments(ref)}">
+              <ul class="list-group">
+              <s:iterator value="bikeDetails.attachments" var="attachment">
+                <li class="list-group-item list-group-item-text">
+                <s:a value="%{link}">
+                  <s:property value="originalFileName"/>
+                </s:a>
+                </li>
+              </s:iterator>
+              </ul>
+            </s:if>
           </td>
         </tr>
       </s:iterator>

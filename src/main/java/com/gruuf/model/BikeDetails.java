@@ -1,9 +1,11 @@
 package com.gruuf.model;
 
+import com.googlecode.objectify.Ref;
 import com.gruuf.web.actions.bike.BikeMetadataOption;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BikeDetails {
 
@@ -12,6 +14,7 @@ public class BikeDetails {
     private List<BikeEventDescriptor> events;
     private Long mileage;
     private Long mth;
+    private ArrayList<AttachmentDescriptor> attachments;
 
     public static BikeDetails create(Bike bike) {
         return new BikeDetails(bike);
@@ -66,13 +69,32 @@ public class BikeDetails {
         return mth;
     }
 
+    public boolean hasAttachments(Ref<BikeEvent> bikeEventRef) {
+        return this.attachments.stream()
+            .filter(att -> att.belongsTo(bikeEventRef))
+            .collect(Collectors.toList())
+            .size() > 0;
+    }
+
+    public ArrayList<AttachmentDescriptor> getAttachments() {
+        return attachments;
+    }
+
     @Override
     public String toString() {
         return "BikeDetails{" +
-                "bike=" + bike +
-                ", currentUser=" + currentUser +
-                ", events=" + events +
-                ", mileage=" + mileage +
-                '}';
+            "bike=" + bike +
+            ", currentUser=" + currentUser +
+            ", events=" + events +
+            ", mileage=" + mileage +
+            '}';
+    }
+
+    public BikeDetails withAttachments(String rootUrl, List<Attachment> attachments) {
+        this.attachments = new ArrayList<>();
+        for (Attachment attachment : attachments) {
+            this.attachments.add(new AttachmentDescriptor(rootUrl, attachment));
+        }
+        return this;
     }
 }

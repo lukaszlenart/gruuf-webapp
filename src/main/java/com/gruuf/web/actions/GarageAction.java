@@ -3,7 +3,9 @@ package com.gruuf.web.actions;
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDetails;
 import com.gruuf.model.BikeEvent;
+import com.gruuf.model.BikeEventStatus;
 import com.gruuf.model.BikeTransferDescriptor;
+import com.gruuf.model.SearchPeriod;
 import com.gruuf.services.BikeHistory;
 import com.gruuf.services.BikeTransfers;
 import com.gruuf.services.Garage;
@@ -67,14 +69,8 @@ public class GarageAction extends BaseAction implements Preparable {
         List<Bike> bikes = garage.findByOwner(currentUser);
 
         for (Bike bike : bikes) {
-            List<BikeEvent> events = bikeHistory.listRecentByBike(bike);
-            Long currentMileage = bikeHistory.findCurrentMileage(bike);
-            Long currentMth = bikeHistory.findCurrentMth(bike);
-
             bikeDetails.add(
-                BikeDetails.create(bike)
-                    .withUser(currentUser)
-                    .withHistory(currentUser.getUserLocale(), events, currentMileage, currentMth)
+                loadBikeDetails(bike, SearchPeriod.ALL, BikeEventStatus.NEW, BikeEventStatus.SYSTEM)
             );
         }
 

@@ -60,25 +60,11 @@
     <servlet-class>com.google.apphosting.utils.servlet.SessionCleanupServlet</servlet-class>
   </servlet>
 
-  <servlet>
-    <servlet-name>letsencrypt</servlet-name>
-    <servlet-class>com.gruuf.web.LetsEncryptServlet</servlet-class>
-    <init-param>
-      <param-name>challenge</param-name>
-      <param-value>-nDqt8xwp4xmHI5OsRdoNI-2hCB_ntP71j5lH5GJfao.XYpKCqttSgSj9RgQ4WdjATLNDcf53J-jUkF71Uj8qsg</param-value>
-    </init-param>
-  </servlet>
-  
   <servlet-mapping>
     <servlet-name>_ah_sessioncleanup</servlet-name>
     <url-pattern>/_ah/sessioncleanup</url-pattern>
   </servlet-mapping>
   
-  <servlet-mapping>
-    <servlet-name>letsencrypt</servlet-name>
-    <url-pattern>/.well-known/*</url-pattern>
-  </servlet-mapping>
-
   <security-constraint>
     <web-resource-collection>
       <url-pattern>/_ah/sessioncleanup</url-pattern>

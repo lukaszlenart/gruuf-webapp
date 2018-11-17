@@ -46,4 +46,7 @@ public class AttachmentDescriptor {
         return attachment.getTimestamp();
     }
 
+    public boolean belongsTo(Ref<BikeEvent> bikeEventRef) {
+        return attachment.getBikeEvent().equivalent(bikeEventRef);
+    }
 }
