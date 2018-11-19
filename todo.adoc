@@ -1,4 +1,4 @@
-### TOD
+### TODO
 * [ ] definiowanie listy rzeczy do zrobienia - TODO
 * [ ] lista warsztatów motocyklowych
 * [ ] kalendarz szkoleń i wydarzeń motocyklowych
@@ -10,8 +10,8 @@
 * [ ] możliwość tworzenia kopii zapasowej dla użytkownika (tylko z danym do których ma dostęp)
 
 ### Bot via Messenger
-* [ ] - możliwość listowania motocykli
-* [ ] - rejestrowanie przebiegu per morocykl
+* [X] - możliwość listowania motocykli
+* [X] - rejestrowanie przebiegu per morocykl
 * [ ] - dodawanie wykonanych czynności oraz przebiegu per motocykl
 
 ### Aplikacja mobilna
