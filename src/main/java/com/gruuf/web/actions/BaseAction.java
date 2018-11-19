@@ -143,6 +143,16 @@ public class BaseAction extends ActionSupport implements CurrentUserAware, Sessi
             })
             .collect(Collectors.toList());
 
+        return buildBikeDetails(selectedBike, events);
+    }
+
+    public BikeDetails loadRecentBikeDetails(Bike selectedBike) {
+        List<BikeEvent> events = bikeHistory.listRecentByBike(selectedBike);
+
+        return buildBikeDetails(selectedBike, events);
+    }
+
+    private BikeDetails buildBikeDetails(Bike selectedBike, List<BikeEvent> events) {
         LOG.debug("Found Bike Events for bike {}: {}", selectedBike, events);
 
         Long currentMileage = bikeHistory.findCurrentMileage(selectedBike);

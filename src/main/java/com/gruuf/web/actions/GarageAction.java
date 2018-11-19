@@ -2,11 +2,7 @@ package com.gruuf.web.actions;
 
 import com.gruuf.model.Bike;
 import com.gruuf.model.BikeDetails;
-import com.gruuf.model.BikeEvent;
-import com.gruuf.model.BikeEventStatus;
 import com.gruuf.model.BikeTransferDescriptor;
-import com.gruuf.model.SearchPeriod;
-import com.gruuf.services.BikeHistory;
 import com.gruuf.services.BikeTransfers;
 import com.gruuf.services.Garage;
 import com.opensymphony.xwork2.Preparable;
@@ -26,8 +22,6 @@ public class GarageAction extends BaseAction implements Preparable {
 
     @Inject
     private Garage garage;
-    @Inject
-    private BikeHistory bikeHistory;
     @Inject
     private BikeTransfers bikeTransfers;
 
@@ -70,7 +64,7 @@ public class GarageAction extends BaseAction implements Preparable {
 
         for (Bike bike : bikes) {
             bikeDetails.add(
-                loadBikeDetails(bike, SearchPeriod.ALL, BikeEventStatus.NEW, BikeEventStatus.SYSTEM)
+                loadRecentBikeDetails(bike)
             );
         }
 
