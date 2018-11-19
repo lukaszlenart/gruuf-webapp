@@ -1,5 +1,5 @@
-### TODO
-* [ ] pokazywanie linków do załączników w historii
+### TOD
+* [ ] definiowanie listy rzeczy do zrobienia - TODO
 * [ ] lista warsztatów motocyklowych
 * [ ] kalendarz szkoleń i wydarzeń motocyklowych
 * [ ] zgłaszanie tłumaczenia przez użytkownika
@@ -67,6 +67,7 @@
 * [x] landing page about
 * [x] dodanie zaleceń per kraj gdzie motocykl jest zarejestrowany
 * [X] dodawanie załączników przy wpisach z historią
+* [X] pokazywanie linków do załączników w historii
 
 ### Płatne opcje
 - możliwość dodawania zdjęć / załączeników bez limitu
