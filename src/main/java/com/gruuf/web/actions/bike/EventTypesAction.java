@@ -13,7 +13,7 @@ import java.util.List;
 import static com.gruuf.web.actions.BaseAction.JSON;
 
 @InterceptorRefs({
-        @InterceptorRef("gruufDefaultDev"),
+        @InterceptorRef("gruufDefault"),
         @InterceptorRef(value = "json")
 })
 @Result(type = JSON, params = {"root", "list"})

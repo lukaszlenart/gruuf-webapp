@@ -26,7 +26,7 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 
 @Result(name = SUCCESS, type = JSON, params = {"root", "response"})
 @InterceptorRefs({
-        @InterceptorRef("gruufDefaultDev"),
+        @InterceptorRef("gruufDefault"),
         @InterceptorRef("json")
 })
 @Bot

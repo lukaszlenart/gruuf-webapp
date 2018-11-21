@@ -42,7 +42,7 @@
       <interceptor name="reCaptcha" class="com.gruuf.struts2.gae.recaptcha.ReCaptchaInterceptor"/>
       <interceptor name="policy" class="com.gruuf.web.interceptors.PolicyInterceptor"/>
 
-      <interceptor-stack name="gruufDefaultDev">
+      <interceptor-stack name="gruufDefault">
         <interceptor-ref name="exception">
           <param name="logEnabled">true</param>
           <param name="logCategory">com.gruuf</param>
@@ -69,7 +69,7 @@
         </interceptor-ref>
       </interceptor-stack>
 
-      <interceptor-stack name="gruufDefaultUploadDev">
+      <interceptor-stack name="gruufDefaultUpload">
         <interceptor-ref name="exception"/>
         <interceptor-ref name="secure"/>
         <interceptor-ref name="login"/>
@@ -95,14 +95,14 @@
       </interceptor-stack>
 
       <interceptor-stack name="defaultWithMessages">
-        <interceptor-ref name="gruufDefaultDev"/>
+        <interceptor-ref name="gruufDefault"/>
         <interceptor-ref name="store">
           <param name="operationMode">AUTOMATIC</param>
         </interceptor-ref>
       </interceptor-stack>
 
       <interceptor-stack name="defaultUploadWithMessages">
-        <interceptor-ref name="gruufDefaultUploadDev"/>
+        <interceptor-ref name="gruufDefaultUpload"/>
         <interceptor-ref name="store">
           <param name="operationMode">AUTOMATIC</param>
         </interceptor-ref>
@@ -114,7 +114,7 @@
       </interceptor-stack>
     </interceptors>
 
-    <default-interceptor-ref name="gruufDefaultDev"/>
+    <default-interceptor-ref name="gruufDefault"/>
 
     <default-action-ref name="index"/>
 

@@ -3,12 +3,9 @@ package com.gruuf.web.actions.api;
 import com.gruuf.GruufConstants;
 import com.gruuf.auth.Anonymous;
 import com.gruuf.model.Bike;
-import com.gruuf.model.BikeStatus;
 import com.gruuf.model.User;
-import com.gruuf.services.BikeHistory;
 import com.gruuf.services.Garage;
 import com.gruuf.services.UserStore;
-import com.gruuf.web.actions.BaseAction;
 import com.opensymphony.xwork2.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +13,6 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,8 +21,8 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 
 @Result(name = SUCCESS, type = JSON, params = {"root", "response"})
 @InterceptorRefs({
-        @InterceptorRef("gruufDefaultDev"),
-        @InterceptorRef("json")
+    @InterceptorRef("gruufDefault"),
+    @InterceptorRef("json")
 })
 @Anonymous
 public class UserProfileEndpoint extends BaseEndpoint {
