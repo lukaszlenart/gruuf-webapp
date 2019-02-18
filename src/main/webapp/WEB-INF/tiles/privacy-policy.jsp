@@ -207,7 +207,7 @@
 <p>If you have any questions about this Privacy Policy, please contact us:</p>
 <ul>
   <li>By email: info@gruuf.com</li>
-  <li>By visiting this page on our website: https://gruuf.com/contact</li>
+  <li>By visiting this page on our website: https://app.gruuf.com/contact</li>
 </ul>
 
 <s:if test="loggedIn && not accepted">

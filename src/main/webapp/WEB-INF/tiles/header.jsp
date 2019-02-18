@@ -75,10 +75,6 @@
           <s:url var="contact" action="contact"/>
           <s:a href="%{contact}"><s:text name="contact.title"/></s:a>
         </li>
-        <li>
-          <s:url var="about" action="about"/>
-          <s:a href="%{about}"><s:text name="about.title"/></s:a>
-        </li>
         <s:if test="loggedIn">
         <li>
           <s:url var="logout" action="logout"/>

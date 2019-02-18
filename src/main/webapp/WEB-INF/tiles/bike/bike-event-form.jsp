@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <div class="row">
   <nav class="navbar">
@@ -144,40 +145,10 @@
   </s:form>
 </div>
 
+<script src='js/event-types.js'></script>
+
 <script type="application/javascript">
 
-  var $eventTypes = $('#event-types');
-  var preloadedItems = $eventTypes.val().split(',');
-  $eventTypes.val('');
-
-  $eventTypes.selectize({
-    valueField: 'id',
-    labelField: 'name',
-    searchField: 'name',
-    sortField: 'name',
-    create: false,
-    preload: true,
-    render: {
-      option: function (item, escape) {
-        return '<div><span class="name">' + escape(item.name) + '</span></div>';
-      }
-    },
-    load: function (query, callback) {
-      $.ajax({
-        url: 'event-types',
-        type: 'GET',
-        error: function () {
-          callback();
-        },
-        success: function (res) {
-          callback(res);
-        }
-      });
-    },
-    onLoad: function (_) {
-      var selectize = $eventTypes[0].selectize;
-      selectize.setValue(preloadedItems);
-    }
-  });
+  bindEventTypes($('#event-types'));
 
 </script>

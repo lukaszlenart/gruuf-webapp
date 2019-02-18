@@ -52,20 +52,6 @@
     <put-attribute name="body" value="/WEB-INF/tiles/error.jsp"/>
   </definition>
 
-  <definition name="about" template="/WEB-INF/tiles/about-layout.jsp">
-    <put-attribute name="titleName" expression="I18N:about.title" cascade="true"/>
-  </definition>
-
-  <definition name="about.logged-in" extends="logged-in">
-    <put-attribute name="titleName" expression="I18N:about.title" cascade="true"/>
-    <put-attribute name="body" value="/WEB-INF/tiles/about.jsp"/>
-  </definition>
-
-  <definition name="about.not-logged-in" extends="not-logged-in">
-    <put-attribute name="titleName" expression="I18N:about.title" cascade="true"/>
-    <put-attribute name="body" value="/WEB-INF/tiles/about.jsp"/>
-  </definition>
-
   <definition name="privacy-policy" template="/WEB-INF/tiles/privacy-policy-layout.jsp">
     <put-attribute name="titleName" expression="I18N:privacyPolicy.title" cascade="true"/>
   </definition>

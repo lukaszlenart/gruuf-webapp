@@ -68,4 +68,9 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-parameters.jsp"/>
   </definition>
 
+  <definition name="bike/bike-todo" extends="logged-in">
+    <put-attribute name="titleName" expression="I18N:general.todo" cascade="true"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/bike-todo.jsp"/>
+  </definition>
+
 </tiles-definitions>

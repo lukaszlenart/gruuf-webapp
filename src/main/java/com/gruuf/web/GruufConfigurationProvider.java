@@ -72,7 +72,7 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
 
         locatableProperties.setProperty(
             GruufConstants.HOST_URL,
-            devMode ? "http://localhost:8080" : "https://gruuf.com",
+            devMode ? "http://localhost:8080" : "https://app.gruuf.com",
             LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
