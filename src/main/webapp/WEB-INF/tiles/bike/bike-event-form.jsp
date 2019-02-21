@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <div class="row">
   <nav class="navbar">
@@ -145,10 +144,10 @@
   </s:form>
 </div>
 
-<script src='js/event-types.js'></script>
+<script src='${pageContext.request.contextPath}/js/event-types.js'></script>
 
 <script type="application/javascript">
 
-  bindEventTypes($('#event-types'));
+  gruuf.bindEventTypes($('#event-types'));
 
 </script>

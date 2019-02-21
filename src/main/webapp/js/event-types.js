@@ -1,6 +1,8 @@
 `strict`;
 
-function bindEventTypes( $eventTypes ) {
+window.gruuf = {};
+
+gruuf.bindEventTypes = function ( $eventTypes ) {
   const preloadedItems = $eventTypes.val().split(',');
   $eventTypes.val('');
 
@@ -33,4 +35,4 @@ function bindEventTypes( $eventTypes ) {
       selectize.setValue(preloadedItems);
     }
   });
-}
+};

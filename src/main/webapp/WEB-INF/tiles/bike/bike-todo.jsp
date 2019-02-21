@@ -1,10 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-
-<tiles:putAttribute name="js">
-  <script src='js/event-types.js'></script>
-</tiles:putAttribute>
 
 <div class="row">
   <h3>
@@ -64,8 +59,10 @@
 </table>
 </div>
 
+<script src='${pageContext.request.contextPath}/js/event-types.js'></script>
+
 <script type="application/javascript">
 
-  bindEventTypes($('#event-types'));
+  gruuf.bindEventTypes($('#event-types'));
 
 </script>
