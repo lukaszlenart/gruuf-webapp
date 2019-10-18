@@ -70,6 +70,10 @@ public class LoginAction extends BaseLoginAction {
         User demoUser = userStore.findUniqueBy("email", getDemoUserName());
 
         if (demoUser != null) {
+            String pass = "testTest";
+            String hash = GruufAuth.hash(pass);
+            demoUser = demoUser.withPassword(pass).withPasswordHash(hash);
+            userStore.put(demoUser);
             return demoUser.getPassword();
         }
         return "";
