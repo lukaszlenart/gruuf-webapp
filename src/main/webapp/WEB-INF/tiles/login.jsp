@@ -11,14 +11,12 @@
     });
   }
 
-  // test: '176138613016459'
-
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '439646633077329',
       cookie     : true,
       xfbml      : true,
-      version    : 'v2.8'
+      version    : 'v5.0'
     });
     FB.AppEvents.logPageView();
   };
@@ -139,7 +137,7 @@
   $('#facebook-signin').click(function() {
     disableButtons();
 
-    FB.getLoginStatus(function(response) {
+    FB.login(function(response) {
       signInFacebookCallback(response);
     }, {scope: 'public_profile,email'});
     return false;
