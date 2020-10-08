@@ -21,9 +21,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-import org.joda.time.DateTime;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -127,7 +127,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
                 .append("; ")
                 .append(getText("recommendations.expireDate"))
                 .append(": ")
-                .append(recommendation.getExpirationDate().toString(getUserDateFormat(), getCurrentUserLocale().toLocale()));
+                .append(recommendation.getExpirationDateFormatted(getUserDateFormat(), getCurrentUserLocale().toLocale()));
         } else if(recommendation.isMileageExpiration()) {
             body
                 .append("; ")
@@ -189,15 +189,15 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
         if (recommendation.isMonthPeriod()) {
             if (event.getEventTypes().contains(recommendation.getEventType())) {
-                DateTime eventDate = new DateTime(event.getRegisterDate());
-                DateTime expiresDate = eventDate.plusMonths(recommendation.getMonthPeriod());
+                LocalDate eventDate = event.getRegisterLocalDate();
+                LocalDate expiresDate = eventDate.plusMonths(recommendation.getMonthPeriod());
 
                 result = result
-                    .withResult(expiresDate.minusDays(DAYS_CHECK).isBeforeNow())
+                    .withResult(expiresDate.minusDays(DAYS_CHECK).isBefore(LocalDate.now()))
                     .withExpiresDate(expiresDate);
 
                 LOG.info("Month period check: {} for data: bike event date={}, expires date={}, recommendation period={}",
-                    result, eventDate.toDate(), expiresDate.toDate(), recommendation.getMonthPeriod());
+                    result, eventDate, expiresDate, recommendation.getMonthPeriod());
 
                 if (result.matches()) {
                     return result;
@@ -224,7 +224,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
         }
 
         if (recommendation.isMthPeriod() && event.isMth()) {
-            if (event.isMth() && event.getEventTypes().contains(recommendation.getEventType())) {
+            if (event.getEventTypes().contains(recommendation.getEventType())) {
                 Long currentMth = history.findCurrentMth(bike);
                 long expiresMth = event.getMth() + recommendation.getMthPeriod();
 
@@ -250,7 +250,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
 
     public static class PeriodResult {
         private boolean match;
-        private DateTime expirationDate;
+        private LocalDate expirationDate;
         private Long expirationMileage;
         private Long expirationMth;
 
@@ -267,7 +267,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
             return this;
         }
 
-        public PeriodResult withExpiresDate(DateTime expiresDate) {
+        public PeriodResult withExpiresDate(LocalDate expiresDate) {
             this.expirationDate = expiresDate;
             return this;
         }
@@ -286,7 +286,7 @@ public class DailyRecommendationCheckTask extends BaseAction {
             return match;
         }
 
-        public DateTime getExpirationDate() {
+        public LocalDate getExpirationDate() {
             return expirationDate;
         }
 

@@ -4,8 +4,11 @@ import com.gruuf.model.Bike;
 import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeEventStatus;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BikeHistory extends Reindexable<BikeEvent> {
 
@@ -20,27 +23,21 @@ public class BikeHistory extends Reindexable<BikeEvent> {
     }
 
     public List<BikeEvent> listByBike(Bike bike, BikeEventStatus... statuses) {
-        return filter("bike =", bike)
-            .filter("status in", Arrays.asList(statuses))
-            .order("-registerDate")
-            .list();
+        return getBikeEvents(bike, statuses);
     }
 
     public List<BikeEvent> listRecentByBike(Bike bike) {
         return filter("bike =", bike)
-            .limit(4)
-            .filter("status =", BikeEventStatus.NEW)
-            .order("-registerDate")
-            .list();
+                .limit(4)
+                .filter("status =", BikeEventStatus.NEW)
+                .order("-registerDate")
+                .list();
     }
 
     public Long findCurrentMileage(Bike bike) {
         Long mileage = null;
 
-        List<BikeEvent> bikeEvents = filter("bike =", bike)
-            .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
-            .order("-timestamp")
-            .list();
+        List<BikeEvent> bikeEvents = getBikeEvents(bike, BikeEventStatus.NEW, BikeEventStatus.SYSTEM);
 
         for (BikeEvent event : bikeEvents) {
             if (mileage == null || (event.getMileage() != null && mileage.compareTo(event.getMileage()) < 0)) {
@@ -54,10 +51,7 @@ public class BikeHistory extends Reindexable<BikeEvent> {
     public Long findCurrentMth(Bike bike) {
         Long mth = null;
 
-        List<BikeEvent> bikeEvents = filter("bike =", bike)
-            .filter("status in", Arrays.asList(BikeEventStatus.NEW, BikeEventStatus.SYSTEM))
-            .order("-timestamp")
-            .list();
+        List<BikeEvent> bikeEvents = getBikeEvents(bike, BikeEventStatus.NEW, BikeEventStatus.SYSTEM);
 
         for (BikeEvent event : bikeEvents) {
             if (mth == null || (event.getMth() != null && mth.compareTo(event.getMth()) < 0)) {
@@ -66,6 +60,23 @@ public class BikeHistory extends Reindexable<BikeEvent> {
         }
 
         return mth;
+    }
+
+    private List<BikeEvent> getBikeEvents(Bike bike, BikeEventStatus... statuses) {
+        List<BikeEvent> bikeEvents = new ArrayList<>();
+        for (BikeEventStatus status : statuses) {
+            bikeEvents.addAll(getBikeEvents(bike, status));
+        }
+
+        Comparator<BikeEvent> comparator = Collections.reverseOrder(Comparator.comparing(BikeEvent::getRegisterDate));
+
+        return bikeEvents.stream().sorted(comparator).collect(Collectors.toList());
+    }
+
+    private List<BikeEvent> getBikeEvents(Bike bike, BikeEventStatus status) {
+        return filter("bike =", bike)
+                .filter("status =", status)
+                .list();
     }
 
 }

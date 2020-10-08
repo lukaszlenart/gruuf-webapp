@@ -7,10 +7,8 @@ import com.gruuf.model.EventTypeStatus;
 import com.gruuf.model.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class EventTypes extends Reindexable<EventType> {
 
@@ -36,12 +34,17 @@ public class EventTypes extends Reindexable<EventType> {
         return findUniqueBy("status =", EventTypeStatus.TRANSFER);
     }
 
-    public List<EventTypeDescriptor> listApproved(User currentUser) {
-        List<EventType> approvedEvents = filter("status in", Arrays.asList(EventTypeStatus.NORMAL, EventTypeStatus.IMPORTANT))
-                .filter("approved = ", Boolean.TRUE)
+    private List<EventType> getEventTypes(EventTypeStatus status) {
+        return filter("status =", status)
+                .filter("approved =", Boolean.TRUE)
                 .list();
-        List<EventType> unapprovedEvents = filter("approved =", Boolean.FALSE).list();
+    }
 
+    public List<EventTypeDescriptor> listApproved(User currentUser) {
+        List<EventType> approvedEvents = getEventTypes(EventTypeStatus.NORMAL);
+        approvedEvents.addAll(getEventTypes(EventTypeStatus.IMPORTANT));
+
+        List<EventType> unapprovedEvents = filter("approved =", Boolean.FALSE).list();
         List<EventTypeDescriptor> approved = new ArrayList<>();
 
         for (EventType approvedEvent : approvedEvents) {
@@ -72,7 +75,7 @@ public class EventTypes extends Reindexable<EventType> {
     }
 
     private void sort(List<EventTypeDescriptor> approved) {
-        Collections.sort(approved, (desc1, desc2) -> {
+        approved.sort((desc1, desc2) -> {
             if (desc1.getName() == null) {
                 return 0;
             }

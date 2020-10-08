@@ -24,7 +24,7 @@
   </title>
 
   <sj:head loadFromGoogle="true" locale="%{userLanguage}"/>
-  <sb:head includeScripts="true" includeScriptsValidation="false" includeStyles="true"/>
+  <sb:head includeScripts="true" includeStyles="true"/>
 
   <script type="application/javascript"
           src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.js"></script>

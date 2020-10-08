@@ -67,6 +67,7 @@
   
   <security-constraint>
     <web-resource-collection>
+      <web-resource-name>Session Cleanup</web-resource-name>
       <url-pattern>/_ah/sessioncleanup</url-pattern>
     </web-resource-collection>
     <auth-constraint>

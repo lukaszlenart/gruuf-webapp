@@ -15,9 +15,11 @@ import org.apache.struts2.StrutsConstants;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
-import org.joda.time.DateTime;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,8 +71,9 @@ public class RegisterMileageEndpoint extends BaseEndpoint {
                     LOG.warn("No Facebook ID: {}", asid);
                     response = UserProfileResponse.failed();
                 } else {
+                    Date registerDate = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
                     BikeEvent.BikeEventBuilder bikeEvent = BikeEvent.create(bike, user)
-                            .withRegisterDate(DateTime.now().withTimeAtStartOfDay().toDate())
+                            .withRegisterDate(registerDate)
                             .markAsTemporary();
 
                     if (payload.isMth()) {

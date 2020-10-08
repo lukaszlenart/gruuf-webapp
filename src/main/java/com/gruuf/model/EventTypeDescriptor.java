@@ -1,6 +1,5 @@
 package com.gruuf.model;
 
-import com.googlecode.objectify.Ref;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
@@ -44,10 +43,6 @@ public class EventTypeDescriptor {
 
     public boolean isApproved() {
         return eventType.isApproved();
-    }
-
-    public Ref<User> getRequestedBy() {
-        return eventType.getRequestedBy();
     }
 
     public String getRequesterFullName() {

@@ -6,8 +6,8 @@ import com.gruuf.model.BikeEvent;
 import com.gruuf.model.BikeMetadata;
 import com.gruuf.model.BikeRecommendation;
 import com.gruuf.model.User;
-import org.joda.time.DateTime;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Recommendations extends Reindexable<BikeRecommendation> {
@@ -23,10 +23,10 @@ public class Recommendations extends Reindexable<BikeRecommendation> {
             for (BikeEvent event : bikeEvents) {
                 if (!event.getId().equals(bikeEvent.getId())) {
 
-                    DateTime from = new DateTime(bikeEvent.getRegisterDate());
-                    DateTime to = from.plusMonths(recommendation.getMonthPeriod());
+                    LocalDate from = bikeEvent.getRegisterLocalDate();
+                    LocalDate to = from.plusMonths(recommendation.getMonthPeriod());
 
-                    result = to.isAfterNow();
+                    result = to.isAfter(LocalDate.now());
 
                     if (result) {
                         break;

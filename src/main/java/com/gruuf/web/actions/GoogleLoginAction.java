@@ -30,8 +30,6 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 @Result(name = SUCCESS, type = "jsonRedirect", params = { "actionName", "%{redirect}" })
 public class GoogleLoginAction extends BaseLoginAction {
 
-    public static final String TOKEN_URL = "https://www.googleapis.com/oauth2/v4/token";
-
     private static final Logger LOG = LogManager.getLogger(GoogleLoginAction.class);
 
     @Inject(GruufConstants.OAUTH_GOOGLE_API_KEY)
@@ -56,7 +54,6 @@ public class GoogleLoginAction extends BaseLoginAction {
                 new GoogleAuthorizationCodeTokenRequest(
                         new NetHttpTransport(),
                         JacksonFactory.getDefaultInstance(),
-                        TOKEN_URL,
                         googleApiKey,
                         googleApiSecret,
                         code,

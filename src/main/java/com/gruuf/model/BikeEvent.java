@@ -10,6 +10,9 @@ import com.googlecode.objectify.annotation.Load;
 import com.gruuf.web.GruufAuth;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -90,6 +93,13 @@ public class BikeEvent {
 
     public Date getRegisterDate() {
         return registerDate;
+    }
+
+    public LocalDate getRegisterLocalDate() {
+        return Instant
+                .ofEpochMilli(registerDate.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 
     public Long getMileage() {

@@ -14,6 +14,7 @@ import com.gruuf.model.BikeTransfer;
 import com.gruuf.model.EventType;
 import com.gruuf.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Storable<E> {
@@ -30,7 +31,7 @@ public abstract class Storable<E> {
         ObjectifyService.register(BikeTransfer.class);
     }
 
-    private Class<E> type;
+    private final Class<E> type;
 
     public Storable(Class<E> type) {
         this.type = type;
@@ -78,6 +79,14 @@ public abstract class Storable<E> {
                 .load()
                 .type(type)
                 .filter(condition, value);
+    }
+
+    protected List<E> listIn(String fieldName, Object value, String inName, Object... ins) {
+        List<E> result = new ArrayList<>();
+        for (Object in : ins) {
+            result.addAll(filter(fieldName + " =", value).filter(inName + " =", in).list());
+        }
+        return result;
     }
 
     public List<E> findBy(String property, Object value) {

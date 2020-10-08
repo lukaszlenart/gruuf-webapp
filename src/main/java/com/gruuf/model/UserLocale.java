@@ -14,9 +14,9 @@ public enum UserLocale {
     PL(Constants.PL_DATE_FORMAT, Constants.PL_DATE_PICKER_FORMAT, new Locale("pl", "PL")),
     DE(Constants.DE_DATE_FORMAT, Constants.DE_DATE_PICKER_FORMAT, Locale.GERMANY);
 
-    private String dateFormat;
-    private String datePickerFormat;
-    private Locale locale;
+    private final String dateFormat;
+    private final String datePickerFormat;
+    private final Locale locale;
 
     UserLocale(String dateFormat, String datePickerFormat, Locale locale) {
         this.dateFormat = dateFormat;
@@ -62,6 +62,15 @@ public enum UserLocale {
         return datePickerFormat;
     }
 
+    @Override
+    public String toString() {
+        return "UserLocale{" +
+                "dateFormat='" + dateFormat + '\'' +
+                ", datePickerFormat='" + datePickerFormat + '\'' +
+                ", locale=" + locale +
+                '}';
+    }
+
     private static class Constants {
         public static final String EN_DATE_FORMAT = "dd/MM/yyyy";
         public static final String EN_DATE_PICKER_FORMAT = "mm/dd/yy";
@@ -72,4 +81,5 @@ public enum UserLocale {
         public static final String DE_DATE_FORMAT = "yyyy-MM-dd";
         public static final String DE_DATE_PICKER_FORMAT = "yy-mm-dd";
     }
+
 }

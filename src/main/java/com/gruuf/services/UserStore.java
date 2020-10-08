@@ -4,8 +4,8 @@ import com.gruuf.auth.Token;
 import com.gruuf.model.User;
 import com.gruuf.web.GruufAuth;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserStore extends Storable<User> {
 
@@ -14,8 +14,7 @@ public class UserStore extends Storable<User> {
     }
 
     public int countAdmins() {
-        return filter("tokens in", Collections.singletonList(Token.ADMIN))
-            .count();
+        return listAdmins().size();
     }
 
     public List<User> list() {
@@ -23,8 +22,9 @@ public class UserStore extends Storable<User> {
     }
 
     public List<User> listAdmins() {
-        return filter("tokens in", Collections.singletonList(Token.ADMIN))
-            .list();
+        return list().stream().filter(user ->
+                user.getTokens().contains(Token.ADMIN)
+        ).collect(Collectors.toList());
     }
 
     public User login(String username, String password) {

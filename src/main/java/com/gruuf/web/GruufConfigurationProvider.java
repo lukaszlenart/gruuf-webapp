@@ -1,6 +1,7 @@
 package com.gruuf.web;
 
 import com.google.appengine.api.utils.SystemProperty;
+import com.googlecode.objectify.ObjectifyService;
 import com.gruuf.GruufConstants;
 import com.gruuf.services.AttachmentsStorage;
 import com.gruuf.services.BikeHistory;
@@ -48,6 +49,7 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
     @Override
     public void init(Configuration configuration) throws ConfigurationException {
         Dispatcher.addDispatcherListener(this);
+        ObjectifyService.init();
     }
 
     @Override

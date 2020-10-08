@@ -1,8 +1,10 @@
 package com.gruuf.model;
 
 import com.gruuf.web.actions.tasks.DailyRecommendationCheckTask;
-import org.apache.struts2.dispatcher.multipart.UploadedFile;
-import org.joda.time.DateTime;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class MissingRecommendation {
 
@@ -34,8 +36,12 @@ public class MissingRecommendation {
         return result.getExpirationDate() != null;
     }
 
-    public DateTime getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return result.getExpirationDate();
+    }
+
+    public String getExpirationDateFormatted(String pattern, Locale locale) {
+        return getExpirationDate().format(DateTimeFormatter.ofPattern(pattern, locale));
     }
 
     public boolean isMileageExpiration() {
