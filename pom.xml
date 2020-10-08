@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <struts2.version>2.5.25</struts2.version>
         <log4j2.version>2.12.1</log4j2.version>
-        <google.appengine.version>1.9.80</google.appengine.version>
+        <google.appengine.version>1.9.82</google.appengine.version>
         <gruuf.oauth.facebookAppId>${env.GRUUF_OAUTH_FACEBOOK_APP_ID}</gruuf.oauth.facebookAppId>
         <gruuf.oauth.facebookAppSecret>${env.GRUUF_OAUTH_FACEBOOK_APP_SECRET}</gruuf.oauth.facebookAppSecret>
 
@@ -84,14 +84,13 @@
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>2.2.0</version>
+                <version>2.4.0</version>
                 <configuration>
-                    <project>gruuf-webapp</project>
-                    <version>3</version>
+                    <projectId>gruuf-webapp</projectId>
+                    <version>4</version>
                     <enableJarClasses>false</enableJarClasses>
                     <devserver.port>8080</devserver.port>
                     <devserver.host>0.0.0.0</devserver.host>
-                    <stage.enableJarClasses>true</stage.enableJarClasses>
                     <devserver.jvmFlags>
                         <devserver.jvmFlag>-Ddatastore.backing_store=${project.basedir}/local_db.bin</devserver.jvmFlag>
                     </devserver.jvmFlags>

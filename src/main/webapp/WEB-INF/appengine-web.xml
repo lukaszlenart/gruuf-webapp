@@ -5,8 +5,12 @@
   <sessions-enabled>true</sessions-enabled>
   <threadsafe>true</threadsafe>
   <runtime>java8</runtime>
-  <url-stream-handler>urlfetch</url-stream-handler>
+  <url-stream-handler>native</url-stream-handler>
   <system-properties>
     <property name="log4j2.disable.jmx" value="true"/>
+    <property name="GRUUF_OAUTH_GOOGLE_API_KEY" value="${env.GRUUF_OAUTH_GOOGLE_API_KEY}"/>
+    <property name="GRUUF_OAUTH_GOOGLE_API_SECRET" value="${env.GRUUF_OAUTH_GOOGLE_API_SECRET}"/>
+    <property name="GRUUF_RECAPTCHA_SECRET" value="${env.GRUUF_RECAPTCHA_SECRET}"/>
+    <property name="GRUUF_FACEBOOK_VERIFY_TOKEN" value="${env.GRUUF_FACEBOOK_VERIFY_TOKEN}"/>
   </system-properties>
 </appengine-web-app>

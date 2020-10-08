@@ -3,25 +3,12 @@ package com.gruuf.web;
 import com.google.appengine.api.utils.SystemProperty;
 import com.googlecode.objectify.ObjectifyService;
 import com.gruuf.GruufConstants;
-import com.gruuf.services.AttachmentsStorage;
-import com.gruuf.services.BikeHistory;
-import com.gruuf.services.BikeMetadataStore;
-import com.gruuf.services.BikeParameters;
-import com.gruuf.services.BikeTransfers;
-import com.gruuf.services.EventTypes;
-import com.gruuf.services.Garage;
-import com.gruuf.services.MailBox;
-import com.gruuf.services.Recommendations;
-import com.gruuf.services.UserStore;
+import com.gruuf.services.*;
 import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.ConfigurationException;
 import com.opensymphony.xwork2.config.ConfigurationProvider;
 import com.opensymphony.xwork2.config.providers.ValueSubstitutor;
-import com.opensymphony.xwork2.inject.ContainerBuilder;
-import com.opensymphony.xwork2.inject.Context;
-import com.opensymphony.xwork2.inject.Factory;
-import com.opensymphony.xwork2.inject.Inject;
-import com.opensymphony.xwork2.inject.Scope;
+import com.opensymphony.xwork2.inject.*;
 import com.opensymphony.xwork2.util.location.LocatableProperties;
 import com.opensymphony.xwork2.util.location.LocationUtils;
 import org.apache.logging.log4j.LogManager;
@@ -67,51 +54,51 @@ public class GruufConfigurationProvider implements ConfigurationProvider, Dispat
 
         LOG.debug("Setting {} to value {}", StrutsConstants.STRUTS_DEVMODE, devMode);
         locatableProperties.setProperty(
-            StrutsConstants.STRUTS_DEVMODE,
-            Boolean.toString(devMode),
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+                StrutsConstants.STRUTS_DEVMODE,
+                Boolean.toString(devMode),
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         locatableProperties.setProperty(
-            GruufConstants.HOST_URL,
-            devMode ? "http://localhost:8080" : "https://app.gruuf.com",
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+                GruufConstants.HOST_URL,
+                devMode ? "http://localhost:8080" : "https://app.gruuf.com",
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         locatableProperties.setProperty(
-            GruufConstants.STORAGE_BUCKET_NAME,
-            devMode ? "staging.gruuf-webapp.appspot.com" : "gruuf-webapp.appspot.com",
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+                GruufConstants.STORAGE_BUCKET_NAME,
+                devMode ? "staging.gruuf-webapp.appspot.com" : "gruuf-webapp.appspot.com",
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         locatableProperties.setProperty(
-            GruufConstants.STORAGE_ROOT_URL,
-            "https://storage.googleapis.com/",
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+                GruufConstants.STORAGE_ROOT_URL,
+                "https://storage.googleapis.com/",
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         locatableProperties.setProperty(
-            GruufConstants.STORAGE_TOTAL_ALLOWED_SPACE,
-            String.valueOf(1024 * 1024 * 20), // 20 MB
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+                GruufConstants.STORAGE_TOTAL_ALLOWED_SPACE,
+                String.valueOf(1024 * 1024 * 20), // 20 MB
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         locatableProperties.setProperty(
-            GruufConstants.OAUTH_GOOGLE_API_KEY,
-            substitutor.substitute("${GRUUF_OAUTH_GOOGLE_API_KEY}"),
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+                GruufConstants.OAUTH_GOOGLE_API_KEY,
+                substitutor.substitute("${GRUUF_OAUTH_GOOGLE_API_KEY}"),
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         locatableProperties.setProperty(
-            GruufConstants.OAUTH_GOOGLE_API_SECRET,
-            substitutor.substitute("${GRUUF_OAUTH_GOOGLE_API_SECRET}"),
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+                GruufConstants.OAUTH_GOOGLE_API_SECRET,
+                substitutor.substitute("${GRUUF_OAUTH_GOOGLE_API_SECRET}"),
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         locatableProperties.setProperty(
-            GruufConstants.FACEBOOK_VERIFY_TOKEN,
-            substitutor.substitute("${GRUUF_FACEBOOK_VERIFY_TOKEN}"),
-            LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
+                GruufConstants.FACEBOOK_VERIFY_TOKEN,
+                substitutor.substitute("${GRUUF_FACEBOOK_VERIFY_TOKEN}"),
+                LocationUtils.getLocation(this, String.format("Class %s", getClass().getSimpleName()))
         );
 
         containerBuilder.factory(UserStore.class, new Factory<UserStore>() {
