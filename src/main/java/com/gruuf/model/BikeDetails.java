@@ -1,15 +1,14 @@
 package com.gruuf.model;
 
-import com.googlecode.objectify.Ref;
 import com.gruuf.web.actions.bike.BikeMetadataOption;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BikeDetails {
 
-    private Bike bike;
+    private final Bike bike;
+
     private User currentUser;
     private List<BikeEventDescriptor> events;
     private Long mileage;
@@ -42,10 +41,10 @@ public class BikeDetails {
 
     public BikeDescriptor getBike() {
         Double totalCosts = events.stream()
-            .filter(event -> event.getCost() != null)
-            .map(BikeEventDescriptor::getCost)
-            .reduce((cost, acc) -> acc + cost)
-            .orElse(0.0);
+                .filter(event -> event.getCost() != null)
+                .map(BikeEventDescriptor::getCost)
+                .reduce(Double::sum)
+                .orElse(0.0);
         return new BikeDescriptor(bike, totalCosts);
     }
 
@@ -69,13 +68,6 @@ public class BikeDetails {
         return mth;
     }
 
-    public boolean hasAttachments(Ref<BikeEvent> bikeEventRef) {
-        return this.attachments.stream()
-            .filter(att -> att.belongsTo(bikeEventRef))
-            .collect(Collectors.toList())
-            .size() > 0;
-    }
-
     public ArrayList<AttachmentDescriptor> getAttachments() {
         return attachments;
     }
@@ -83,11 +75,11 @@ public class BikeDetails {
     @Override
     public String toString() {
         return "BikeDetails{" +
-            "bike=" + bike +
-            ", currentUser=" + currentUser +
-            ", events=" + events +
-            ", mileage=" + mileage +
-            '}';
+                "bike=" + bike +
+                ", currentUser=" + currentUser +
+                ", events=" + events +
+                ", mileage=" + mileage +
+                '}';
     }
 
     public BikeDetails withAttachments(String rootUrl, List<Attachment> attachments) {

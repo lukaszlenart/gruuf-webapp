@@ -20,6 +20,11 @@
     <put-attribute name="body" value="/WEB-INF/tiles/bike/report.jsp"/>
   </definition>
 
+  <definition name="bike/web-report" extends="not-logged-in">
+    <put-attribute name="titleName" expression="I18N:bike.bikeDetails" cascade="true"/>
+    <put-attribute name="body" value="/WEB-INF/tiles/bike/web-report.jsp"/>
+  </definition>
+
   <definition name="bike/recommendations" extends="logged-in">
     <put-attribute name="titleName" expression="I18N:bike.bikeDetails" cascade="true"/>
     <put-attribute name="title" value="/WEB-INF/tiles/bike/history-title.jsp"/>

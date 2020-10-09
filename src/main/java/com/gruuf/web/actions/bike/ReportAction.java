@@ -16,13 +16,16 @@ import static com.opensymphony.xwork2.Action.INPUT;
 @Result(name = INPUT, location = "bike/report")
 public class ReportAction extends BaseBikeAction {
 
+    private BikeDetails bikeDetails;
+
     @SkipValidation
     public String execute() {
+        bikeDetails = loadAllValidBikeDetails();
         return "report";
     }
 
     public BikeDetails getBikeDetails() {
-        return loadAllValidBikeDetails();
+        return bikeDetails;
     }
 
     public Date getReportDate() {
