@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <struts2.version>2.5.25</struts2.version>
-        <log4j2.version>2.15.0</log4j2.version>
+        <log4j2.version>2.16.0</log4j2.version>
         <google.appengine.version>1.9.82</google.appengine.version>
         <gruuf.oauth.facebookAppId>${env.GRUUF_OAUTH_FACEBOOK_APP_ID}</gruuf.oauth.facebookAppId>
         <gruuf.oauth.facebookAppSecret>${env.GRUUF_OAUTH_FACEBOOK_APP_SECRET}</gruuf.oauth.facebookAppSecret>
